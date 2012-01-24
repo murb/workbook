@@ -4,7 +4,7 @@ Workbook is a gem that mimicks a typical spreadsheet, a bundle of sheets, bundle
 
 Goals of this gem:
 
-* Not impose semantics (if you prefer a more 'semantic' approach, try [https://github.com/kellyredding/osheet/wiki](OSheet)), but instead stay close to the actual layout of the spreadsheet's table
+* [Done] No semantic DSL approach (if want to try a DSL-approach for creating sheets try [https://github.com/kellyredding/osheet/wiki](OSheet)), but instead try to stay as close to the original Ruby language as possible. “A 2-D array is a good basis for a table-store”. 
 * [Done] Allow for standard Array and Hash operations
 * Make it easy to sort values in columns
 * Make it easy to diff two tables
@@ -58,7 +58,7 @@ Feature *to implement*:
 	
 ## Sorting
 
-Sorting leaves the header alone, and doesn't (shouldn't) complain about comparing strings with dates with floats.
+Sorting leaves the header alone, and doesn't (shouldn't) complain about comparing strings with dates with floats. We're talking spreadsheet here.
 
 *To implement*:
   
