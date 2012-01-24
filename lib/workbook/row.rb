@@ -3,7 +3,7 @@ module Workbook
     def initialize cells=[], table=nil
       self.table= table
       cells.each do |c| 
-        if c.class == Workbook::Cell
+        if c.is_a? Workbook::Cell
           c = c
         else
           c = Workbook::Cell.new(c)

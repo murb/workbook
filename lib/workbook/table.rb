@@ -3,8 +3,9 @@ module Workbook
     
     def initialize row_cel_values=[]
       #@rows = []
+      row_cel_values = [] if row_cel_values == nil
       row_cel_values.each do |r|
-        if r.class == Workbook::Row
+        if r.is_a? Workbook::Row
           r.table = self
         else
           r = Workbook::Row.new(r,self)

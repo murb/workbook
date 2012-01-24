@@ -4,6 +4,7 @@ Workbook is a gem that mimicks a typical spreadsheet, a bundle of sheets, bundle
 
 Goals of this gem:
 
+* Not impose semantics (if you prefer a more 'semantic' approach, try [https://github.com/kellyredding/osheet/wiki](OSheet)), but instead stay close to the actual layout of the spreadsheet's table
 * [Done] Allow for standard Array and Hash operations
 * Make it easy to sort values in columns
 * Make it easy to diff two tables
@@ -37,7 +38,7 @@ will give you an empty Sheet and Table.
 You may want to initialize the whole shebang from a 2-d array, like this:
 
     b = Workbook::Book.new
-    s = b.sheet Workbook::Table.new [['a','b'],[1,2],[3,4],[5,6]]
+    s = b.sheet[0] = Workbook::Sheet.new([['a','b'],[1,2],[3,4],[5,6]])
 	t = s.table
 	
 Subsequently you lookup values in the table like this:
@@ -57,5 +58,22 @@ Feature *to implement*:
 	
 ## Sorting
 
-...
+Sorting leaves the header alone, and doesn't (shouldn't) complain about comparing strings with dates with floats.
+
+*To implement*:
+  
+    t.sort_by {|r| r[:b]}
 	
+## Writing
+
+*To implement*:
+	
+	t.to_xls
+	s.to_xls
+	b.to_xls
+	t.to_csv
+	b.to_xlsx
+	
+## Alternatives
+
+The [ruby toolbox lists plenty of alternatives](https://www.ruby-toolbox.com/search?utf8=%E2%9C%93&q=spreadsheet), that just didn't suit my needs.

@@ -9,9 +9,9 @@ module Workbook
     end
     
     def format= f
-      if f.class == Workbook::Format
+      if f.class.is_a? Workbook::Format
         @format = f
-      elsif f.class == Hash
+      elsif f.class.is_a? Hash
         @format = Workbook::Format.new(f)
       elsif f.class == NilClass
         @format = nil
