@@ -2,7 +2,14 @@ module Workbook
   class Row < Array
     def initialize cells=[], table=nil
       self.table= table
-      cells.each {|c| c = c.class ==  Workbook::Cell ? c : Workbook::Cell.new(c); push c}
+      cells.each do |c| 
+        if c.class == Workbook::Cell
+          c = c
+        else
+          c = Workbook::Cell.new(c)
+        end
+        push c
+      end
     end
     
     def table

@@ -9,7 +9,6 @@ module Workbook
         else
           r = Workbook::Row.new(r,self)
         end
-        push r
       end
     end
     
@@ -20,7 +19,6 @@ module Workbook
     # factory pattern...?
     def new_row cel_values=[]
       r = Workbook::Row.new(cel_values,self)
-      push r
       return r
     end
     
