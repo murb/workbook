@@ -17,7 +17,7 @@ module Workbook
     end
     
     def table= t
-      raise Exception.new("table should be a Workbook::Table (you passed a #{t.class})") unless t.class == Workbook::Table or t.class == NilClass
+      raise Exception.new("table should be a Workbook::Table (you passed a #{t.class})") unless t.is_a?(Workbook::Table) or t == nil
       if t
         @table = t
         table << self unless table.collect{|r| r.object_id}.include? self.object_id
@@ -25,9 +25,9 @@ module Workbook
     end
     
     def [](index_or_hash)
-      if index_or_hash.class==Integer or index_or_hash.class==Fixnum
+      if index_or_hash.is_a? Fixnum
         return to_a[index_or_hash]
-      elsif index_or_hash.class==Symbol
+      elsif index_or_hash.is_a? Symbol
         return to_hash[index_or_hash]
       end
     end

@@ -3,14 +3,13 @@ require 'test/helper'
 class TestWorkbook < Test::Unit::TestCase
   def test_sheets
     w = Workbook::Book.new nil
-    assert_equal(w,[])
     w.push
-    assert_equal(w.count,1)
+    assert_equal(2, w.count)
   end
   
   def test_push
     w = Workbook::Book.new nil
-    assert_equal(w,[])
+    assert_equal([[[]]],w)
     w = Workbook::Book.new
     assert_equal(w.count,1)
     
@@ -34,4 +33,21 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(w.sheet, s)
   end
   
+  def test_raw
+    b = Workbook::Book.new
+    raw = "asdf"
+    b.raw = raw
+    assert_equal(raw,b.raw)
+  end
+  
+  def test_parent_child
+    b = Workbook::Book.new [[[1,2,3],[1,2,3]]]
+    assert_equal(Workbook::Sheet, b.first.class)
+    assert_equal(b,b.first.book)
+    assert_equal(Workbook::Table, b.first.table.class)
+    assert_equal(b,b.first.table.sheet.book)
+    assert_equal(Workbook::Row, b.first.table.header.class)
+    assert_equal(b,b.first.table.header.table.sheet.book)
+    
+  end
 end

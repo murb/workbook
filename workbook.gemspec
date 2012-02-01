@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Maarten Brouwers"]
   s.email       = 'gem@murb.nl'
   s.files       = ["lib/workbook.rb"]
+  s.add_dependency('spreadsheet', '>= 0.6.5')
   s.homepage    =
     'http://murb.nl/blog?tags=workbook'
 end

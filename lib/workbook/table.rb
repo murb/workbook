@@ -1,7 +1,8 @@
 module Workbook
   class Table < Array
+    attr_accessor :sheet
     
-    def initialize row_cel_values=[]
+    def initialize row_cel_values=[], sheet=nil
       #@rows = []
       row_cel_values = [] if row_cel_values == nil
       row_cel_values.each do |r|
@@ -11,6 +12,7 @@ module Workbook
           r = Workbook::Row.new(r,self)
         end
       end
+      self.sheet = sheet
     end
     
     def header

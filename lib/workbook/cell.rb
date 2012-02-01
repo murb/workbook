@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Workbook
   class Cell
     attr_accessor :value
@@ -19,7 +20,7 @@ module Workbook
     end
     
     def ==(other)
-      if other.class==Cell
+      if other.is_a? Cell
         other.value == self.value
       else
         other == self.value

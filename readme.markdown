@@ -77,3 +77,7 @@ Sorting leaves the header alone, and doesn't (shouldn't) complain about comparin
 ## Alternatives
 
 The [ruby toolbox lists plenty of alternatives](https://www.ruby-toolbox.com/search?utf8=%E2%9C%93&q=spreadsheet), that just didn't suit my needs.
+
+## License
+
+MIT... (c) murb / Maarten Brouwers, 2011
