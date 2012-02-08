@@ -3,22 +3,36 @@ module Workbook
   class Cell
     attr_accessor :value
     attr_accessor :format
+    attr_accessor :formula
     
-    def initialize value=nil, options={}
-      format = options[:format]
-      @value = value
+    VALID_TYPES = [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass]
+    
+    def valid_value? value
+      valid_type = false 
+      VALID_TYPES.each {|t| return true if value.is_a? t} 
+      valid_type
+    end
+    
+    def initialize value=nil, options={}     
+
+      if valid_value? value
+        format = options[:format]
+        @value = value
+      else
+        raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
+      end
     end
     
     def format= f
-      if f.class.is_a? Workbook::Format
+      if f.is_a? Workbook::Format
         @format = f
-      elsif f.class.is_a? Hash
+      elsif f.is_a? Hash
         @format = Workbook::Format.new(f)
       elsif f.class == NilClass
         @format = nil
       end
     end
-    
+
     def ==(other)
       if other.is_a? Cell
         other.value == self.value

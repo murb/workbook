@@ -4,6 +4,9 @@ require 'workbook/table'
 require 'workbook/row'
 require 'workbook/cell'
 require 'workbook/format'
+require 'workbook/template'
+#require 'workbook/format'
+
 
 module Workbook
   class << self

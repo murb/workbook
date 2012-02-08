@@ -17,7 +17,8 @@ module Workbook
     end
     
     def table= t
-      raise Exception.new("table should be a Workbook::Table (you passed a #{t.class})") unless t.is_a?(Workbook::Table) or t == nil
+      
+      raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) or t == nil
       if t
         @table = t
         table << self unless table.collect{|r| r.object_id}.include? self.object_id

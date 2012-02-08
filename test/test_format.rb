@@ -9,10 +9,12 @@ class TestFormat < Test::Unit::TestCase
     f = Workbook::Format.new({:background=>:red})
     assert_equal({:background=>:red},f)
     f = Workbook::Format.new({:background=>:red})
-    deet = Date
-    f.raw = deet
-    f = Workbook::Format.new(f)
-    assert_equal(deet,f.raw)
+    deet = Time.now
+    assert_equal(false,f.has_raw_for?(Time))
+    
+    f.add_raw deet
+    assert_equal(deet,f.raws[Time])
+    assert_equal(true,f.has_raw_for?(Time))
     
     
   end

@@ -1,11 +1,12 @@
 require 'lib/workbook/writers/xls_writer'
-
+require 'lib/workbook/readers/xls_reader'
 module Workbook
   class Book < Array
     include Workbook::Writers::XlsWriter
+    include Workbook::Readers::XlsReader
     
-    attr_accessor :raw
     attr_accessor :title
+    attr_accessor :template
     
     # def initialize sheet=Workbook::Sheet.new
     #   push sheet if sheet
@@ -19,7 +20,14 @@ module Workbook
       end
     end
     
+    def template
+      @template ||= Workbook::Template.new
+    end
     
+    def template= template
+      raise ArgumentError, "format should be a Workboot::Format" unless template.is_a? Workbook::Template
+      @template = template
+    end
     
     def title
       @title ? @title : "untitled document"
@@ -33,5 +41,18 @@ module Workbook
       first
     end
     
+    def open filename, ext=nil
+      f = File.open(filename,'rb')
+      ext = File.extname(filename).gsub('.','') unless ext
+      send("load_#{ext}".to_sym,f)
+    end
+
+    def create_or_open_sheet_at index
+      s = self[index]
+      s = self[index] = Workbook::Sheet.new if s == nil
+      s.book = self
+      s 
+    end
+
   end
 end

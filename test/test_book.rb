@@ -33,15 +33,18 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(w.sheet, s)
   end
   
-  def test_raw
+  def test_template
     b = Workbook::Book.new
     raw = "asdf"
-    b.raw = raw
-    assert_equal(raw,b.raw)
+    assert_raise(ArgumentError) { b.template = raw }
+    raw = Workbook::Template.new
+    b.template = raw
+    
+    assert_equal(raw,b.template)
   end
   
   def test_parent_child
-    b = Workbook::Book.new [[[1,2,3],[1,2,3]]]
+    b = Workbook::Book.new [[1,2,3],[1,2,3]]
     assert_equal(Workbook::Sheet, b.first.class)
     assert_equal(b,b.first.book)
     assert_equal(Workbook::Table, b.first.table.class)

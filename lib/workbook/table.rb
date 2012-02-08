@@ -25,5 +25,13 @@ module Workbook
       return r
     end
     
+    def create_or_open_row_at index
+      s = self[index]
+      s = self[index] = Workbook::Row.new if s == nil
+      s.table = self
+      s 
+    end
+    
+    
   end
 end

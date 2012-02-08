@@ -24,7 +24,7 @@ class TestRow < Test::Unit::TestCase
   
   def test_table=
     r = Workbook::Row.new
-    assert_raise(Exception, 'table should be a Workbook::Table (you passed a String)') { r.table = "asdf" }
+    assert_raise(ArgumentError, 'table should be a Workbook::Table (you passed a String)') { r.table = "asdf" }
     r.table = nil
     assert_equal(r.table, nil)
     r = Workbook::Row.new
