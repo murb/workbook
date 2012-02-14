@@ -53,6 +53,5 @@ module Workbook
       s.book = self
       s 
     end
-
   end
 end

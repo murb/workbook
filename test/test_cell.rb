@@ -26,4 +26,31 @@ class TestCell < Test::Unit::TestCase
     assert_equal(Date.new,w.value) 
   end
   
+  def test_comp
+    a = Workbook::Cell.new 1
+    b = Workbook::Cell.new 2
+    assert_equal(-1, a<=>b)
+    a = Workbook::Cell.new "c"
+    b = Workbook::Cell.new "bsdf"
+    assert_equal(1, a<=>b)
+    a = Workbook::Cell.new "c"
+    b = Workbook::Cell.new "c"
+    assert_equal(0, a<=>b)
+    a = Workbook::Cell.new true
+    b = Workbook::Cell.new false
+    assert_equal(-1, a<=>b)
+    a = Workbook::Cell.new "true"
+    b = Workbook::Cell.new "false"
+    assert_equal(1, a<=>b)
+    a = Workbook::Cell.new 1
+    b = Workbook::Cell.new "a"
+    assert_equal(-1, a<=>b)
+    a = Workbook::Cell.new nil
+    b = Workbook::Cell.new "a"
+    assert_equal(1, a<=>b)
+    a = Workbook::Cell.new nil
+    b = Workbook::Cell.new nil
+    assert_equal(0, a<=>b)
+  end
+  
 end

@@ -1,6 +1,10 @@
-module Workbook
+require 'lib/workbook/modules/table_diff_sort'
+
+module Workbook  
   class Table < Array
+    include Workbook::Modules::TableDiffSort
     attr_accessor :sheet
+    attr_accessor :header
     
     def initialize row_cel_values=[], sheet=nil
       #@rows = []
@@ -16,7 +20,13 @@ module Workbook
     end
     
     def header
-      first
+      if @header == false
+        false
+      elsif @header
+        @header
+      else
+        first
+      end
     end
     
     # factory pattern...?

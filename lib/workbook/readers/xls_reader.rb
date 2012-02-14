@@ -84,7 +84,23 @@ module Workbook
           xls_sheet.each_with_index do |xls_row,ri|
             r = s.table.create_or_open_row_at(ri)
             xls_row.each_with_index do |xls_cell,ci|
-              r[ci] = Workbook::Cell.new xls_cell
+              begin
+                r[ci] = Workbook::Cell.new xls_cell                
+              rescue ArgumentError => e
+                if e.message.match('not a Spreadsheet::Formula')
+                  v = xls_cell.value
+                  if v.class == Float and xls_row.format(ci).date?
+                    xls_row[ci] = v
+                    v = xls_row.datetime(ci)
+                  end
+                  r[ci] = Workbook::Cell.new v
+                
+                elsif e.message.match('not a Spreadsheet::Link')
+                  r[ci] = Workbook::Cell.new xls_cell.to_s
+                else 
+                  raise e
+                end
+              end
               xls_format = xls_row.format(ci)
               f = template.create_or_find_format_by "object_id_#{xls_format.object_id}"
               f[:rotation] = xls_format.rotation if xls_format.rotation 

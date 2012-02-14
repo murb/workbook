@@ -1,5 +1,11 @@
 module Workbook
   class Row < Array
+    alias_method :compare_without_header, :<=>
+    
+    #used in compares
+    attr_accessor :placeholder
+    
+    
     def initialize cells=[], table=nil
       self.table= table
       cells.each do |c| 
@@ -51,6 +57,17 @@ module Workbook
       hash = {}
       keys.each_with_index {|k,i| hash[k]=values[i]}
       return hash
+    end
+    
+    def <=> other
+      a = self.header? ? 0 : 1
+      b = other.header? ? 0 : 1
+      return (a <=> b) if (a==0 or b==0)
+      compare_without_header other
+    end
+    
+    def key
+      first
     end
   end
 end

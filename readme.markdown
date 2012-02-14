@@ -37,9 +37,8 @@ will give you an empty Sheet and Table.
 
 You may want to initialize the whole shebang from a 2-d array, like this:
 
-    b = Workbook::Book.new
-    s = b.sheet[0] = Workbook::Sheet.new([['a','b'],[1,2],[3,4],[5,6]])
-	t = s.table
+    b = Workbook::Book.new [['a','b'],[1,2],[3,4],[5,6]]
+	t = s.sheet.table
 	
 Subsequently you lookup values in the table like this:
 
@@ -51,16 +50,20 @@ Feature *to implement*:
 	t['A2']
 	# returns <Workbook::Cel @value=1>
 	
-Feature *to implement*:
+Feature *to implement*, get a single column:
 
     t[:b]
 	# returns [<Workbook::Cel @value=2>,<Workbook::Cel @value=4>,<Workbook::Cel @value=6>]
 	
 ## Sorting
 
-Sorting leaves the header alone, and doesn't (shouldn't) complain about comparing strings with dates with floats. We're talking spreadsheet here.
+Sorting leaves the header alone, and doesn't complain about comparing strings with dates with floats. We're talking spreadsheet here. When classes differ the following (default) order is used: Numbers, Strings, Dates and Times, Booleans and Nils (empty values).
 
+	t.sort
+	
 *To implement*:
+
+To some extent, sort_by works, it doesn't, however, adhere to the header settings... 
   
     t.sort_by {|r| r[:b]}
 	

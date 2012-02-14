@@ -5,7 +5,8 @@ module Workbook
     attr_accessor :format
     attr_accessor :formula
     
-    VALID_TYPES = [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass]
+    # Note that these types are sorted by 'importance'
+    VALID_TYPES = [Numeric,String,Date,Time,TrueClass,FalseClass,NilClass]
     
     def valid_value? value
       valid_type = false 
@@ -59,5 +60,37 @@ module Workbook
               gsub(/[^\x00-\x7F]/n,'').downcase.to_sym
       
     end
+    
+    def <=> other
+      rv = nil
+      begin
+        rv = self.value <=> other.value
+      rescue NoMethodError => e
+        rv = compare_on_class other
+      end
+      if rv == nil        
+        rv = compare_on_class other
+      end
+      return rv
+
+    end
+    
+    def compare_on_class other
+      self_value = importance_of_class self.value
+      other_value = importance_of_class other.value
+      self_value <=> other_value
+    end
+    
+    def importance_of_class value
+      VALID_TYPES.each_with_index do |c,i|  
+        return i if value.is_a? c
+      end
+      return nil
+    end
+    
+    def inspect
+      "<Workbook::Cell @value=#{value}>"
+    end
+    
   end
 end
