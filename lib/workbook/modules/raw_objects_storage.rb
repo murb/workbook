@@ -13,6 +13,10 @@ module Workbook
         return false
 	    end
       
+      def remove_all_raws!
+        @raws = {}
+      end
+      
 	    def raws
         @raws = {} unless defined? @raws
         @raws

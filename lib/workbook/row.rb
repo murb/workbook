@@ -7,6 +7,7 @@ module Workbook
     
     
     def initialize cells=[], table=nil
+      cells = [] if cells==nil
       self.table= table
       cells.each do |c| 
         if c.is_a? Workbook::Cell
@@ -35,7 +36,12 @@ module Workbook
       if index_or_hash.is_a? Fixnum
         return to_a[index_or_hash]
       elsif index_or_hash.is_a? Symbol
-        return to_hash[index_or_hash]
+        rv = nil
+        begin
+          rv = to_hash[index_or_hash]
+        rescue NoMethodError
+        end
+        return rv
       end
     end
     

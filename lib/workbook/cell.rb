@@ -17,7 +17,7 @@ module Workbook
     def initialize value=nil, options={}     
 
       if valid_value? value
-        format = options[:format]
+        format = options[:format] 
         @value = value
       else
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
@@ -32,6 +32,10 @@ module Workbook
       elsif f.class == NilClass
         @format = nil
       end
+    end
+    
+    def format
+      return @format ? @format : {}
     end
 
     def ==(other)
@@ -90,6 +94,14 @@ module Workbook
     
     def inspect
       "<Workbook::Cell @value=#{value}>"
+    end
+    
+    def to_s
+      if (value.is_a? Date or value.is_a? Time) and format[:number_format]
+        value.strftime(format[:number_format])
+      else
+        value.to_s
+      end
     end
     
   end

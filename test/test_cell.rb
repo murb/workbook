@@ -53,4 +53,16 @@ class TestCell < Test::Unit::TestCase
     assert_equal(0, a<=>b)
   end
   
+  def test_cloning_as_expected?
+    a = Workbook::Cell.new 1
+    a.format = Workbook::Format.new({:value=>1})
+    b = a.clone
+    b.value = 2
+    b.format[:value]=2
+    assert_equal(1,a.value)
+    assert_equal(2,b.value)
+    assert_equal(2,a.format[:value])
+    assert_equal(2,b.format[:value])
+  end
+  
 end

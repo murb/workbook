@@ -33,11 +33,20 @@ module Workbook
       @formats
     end
     
-    def create_or_find_format_by name
-      f = @formats[name]
-      f = @formats[name]=Workbook::Format.new if f.nil?
-      f.name = name
-      f
+    def create_or_find_format_by name, variant=:default
+      fs = @formats[name]
+      fs = @formats[name] = {} if fs.nil?
+      f = fs[variant]
+      if f.nil? 
+        f = Workbook::Format.new 
+        if variant != :default and fs[:default]
+          f = fs[:default].clone
+        end
+        @formats[name][variant] = f
+      end
+      return @formats[name][variant]
     end
+    
+    
 	end
 end
