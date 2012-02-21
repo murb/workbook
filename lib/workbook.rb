@@ -7,8 +7,6 @@ require 'workbook/format'
 require 'workbook/template'
 
 module Workbook
-  VERSION = '0.0.2'
-  
   class << self
 
   end
