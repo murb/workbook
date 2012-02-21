@@ -87,7 +87,7 @@ module Workbook
         puts " - Aligning"
 
         row_index = 0
-        while row_index < [sother.count,sself.count].max do
+        while row_index < [sother.count,sself.count].max and row_index < sother.count+sself.count do
           puts row_index
           row_index = align_row(sself, sother, row_index)
         end
