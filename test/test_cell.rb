@@ -65,4 +65,14 @@ class TestCell < Test::Unit::TestCase
     assert_equal(2,b.format[:value])
   end
   
+  def test_to_sym
+    c = Workbook::Cell.new "A - B"
+    assert_equal(:a_b, c.to_sym)
+    c = Workbook::Cell.new "A-B"
+    assert_equal(:ab, c.to_sym)
+    c = Workbook::Cell.new "A - c (B123)"
+    assert_equal(:a_c_b123, c.to_sym)
+
+  end
+  
 end

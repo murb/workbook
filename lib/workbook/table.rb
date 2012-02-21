@@ -1,8 +1,11 @@
 require 'lib/workbook/modules/table_diff_sort'
+require 'lib/workbook/writers/csv_table_writer'
+
 
 module Workbook  
   class Table < Array
     include Workbook::Modules::TableDiffSort
+    include Workbook::Writers::CsvTableWriter
     attr_accessor :sheet
     attr_accessor :header
     

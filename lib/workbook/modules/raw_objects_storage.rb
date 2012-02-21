@@ -13,6 +13,11 @@ module Workbook
         return false
 	    end
       
+      def return_raw_for raw_object_class
+	      raws.each { |tc,t| return t if tc == raw_object_class}
+        return nil
+      end 
+      
       def remove_all_raws!
         @raws = {}
       end

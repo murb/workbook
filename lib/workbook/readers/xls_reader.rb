@@ -68,14 +68,16 @@ module Workbook
                     :magenta=>'#FF00FF',
                     :cyan=>'#00FFFF',
                     :border=>'#FFFFFF',
-                    :text=>'#000000'}
+                    :text=>'#000000',
+                    :lime=>'#00f94c'}
+
+        
 
       def load_xls file_obj
         sp = Spreadsheet.open file_obj
         template.add_raw sp
         parse_xls
       end
-      
       
       
       def parse_xls xls_spreadsheet=template.raws[Spreadsheet::Excel::Workbook]
@@ -120,11 +122,10 @@ module Workbook
       
       private 
       def xls_color_to_html_hex color_sym
-        XLS_COLORS[color_sym] ? XLS_COLORS[color_sym] : "#000000#{color_sym}"
+        XLS_COLORS[color_sym] ? XLS_COLORS[color_sym] : "#000000"
       end
       
-      def ms_formatting_to_strftime ms_nr_format
-        
+      def ms_formatting_to_strftime ms_nr_format       
         ms_nr_format = ms_nr_format.downcase
         return nil if ms_nr_format == 'general'
         ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub('\\','')

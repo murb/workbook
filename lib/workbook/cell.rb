@@ -6,7 +6,7 @@ module Workbook
     attr_accessor :formula
     
     # Note that these types are sorted by 'importance'
-    VALID_TYPES = [Numeric,String,Date,Time,TrueClass,FalseClass,NilClass]
+    VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass]
     
     def valid_value? value
       valid_type = false 
@@ -35,7 +35,7 @@ module Workbook
     end
     
     def format
-      return @format ? @format : {}
+      return @format ? @format : Workbook::Format.new
     end
 
     def ==(other)
@@ -47,22 +47,26 @@ module Workbook
     end
     
     def to_sym
-      value.to_s.downcase.gsub(' (j/?/leeg)','').gsub(/dd-mm-(.*)/,'').gsub(/\ja\/nee/,'').gsub(/\(\)/,'').gsub(/[\(\)]+/, "").strip.
-              gsub(/(\.|\?|,|\=)/,'').
-              gsub('$','').
-              gsub(/\&/,'en').
-              gsub(/\+/,'_plus_').
-              gsub(/\s/, "_").
-              gsub('–_','').
-              gsub('-_','').
-              gsub('+_','').
-              gsub('/_','_').
-              gsub('/','_').
-              gsub('__','_').
-              gsub('-','').
-              #mb_chars.normalize(:kd).
-              gsub(/[^\x00-\x7F]/n,'').downcase.to_sym
-      
+      #mb_chars.normalize(:kd).
+      v = nil
+      if value
+        v = value.to_s.downcase
+        v = v.gsub(' (j/?/leeg)','').gsub(/dd-mm-(.*)/,'').gsub(/\ja\/nee/,'').gsub(/\(\)/,'').gsub(/[\(\)]+/, '')
+        v = v.strip.gsub(/(\.|\?|,|\=)/,'').
+            gsub('$','').
+            gsub(/\&/,'en').
+            gsub(/\+/,'_plus_').
+            gsub(/\s/, "_").
+            gsub('–_','').
+            gsub('-_','').
+            gsub('+_','').
+            gsub('/_','_').
+            gsub('/','_').
+            gsub('__','_').
+            gsub('-','')
+        v = v.gsub(/[^\x00-\x7F]/n,'').downcase.to_sym
+      end
+      v
     end
     
     def <=> other
@@ -80,8 +84,10 @@ module Workbook
     end
     
     def compare_on_class other
+      other_value = nil
+      other_value = other.value if other
       self_value = importance_of_class self.value
-      other_value = importance_of_class other.value
+      other_value = importance_of_class other_value
       self_value <=> other_value
     end
     

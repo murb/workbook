@@ -45,6 +45,14 @@ module Workbook
       end
     end
     
+    # find_cells_by_color returns an array of cells allows you to find cells by a given color, normally a string containing a hex
+    def find_cells_by_background_color color=:any, options={}
+      options = {:hash_keys=>true}.merge(options)
+      cells = self.collect {|c| c if c.format.has_background_color?(color) }.compact
+      r = Row.new cells
+      options[:hash_keys] ? r.to_symbols : r
+    end
+    
     def header?
       table != nil and self.object_id == table.header.object_id
     end

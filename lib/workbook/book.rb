@@ -53,5 +53,9 @@ module Workbook
       s.book = self
       s 
     end
+    
+    def sort
+      raise Exception("Books can't be sorted")
+    end
   end
 end

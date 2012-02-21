@@ -72,4 +72,35 @@ class TestRow < Test::Unit::TestCase
     assert_equal(date, r2[1].value)
   end
   
+  def test_compare
+    r1 = Workbook::Row.new  ["test", "asdf-asd"]
+    r2 = Workbook::Row.new  [nil, "asdf-asd"]
+    assert_equal(-1,r1<=>r2)
+    r1 = Workbook::Row.new  [1, "asdf-asd"]
+    r2 = Workbook::Row.new  ["test", "asdf-asd"]
+    assert_equal(-1,r1<=>r2)
+    r1 = Workbook::Row.new  [nil, "asdf-asd"]
+    r2 = Workbook::Row.new  [Time.now, "asdf-asd"]
+    assert_equal(1,r1<=>r2)
+    r1 = Workbook::Row.new  [2, 3]
+    r2 = Workbook::Row.new  [2, nil]
+    assert_equal(-1,r1<=>r2)
+    r1 = Workbook::Row.new  [3, 0]
+    r2 = Workbook::Row.new  [2, 100000]
+    assert_equal(1,r1<=>r2)
+    r1 = Workbook::Row.new  [-10, 3]
+    r2 = Workbook::Row.new  [nil, 5]
+    assert_equal(-1,r1<=>r2)
+    
+  end
+  
+  def test_find_cells_by_background_color
+    r = Workbook::Row.new  ["test", "asdf-asd"]
+    assert_equal([],r.find_cells_by_background_color)
+    f = Workbook::Format.new
+    f[:background_color]='#ff00ff'
+    r.first.format = f
+    assert_equal([:test],r.find_cells_by_background_color)
+    assert_equal([],r.find_cells_by_background_color('#ff0000'))
+  end
 end
