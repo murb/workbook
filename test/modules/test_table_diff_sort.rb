@@ -94,11 +94,10 @@ module Modules
     
     
     def test_diff_xls
-      prev = "test/artifacts/compare_old.xls"
-      curr = "test/artifacts/compare_current.xls"
+      prev = "test/artifacts/compare2_previous.xls"
+      curr = "test/artifacts/compare2_current.xls"
       
-      wprev=Workbook::Book.new
-      wprev.load_xls prev
+      wprev=Workbook::Book.open prev
       wcurr=Workbook::Book.new
       wcurr.load_xls curr
       puts "\nStart diff"

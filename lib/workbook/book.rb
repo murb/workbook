@@ -42,10 +42,18 @@ module Workbook
       first
     end
     
+    # Loads an external file into an existing worbook
     def open filename, ext=nil
       f = File.open(filename,'rb')
       ext = File.extname(filename).gsub('.','') unless ext
       send("load_#{ext}".to_sym,f)
+    end
+    
+    # Create an instance from a file, using open.
+    def self.open filename, ext=nil
+      wb = self.new
+      wb.open filename, ext
+      return wb
     end
 
     def create_or_open_sheet_at index
