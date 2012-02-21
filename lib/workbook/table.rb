@@ -1,5 +1,5 @@
-require 'lib/workbook/modules/table_diff_sort'
-require 'lib/workbook/writers/csv_table_writer'
+require 'workbook/modules/table_diff_sort'
+require 'workbook/writers/csv_table_writer'
 
 
 module Workbook  

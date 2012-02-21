@@ -1,4 +1,4 @@
-require 'lib/workbook/modules/raw_objects_storage'
+require 'workbook/modules/raw_objects_storage'
 
 module Workbook
 	class Template

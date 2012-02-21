@@ -1,5 +1,6 @@
-require 'lib/workbook/writers/xls_writer'
-require 'lib/workbook/readers/xls_reader'
+require 'workbook/writers/xls_writer'
+require 'workbook/readers/xls_reader'
+
 module Workbook
   class Book < Array
     include Workbook::Writers::XlsWriter
