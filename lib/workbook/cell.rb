@@ -30,12 +30,12 @@ module Workbook
       elsif f.is_a? Hash
         @format = Workbook::Format.new(f)
       elsif f.class == NilClass
-        @format = nil
+        @format = Workbook::Format.new
       end
     end
     
     def format
-      return @format ? @format : Workbook::Format.new
+      @format ||= Workbook::Format.new
     end
 
     def ==(other)

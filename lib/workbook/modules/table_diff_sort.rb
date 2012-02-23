@@ -24,6 +24,9 @@ module Workbook
         iteration_rows.each do |ri|
           row = diff_table[ri]
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
+          if ri == 0 and !options[:ignore_headers]
+            row.format = diff_template.template.create_or_find_format_by 'header'
+          end
           iteration_cols.each_with_index do |ch, ci|
             scell = aself[ri][ch]
             ocell = aother[ri][ch]
@@ -35,7 +38,7 @@ module Workbook
                  dcell = Workbook::Cell.new(nil)
                end
             elsif scell.nil? or scell.value.nil?
-              dcell = Workbook::Cell.new "(was: #{ocell})"
+              dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
             elsif ocell.nil? or ocell.value.nil?
               dcell = scell.clone
@@ -43,15 +46,15 @@ module Workbook
               f[:number_format] = scell.format[:number_format]
               dcell.format = f
             elsif scell.value != ocell.value
-              dcell = Workbook::Cell.new "#{scell} (was: #{ocell})"
+              dcell = Workbook::Cell.new "#{scell.to_s} (was: #{ocell.to_sl})"
               f = diff_template.template.create_or_find_format_by 'updated'
               dcell.format = f
             end
-            dcell.format = diff_template.template.create_or_find_format_by 'header' if options[:ignore_headers] == false and ri == 0
             
             row[ci]=dcell
           end
         end
+
         diff_template
       end
       
@@ -69,6 +72,7 @@ module Workbook
         f = template.create_or_find_format_by 'header'
         f[:rotation] = 72
         f[:font_weight] = :bold
+        f[:height] = 80
         @diff_template = diffbook
         return diffbook
       end

@@ -88,12 +88,16 @@ module Workbook
               write_row = true
             end
             if write_row
-              
-              xls_sheet.row(ri).replace(r.collect{|c| c.value if c})
+              xls_sheet.row(ri).height= r.format[:height] if r.format
               r.each_with_index do |c, ci|
-                
-              #                              xls_sheet.row[ri,ci]=c.value
-                xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
+                if c
+                  if r.header?
+                    xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
+                    xls_sheet.columns[ci].width= c.format[:width]
+                  end
+                  xls_sheet.row(ri)[ci] = c.value
+                  xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
+                end
               end
             end
           end

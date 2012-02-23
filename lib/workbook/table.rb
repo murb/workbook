@@ -20,6 +20,8 @@ module Workbook
         end
       end
       self.sheet = sheet
+      # Column data is considered as a 'row' with 'cells' that contain 'formatting'
+
     end
     
     def header

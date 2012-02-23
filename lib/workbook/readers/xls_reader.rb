@@ -82,9 +82,10 @@ module Workbook
       
       def parse_xls xls_spreadsheet=template.raws[Spreadsheet::Excel::Workbook]
         xls_spreadsheet.worksheets.each_with_index do |xls_sheet,si|
-          s = create_or_open_sheet_at(si)
+          s = create_or_open_sheet_at(si)     
           xls_sheet.each_with_index do |xls_row,ri|
             r = s.table.create_or_open_row_at(ri)
+            col_widths = xls_sheet.columns.collect{|c| c.width if c}
             xls_row.each_with_index do |xls_cell,ci|
               begin
                 r[ci] = Workbook::Cell.new xls_cell                
@@ -104,7 +105,13 @@ module Workbook
                 end
               end
               xls_format = xls_row.format(ci)
-              f = template.create_or_find_format_by "object_id_#{xls_format.object_id}"
+              col_width = nil
+              
+              if ri == 0
+                col_width = col_widths[ci]
+              end
+              f = template.create_or_find_format_by "object_id_#{xls_format.object_id}",col_width
+              f[:width]= col_width
               f[:rotation] = xls_format.rotation if xls_format.rotation 
               f[:background_color] = xls_color_to_html_hex(xls_format.pattern_fg_color)
               f[:number_format] = ms_formatting_to_strftime(xls_format.number_format)
@@ -112,6 +119,7 @@ module Workbook
               f[:font_family] = "#{xls_format.font.name}, #{xls_format.font.family}"
               f[:font_weight] = xls_format.font.weight
               f[:color] = xls_color_to_html_hex(xls_format.font.color)
+
               f.add_raw xls_format
      
               r[ci].format = f
@@ -128,7 +136,7 @@ module Workbook
       def ms_formatting_to_strftime ms_nr_format       
         ms_nr_format = ms_nr_format.downcase
         return nil if ms_nr_format == 'general'
-        ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub('\\','')
+        ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub(';@','').gsub('\\','')
       end
     end
   end

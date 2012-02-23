@@ -4,6 +4,7 @@ module Workbook
     
     #used in compares
     attr_accessor :placeholder
+    attr_accessor :format
     
     
     def initialize cells=[], table=nil

@@ -103,8 +103,8 @@ module Modules
     
     
     def test_diff_xls
-      prev = "test/artifacts/compare3_prev.xls"
-      curr = "test/artifacts/compare3_current.xls"
+      prev = "test/artifacts/compare2_prev.xls"
+      curr = "test/artifacts/compare2_current.xls"
       
       wprev=Workbook::Book.open prev
       wcurr=Workbook::Book.new
@@ -112,7 +112,7 @@ module Modules
       puts "\nStart diff"
       diff = wcurr.sheet.table.diff wprev.sheet.table
       puts "Start writing"
-      puts diff.sheet.table.to_csv
+      puts diff.write_to_xls
     end
   end
 end
