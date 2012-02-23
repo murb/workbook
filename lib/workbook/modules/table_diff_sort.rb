@@ -9,6 +9,8 @@ module Workbook
         aligned = align(other, options)
         aself = aligned[:self]
         aother = aligned[:other]
+        
+        
         iteration_cols = []
         if options[:ignore_headers]
           iteration_cols = [aother.first.count,aself.first.count].max.times.collect
@@ -17,7 +19,8 @@ module Workbook
         end
         diff_table = diff_template.sheet.table
         iteration_rows = aself.count.times
-        puts " - Creating diff-table"
+        puts " - Creating diff-table. Estimated time: #{aself.count*aself.first.count*0.0063}s "
+        
         iteration_rows.each do |ri|
           row = diff_table[ri]
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
@@ -25,12 +28,15 @@ module Workbook
             scell = aself[ri][ch]
             ocell = aother[ri][ch]
             if scell == ocell or (scell and ocell and scell.value == ocell.value)
-              dcell = scell ? scell : Workbook::Cell.new(nil)
-              dcell.format = scell.format if scell
+               if scell
+                 dcell = scell
+                 dcell.format = scell.format
+               else
+                 dcell = Workbook::Cell.new(nil)
+               end
             elsif scell.nil? or scell.value.nil?
               dcell = Workbook::Cell.new "(was: #{ocell})"
-              f = diff_template.template.create_or_find_format_by 'destroyed'
-              dcell.format = f
+              dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
             elsif ocell.nil? or ocell.value.nil?
               dcell = scell.clone
               f = diff_template.template.create_or_find_format_by 'created', scell.format[:number_format]
@@ -87,23 +93,9 @@ module Workbook
         puts " - Aligning"
 
         row_index = 0
-        while row_index < [sother.count,sself.count].max and row_index < sother.count+sself.count do
-          puts row_index
+        while row_index < [sother.count,sself.count].max and row_index < other.count+self.count do
           row_index = align_row(sself, sother, row_index)
         end
-        
-      
-        # ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4]]
-        # bb = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[2,2,3,4],[5,2,3,4]]
-        #     
-        # FOUT: 
-        # "a,b,c,d\n1,2,3,4\n3,2,3,4\n5,2,3,4\n , , , \n , , , \n"
-        # "a,b,c,d\n1,2,3,4\n , , , \n , , , \n2,2,3,4\n5,2,3,4\n"
-        # 
-        # "a,b,c,d\n1,2,3,4\n , , , \n3,2,3,4\n5,2,3,4"
-        # "a,b,c,d\n1,2,3,4\n2,2,3,4\n , , , \n5,2,3,4"
-      
-        
         
         {:self=>sself, :other=>sother}     
       end
@@ -118,10 +110,10 @@ module Workbook
         elsif sother[row_index]
           asd = 1
         end
-        if asd == -1 and sother[row_index] != placeholder_row
+        if asd == -1 and insert_placeholder?(sother, sself, row_index)
           sother.insert row_index, placeholder_row
           row_index -=1
-        elsif asd == 1 and sself[row_index] != placeholder_row
+        elsif asd == 1 and insert_placeholder?(sother, sself, row_index)
           sself.insert row_index, placeholder_row
           row_index -=1
         end
@@ -129,9 +121,14 @@ module Workbook
         row_index += 1
       end
       
+      def insert_placeholder? sother, sself, row_index
+        (sother[row_index].nil? or !sother[row_index].placeholder?) and
+        (sself[row_index].nil? or !sself[row_index].placeholder?)
+      end
+      
       # returns a placeholder row, for internal use only
       def placeholder_row 
-        if @placeholder_row 
+        if @placeholder_row != nil
           return @placeholder_row 
         else
           @placeholder_row = Workbook::Row.new [nil]

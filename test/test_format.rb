@@ -45,4 +45,12 @@ class TestFormat < Test::Unit::TestCase
     
   end
   
+  def test_to_css
+    a = Workbook::Format.new({:background_color=>'#ffffff'})
+    assert_equal("background: #ffffff",a.to_css)
+    a = Workbook::Format.new({:background_color=>'#fffdff', :color=>:red})
+    assert_equal("background: #fffdff; color: red",a.to_css)
+    
+  end
+  
 end

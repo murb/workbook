@@ -8,6 +8,7 @@ module Workbook
     
     attr_accessor :title
     attr_accessor :template
+    attr_accessor :default_rewrite_header
     
     # def initialize sheet=Workbook::Sheet.new
     #   push sheet if sheet
@@ -66,5 +67,11 @@ module Workbook
     def sort
       raise Exception("Books can't be sorted")
     end
+    
+    def default_rewrite_header?
+      return true if default_rewrite_header.nil?
+      default_rewrite_header
+    end
+    
   end
 end

@@ -19,6 +19,10 @@ module Workbook
       end
     end
     
+    def placeholder?
+      placeholder ? true : false
+    end
+    
     def table
       @table
     end

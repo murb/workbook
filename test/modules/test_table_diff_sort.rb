@@ -38,28 +38,40 @@ module Modules
       tother = bb.sheet.table
       align_result = tself.align tother
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n4,2,3,4\n\n",align_result[:self].to_csv)  
+      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)  
+      
       ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4]]
       bb = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[2,2,3,4],[5,2,3,4]]
       tself = ba.sheet.table
       tother = bb.sheet.table
       align_result = tself.align tother
-      assert_not_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n5,2,3,4\n\n\n",align_result[:self].to_csv)
-      assert_not_equal("a,b,c,d\n1,2,3,4\n\n\n2,2,3,4\n5,2,3,4\n",align_result[:other].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n\n3,2,3,4\n5,2,3,4\n",align_result[:self].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)
+      align_result = tother.align tself
+      assert_equal("a,b,c,d\n1,2,3,4\n\n3,2,3,4\n5,2,3,4\n",align_result[:other].to_csv)
+      assert_equal("a,b,c,d\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n",align_result[:self].to_csv)
       
-      
-      
-      # FOUT: 
-      # "a,b,c,d\n1,2,3,4\n3,2,3,4\n5,2,3,4\n , , , \n , , , \n"
-      # "a,b,c,d\n1,2,3,4\n , , , \n , , , \n2,2,3,4\n5,2,3,4\n"
-      # 
-      # "a,b,c,d\n1,2,3,4\n , , , \n3,2,3,4\n5,2,3,4"
-      # "a,b,c,d\n1,2,3,4\n2,2,3,4\n , , , \n5,2,3,4"
-      
-#      assert_equal(tself.sort.insert(3,placeholder_row),align_result[:self])  
-      
-      
+      tself = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,3,3,4],[3,2,3,4],[5,2,3,4]]).sheet.table
+      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[2,2,3,4],[5,2,3,4]]).sheet.table
+      align_result = tself.align tother
+      assert_equal("a,b,c,d\n1,2,3,4\n1,3,3,4\n\n3,2,3,4\n5,2,3,4\n",align_result[:self].to_csv)
+      assert_equal("a,b,c,d\n1,2,3,4\n\n2,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)
+      tself = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4]]).sheet.table
+      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,2,3,4],[1,2,3,4],[2,2,3,4],[5,2,3,4]]).sheet.table
+      align_result = tself.align tother
+      assert_equal("a,b,c,d\n1,2,3,4\n\n\n\n3,2,3,4\n5,2,3,4\n",align_result[:self].to_csv)
+      assert_equal("a,b,c,d\n1,2,3,4\n1,2,3,4\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)
+      tself = Workbook::Book.new([['a','b','c','d'],[9,2,3,4],[3,2,3,4],[5,2,3,4]]).sheet.table
+      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,2,3,4],[1,2,3,4],[2,2,3,4],[5,2,3,4]]).sheet.table
+      align_result = tself.align tother
+      assert_equal("a,b,c,d\n\n\n\n\n3,2,3,4\n5,2,3,4\n9,2,3,4\n",align_result[:self].to_csv)
+      assert_equal("a,b,c,d\n1,2,3,4\n1,2,3,4\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n\n",align_result[:other].to_csv)
+      tself = Workbook::Book.new([['a','b','c','d'],[49,2,3,4],[10,2,3,4],[45,2,3,4]]).sheet.table
+      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,2,3,4],[1,2,3,4],[2,2,3,4],[5,2,3,4]]).sheet.table
+      align_result = tself.align tother
+      assert_equal("a,b,c,d\n\n\n\n\n\n10,2,3,4\n45,2,3,4\n49,2,3,4\n",align_result[:self].to_csv)
+      assert_equal("a,b,c,d\n1,2,3,4\n1,2,3,4\n1,2,3,4\n2,2,3,4\n5,2,3,4\n\n\n\n",align_result[:other].to_csv)
+          
     end
     
     # def test_sort_by
@@ -84,18 +96,15 @@ module Modules
       diff_result = tself.diff tother
       assert_equal('a',diff_result.sheet.table.header[0].value)
       assert_equal({:rotation=>72, :font_weight=>:bold},diff_result.sheet.table.header[0].format)
-      assert_equal(expected[2][0],diff_result.sheet.table[2][0].value)
-      assert_equal(expected[3][1],diff_result.sheet.table[3][1].value) # 3 (was: 2)
-      assert_equal(expected[4][2],diff_result.sheet.table[4][2].value) # 4
-      assert_equal(expected[5][3],diff_result.sheet.table[5][3].value) # (was: 3)
+      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.sheet.table.to_csv)
       diff_result.write_to_xls({:rewrite_header=>true})
     end
     
     
     
     def test_diff_xls
-      prev = "test/artifacts/compare2_previous.xls"
-      curr = "test/artifacts/compare2_current.xls"
+      prev = "test/artifacts/compare3_prev.xls"
+      curr = "test/artifacts/compare3_current.xls"
       
       wprev=Workbook::Book.open prev
       wcurr=Workbook::Book.new

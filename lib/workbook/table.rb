@@ -43,8 +43,6 @@ module Workbook
       s = self[index] = Workbook::Row.new if s == nil
       s.table = self
       s 
-    end
-    
-    
+    end  
   end
 end

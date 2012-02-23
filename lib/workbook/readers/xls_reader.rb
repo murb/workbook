@@ -111,7 +111,7 @@ module Workbook
               f[:text_direction] = xls_format.text_direction
               f[:font_family] = "#{xls_format.font.name}, #{xls_format.font.family}"
               f[:font_weight] = xls_format.font.weight
-              f[:font_color] = xls_color_to_html_hex(xls_format.font.color)
+              f[:color] = xls_color_to_html_hex(xls_format.font.color)
               f.add_raw xls_format
      
               r[ci].format = f

@@ -73,7 +73,7 @@ module Workbook
                     :lime=>'#00f94c'}
       
       def to_xls options={}
-        options = {:rewrite_header=>false}.merge options
+        options = {:rewrite_header=>default_rewrite_header?}.merge options
         book = init_spreadsheet_template
         self.each_with_index do |s,si|
           xls_sheet = book.worksheet si
@@ -116,7 +116,7 @@ module Workbook
           xlsfmt.text_direction = f[:text_direction] if f[:text_direction]
           xlsfmt.font.name = f[:font_family].split.first if f[:font_family]
           xlsfmt.font.family = f[:font_family].split.last if f[:font_family]
-          xlsfmt.font.color = html_color_to_xls_color(f[:font_color]) if f[:font_color]
+          xlsfmt.font.color = html_color_to_xls_color(f[:color]) if f[:color]
           f.add_raw xlsfmt
         end
         return xlsfmt
