@@ -37,7 +37,8 @@ module Workbook
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
             elsif ocell.nil?
               dcell = scell.clone
-              f = diff_template.template.create_or_find_format_by 'created', scell.format[:number_format]
+              fmt = scell ? scell.format[:number_format] : :default
+              f = diff_template.template.create_or_find_format_by 'created', fmt
               f[:number_format] = scell.format[:number_format]
               dcell.format = f
             elsif scell != ocell
