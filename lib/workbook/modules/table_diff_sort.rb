@@ -31,13 +31,13 @@ module Workbook
             ocell = orow[ch]
             dcell = scell.nil? ? Workbook::Cell.new(nil) : scell
             if (scell == ocell)
-              dcell.format = scell.format
+              dcell.format = scell.format if scell
             elsif scell.nil?
               dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
             elsif ocell.nil?
               dcell = scell.clone
-              fmt = scell ? scell.format[:number_format] : :default
+              fmt = scell.nil? ? :default : scell.format[:number_format]
               f = diff_template.template.create_or_find_format_by 'created', fmt
               f[:number_format] = scell.format[:number_format]
               dcell.format = f
