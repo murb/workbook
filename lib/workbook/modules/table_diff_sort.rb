@@ -9,8 +9,6 @@ module Workbook
         aligned = align(other, options)
         aself = aligned[:self]
         aother = aligned[:other]
-        
-        
         iteration_cols = []
         if options[:ignore_headers]
           iteration_cols = [aother.first.count,aself.first.count].max.times.collect
@@ -18,25 +16,20 @@ module Workbook
           iteration_cols = (aother.header.to_symbols+aother.header.to_symbols).uniq
         end
         diff_table = diff_template.sheet.table
-        iteration_rows = aself.count.times
         puts " - Creating diff-table. Estimated time: #{aself.count*aself.first.count*0.0063}s "
-        
-        iteration_rows.each do |ri|
+        maxri = (aself.count-1)
+        for ri in 0..maxri do
           row = diff_table[ri]
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
-          if ri == 0 and !options[:ignore_headers]
-            row.format = diff_template.template.create_or_find_format_by 'header'
-          end
+         
           iteration_cols.each_with_index do |ch, ci|
             scell = aself[ri][ch]
             ocell = aother[ri][ch]
-            if scell == ocell or (scell and ocell and scell.value == ocell.value)
-               if scell
-                 dcell = scell
-                 dcell.format = scell.format
-               else
-                 dcell = Workbook::Cell.new(nil)
-               end
+            if (scell == ocell and scell !=nil) or (scell and ocell and scell.value == ocell.value)
+              dcell = scell
+              dcell.format = scell.format
+            elsif scell == ocell
+              dcell = Workbook::Cell.new(nil)
             elsif scell.nil? or scell.value.nil?
               dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
@@ -46,13 +39,16 @@ module Workbook
               f[:number_format] = scell.format[:number_format]
               dcell.format = f
             elsif scell.value != ocell.value
-              dcell = Workbook::Cell.new "#{scell.to_s} (was: #{ocell.to_sl})"
+              dcell = Workbook::Cell.new "#{scell.to_s} (was: #{ocell.to_s})"
               f = diff_template.template.create_or_find_format_by 'updated'
               dcell.format = f
             end
             
             row[ci]=dcell
           end
+        end
+        if !options[:ignore_headers]
+          diff_table[0].format = diff_template.template.create_or_find_format_by 'header'
         end
 
         diff_template
@@ -85,13 +81,15 @@ module Workbook
         iteration_cols = nil
         sother = other.clone
         sself = self.clone
+        
         if options[:ignore_headers]
           sother.header = false
           sself.header = false
         end
         
-        sother = options[:sort] ? sother.sort : sother
-        sself = options[:sort] ? sself.sort : sself
+        sother = options[:sort] ? Workbook::Table.new(sother.sort) : sother
+        sself = options[:sort] ? Workbook::Table.new(sself.sort) : sself
+        puts sother.class
         
         iteration_rows =  [sother.count,sself.count].max.times.collect
         puts " - Aligning"

@@ -1,4 +1,4 @@
-require 'test/helper'
+require File.join(File.dirname(__FILE__), '../helper')
 module Modules
   class TestTableDiffSort < Test::Unit::TestCase
     def test_sort
@@ -37,8 +37,8 @@ module Modules
       tself = ba.sheet.table
       tother = bb.sheet.table
       align_result = tself.align tother
-      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n4,2,3,4\n\n",align_result[:self].to_csv)  
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)  
+      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n4,2,3,4\n\n",align_result[:self].to_csv)  
       
       ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4]]
       bb = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[2,2,3,4],[5,2,3,4]]
@@ -82,9 +82,12 @@ module Modules
     def test_diff
       ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4],[3,3,3,4]]
       bb = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4],[3,2,3,4]]
+      # Start:
+      # ba = [['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4],[3,3,3,4]]
+      # bb = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4],[3,2,3,4]]
       # As it starts out with sorting, it is basically a comparison between            
-      #  ba = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,3,3,4],[4,2,3,4]]
-      #  bb = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,2,3,4],[5,2,3,4]]
+      #  ba = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,3,3,4],[4,2,3,4],[]]
+      #  bb = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,2,3,4],[],[5,2,3,4]]
       # then it aligns:
       #  ba = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,3,3,4],[4,2,3,4],[]]
       #  bb = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,2,3,4],[],[5,2,3,4]]
@@ -95,7 +98,6 @@ module Modules
       tother = bb.sheet.table
       diff_result = tself.diff tother
       assert_equal('a',diff_result.sheet.table.header[0].value)
-      assert_equal({:rotation=>72, :font_weight=>:bold},diff_result.sheet.table.header[0].format)
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.sheet.table.to_csv)
       diff_result.write_to_xls({:rewrite_header=>true})
     end

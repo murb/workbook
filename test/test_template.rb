@@ -1,12 +1,12 @@
-require 'test/helper'
+require File.join(File.dirname(__FILE__), 'helper')
 
 class TestTemplate < Test::Unit::TestCase
   
   def test_initalize
     t = Workbook::Template.new
-    assert_equal(true,t.methods.include?("add_raw"))
-    assert_equal(true,t.methods.include?("has_raw_for?"))
-    assert_equal(true,t.methods.include?("raws"))
+    assert_equal(true,t.methods.include?(:add_raw))
+    assert_equal(true,t.methods.include?(:has_raw_for?))
+    assert_equal(true,t.methods.include?(:raws))
     
   end
   

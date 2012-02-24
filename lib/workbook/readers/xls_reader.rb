@@ -100,6 +100,10 @@ module Workbook
                 
                 elsif e.message.match('not a Spreadsheet::Link')
                   r[ci] = Workbook::Cell.new xls_cell.to_s
+                elsif e.message.match('not a Spreadsheet::Link')
+                  r[ci] = Workbook::Cell.new xls_cell.to_s
+                elsif e.message.match('not a Spreadsheet::Excel::Error')
+                  r[ci] = "._."
                 else 
                   raise e
                 end

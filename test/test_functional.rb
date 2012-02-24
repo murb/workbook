@@ -1,4 +1,4 @@
-require 'test/helper'
+require File.join(File.dirname(__FILE__), 'helper')
 
 class TestFunctional < Test::Unit::TestCase
   def test_chapter_Initializing

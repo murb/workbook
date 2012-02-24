@@ -1,4 +1,4 @@
-require 'test/helper'
+require File.join(File.dirname(__FILE__), 'helper')
 
 class TestRow < Test::Unit::TestCase
 
