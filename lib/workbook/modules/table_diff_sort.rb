@@ -21,24 +21,26 @@ module Workbook
         for ri in 0..maxri do
           row = diff_table[ri]
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
-         
+          # aselfrow = aself[ri]
+          #           aselfother
+          srow = aself[ri]
+          orow = aother[ri]
+          
           iteration_cols.each_with_index do |ch, ci|
-            scell = aself[ri][ch]
-            ocell = aother[ri][ch]
-            if (scell == ocell and scell !=nil) or (scell and ocell and scell.value == ocell.value)
-              dcell = scell
+            scell = srow[ch]
+            ocell = orow[ch]
+            dcell = scell.nil? ? Workbook::Cell.new(nil) : scell
+            if (scell == ocell)
               dcell.format = scell.format
-            elsif scell == ocell
-              dcell = Workbook::Cell.new(nil)
-            elsif scell.nil? or scell.value.nil?
+            elsif scell.nil?
               dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
-            elsif ocell.nil? or ocell.value.nil?
+            elsif ocell.nil?
               dcell = scell.clone
               f = diff_template.template.create_or_find_format_by 'created', scell.format[:number_format]
               f[:number_format] = scell.format[:number_format]
               dcell.format = f
-            elsif scell.value != ocell.value
+            elsif scell != ocell
               dcell = Workbook::Cell.new "#{scell.to_s} (was: #{ocell.to_s})"
               f = diff_template.template.create_or_find_format_by 'updated'
               dcell.format = f

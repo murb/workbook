@@ -71,11 +71,12 @@ module Workbook
     end
     
     def to_hash
+      return @hash if @hash
       keys = table.header.to_symbols
       values = self
-      hash = {}
-      keys.each_with_index {|k,i| hash[k]=values[i]}
-      return hash
+      @hash = {}
+      keys.each_with_index {|k,i| @hash[k]=values[i]}
+      return @hash
     end
     
     def <=> other

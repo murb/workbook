@@ -46,6 +46,10 @@ module Workbook
       end
     end
     
+    def nil?
+      return value.nil?
+    end
+    
     def to_sym
       #mb_chars.normalize(:kd).
       v = nil
