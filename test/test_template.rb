@@ -4,10 +4,9 @@ class TestTemplate < Test::Unit::TestCase
   
   def test_initalize
     t = Workbook::Template.new
-    assert_equal(true,t.methods.include?(:add_raw))
-    assert_equal(true,t.methods.include?(:has_raw_for?))
-    assert_equal(true,t.methods.include?(:raws))
-    
+    assert_equal(true,(t.methods.include?(:add_raw) or t.methods.include?("add_raw")))
+    assert_equal(true,(t.methods.include?(:has_raw_for?) or t.methods.include?("has_raw_for?")))
+    assert_equal(true,(t.methods.include?(:raws) or t.methods.include?("raws")))
   end
   
   def test_add_raw_and_has_raw_for
