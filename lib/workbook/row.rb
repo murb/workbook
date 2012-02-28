@@ -89,5 +89,11 @@ module Workbook
     def key
       first
     end
+    
+    # Compact detaches the row from the table
+    def compact
+      r = self.clone
+      r = r.collect{|c| c unless c.nil?}.compact
+    end
   end
 end

@@ -31,7 +31,7 @@ module Workbook
             ocell = orow[ch]
             dcell = scell.nil? ? Workbook::Cell.new(nil) : scell
             if (scell == ocell)
-              dcell.format = scell.format if scell
+              dcell.format = scell.format unless scell.nil?
             elsif scell.nil?
               dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
@@ -76,23 +76,29 @@ module Workbook
         return diffbook
       end
       
+      def compact_table
+        self.delete_if{|r| r.nil? or r.compact.empty?}
+        self
+      end
+      
       # aligns itself with another table, used by diff
       def align other, options={:sort=>true,:ignore_headers=>false}
-        puts " - Sorting"
+        
         options = {:sort=>true,:ignore_headers=>false}.merge(options)
+        puts " - Removing empty rows"
         
         iteration_cols = nil
-        sother = other.clone
-        sself = self.clone
+        sother = other.clone.compact_table
+        sself = self.clone.compact_table
         
         if options[:ignore_headers]
           sother.header = false
           sself.header = false
         end
+        puts " - Sorting"
         
         sother = options[:sort] ? Workbook::Table.new(sother.sort) : sother
         sself = options[:sort] ? Workbook::Table.new(sself.sort) : sself
-        puts sother.class
         
         iteration_rows =  [sother.count,sself.count].max.times.collect
         puts " - Aligning"

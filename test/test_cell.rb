@@ -75,4 +75,8 @@ class TestCell < Test::Unit::TestCase
 
   end
   
+  def test_nil
+    c = Workbook::Cell.new nil
+    assert_equal(true,c.nil?)
+  end
 end
