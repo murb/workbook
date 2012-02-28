@@ -46,5 +46,11 @@ module Workbook
       s.table = self
       s 
     end  
+    
+    def remove_empty_lines
+      self.delete_if{|r| r.nil? or r.compact.empty?}
+      self
+    end
+    
   end
 end

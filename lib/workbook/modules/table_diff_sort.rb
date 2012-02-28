@@ -31,7 +31,7 @@ module Workbook
             ocell = orow[ch]
             dcell = scell.nil? ? Workbook::Cell.new(nil) : scell
             if (scell == ocell)
-              dcell.format = scell.format unless scell.nil?
+              dcell.format = scell.format if scell
             elsif scell.nil?
               dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
               dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
@@ -76,11 +76,6 @@ module Workbook
         return diffbook
       end
       
-      def compact_table
-        self.delete_if{|r| r.nil? or r.compact.empty?}
-        self
-      end
-      
       # aligns itself with another table, used by diff
       def align other, options={:sort=>true,:ignore_headers=>false}
         
@@ -88,8 +83,8 @@ module Workbook
         puts " - Removing empty rows"
         
         iteration_cols = nil
-        sother = other.clone.compact_table
-        sself = self.clone.compact_table
+        sother = other.clone.remove_empty_lines
+        sself = self.clone.remove_empty_lines
         
         if options[:ignore_headers]
           sother.header = false
