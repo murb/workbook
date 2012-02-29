@@ -83,8 +83,8 @@ module Workbook
         puts " - Removing empty rows"
         
         iteration_cols = nil
-        sother = other.clone.remove_empty_lines
-        sself = self.clone.remove_empty_lines
+        sother = other.clone.remove_empty_lines!
+        sself = self.clone.remove_empty_lines!
         
         if options[:ignore_headers]
           sother.header = false

@@ -10,6 +10,10 @@ module Workbook
       end
       self.book = book
     end
+    
+    def has_contents?
+      table.has_contents?
+    end
         
     def table
       first

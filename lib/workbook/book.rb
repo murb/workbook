@@ -1,5 +1,6 @@
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
+require 'workbook/readers/csv_reader'
 
 module Workbook
   class Book < Array
@@ -41,6 +42,10 @@ module Workbook
     def sheet
       push Workbook::Sheet.new unless first
       first
+    end
+    
+    def has_contents?
+      sheet.has_contents?
     end
     
     # Loads an external file into an existing worbook

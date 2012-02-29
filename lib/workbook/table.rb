@@ -47,9 +47,13 @@ module Workbook
       s 
     end  
     
-    def remove_empty_lines
+    def remove_empty_lines!
       self.delete_if{|r| r.nil? or r.compact.empty?}
       self
+    end
+    
+    def has_contents?
+      self.clone.remove_empty_lines!.count != 0
     end
     
   end
