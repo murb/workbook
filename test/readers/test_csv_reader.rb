@@ -62,10 +62,12 @@ module Readers
  :oplevering_geslaagd_op,
  :nazorgpunten,
  :locatie],w.sheet.table.header.to_symbols)
-      assert_equal(23,w.sheet.table[2][:b].value)
-      assert_equal("sadf",w.sheet.table[3][:c].value)
-      assert_equal(Date.new(2001,1,1),w.sheet.table[1][:a].value)
-      assert_equal(DateTime.new(2011,2,12,12,23),w.sheet.table[4][:c].value)
+ #puts w.sheet.table.to_csv
+      assert_equal(Date.new(2012,7,27),w.sheet.table[2][:gewenste_migratie_maand].value)
+      assert_equal("sadf",w.sheet.table[22][:datum_introductie_gesprek].value.to_s)
+      assert_equal(Date.new(2001,1,1),w.sheet.table[1][:geen_aanbod_voor_isp].value.to_s)
+      assert_equal(DateTime.new(2011,2,12,12,23),w.sheet.table[4][:gemaakt].value.to_s)
+      assert_equal(DateTime.new(2011,2,12,12,23),w.sheet.table[4][:gemaakt_door].value.to_s)
     end
     
   end

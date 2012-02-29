@@ -105,7 +105,7 @@ module Modules
     
     
     def test_diff_xls
-      (1..7).each do |index| 
+      (1..8).each do |index| 
         prev = "test/artifacts/compare#{index}_prev.xls"
         curr = "test/artifacts/compare#{index}_current.xls"
       

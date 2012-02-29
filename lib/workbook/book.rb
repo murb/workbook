@@ -1,11 +1,17 @@
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
 require 'workbook/readers/csv_reader'
+require 'workbook/readers/txt_reader'
+require 'workbook/modules/type_parser'
 
 module Workbook
   class Book < Array
     include Workbook::Writers::XlsWriter
     include Workbook::Readers::XlsReader
+    include Workbook::Readers::CsvReader
+    include Workbook::Readers::TxtReader
+    include Workbook::Modules::TypeParser
+    
     
     attr_accessor :title
     attr_accessor :template
