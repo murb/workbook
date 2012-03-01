@@ -1,7 +1,7 @@
 module Workbook
   module Modules
     module TypeParser
-
+      # TODO: all methods here should return as procs, and be registrable as such, like the parsers in (Faster)CSV 
       
       def strip_win_chars csv_raw
         csv_raw.gsub(/(\n\r|\r\n|\r)/,"\n")
@@ -27,8 +27,7 @@ module Workbook
       end
       
       def custom_date_converter
-        proc do |v| 
-          
+        proc do |v|  
            begin
              if v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
                v = (v.length > 10) ? DateTime.parse(v) : Date.parse(v) 

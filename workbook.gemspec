@@ -6,11 +6,13 @@ require "workbook"
 Gem::Specification.new do |s|
   s.name        = 'workbook'
   s.rubyforge_project = 'workbook'
-  s.version     = '0.0.24'
+  s.version     = '0.0.25'
   s.date        = '2012-02-23'
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells"
   s.authors     = ["Maarten Brouwers"]
+  s.add_dependency('spreadsheet', '>= 0.6.8')
+  s.add_dependency('fastercsv')
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
