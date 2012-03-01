@@ -7,7 +7,8 @@ module Workbook
         csv_raw.gsub(/(\n\r|\r\n|\r)/,"\n")
       end
       
-      def parse_type value
+      def parse_type value, options={}
+        options = {:detect_date=>true}
         if value.is_a? Integer
           return value
         elsif value.is_a? DateTime
@@ -16,17 +17,20 @@ module Workbook
           return value
         elsif value.is_a? NilClass
           return value
-        elsif value == "TRUE" or value == "true"
-          return true
-        elsif value == "FALSE" or value == "false"
-          return false
         elsif value.to_i.to_s == value
           return value.to_i
-        elsif value == ""
+        elsif value.is_a? String
+          value = value.strip 
+          value.gsub('mailto:','')
+          value = string_to_boolean value
+          value
+        end
+        if value == ""
           return nil
-        else
+        elsif options[:detect_date] == true
           return custom_date_converter.call(value)
         end
+        value
       end
       
       def custom_date_converter
@@ -41,6 +45,16 @@ module Workbook
            end
            v
          end
+      end
+      
+      def string_to_boolean sss
+        dvalue = sss.downcase
+        if dvalue == "true" or dvalue == "j" or dvalue == "ja" or dvalue == "yes" or dvalue == "y"
+          return true
+        elsif dvalue == "false" or dvalue == "n" or dvalue == "nee" or dvalue == "no"
+          return false
+        end
+        sss
       end
     end
   end

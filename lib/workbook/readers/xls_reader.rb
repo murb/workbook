@@ -80,7 +80,8 @@ module Workbook
       end
       
       
-      def parse_xls xls_spreadsheet=template.raws[Spreadsheet::Excel::Workbook]
+      def parse_xls xls_spreadsheet=template.raws[Spreadsheet::Excel::Workbook], options={}
+        options = {:additional_type_parsing=>true}.merge options
         number_of_worksheets = xls_spreadsheet.worksheets.count
         (0..number_of_worksheets-1).each do |si|
           xls_sheet = xls_spreadsheet.worksheets[si]
@@ -94,6 +95,7 @@ module Workbook
               xls_row.each_with_index do |xls_cell,ci|
               
                 begin
+                  xls_cell = parse_type(xls_cell) if options[:additional_type_parsing]
                   r[ci] = Workbook::Cell.new xls_cell                
                 rescue ArgumentError => e
                   if e.message.match('not a Spreadsheet::Formula')
@@ -105,9 +107,7 @@ module Workbook
                     if v.is_a? Spreadsheet::Excel::Error
                       v = "----!"
                     end 
-                  
                     r[ci] = Workbook::Cell.new v
-                
                   elsif e.message.match('not a Spreadsheet::Link')
                     r[ci] = Workbook::Cell.new xls_cell.to_s
                   elsif e.message.match('not a Spreadsheet::Link')

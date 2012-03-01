@@ -7,7 +7,6 @@ module Workbook
         csv = file_obj.read
         csv = strip_win_chars(csv)
         parse_csv csv
-        
       end
       
       def parse_csv csv_raw
