@@ -8,28 +8,21 @@ module Workbook
       end
       
       def parse_type value, options={}
-        options = {:detect_date=>true}
-        if value.is_a? Integer
-          return value
-        elsif value.is_a? DateTime
-          return value
-        elsif value.is_a? Date
-          return value
-        elsif value.is_a? NilClass
-          return value
-        elsif value.to_i.to_s == value
-          return value.to_i
-        elsif value.is_a? String
+        options = {:detect_date=>false}
+        if value.is_a? String
+          if value.to_i.to_s == value
+            return value.to_i
+          end
           value = value.strip 
           value.gsub('mailto:','')
           value = string_to_boolean value
-          value
+          if value == ""
+            return nil
+          elsif options[:detect_date] == true
+            return custom_date_converter.call(value)
+          end
         end
-        if value == ""
-          return nil
-        elsif options[:detect_date] == true
-          return custom_date_converter.call(value)
-        end
+
         value
       end
       
