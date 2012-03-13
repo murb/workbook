@@ -1,53 +1,87 @@
 module Workbook
   module Modules
     module TypeParser
-      # TODO: all methods here should return as procs, and be registrable as such, like the parsers in (Faster)CSV 
-      
+            
       def strip_win_chars csv_raw
         csv_raw.gsub(/(\n\r|\r\n|\r)/,"\n")
       end
       
-      def parse_type value, options={}
-        options = {:detect_date=>false}
-        if value.is_a? String
-          if value.to_i.to_s == value
-            return value.to_i
-          end
-          value = value.strip 
-          value.gsub('mailto:','')
-          value = string_to_boolean value
-          if value == ""
-            return nil
-          elsif options[:detect_date] == true
-            return custom_date_converter.call(value)
-          end
-        end
-
-        value
+      def string_parsers
+        @string_parsers ||= [string_cleaner,string_nil_converter,string_integer_converter,string_optimistic_date_converter,string_boolean_converter]
       end
       
-      def custom_date_converter
+      def string_parsers= arr
+        @string_parsers = arr
+      end
+      
+      
+      def parse options={}
+        options = {:detect_date=>false}.merge(options)
+        v = value
+        string_parsers.each do |p|
+          if v.is_a? String
+            v = p.call(v)
+          end
+        end
+        v  
+      end
+      
+      def parse! options={}
+        value = parse(options)
+      end
+      
+      def string_cleaner
+        proc do |v|
+          v = v.strip 
+          
+          v.gsub('mailto:','')
+        end
+      end
+      
+      def string_nil_converter
+        proc do |v|
+          return v == "" ? nil : v
+        end
+      end
+      
+      def string_integer_converter
+        proc do |v|
+          if v.to_i.to_s == v
+            return v.to_i
+          else
+            v
+          end
+        end
+      end
+      
+      def string_optimistic_date_converter
         proc do |v|  
+          rv = v
            begin
              if v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
-               v = (v.length > 10) ? DateTime.parse(v) : Date.parse(v) 
+               rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v) 
+               rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify is it is only based on the first number
              end
            rescue ArgumentError
-             v = v
+             rv = v
            end
-           v
+           rv
          end
       end
       
-      def string_to_boolean sss
-        dvalue = sss.downcase
-        if dvalue == "true" or dvalue == "j" or dvalue == "ja" or dvalue == "yes" or dvalue == "y"
-          return true
-        elsif dvalue == "false" or dvalue == "n" or dvalue == "nee" or dvalue == "no"
-          return false
+      def string_boolean_converter
+        proc do |v|
+          dv = v.downcase
+          if dv == "true" or dv == "j" or dv == "ja" or dv == "yes" or dv == "y"
+            return true
+          elsif dv == "false" or dv == "n" or dv == "nee" or dv == "no"
+            return false
+          end
+          v
         end
-        sss
       end
+      
+      
     end
   end
 end

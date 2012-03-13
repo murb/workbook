@@ -95,8 +95,8 @@ module Workbook
               xls_row.each_with_index do |xls_cell,ci|
               
                 begin
-                  xls_cell = parse_type(xls_cell) if options[:additional_type_parsing]
-                  r[ci] = Workbook::Cell.new xls_cell                
+                  r[ci] = Workbook::Cell.new xls_cell    
+                  r[ci].parse!    
                 rescue ArgumentError => e
                   if e.message.match('not a Spreadsheet::Formula')
                     v = xls_cell.value

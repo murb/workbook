@@ -1,6 +1,11 @@
 # encoding: utf-8
+
+require 'workbook/modules/type_parser'
+
 module Workbook
   class Cell
+    include Workbook::Modules::TypeParser
+    
     attr_accessor :value
     attr_accessor :format
     attr_accessor :formula
@@ -14,8 +19,7 @@ module Workbook
       valid_type
     end
     
-    def initialize value=nil, options={}     
-
+    def initialize value=nil, options={}
       if valid_value? value
         format = options[:format] 
         @value = value
