@@ -76,7 +76,7 @@ module Workbook
       def load_xls file_obj
         sp = Spreadsheet.open(file_obj, mode='rb')
         template.add_raw sp
-        parse_xls
+        parse_xls sp
       end
       
       
