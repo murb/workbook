@@ -8,7 +8,7 @@ module Workbook
     
     
     def initialize cells=[], table=nil, options={}
-      options={:parse_cells_on_batch_creation=>false,:cell_parse_options=>{}}.merge(options)
+      options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{}}.merge(options) : {} 
       cells = [] if cells==nil
       self.table= table
       cells.each do |c| 
