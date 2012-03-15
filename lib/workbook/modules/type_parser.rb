@@ -25,7 +25,11 @@ module Workbook
       end
       
       def parse! options={}
-        value = parse(options)
+        self.value = parse(options)
+      end
+      
+      def clean! options={}
+        parse! options
       end
       
       def string_cleaner

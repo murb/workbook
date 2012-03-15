@@ -34,5 +34,16 @@ module Modules
       c.value = "v"
       assert_equal("v2",c.parse)
     end
+    
+    def test_parse!
+      r= Workbook::Row.new
+      r[0] = Workbook::Cell.new "xls_cell"    
+      r[0].parse!    
+      assert_equal("xls_cell",r[0].value)
+      r[1] = Workbook::Cell.new ""    
+      r[1].parse!    
+      assert_equal(nil,r[1].value)
+      
+    end
   end
 end

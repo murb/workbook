@@ -103,4 +103,9 @@ class TestRow < Test::Unit::TestCase
     assert_equal([:test],r.find_cells_by_background_color)
     assert_equal([],r.find_cells_by_background_color('#ff0000'))
   end
+  
+  def test_to_s
+    r1 = Workbook::Row.new  ["test", "asdf-asd"]
+    assert_equal("test,asdf-asd\n",r1.to_csv)
+  end
 end
