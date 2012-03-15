@@ -1,7 +1,6 @@
 module Workbook
   module Modules
     module TypeParser
-            
       def strip_win_chars csv_raw
         csv_raw.gsub(/(\n\r|\r\n|\r)/,"\n")
       end
@@ -13,7 +12,6 @@ module Workbook
       def string_parsers= arr
         @string_parsers = arr
       end
-      
       
       def parse options={}
         options = {:detect_date=>false}.merge(options)
@@ -33,7 +31,6 @@ module Workbook
       def string_cleaner
         proc do |v|
           v = v.strip 
-          
           v.gsub('mailto:','')
         end
       end
@@ -80,8 +77,6 @@ module Workbook
           v
         end
       end
-      
-      
     end
   end
 end
