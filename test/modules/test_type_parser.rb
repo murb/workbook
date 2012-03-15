@@ -5,6 +5,7 @@ module Modules
       {"2312"=>2312,
        "12-12-2012"=>Date.new(2012,12,12),
        "12-12-2012 12:24"=>DateTime.new(2012,12,12,12,24),
+       "1-11-2011"=>Date.new(2011,11,1),
        "jA"=>true,
        "n"=>false,
        "12 bomen"=>"12 bomen",
@@ -17,7 +18,7 @@ module Modules
     
     def test_parse
       examples.each do |k,v|
-        assert_equal(v,Workbook::Cell.new(k).parse)
+        assert_equal(v,Workbook::Cell.new(k).parse({:detect_date=>true}))
       end
     end
     

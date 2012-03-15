@@ -7,7 +7,8 @@ module Workbook
     attr_accessor :format
     
     
-    def initialize cells=[], table=nil
+    def initialize cells=[], table=nil, options={}
+      options={:parse_cells_on_batch_creation=>false,:cell_parse_options=>{}}.merge(options)
       cells = [] if cells==nil
       self.table= table
       cells.each do |c| 
@@ -15,6 +16,7 @@ module Workbook
           c = c
         else
           c = Workbook::Cell.new(c)
+          c.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
         end
         push c
       end

@@ -18,11 +18,11 @@ module Workbook
     #   push sheet if sheet
     # end
     
-    def initialize sheet=Workbook::Sheet.new([], self)
+    def initialize sheet=Workbook::Sheet.new([], self, options={})
       if sheet.is_a? Workbook::Sheet
         push sheet
       else
-        push Workbook::Sheet.new(sheet, self)
+        push Workbook::Sheet.new(sheet, self, options)
       end
     end
     

@@ -31,7 +31,6 @@ module Readers
  :oplevering_geslaagd_op,
  :nazorgpunten,
  :locatie],w.sheet.table.header.to_symbols)
- puts w.sheet.table.to_csv
       assert_equal(Date.new(2011,11,01),w.sheet.table[29][:gewenste_migratie_maand].value)
       assert_equal("Belt , G (Gerrit)",w.sheet.table[1][:gemaakt_door].value)
       assert_equal(false,w.sheet.table[1][:geen_aanbod_voor_isp].value)
@@ -41,7 +40,6 @@ module Readers
       assert_equal(24208,w.sheet.table[7][:locatie].value)
       assert_equal("Tekenafspraak op 27 juli a.s. Op 27-07-2011 alles getekend en ingezonden.",w.sheet.table[2][:toelichting].value)
       assert_equal("Ondernemer lichtte met name negatieve punten uit, gaf geen reactie op financiële prognose. Twijfelt over benodigde AC (schat hij hoger ivm ouderen) en verstoring door TNT Postkantoor/drukte in winkel. Vervolgafspraak 22 juni 2011; dan besluit.",w.sheet.table[750][:toelichting].value)
-      
     end
     
   end

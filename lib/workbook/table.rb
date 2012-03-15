@@ -9,14 +9,14 @@ module Workbook
     attr_accessor :sheet
     attr_accessor :header
     
-    def initialize row_cel_values=[], sheet=nil
+    def initialize row_cel_values=[], sheet=nil, options={}
       #@rows = []
       row_cel_values = [] if row_cel_values == nil
       row_cel_values.each do |r|
         if r.is_a? Workbook::Row
           r.table = self
         else
-          r = Workbook::Row.new(r,self)
+          r = Workbook::Row.new(r,self, options)
         end
       end
       self.sheet = sheet

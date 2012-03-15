@@ -6,17 +6,22 @@ module Workbook
       end
       
       def string_parsers
-        @string_parsers ||= [string_cleaner,string_nil_converter,string_integer_converter,string_optimistic_date_converter,string_boolean_converter]
+        @string_parsers ||= [:string_cleaner,:string_nil_converter,:string_integer_converter,:string_boolean_converter]
       end
       
       def string_parsers= arr
         @string_parsers = arr
       end
       
+      def string_parsers_as_procs
+        string_parsers.collect{|c| c.is_a?(Proc) ? c : self.send(c)}
+      end
+      
       def parse options={}
         options = {:detect_date=>false}.merge(options)
+        string_parsers.push :string_optimistic_date_converter if options[:detect_date]
         v = value
-        string_parsers.each do |p|
+        string_parsers_as_procs.each do |p|
           if v.is_a? String
             v = p.call(v)
           end
@@ -58,16 +63,19 @@ module Workbook
       def string_optimistic_date_converter
         proc do |v|  
           rv = v
-           begin
-             if v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
-               rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v) 
-               rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify is it is only based on the first number
-             end
-           rescue ArgumentError
-             rv = v
-           end
-           rv
-         end
+          if v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
+            begin
+              rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v) 
+            rescue ArgumentError
+              rv = v
+            end
+            begin
+              rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify is it is only based on the first number
+            rescue ArgumentError
+            end
+          end          
+          rv
+        end
       end
       
       def string_boolean_converter
