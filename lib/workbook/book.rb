@@ -1,3 +1,4 @@
+$KCODE="u"
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
 require 'workbook/readers/csv_reader'

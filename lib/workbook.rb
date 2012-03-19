@@ -1,3 +1,4 @@
+$KCODE="u"
 require 'workbook/book'
 require 'workbook/sheet'
 require 'workbook/table'

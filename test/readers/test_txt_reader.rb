@@ -1,3 +1,4 @@
+$KCODE="u"
 require File.join(File.dirname(__FILE__), '../helper')
 module Readers
   class TestTxtReader < Test::Unit::TestCase
