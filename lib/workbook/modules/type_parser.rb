@@ -81,9 +81,9 @@ module Workbook
       def string_boolean_converter
         proc do |v|
           dv = v.downcase
-          if dv == "true" or dv == "j" or dv == "ja" or dv == "yes" or dv == "y"
+          if dv == "true"
             return true
-          elsif dv == "false" or dv == "n" or dv == "nee" or dv == "no"
+          elsif dv == "false"
             return false
           end
           v
