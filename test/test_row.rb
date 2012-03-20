@@ -52,6 +52,9 @@ class TestRow < Test::Unit::TestCase
   def test_to_symbols
     r1 = Workbook::Row.new ["test", "asdf-asd", "asdf - asdf", "asdf2"]
     assert_equal([:test, :asdfasd, :asdf_asdf, :asdf2], r1.to_symbols)
+    r1 = Workbook::Row.new ["inït", "è-éë"]
+    assert_equal([:init, :eee], r1.to_symbols)
+
   end
   
   def test_to_hash
