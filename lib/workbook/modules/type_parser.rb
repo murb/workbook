@@ -65,6 +65,7 @@ module Workbook
           rv = v
           starts_with_nr = v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
           no_spaced_dash = v.to_s.match(" - ") ? false : true
+          normal_date_length = v.to_s.length <= 25
           if no_spaced_dash and starts_with_nr
             begin
               rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v) 
