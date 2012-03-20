@@ -1,8 +1,8 @@
-$KCODE="u"
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
+require 'rchardet'
 
 module Workbook
   class Book < Array
@@ -43,6 +43,8 @@ module Workbook
   	def push sheet=Workbook::Sheet.new
       super(sheet)
     end
+    
+    # Returns the first sheet, and creates an empty one if one doesn't exists.
     def sheet
       push Workbook::Sheet.new unless first
       first
@@ -54,9 +56,33 @@ module Workbook
     
     # Loads an external file into an existing worbook
     def open filename, ext=nil
+      ext = file_extension(filename) unless ext
+      if ['txt','csv','xml'].include?(ext)
+        open_text filename, ext
+      else
+        open_binary filename, ext
+      end
+    end
+    
+    # open the file in binary, read-only mode, do not read it, but pas it throug to the extension determined loaded
+    def open_binary filename, ext=nil
+      ext = file_extension(filename) unless ext
       f = File.open(filename,'rb')
-      ext = File.extname(filename).gsub('.','') unless ext
       send("load_#{ext}".to_sym,f)
+    end
+    
+    # open the file in non-binary, read-only mode, read it and parse it to UTF-8
+    def open_text filename, ext=nil
+      ext = file_extension(filename) unless ext
+      f = File.open(filename,'r')
+      t = f.read
+      detected_encoding = CharDet.detect(t)['encoding']
+      t = Iconv.conv("UTF-8//TRANSLIT//IGNORE",detected_encoding,t)
+      send("load_#{ext}".to_sym,t)
+    end
+    
+    def file_extension(filename)
+      File.extname(filename).gsub('.','')
     end
     
     # Create an instance from a file, using open.

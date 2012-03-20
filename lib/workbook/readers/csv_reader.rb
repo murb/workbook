@@ -3,13 +3,13 @@ require 'faster_csv'
 module Workbook
   module Readers
     module CsvReader
-      def load_csv file_obj
-        csv = file_obj.read
-        csv = strip_win_chars(csv)
+      def load_csv text
+        csv = text
         parse_csv csv
       end
       
       def parse_csv csv_raw
+        custom_date_converter = Workbook::Cell.new.string_optimistic_date_converter
         converters = [:float,:integer,:date,:date_time,custom_date_converter]
         csv=nil
         begin
