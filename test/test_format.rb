@@ -42,6 +42,9 @@ class TestFormat < Test::Unit::TestCase
     assert_equal(false,a.has_background_color?('#00ff00'))
     a = Workbook::Format.new({:background_color=>'#ffffff'})
     assert_equal(false,a.has_background_color?)
+    a = Workbook::Format.new({:background_color=>'#FFFFFf'})
+    assert_equal(false,a.has_background_color?)
+
     
   end
   

@@ -13,7 +13,7 @@ module Workbook
     
     def has_background_color? color=:any
       if self[:background_color]
-        return (self[:background_color].downcase==color.to_s.downcase or (!(self[:background_color]==nil or self[:background_color]=='#ffffff' or self[:background_color]=='#000000') and color==:any))
+        return (self[:background_color].downcase==color.to_s.downcase or (!(self[:background_color]==nil or (self[:background_color].is_a? String and (self[:background_color].downcase=='#ffffff' or self[:background_color]=='#000000'))) and color==:any))
       else
         return false
       end

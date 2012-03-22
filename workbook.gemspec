@@ -2,7 +2,6 @@
 $:.push File.expand_path("../lib", __FILE__)
 require "workbook"
 
-
 Gem::Specification.new do |s|
   s.name        = 'workbook'
   s.rubyforge_project = 'workbook'
