@@ -15,10 +15,8 @@ module Workbook
     attr_accessor :template
     attr_accessor :default_rewrite_header
     
-    # def initialize sheet=Workbook::Sheet.new
-    #   push sheet if sheet
-    # end
-    
+    # @param [Workbook::Sheet, Array] Create a new workbook based on an existing sheet, or initialize a sheet based on the array
+    # @return [Workbook::Book]  
     def initialize sheet=Workbook::Sheet.new([], self, options={})
       if sheet.is_a? Workbook::Sheet
         push sheet
@@ -27,15 +25,18 @@ module Workbook
       end
     end
     
+    # @return [Workbook::Format] returns the template describing how the document should be/is formatted
     def template
       @template ||= Workbook::Template.new
     end
     
+    # @param [Workbook::Format] a template describing how the document should be/is formatted
     def template= template
       raise ArgumentError, "format should be a Workboot::Format" unless template.is_a? Workbook::Template
       @template = template
     end
     
+    # @return [String] the title of the workbook
     def title
       @title ? @title : "untitled document"
     end
@@ -44,7 +45,7 @@ module Workbook
       super(sheet)
     end
     
-    # Returns the first sheet, and creates an empty one if one doesn't exists.
+    # @return [Workbook::Sheet] The first sheet, and creates an empty one if one doesn't exists
     def sheet
       push Workbook::Sheet.new unless first
       first
@@ -55,6 +56,8 @@ module Workbook
     end
     
     # Loads an external file into an existing worbook
+    # @param [String] a string with a reference to the file to be opened
+    # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open filename, ext=nil
       ext = file_extension(filename) unless ext
       if ['txt','csv','xml'].include?(ext)
@@ -64,14 +67,18 @@ module Workbook
       end
     end
     
-    # open the file in binary, read-only mode, do not read it, but pas it throug to the extension determined loaded
+    # Open the file in binary, read-only mode, do not read it, but pas it throug to the extension determined loaded
+    # @param [String] a string with a reference to the file to be opened
+    # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_binary filename, ext=nil
       ext = file_extension(filename) unless ext
       f = File.open(filename,'rb')
       send("load_#{ext}".to_sym,f)
     end
     
-    # open the file in non-binary, read-only mode, read it and parse it to UTF-8
+    # Open the file in non-binary, read-only mode, read it and parse it to UTF-8
+    # @param [String] a string with a reference to the file to be opened
+    # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, ext=nil
       ext = file_extension(filename) unless ext
       f = File.open(filename,'r')
@@ -81,11 +88,14 @@ module Workbook
       send("load_#{ext}".to_sym,t)
     end
     
+    # @param [String] The full filename, or path
+    # @return [String] The file extension
     def file_extension(filename)
       File.extname(filename).gsub('.','')
     end
     
     # Create an instance from a file, using open.
+    # @return [Workbook::Book] A new instance, based on the filename
     def self.open filename, ext=nil
       wb = self.new
       wb.open filename, ext

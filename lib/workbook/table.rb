@@ -41,10 +41,12 @@ module Workbook
     end
     
     def create_or_open_row_at index
-      s = self[index]
-      s = self[index] = Workbook::Row.new if s == nil
-      s.table = self
-      s 
+      r = self[index]
+      if r == nil
+        r = Workbook::Row.new
+        r.table=(self)
+      end
+      r 
     end  
     
     def remove_empty_lines!
@@ -54,6 +56,11 @@ module Workbook
     
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
+    end
+    
+    def contains_row? row
+      raise ArgumentError, "table should be a Workbook::Row (you passed a #{t.class})" unless row.is_a?(Workbook::Row)
+      self.collect{|r| r.object_id}.include? row.object_id
     end
     
   end
