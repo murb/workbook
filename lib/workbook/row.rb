@@ -31,18 +31,11 @@ module Workbook
     end
     
     # @param [Workbook::Table] Reference to the table this row belongs to (and adds the row to this table)
-    ###### @param [true,false] Skip check whether the row has already been added to the table (if it has been added the default is not to add it again)
-    def table= t #, skip_check_if_already_added=false
+    def table= t
       raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) or t == nil
       if t
         @table = t
-        table << self #unless t.contains_row? self
-        
-        #if skip_check_if_already_added
-        #  table << self
-        # else
-              #     table << self #unless table.collect{|r| r.object_id}.include? self.object_id
-        #         end
+        table << self
       end
     end
     

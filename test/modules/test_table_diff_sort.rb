@@ -111,15 +111,9 @@ module Modules
       
         wprev=Workbook::Book.open prev
         wcurr=Workbook::Book.open curr
-      
-        #uts wprev.sheet.table.compact_table.sort.to_csv
+
         diff = wcurr.sheet.table.diff wprev.sheet.table
         diff.write_to_xls({:filename=>"compare#{index}.xls"})
-        #       wcurr.load_xls curr
-        #       puts "\nStart diff"
-        #       diff = wcurr.sheet.table.diff wprev.sheet.table
-        #       puts "Start writing"
-        #       puts diff.write_to_xls
       end
     end
   end
