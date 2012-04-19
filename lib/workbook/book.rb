@@ -91,7 +91,7 @@ module Workbook
     # @param [String] The full filename, or path
     # @return [String] The file extension
     def file_extension(filename)
-      File.extname(filename).gsub('.','')
+      File.extname(filename).gsub('.','').downcase if filename
     end
     
     # Create an instance from a file, using open.
