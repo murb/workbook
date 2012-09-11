@@ -4,7 +4,6 @@ module Workbook
 		module TableDiffSort
       # create an overview of the differences between itself with another table, returns a book with a single sheet and table (containing the diffs)
       def diff other, options={:sort=>true,:ignore_headers=>false}
-        puts "#diff"
         
         aligned = align(other, options)
         aself = aligned[:self]
@@ -16,13 +15,10 @@ module Workbook
           iteration_cols = (aother.header.to_symbols+aother.header.to_symbols).uniq
         end
         diff_table = diff_template.sheet.table
-        puts " - Creating diff-table. Estimated time: #{aself.count*aself.first.count*0.0063}s "
         maxri = (aself.count-1)
         for ri in 0..maxri do
           row = diff_table[ri]
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
-          # aselfrow = aself[ri]
-          #           aselfother
           srow = aself[ri]
           orow = aother[ri]
           
@@ -80,7 +76,6 @@ module Workbook
       def align other, options={:sort=>true,:ignore_headers=>false}
         
         options = {:sort=>true,:ignore_headers=>false}.merge(options)
-        puts " - Removing empty rows"
         
         iteration_cols = nil
         sother = other.clone.remove_empty_lines!
@@ -90,13 +85,11 @@ module Workbook
           sother.header = false
           sself.header = false
         end
-        puts " - Sorting"
         
         sother = options[:sort] ? Workbook::Table.new(sother.sort) : sother
         sself = options[:sort] ? Workbook::Table.new(sself.sort) : sself
         
         iteration_rows =  [sother.count,sself.count].max.times.collect
-        puts " - Aligning"
 
         row_index = 0
         while row_index < [sother.count,sself.count].max and row_index < other.count+self.count do
