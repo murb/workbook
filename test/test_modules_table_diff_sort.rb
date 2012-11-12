@@ -101,20 +101,5 @@ module Modules
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.sheet.table.to_csv)
       diff_result.write_to_xls({:rewrite_header=>true})
     end
-    
-    
-    
-    def test_diff_xls
-      (1..8).each do |index| 
-        prev = "test/artifacts/compare#{index}_prev.xls"
-        curr = "test/artifacts/compare#{index}_current.xls"
-      
-        wprev=Workbook::Book.open prev
-        wcurr=Workbook::Book.open curr
-
-        diff = wcurr.sheet.table.diff wprev.sheet.table
-        diff.write_to_xls({:filename=>"compare#{index}.xls"})
-      end
-    end
   end
 end

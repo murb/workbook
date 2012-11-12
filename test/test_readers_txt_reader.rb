@@ -7,42 +7,22 @@ module Readers
     #   w.open("test/artifacts/xls_with_txt_extension.txt")
     #   puts w.sheet.table
     # end
-    def test_complex_excel_txt_open
+
+    def test_excel_standardized_open
       w = Workbook::Book.new
-      w.open("test/artifacts/sharepoint_download_excel.txt")
+      w.open("test/artifacts/excel_different_types.txt")
       # reads
-      #   a;b;c
-      #   1-1-2001;23;1
-      #   asdf;23;asd
-      #   23;asdf;sadf
-      #   12;23;12-02-2011 12:23
-      #y w.sheet.table
-      assert_equal([:id,
- :naam,
- :locatie_naam,
- :locatie_rayon,
- :datum_gesprek,
- :algehele_indruk,
- :gemaakt_door,
- :gemaakt,
- :titel,
- :toelichting,
- :gewenste_migratie_maand,
- :plek_ing_balie,
- :plek_tnt_balie,
- :alternatieve_locaties,
- :datum_introductie_gesprek,
- :geen_aanbod_voor_isp,
- :oplevering_geslaagd_op,
- :nazorgpunten,
- :locatie],w.sheet.table.header.to_symbols)
-      assert_equal(Date.new(2011,11,01),w.sheet.table[29][:gewenste_migratie_maand].value)
-      assert_equal("Belt , G (Gerrit)",w.sheet.table[1][:gemaakt_door].value)
-      assert_equal(false,w.sheet.table[1][:geen_aanbod_voor_isp].value)
-      assert_equal(DateTime.new(2011,7,25,11,02),w.sheet.table[4][:gemaakt].value)
-      assert_equal("Roggeveen , PC (Peter)",w.sheet.table[4][:gemaakt_door].value)
-      assert_equal("Groeneveld, R (René)",w.sheet.table[400][:gemaakt_door].value)
-      assert_equal(24208,w.sheet.table[7][:locatie].value)
+      #   a,b,c,d
+      # 2012-02-22,2014-12-27,2012-11-23,2012-11-12T04:20:00+00:00
+      # c,222.0,,0027-12-14T05:21:00+00:00
+      # 2012-01-22T11:00:00+00:00,42000.0,"goh, idd",ls
+      
+      assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols)
+      assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
+      assert_equal("c",w.sheet.table[2][:a].value)
+      assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
+      assert_equal(42000,w.sheet.table[3][:b].value)
+      assert_equal(nil,w.sheet.table[2][:c].value)
     end
     
   end
