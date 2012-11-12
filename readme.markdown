@@ -74,7 +74,7 @@ To some extent, sort_by works, it doesn't, however, adhere to the header setting
 	
 ### Comparing tables
 	
-Simply call 
+Simply call on a Workbook::Table
 
 	t1.diff t2
 	
@@ -86,7 +86,7 @@ Currently writing is limited to the following formats. Templating support is sti
 	
 	b.to_xls 					# returns a spreadsheet workbook
 	b.write_to_xls filename 	# writes to filename
-	t.to_csv 					# returns a csv-string
+	t.to_csv 					# returns a csv-string (called on tables)
 	
 In case you want to display the table in HTML, some conversion is offered to convert text/background properties to css-entities. Internally the hash storing style elements tries to map to CSS where possible.
 	

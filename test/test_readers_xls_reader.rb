@@ -57,6 +57,5 @@ module Readers
       end
       assert_equal(true,failed_properly)
     end
-    
   end
 end
