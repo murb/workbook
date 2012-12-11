@@ -14,7 +14,7 @@ Subsequently a table consists of:
 	  
 Book, Sheet, Table and Row inherit from the base Array class, and hence walks and quacks as such. The row is extended with hashlike lookups (`row[:id]`) and writers (`row[:id]=`). Values are converted to ruby native types, and optional parsers can be added to improve recognition. 
 
-In addition to offering you this plain structure it allows for importing and writing .xls and .csv files (more to come), and includes the utility to easily create an overview of the differences between two tables and read out basic cell-styling properties as css.
+In addition to offering you this plain structure it allows for importing .xls, .csv, .xlsx, .txt files (more to come), writing .xls, and .csv  (more to come) and includes several utilities to easily create an overview of the differences between two tables and output basic cell-styling properties as css.
 
 ## The Basics
 	  

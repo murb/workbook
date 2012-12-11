@@ -1,5 +1,6 @@
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
+require 'workbook/readers/xlsx_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
 require 'rchardet'
@@ -8,6 +9,7 @@ module Workbook
   class Book < Array
     include Workbook::Writers::XlsWriter
     include Workbook::Readers::XlsReader
+    include Workbook::Readers::XlsxReader
     include Workbook::Readers::CsvReader
     include Workbook::Readers::TxtReader    
     

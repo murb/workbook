@@ -5,7 +5,7 @@ require "workbook"
 Gem::Specification.new do |s|
   s.name        = 'workbook'
   s.rubyforge_project = 'workbook'
-  s.version     = '0.1.2'
+  s.version     = '0.1.5'
   s.date        = '2012-11-12'
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excels and csv's and tab separated, and offers basic diffing and sorting capabilities."
@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.add_dependency('spreadsheet', '>= 0.6.8')
   s.add_dependency('fastercsv')
   s.add_dependency("rchardet", "~> 1.3")
+  s.add_dependency('rubyXL')
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
