@@ -20,8 +20,8 @@ module Readers
       
       assert_equal("Callnr.",w.sheet.table[0][:callnr].value)
       assert_equal("2475617.00",w.sheet.table[3][:callnr].value)
-      assert_equal("2012-12-03T09:48:59+00:00",w.sheet.table[6][:datum_gemeld].value.to_s)
       assert_equal("2012-12-03T12:30:00+00:00",w.sheet.table[7][:datum_gemeld].value.to_s)
+      assert_equal("2012-12-03T09:48:59+00:00",w.sheet.table[6][:datum_gemeld].value.to_s)
     end
 
   end
