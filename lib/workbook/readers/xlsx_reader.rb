@@ -109,7 +109,7 @@ module Workbook
             r = s.table.create_or_open_row_at(ri)
             
             row.each_with_index do |cell,ci|
-              if cell
+              if cell.nil?
                 r[ci] = Workbook::Cell.new nil
               else
                 r[ci] = Workbook::Cell.new cell.value 
