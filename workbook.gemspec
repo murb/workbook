@@ -5,8 +5,8 @@ require "workbook"
 Gem::Specification.new do |s|
   s.name        = 'workbook'
   s.rubyforge_project = 'workbook'
-  s.version     = '0.1.5'
-  s.date        = '2012-11-12'
+  s.version     = '0.1.6'
+  s.date        = '2012-12-11'
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excels and csv's and tab separated, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]

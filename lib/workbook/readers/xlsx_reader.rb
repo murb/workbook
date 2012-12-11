@@ -109,26 +109,30 @@ module Workbook
             r = s.table.create_or_open_row_at(ri)
             
             row.each_with_index do |cell,ci|
-              
-              r[ci] = Workbook::Cell.new cell.value 
-              r[ci].parse!    
+              if cell
+                r[ci] = Workbook::Cell.new nil
+              else
+                r[ci] = Workbook::Cell.new cell.value 
                 
-              xls_format = cell.style_index
-              col_width = nil
+                r[ci].parse!    
+                
+                xls_format = cell.style_index
+                col_width = nil
               
-              if ri == 0
-                col_width = col_widths[ci]
-              end
-              f = template.create_or_find_format_by "style_index_#{cell.style_index}", col_width
-              f[:width]= col_width
-              f[:background_color] = "##{cell.fill_color}"
-              f[:number_format] = ms_formatting_to_strftime(cell.number_format)
-              f[:font_family] = cell.font_name
-              f[:color] = "##{cell.font_color}"
+                if ri == 0
+                  col_width = col_widths[ci]
+                end
+                f = template.create_or_find_format_by "style_index_#{cell.style_index}", col_width
+                f[:width]= col_width
+                f[:background_color] = "##{cell.fill_color}"
+                f[:number_format] = ms_formatting_to_strftime(cell.number_format)
+                f[:font_family] = cell.font_name
+                f[:color] = "##{cell.font_color}"
 
-              f.add_raw xls_format
+                f.add_raw xls_format
      
-              r[ci].format = f
+                r[ci].format = f
+              end
             end
           end
         end

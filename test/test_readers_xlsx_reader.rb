@@ -11,6 +11,7 @@ module Readers
       assert_equal(8,w.sheet.table.first[:b].format[:width].round)
       assert_equal(4,w.sheet.table.first[:a].format[:width].round)
       assert_equal(25,w.sheet.table.first[:c].format[:width].round)
+      y w
     end
   end
 end
