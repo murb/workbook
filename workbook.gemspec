@@ -5,12 +5,12 @@ require "workbook"
 Gem::Specification.new do |s|
   s.name        = 'workbook'
   s.rubyforge_project = 'workbook'
-  s.version     = '0.1.6.2'
-  s.date        = '2012-12-11'
+  s.version     = '0.2.0'
+  s.date        = '2013-01-10'
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excels and csv's and tab separated, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
-  s.add_dependency('spreadsheet', '>= 0.6.8')
+  s.add_dependency('spreadsheet', '>= 0.7.5')
   s.add_dependency('fastercsv')
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency('rubyXL')

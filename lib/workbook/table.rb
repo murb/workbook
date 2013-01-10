@@ -21,9 +21,12 @@ module Workbook
       end
       self.sheet = sheet
       # Column data is considered as a 'row' with 'cells' that contain 'formatting'
-
     end
     
+    # Returns the header of this table (typically the first row, but can be a different row). 
+    # The header row is also used for finding values in a aribrary row.
+    #
+    # @return [Workbook::Row] The header
     def header
       if @header == false
         false
@@ -34,9 +37,9 @@ module Workbook
       end
     end
     
-    # factory pattern...?
-    def new_row cel_values=[]
-      r = Workbook::Row.new(cel_values,self)
+    # Generates a new row, with optionally predefined cell-values, that is already connected to this table.
+    def new_row cell_values=[]
+      r = Workbook::Row.new(cell_values,self)
       return r
     end
     

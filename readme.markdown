@@ -96,4 +96,12 @@ The [ruby toolbox lists plenty of alternatives](https://www.ruby-toolbox.com/sea
 
 ## License
 
-MIT... (c) murb / Maarten Brouwers, 2011-2013
+This code MIT (but see below) (c) murb / Maarten Brouwers, 2011-2013
+
+Workbook uses the following gems:
+
+* [Spreadsheet](https://github.com/zdavatz/spreadsheet) (Copyright (c) 2010 ywesee GmbH (mhatakeyama@ywesee.com, zdavatz@ywesee.com); GPL3 (License required for closed implementations))
+* [FasterCSV](http://fastercsv.rubyforge.org/) (Copyright (c) James Edward Gray II; GPL2 & Ruby License)
+* [rchardet](http://rubyforge.org/projects/rchardet) (Copyright (c) JMHodges; LGPL)
+* [ruby-ole](http://code.google.com/p/ruby-ole/) (Copyright (c) 2007-2010 Charles Lowe; MIT)
+* [RubyXL](https://github.com/gilt/rubyXL) (Copyright (c) 2011 Vivek Bhagwat; MIT-Licensed)

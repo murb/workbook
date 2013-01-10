@@ -76,7 +76,7 @@ module Workbook
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
       # 
       # @params [Hash] A hash with options (unused so far)
-      # @returns [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
+      # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xls options={}
         book = init_spreadsheet_template
         self.each_with_index do |s,si|

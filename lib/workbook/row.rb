@@ -69,7 +69,7 @@ module Workbook
     #
     # @param [String] default :any colour, can be a CSS-style hex-string
     # @param [Hash] options. Option :hash_keys (default true) returns row as an array of symbols
-    # @returns [Array<Symbol>, Workbook::Row<Workbook::Cell>]
+    # @return [Array<Symbol>, Workbook::Row<Workbook::Cell>]
     def find_cells_by_background_color color=:any, options={}
       options = {:hash_keys=>true}.merge(options)
       cells = self.collect {|c| c if c.format.has_background_color?(color) }.compact
@@ -79,17 +79,17 @@ module Workbook
     
     # Returns true when the row belongs to a table and it is the header row (typically the first row) 
     #
-    # @returns [@Boolean]
+    # @return [Boolean]
     def header?
       table != nil and self.object_id == table.header.object_id
     end
     
-    # @returns [Array<Symbol>] returns row as an array of symbols
+    # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
       collect{|c| c.to_sym}
     end
     
-    # @returns [Array<Workbook::Cell>] returns row as an array of symbols
+    # @return [Array<Workbook::Cell>] returns row as an array of symbols
     def to_a
       self.collect{|c| c}
     end

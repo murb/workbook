@@ -6,6 +6,9 @@ require 'workbook/readers/txt_reader'
 require 'rchardet'
 
 module Workbook
+  # The Book class is the container of sheets. It can be inialized by either the standard initalizer or the open method. The 
+  # Book class can also keep a reference to a template class, storing shared formatting options.
+  # 
   class Book < Array
     include Workbook::Writers::XlsWriter
     include Workbook::Readers::XlsReader
@@ -58,6 +61,7 @@ module Workbook
     end
     
     # Loads an external file into an existing worbook
+    #
     # @param [String] a string with a reference to the file to be opened
     # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     # @return [Workbook::Book] A new instance, based on the filename
@@ -103,6 +107,8 @@ module Workbook
     
     # Create an instance from a file, using open.
     #
+    # @param [String] the filename of the document
+    # @param [String] (not required) enforce a certain extension, the parser is based on the extension of the file
     # @return [Workbook::Book] A new instance, based on the filename
     def self.open filename, ext=nil
       wb = self.new
