@@ -86,7 +86,7 @@ module Workbook
             xls_sheet.row(ri).height= r.format[:height] if r.format
             r.each_with_index do |c, ci|
               if c
-                if r.header?
+                if r.first?
                   xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
                   xls_sheet.columns[ci].width= c.format[:width]
                 end

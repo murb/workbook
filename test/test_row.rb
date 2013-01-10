@@ -46,8 +46,25 @@ class TestRow < Test::Unit::TestCase
     r2.table = t
     assert_equal(false, r2.header?)
     assert_equal(true, t.first.header?)
+    t.header = r2
+    assert_equal(true, r2.header?)
+    assert_equal(false, t.first.header?)
+    
     assert_equal(r1, t.first)    
   end 
+  
+  def test_first?
+    t = Workbook::Table.new
+    r1 = Workbook::Row.new
+    r1.table = t
+    assert_equal(true, r1.first?)
+    r2 = Workbook::Row.new
+    r2.table = t
+    assert_equal(false, r2.first?)
+    assert_equal(true, t.first.first?)
+    
+    assert_equal(r1, t.first) 
+  end
   
   def test_to_symbols
     r1 = Workbook::Row.new ["test", "asdf-asd", "asdf - asdf", "asdf2"]

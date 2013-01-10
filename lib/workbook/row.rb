@@ -120,6 +120,10 @@ module Workbook
       table != nil and self.object_id == table.header.object_id
     end
     
+    def first?
+      table != nil and self.object_id == table.first.object_id
+    end
+    
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
       collect{|c| c.to_sym}
