@@ -1,7 +1,7 @@
 module Workbook
   class Row < Array
     alias_method :compare_without_header, :<=>
-    
+ #   alias_method :array_assignment(), :[]=
     # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
     attr_accessor :placeholder
     attr_accessor :format
@@ -53,18 +53,47 @@ module Workbook
     # @param [Fixnum, Symbol]
     # @return [Workbook::Cell, nil]
     def [](index_or_hash)
-      if index_or_hash.is_a? Fixnum
-        return to_a[index_or_hash]
-      elsif index_or_hash.is_a? Symbol
+      if index_or_hash.is_a? Symbol
         rv = nil
         begin
           rv = to_hash[index_or_hash]
         rescue NoMethodError
         end
         return rv
+      else 
+        return to_a[index_or_hash]
       end
     end
+
+    # Overrides normal Array's []=-function with support for symbols that identify a column based on the header-values
+    #
+    # @example Lookup using fixnum or header value encoded as symbol
+    #   row[1] #=> <Cell value="a">
+    #   row[:a] #=> <Cell value="a">
+    #
+    # @param [Fixnum, Symbol]
+    # @param [String, Fixnum, NilClass, Date, DateTime, Time, Float] the value 
+    # @return [Workbook::Cell, nil]
+    def []= (index_or_hash, value)
+      index = index_or_hash
+      if index_or_hash.is_a? Symbol
+        index = table_header_keys.index(index_or_hash)
+      end
     
+      # TODO: maybe this type logic should be moved to cell
+      new_value = Workbook::Cell.new
+      if value.is_a? Workbook::Cell
+        new_value = value
+      else
+        current_cell = self[index]
+        if current_cell.is_a? Workbook::Cell
+          new_value = current_cell 
+        end
+        new_value.value=(value)
+      end
+      super(index,new_value)
+    end
+        
     # Returns an array of cells allows you to find cells by a given color, normally a string containing a hex
     #
     # @param [String] default :any colour, can be a CSS-style hex-string
@@ -94,9 +123,13 @@ module Workbook
       self.collect{|c| c}
     end
     
+    def table_header_keys
+      table.header.to_symbols
+    end
+    
     def to_hash
       return @hash if @hash
-      keys = table.header.to_symbols
+      keys = table_header_keys
       values = self
       @hash = {}
       keys.each_with_index {|k,i| @hash[k]=values[i]}
@@ -118,6 +151,10 @@ module Workbook
     def compact
       r = self.clone
       r = r.collect{|c| c unless c.nil?}.compact
+    end
+    
+    def clone
+      Workbook::Row.new(to_a.collect{|c| c.clone})
     end
   end
 end

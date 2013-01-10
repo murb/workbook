@@ -80,7 +80,7 @@ module Workbook
         iteration_cols = nil
         sother = other.clone.remove_empty_lines!
         sself = self.clone.remove_empty_lines!
-        
+
         if options[:ignore_headers]
           sother.header = false
           sself.header = false

@@ -111,4 +111,28 @@ class TestRow < Test::Unit::TestCase
     r1 = Workbook::Row.new  ["test", "asdf-asd"]
     assert_equal("test,asdf-asd\n",r1.to_csv)
   end
+
+  def test_clone
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table << Workbook::Row.new(["a","b"])    
+    row = Workbook::Row.new(["1","2"]) 
+    table << row
+    table << row
+    row[1] = Workbook::Cell.new(3)
+    table << table[1].clone
+    table.last[1].value = 5
+    assert_equal("a,b\n1,3\n1,3\n1,5\n", table.to_csv)
+  end
+  
+  def test_row_hash_index_assignment
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table << Workbook::Row.new(["a","b"])
+    row = Workbook::Row.new([],table)
+    row[1]= 12
+    assert_equal(12, table.last.last.value)
+    row[:b]= 15
+    assert_equal(15, table.last.last.value)
+  end
 end
