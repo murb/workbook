@@ -51,13 +51,13 @@ module Modules
       assert_equal("a,b,c,d\n1,2,3,4\n\n3,2,3,4\n5,2,3,4\n",align_result[:other].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n",align_result[:self].to_csv)
       
-      tself = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,3,3,4],[3,2,3,4],[5,2,3,4]]).sheet.table
-      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[2,2,3,4],[5,2,3,4]]).sheet.table
+      tself =  Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,3,3,4],          [3,2,3,4],[5,2,3,4]]).sheet.table
+      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],          [2,2,3,4],          [5,2,3,4]]).sheet.table
       align_result = tself.align tother
       assert_equal("a,b,c,d\n1,2,3,4\n1,3,3,4\n\n3,2,3,4\n5,2,3,4\n",align_result[:self].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n\n2,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)
-      tself = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4]]).sheet.table
-      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,2,3,4],[1,2,3,4],[2,2,3,4],[5,2,3,4]]).sheet.table
+      tself = Workbook::Book.new( [['a','b','c','d'],[1,2,3,4],                              [3,2,3,4],[5,2,3,4]]).sheet.table
+      tother = Workbook::Book.new([['a','b','c','d'],[1,2,3,4],[1,2,3,4],[1,2,3,4],[2,2,3,4],          [5,2,3,4]]).sheet.table
       align_result = tself.align tother
       assert_equal("a,b,c,d\n1,2,3,4\n\n\n\n3,2,3,4\n5,2,3,4\n",align_result[:self].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n1,2,3,4\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n",align_result[:other].to_csv)

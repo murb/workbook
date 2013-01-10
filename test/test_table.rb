@@ -34,10 +34,22 @@ class TestTable< Test::Unit::TestCase
     assert_equal(r, t.last)
     
     r << 2
-    
+
     assert_equal(t.last.empty?, false)
-    
-    
+  end
+  
+  def test_append_row
+    t = Workbook::Table.new
+    row = t.new_row(["a","b"])
+    assert_equal(row, t.header)
+    row = Workbook::Row.new([1,2])
+    assert_equal(nil, row.table)
+    t.push(row)
+    assert_equal(t, row.table)
+    row = Workbook::Row.new([3,4])
+    assert_equal(nil, row.table)
+    t << row 
+    assert_equal(t, row.table)
   end
 
 end

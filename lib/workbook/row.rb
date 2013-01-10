@@ -33,14 +33,21 @@ module Workbook
       @table
     end
     
-    # Set reference to the table this row belongs to (and adds the row to this table)
+    # Set reference to the table this row belongs to without adding the row to the table
+    #
+    # @param [Workbook::Table] 
+    def set_table(t)
+      @table = t
+    end
+    
+    # Set reference to the table this row belongs to and add the row to this table
     #
     # @param [Workbook::Table] 
     def table= t
       raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) or t == nil
       if t
         @table = t
-        table << self
+        table.push(self) #unless table.index(self) and self.placeholder?
       end
     end
     

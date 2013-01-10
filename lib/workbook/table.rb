@@ -57,6 +57,16 @@ module Workbook
       self
     end
     
+    def push(row)
+      super(row)
+      row.set_table(self)
+    end
+    
+    def <<(row)
+      super(row)
+      row.set_table(self)
+    end
+    
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
     end
