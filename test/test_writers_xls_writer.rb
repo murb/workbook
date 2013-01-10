@@ -20,6 +20,16 @@ module Writers
       b = Workbook::Book.open filename
       assert_equal(3.85546875,b.sheet.table.first[:a].format[:width])
     end
+    def test_cloning_roundtrip
+      b = Workbook::Book.open('test/artifacts/book_with_tabs_and_colours.xls')
+      b.sheet.table << b.sheet.table[2]
+      assert_equal(90588,b.sheet.table[5][:b].value)
+      assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
+      filename = b.write_to_xls
+      b = Workbook::Book.open filename
+      assert_equal(90588,b.sheet.table[5][:b].value)
+      assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
+    end
     
     def test_init_spreadsheet_template
       b = Workbook::Book.new

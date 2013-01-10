@@ -44,7 +44,7 @@ module Readers
       w = Workbook::Book.new
       w.open("test/artifacts/txt_in_xls.xls")
       assert_equal([:naam,:nummer,:ilt,:corporate_key,:naam_medewerker, nil, nil, :telefoon, :openingsdatum],w.sheet.table.header.to_symbols)
-      assert_equal(["dddd",2222,"i9000","asd","Anita",nil,"Betera",DateTime.new(2012,1,12),Date.new(2011,10,5)],w.sheet.table[1].collect{|a| a.value})
+      assert_equal(["dddd",2222,"i9000","asd","Anita",nil,"Betera","012-3456789",Date.new(2011,10,5)],w.sheet.table[1].collect{|a| a.value})
     end
     def test_zip_in_xls_open
       w = Workbook::Book.new

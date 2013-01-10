@@ -99,7 +99,7 @@ module Modules
       diff_result = tself.diff tother
       assert_equal('a',diff_result.sheet.table.header[0].value)
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.sheet.table.to_csv)
-      diff_result.write_to_xls({:rewrite_header=>true})
+      diff_result.write_to_xls
     end
   end
 end

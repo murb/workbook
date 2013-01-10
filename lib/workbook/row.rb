@@ -2,11 +2,14 @@ module Workbook
   class Row < Array
     alias_method :compare_without_header, :<=>
     
-    #used in compares
+    # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
     attr_accessor :placeholder
     attr_accessor :format
     
     
+    # @param [Workbook::Row, Array<Workbook::Cell>, Array] list of cells to initialize the row with, default is empty
+    # @param [Workbook::Table] a row normally belongs to a table, reference it here
+    # @param [Hash], option hash. Supprted options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
     def initialize cells=[], table=nil, options={}
       options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{}}.merge(options) : {} 
       cells = [] if cells==nil
@@ -30,7 +33,9 @@ module Workbook
       @table
     end
     
-    # @param [Workbook::Table] Reference to the table this row belongs to (and adds the row to this table)
+    # Set reference to the table this row belongs to (and adds the row to this table)
+    #
+    # @param [Workbook::Table] 
     def table= t
       raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) or t == nil
       if t
@@ -39,6 +44,14 @@ module Workbook
       end
     end
     
+    # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
+    #
+    # @example Lookup using fixnum or header value encoded as symbol
+    #   row[1] #=> <Cell value="a">
+    #   row[:a] #=> <Cell value="a">
+    #
+    # @param [Fixnum, Symbol]
+    # @return [Workbook::Cell, nil]
     def [](index_or_hash)
       if index_or_hash.is_a? Fixnum
         return to_a[index_or_hash]
@@ -52,7 +65,11 @@ module Workbook
       end
     end
     
-    # find_cells_by_color returns an array of cells allows you to find cells by a given color, normally a string containing a hex
+    # Returns an array of cells allows you to find cells by a given color, normally a string containing a hex
+    #
+    # @param [String] default :any colour, can be a CSS-style hex-string
+    # @param [Hash] options. Option :hash_keys (default true) returns row as an array of symbols
+    # @returns [Array<Symbol>, Workbook::Row<Workbook::Cell>]
     def find_cells_by_background_color color=:any, options={}
       options = {:hash_keys=>true}.merge(options)
       cells = self.collect {|c| c if c.format.has_background_color?(color) }.compact
@@ -60,14 +77,19 @@ module Workbook
       options[:hash_keys] ? r.to_symbols : r
     end
     
+    # Returns true when the row belongs to a table and it is the header row (typically the first row) 
+    #
+    # @returns [@Boolean]
     def header?
       table != nil and self.object_id == table.header.object_id
     end
     
+    # @returns [Array<Symbol>] returns row as an array of symbols
     def to_symbols
       collect{|c| c.to_sym}
     end
     
+    # @returns [Array<Workbook::Cell>] returns row as an array of symbols
     def to_a
       self.collect{|c| c}
     end

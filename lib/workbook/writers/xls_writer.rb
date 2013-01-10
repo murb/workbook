@@ -70,34 +70,28 @@ module Workbook
                     :cyan=>'#00FFFF',
                     :border=>'#FFFFFF',
                     :text=>'#000000',
-                    :lime=>'#00f94c'}
+                    :lime=>'#00f94c'
+      }
       
+      # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
+      # 
+      # @params [Hash] A hash with options (unused so far)
+      # @returns [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xls options={}
-        options = {:rewrite_header=>default_rewrite_header?}.merge options
         book = init_spreadsheet_template
         self.each_with_index do |s,si|
           xls_sheet = book.worksheet si
           xls_sheet = book.create_worksheet if xls_sheet == nil
           s.table.each_with_index do |r, ri|
-            write_row = false
-            if r.header?
-              if options[:rewrite_header] == true
-                write_row = true
-              end
-            else
-              write_row = true
-            end
-            if write_row
-              xls_sheet.row(ri).height= r.format[:height] if r.format
-              r.each_with_index do |c, ci|
-                if c
-                  if r.header?
-                    xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
-                    xls_sheet.columns[ci].width= c.format[:width]
-                  end
-                  xls_sheet.row(ri)[ci] = c.value
-                  xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
+            xls_sheet.row(ri).height= r.format[:height] if r.format
+            r.each_with_index do |c, ci|
+              if c
+                if r.header?
+                  xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
+                  xls_sheet.columns[ci].width= c.format[:width]
                 end
+                xls_sheet.row(ri)[ci] = c.value
+                xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
               end
             end
           end
@@ -138,8 +132,12 @@ module Workbook
         numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
       end
       
-      def write_to_xls options={}
-        filename = options[:filename] ? options[:filename] : "#{title}.xls"
+      # Write the current workbook to Microsoft Excel format (using the spreadsheet gem)
+      #
+      # @param [String] the filename
+      # @param [Hash] options, see #to_xls 
+      
+      def write_to_xls filename="#{title}.xls", options={}
         if to_xls(options).write(filename)
           return filename
         end

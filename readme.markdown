@@ -96,4 +96,4 @@ The [ruby toolbox lists plenty of alternatives](https://www.ruby-toolbox.com/sea
 
 ## License
 
-MIT... (c) murb / Maarten Brouwers, 2011-2012
+MIT... (c) murb / Maarten Brouwers, 2011-2013

@@ -62,6 +62,7 @@ module RubyXL
   end
 end
 # end monkey patch submitted
+
 module RubyXL
   class Workbook
     def num_fmts_by_id
@@ -104,10 +105,9 @@ module RubyXL
       end
       return @num_fmts_hash
     end
-
-    
   end
 end
+
 # other monkey patch
 module RubyXL
   class Cell

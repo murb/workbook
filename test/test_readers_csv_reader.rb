@@ -31,7 +31,7 @@ module Readers
       assert_equal(Date.new(2001,1,1),w.sheet.table[1][:a].value)
       assert_equal(DateTime.new(2011,2,12,12,23),w.sheet.table[4][:c].value)
       assert_equal("6/12 ovk getekend terugontv.+>acq ter tekening. 13/12 ovk getekend terugontv.+>Fred ter tekening.", w.sheet.table[5][:b].value)
-      assert_equal(Date.new(2012,6,12),w.sheet.table[5][:c].value)
+      assert_equal(DateTime.new(Time.now.year,6,12),w.sheet.table[5][:c].value)
     end
     def test_excel_standardized_open
       w = Workbook::Book.new

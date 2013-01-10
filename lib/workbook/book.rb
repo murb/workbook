@@ -15,7 +15,6 @@ module Workbook
     
     attr_accessor :title
     attr_accessor :template
-    attr_accessor :default_rewrite_header
     
     # @param [Workbook::Sheet, Array] Create a new workbook based on an existing sheet, or initialize a sheet based on the array
     # @return [Workbook::Book]  
@@ -53,6 +52,7 @@ module Workbook
       first
     end
     
+    # @return [Boolean] returns true if the first sheet has contents
     def has_contents?
       sheet.has_contents?
     end
@@ -60,6 +60,7 @@ module Workbook
     # Loads an external file into an existing worbook
     # @param [String] a string with a reference to the file to be opened
     # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
+    # @return [Workbook::Book] A new instance, based on the filename
     def open filename, ext=nil
       ext = file_extension(filename) unless ext
       if ['txt','csv','xml'].include?(ext)
@@ -70,8 +71,10 @@ module Workbook
     end
     
     # Open the file in binary, read-only mode, do not read it, but pas it throug to the extension determined loaded
+    #
     # @param [String] a string with a reference to the file to be opened
     # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
+    # @return [Workbook::Book] A new instance, based on the filename
     def open_binary filename, ext=nil
       ext = file_extension(filename) unless ext
       f = File.open(filename,'rb')
@@ -79,6 +82,7 @@ module Workbook
     end
     
     # Open the file in non-binary, read-only mode, read it and parse it to UTF-8
+    #
     # @param [String] a string with a reference to the file to be opened
     # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, ext=nil
@@ -91,12 +95,14 @@ module Workbook
     end
     
     # @param [String] The full filename, or path
+    #
     # @return [String] The file extension
     def file_extension(filename)
       File.extname(filename).gsub('.','').downcase if filename
     end
     
     # Create an instance from a file, using open.
+    #
     # @return [Workbook::Book] A new instance, based on the filename
     def self.open filename, ext=nil
       wb = self.new
@@ -114,11 +120,7 @@ module Workbook
     def sort
       raise Exception("Books can't be sorted")
     end
-    
-    def default_rewrite_header?
-      return true if default_rewrite_header.nil?
-      default_rewrite_header
-    end
+
     
   end
 end
