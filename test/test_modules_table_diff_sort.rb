@@ -74,6 +74,13 @@ module Modules
           
     end
     
+    def test_with_nil_header
+      a = Workbook::Book.new([['a','b',nil],[1,2,3]])
+      b = Workbook::Book.new([['a','b','c'],[1,2,3]])
+      c = a.sheet.table.diff b.sheet.table
+      puts c.sheet.table.to_csv
+    end
+    
     # def test_diff_file
     #   a = Workbook::Book.open('test/artifacts/private_a_0.xls')
     #   b = Workbook::Book.open('test/artifacts/private_a_0.xls')

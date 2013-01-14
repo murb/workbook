@@ -2,7 +2,10 @@
 module Workbook
 	module Modules
 		module TableDiffSort
-      # create an overview of the differences between itself with another table, returns a book with a single sheet and table (containing the diffs)
+      # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
+      #
+      # @return [Workbook::Book] (note should and will become Workbook::Table as diffing occurs on table level...)
+      # TODO: return Workbook::Table instead...
       def diff other, options={:sort=>true,:ignore_headers=>false}
         
         aligned = align(other, options)
