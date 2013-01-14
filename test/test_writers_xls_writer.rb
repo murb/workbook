@@ -42,5 +42,8 @@ module Writers
       b.init_spreadsheet_template
       assert_equal(Spreadsheet::Worksheet,b.xls_sheet(100).class)
     end
+    def test_strftime_to_ms_format_nil
+      assert_equal(nil, Workbook::Book.new.strftime_to_ms_format(nil))
+    end
   end
 end

@@ -133,10 +133,11 @@ module Workbook
       
       # Converts standard (ruby/C++/unix/...) strftime formatting to MS's formatting
       # 
-      # @param [String]
-      # @return [String]
+      # @param [String, nil] (nil returns nil)
+      # @return [String, nil]
       def strftime_to_ms_format numberformat
-        return nil if numberformat.nil? numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
+        return nil if numberformat.nil?
+        return numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
       end
       
       # Write the current workbook to Microsoft Excel format (using the spreadsheet gem)
