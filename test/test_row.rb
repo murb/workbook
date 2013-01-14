@@ -142,6 +142,19 @@ class TestRow < Test::Unit::TestCase
     assert_equal("a,b\n1,3\n1,3\n1,5\n", table.to_csv)
   end
   
+  def test_clone_has_no_table
+    # actually not desired, but for now enforced.
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table << Workbook::Row.new(["a","b"])    
+    table << Workbook::Row.new([1,2]) 
+    row = table[1].clone
+    assert_equal(nil,row[:a])
+    assert_equal(nil,row[:b])
+    assert_equal(1,row[0].value)
+    assert_equal(2,row[1].value)
+  end
+  
   def test_row_hash_index_assignment
     b = Workbook::Book.new
     table = b.sheet.table

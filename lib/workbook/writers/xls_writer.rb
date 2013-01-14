@@ -75,7 +75,7 @@ module Workbook
       
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
       # 
-      # @params [Hash] A hash with options (unused so far)
+      # @param [Hash] A hash with options (unused so far)
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xls options={}
         book = init_spreadsheet_template
@@ -99,6 +99,10 @@ module Workbook
         book
       end
       
+      # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
+      # 
+      # @param [Workbook::Format, Hash] A Workbook::Format or hash with format-options (:font_weight, :rotation, :background_color, :number_format, :text_direction, :color, :font_family)
+      # @return [Spreadsheet::Format] A Spreadsheet format-object, ready for writing or more lower level operations
       def format_to_xls_format f
         xlsfmt = nil
         unless f.is_a? Workbook::Format
@@ -127,16 +131,18 @@ module Workbook
         return nil
       end
       
+      # Converts standard (ruby/C++/unix/...) strftime formatting to MS's formatting
+      # 
+      # @param [String]
+      # @return [String]
       def strftime_to_ms_format numberformat
-        return nil if numberformat.nil?
-        numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
+        return nil if numberformat.nil? numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
       end
       
       # Write the current workbook to Microsoft Excel format (using the spreadsheet gem)
       #
       # @param [String] the filename
       # @param [Hash] options, see #to_xls 
-      
       def write_to_xls filename="#{title}.xls", options={}
         if to_xls(options).write(filename)
           return filename

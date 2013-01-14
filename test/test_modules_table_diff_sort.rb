@@ -74,6 +74,12 @@ module Modules
           
     end
     
+    # def test_diff_file
+    #   a = Workbook::Book.open('test/artifacts/private_a_0.xls')
+    #   b = Workbook::Book.open('test/artifacts/private_a_0.xls')
+    #   y a.sheet.table.diff b.sheet.table
+    # end
+    
     # def test_sort_by
     #   b = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[4,2,3,3],[3,2,3,2]]
     #   y b.sheet.table.sort_by{|r| r[:d]}

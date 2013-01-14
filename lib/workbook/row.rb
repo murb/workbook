@@ -1,12 +1,11 @@
 module Workbook
   class Row < Array
     alias_method :compare_without_header, :<=>
- #   alias_method :array_assignment(), :[]=
-    # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
-    attr_accessor :placeholder
+    attr_accessor :placeholder     # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
     attr_accessor :format
     
-    
+    # Initialize a new row
+    #
     # @param [Workbook::Row, Array<Workbook::Cell>, Array] list of cells to initialize the row with, default is empty
     # @param [Workbook::Table] a row normally belongs to a table, reference it here
     # @param [Hash], option hash. Supprted options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
@@ -25,10 +24,16 @@ module Workbook
       end
     end
     
+    # An internal function used in diffs
+    # 
+    # @return [Boolean] returns true when this row is not an actual row, but a placeholder row to 'compare' against 
     def placeholder?
       placeholder ? true : false
     end
     
+    # Returns the table this row belongs to
+    #
+    # @return [Workbook::Table] the table this row belongs to
     def table
       @table
     end
@@ -68,7 +73,9 @@ module Workbook
         end
         return rv
       else 
-        return to_a[index_or_hash]
+        if index_or_hash
+          return to_a[index_or_hash]
+        end
       end
     end
 
@@ -120,6 +127,9 @@ module Workbook
       table != nil and self.object_id == table.header.object_id
     end
     
+    # Is this the first row in the table
+    # 
+    # @return [Boolean, NilClass] returns nil if it doesn't belong to a table, false when it isn't the first row of a table and true when it is.
     def first?
       table != nil and self.object_id == table.first.object_id
     end
@@ -138,6 +148,9 @@ module Workbook
       table.header.to_symbols
     end
     
+    # Returns a hash representation of this row
+    #
+    # @return [Hash]
     def to_hash
       return @hash if @hash
       keys = table_header_keys
@@ -147,6 +160,10 @@ module Workbook
       return @hash
     end
     
+    # Compares one row wiht another
+    #
+    # @param [Workbook::Row] the row to compare against
+    # @return [Workbook::Row] a row with the diff result. 
     def <=> other
       a = self.header? ? 0 : 1
       b = other.header? ? 0 : 1
