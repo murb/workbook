@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Workbook::Readers::XlsShared
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (X)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Workbook.html" title="Workbook (module)">Workbook</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Readers.html" title="Workbook::Readers (module)">Readers</a></span></span>
+     &raquo; 
+    <span class="title">XlsShared</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: Workbook::Readers::XlsShared
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1">Included in:</dt>
+    <dd class="r1"><span class='object_link'><a href="../Book.html" title="Workbook::Book (class)">Book</a></span></dd>
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/workbook/readers/xls_shared.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="XLS_COLORS-constant" class="">XLS_COLORS =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace token'>{</span><span class='symbol val'>:xls_color_1=</span><span class='gt op'>&gt;</span><span class='string val'>'#000000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_2=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_3=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF0000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_4=</span><span class='gt op'>&gt;</span><span class='string val'>'#00FF00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_5=</span><span class='gt op'>&gt;</span><span class='string val'>'#0000FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_6=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFF00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_7=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF00FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_8=</span><span class='gt op'>&gt;</span><span class='string val'>'#00FFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_9=</span><span class='gt op'>&gt;</span><span class='string val'>'#800000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_10=</span><span class='gt op'>&gt;</span><span class='string val'>'#008000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_11=</span><span class='gt op'>&gt;</span><span class='string val'>'#000080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_12=</span><span class='gt op'>&gt;</span><span class='string val'>'#808000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_13=</span><span class='gt op'>&gt;</span><span class='string val'>'#800080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_14=</span><span class='gt op'>&gt;</span><span class='string val'>'#008080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_15=</span><span class='gt op'>&gt;</span><span class='string val'>'#C0C0C0'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_16=</span><span class='gt op'>&gt;</span><span class='string val'>'#808080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_17=</span><span class='gt op'>&gt;</span><span class='string val'>'#9999FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_18=</span><span class='gt op'>&gt;</span><span class='string val'>'#993366'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_19=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFFCC'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_20=</span><span class='gt op'>&gt;</span><span class='string val'>'#CCFFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_21=</span><span class='gt op'>&gt;</span><span class='string val'>'#660066'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_22=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF8080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_23=</span><span class='gt op'>&gt;</span><span class='string val'>'#0066CC'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_24=</span><span class='gt op'>&gt;</span><span class='string val'>'#CCCCFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_25=</span><span class='gt op'>&gt;</span><span class='string val'>'#000080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_26=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF00FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_27=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFF00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_28=</span><span class='gt op'>&gt;</span><span class='string val'>'#00FFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_29=</span><span class='gt op'>&gt;</span><span class='string val'>'#800080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_30=</span><span class='gt op'>&gt;</span><span class='string val'>'#800000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_31=</span><span class='gt op'>&gt;</span><span class='string val'>'#008080'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_32=</span><span class='gt op'>&gt;</span><span class='string val'>'#0000FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_33=</span><span class='gt op'>&gt;</span><span class='string val'>'#00CCFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_34=</span><span class='gt op'>&gt;</span><span class='string val'>'#CCFFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_35=</span><span class='gt op'>&gt;</span><span class='string val'>'#CCFFCC'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_36=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFF99'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_37=</span><span class='gt op'>&gt;</span><span class='string val'>'#99CCFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_38=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF99CC'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_39=</span><span class='gt op'>&gt;</span><span class='string val'>'#CC99FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_40=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFCC99'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_41=</span><span class='gt op'>&gt;</span><span class='string val'>'#3366FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_42=</span><span class='gt op'>&gt;</span><span class='string val'>'#33CCCC'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_43=</span><span class='gt op'>&gt;</span><span class='string val'>'#99CC00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_44=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFCC00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_45=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF9900'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_46=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF6600'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_47=</span><span class='gt op'>&gt;</span><span class='string val'>'#666699'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_48=</span><span class='gt op'>&gt;</span><span class='string val'>'#969696'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_49=</span><span class='gt op'>&gt;</span><span class='string val'>'#003366'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_50=</span><span class='gt op'>&gt;</span><span class='string val'>'#339966'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_51=</span><span class='gt op'>&gt;</span><span class='string val'>'#003300'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_52=</span><span class='gt op'>&gt;</span><span class='string val'>'#333300'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_53=</span><span class='gt op'>&gt;</span><span class='string val'>'#993300'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_54=</span><span class='gt op'>&gt;</span><span class='string val'>'#993366'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_55=</span><span class='gt op'>&gt;</span><span class='string val'>'#333399'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:xls_color_56=</span><span class='gt op'>&gt;</span><span class='string val'>'#333333'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:black=</span><span class='gt op'>&gt;</span><span class='string val'>'#000000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:white=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:red=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF0000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:green=</span><span class='gt op'>&gt;</span><span class='string val'>'#00FF00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:blue=</span><span class='gt op'>&gt;</span><span class='string val'>'#0000FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:yellow=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFF00'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:magenta=</span><span class='gt op'>&gt;</span><span class='string val'>'#FF00FF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:cyan=</span><span class='gt op'>&gt;</span><span class='string val'>'#00FFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:border=</span><span class='gt op'>&gt;</span><span class='string val'>'#FFFFFF'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:text=</span><span class='gt op'>&gt;</span><span class='string val'>'#000000'</span><span class='comma token'>,</span>
+          <span class='symbol val'>:lime=</span><span class='gt op'>&gt;</span><span class='string val'>'#00f94c'</span>
+<span class='rbrace token'>}</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jan 15 16:26:55 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

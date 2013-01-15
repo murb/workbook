@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: RubyXL::Workbook
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (W)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../RubyXL.html" title="RubyXL (module)">RubyXL</a></span></span>
+     &raquo; 
+    <span class="title">Workbook</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: RubyXL::Workbook
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">RubyXL::Workbook</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/workbook/readers/xlsx_reader.rb<span class="defines">,<br />
+  lib/workbook/readers/xlsx_reader.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_date_format%3F-instance_method" title="#is_date_format? (instance method)">- (Boolean) <strong>is_date_format?</strong>(num_fmt) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#num_fmts_by_id-instance_method" title="#num_fmts_by_id (instance method)">- (Object) <strong>num_fmts_by_id</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="is_date_format?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>is_date_format?</strong>(num_fmt) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/readers/xlsx_reader.rb', line 6</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_is_date_format? fid id'>is_date_format?</span><span class='lparen token'>(</span><span class='rubyid_num_fmt identifier id'>num_fmt</span><span class='rparen token'>)</span>
+  <span class='rubyid_num_fmt identifier id'>num_fmt</span><span class='dot token'>.</span><span class='rubyid_downcase! fid id'>downcase!</span>
+  <span class='rubyid_skip_chars identifier id'>skip_chars</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>'$'</span><span class='comma token'>,</span> <span class='string val'>'-'</span><span class='comma token'>,</span> <span class='string val'>'+'</span><span class='comma token'>,</span> <span class='string val'>'/'</span><span class='comma token'>,</span> <span class='string val'>'('</span><span class='comma token'>,</span> <span class='string val'>')'</span><span class='comma token'>,</span> <span class='string val'>':'</span><span class='comma token'>,</span> <span class='string val'>' '</span><span class='rbrack token'>]</span>
+  <span class='rubyid_num_chars identifier id'>num_chars</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>'0'</span><span class='comma token'>,</span> <span class='string val'>'#'</span><span class='comma token'>,</span> <span class='string val'>'?'</span><span class='rbrack token'>]</span>
+  <span class='rubyid_non_date_formats identifier id'>non_date_formats</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>'0.00e+00'</span><span class='comma token'>,</span> <span class='string val'>'##0.0e+0'</span><span class='comma token'>,</span> <span class='string val'>'general'</span><span class='comma token'>,</span> <span class='string val'>'@'</span><span class='rbrack token'>]</span>
+  <span class='rubyid_date_chars identifier id'>date_chars</span> <span class='assign token'>=</span> <span class='lbrack token'>[</span><span class='string val'>'y'</span><span class='comma token'>,</span><span class='string val'>'m'</span><span class='comma token'>,</span><span class='string val'>'d'</span><span class='comma token'>,</span><span class='string val'>'h'</span><span class='comma token'>,</span><span class='string val'>'s'</span><span class='rbrack token'>]</span>
+
+  <span class='rubyid_state identifier id'>state</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='rubyid_s identifier id'>s</span> <span class='assign token'>=</span> <span class='string val'>''</span>
+  <span class='rubyid_num_fmt identifier id'>num_fmt</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>//</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_state identifier id'>state</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+      <span class='rubyid_if if kw'>if</span> <span class='rubyid_c identifier id'>c</span> <span class='eq op'>==</span> <span class='string val'>'&quot;'</span>
+        <span class='rubyid_state identifier id'>state</span> <span class='assign token'>=</span> <span class='integer val'>1</span>
+      <span class='rubyid_elsif elsif kw'>elsif</span> <span class='lbrack token'>[</span><span class='string val'>'\\'</span><span class='comma token'>,</span> <span class='string val'>'_'</span><span class='comma token'>,</span> <span class='string val'>'*'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_c identifier id'>c</span><span class='rparen token'>)</span>
+        <span class='rubyid_state identifier id'>state</span> <span class='assign token'>=</span> <span class='integer val'>2</span>
+      <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_skip_chars identifier id'>skip_chars</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_c identifier id'>c</span><span class='rparen token'>)</span>
+        <span class='rubyid_next next kw'>next</span>
+      <span class='rubyid_else else kw'>else</span>
+        <span class='rubyid_s identifier id'>s</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_c identifier id'>c</span>
+      <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_state identifier id'>state</span> <span class='eq op'>==</span> <span class='integer val'>1</span>
+      <span class='rubyid_if if kw'>if</span> <span class='rubyid_c identifier id'>c</span> <span class='eq op'>==</span> <span class='string val'>'&quot;'</span>
+        <span class='rubyid_state identifier id'>state</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+      <span class='rubyid_end end kw'>end</span>
+    <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_state identifier id'>state</span> <span class='eq op'>==</span> <span class='integer val'>2</span>
+      <span class='rubyid_state identifier id'>state</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_s identifier id'>s</span><span class='dot token'>.</span><span class='rubyid_gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/\[[^\]]*\]/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_non_date_formats identifier id'>non_date_formats</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_s identifier id'>s</span><span class='rparen token'>)</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_false false kw'>false</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_separator identifier id'>separator</span> <span class='assign token'>=</span> <span class='string val'>';'</span>
+  <span class='rubyid_got_sep identifier id'>got_sep</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='rubyid_date_count identifier id'>date_count</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='rubyid_num_count identifier id'>num_count</span> <span class='assign token'>=</span> <span class='integer val'>0</span>
+  <span class='rubyid_s identifier id'>s</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='lparen token'>(</span><span class='regexp val'>//</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span>
+    <span class='rubyid_if if kw'>if</span> <span class='rubyid_date_chars identifier id'>date_chars</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_c identifier id'>c</span><span class='rparen token'>)</span>
+      <span class='rubyid_date_count identifier id'>date_count</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
+    <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_num_chars identifier id'>num_chars</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_c identifier id'>c</span><span class='rparen token'>)</span>
+      <span class='rubyid_num_count identifier id'>num_count</span> <span class='opasgn op'>+=</span> <span class='integer val'>1</span>
+    <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_c identifier id'>c</span> <span class='eq op'>==</span> <span class='rubyid_separator identifier id'>separator</span>
+      <span class='rubyid_got_sep identifier id'>got_sep</span> <span class='assign token'>=</span> <span class='integer val'>1</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_date_count identifier id'>date_count</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_num_count identifier id'>num_count</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_true true kw'>true</span>
+  <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_num_count identifier id'>num_count</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_date_count identifier id'>date_count</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_false false kw'>false</span>
+  <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_date_count identifier id'>date_count</span>
+    <span class='comment val'># ambiguous result</span>
+  <span class='rubyid_elsif elsif kw'>elsif</span> <span class='rubyid_got_sep identifier id'>got_sep</span> <span class='eq op'>==</span> <span class='integer val'>0</span>
+    <span class='comment val'># constant result</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_date_count identifier id'>date_count</span> <span class='gt op'>&gt;</span> <span class='rubyid_num_count identifier id'>num_count</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="num_fmts_by_id-instance_method">
+  
+    - (<tt>Object</tt>) <strong>num_fmts_by_id</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/readers/xlsx_reader.rb', line 68</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_num_fmts_by_id identifier id'>num_fmts_by_id</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_@num_fmts_hash ivar id'>@num_fmts_hash</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_@num_fmts_hash ivar id'>@num_fmts_hash</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='rubyid_@num_fmts_hash ivar id'>@num_fmts_hash</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='integer val'>1</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'0'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>2</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'0.00'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>3</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'#, ##0'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>4</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'#, ##0.00'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>5</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'$#, ##0_);($#, ##0)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>6</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'$#, ##0_);[Red]($#, ##0)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>7</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'$#, ##0.00_);($#, ##0.00)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>8</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'$#, ##0.00_);[Red]($#, ##0.00)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>9</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'0%'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>10</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'0.00%'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>11</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'0.00E+00'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>12</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'# ?/?'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>13</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'# ??/??'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>14</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'m/d/yyyy'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>15</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'d-mmm-yy'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>16</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'d-mmm'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>17</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'mmm-yy'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>18</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'h:mm AM/PM'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>19</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'h:mm:ss AM/PM'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>20</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'h:mm'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>21</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'h:mm:ss'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>22</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'m/d/yyyy h:mm'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>37</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'#, ##0_);(#, ##0)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>38</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'#, ##0_);[Red](#, ##0)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>39</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'#, ##0.00_);(#, ##0.00)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>40</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'#, ##0.00_);[Red](#, ##0.00)'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>45</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'mm:ss'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>46</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'[h]:mm:ss'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>47</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'mm:ss.0'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>48</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'##0.0E+0'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='comma token'>,</span>
+<span class='integer val'>49</span><span class='assign token'>=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:attributes=</span><span class='gt op'>&gt;</span><span class='lbrace token'>{</span><span class='symbol val'>:formatCode=</span><span class='gt op'>&gt;</span><span class='string val'>'@'</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span><span class='rbrace token'>}</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_num_fmts identifier id'>num_fmts</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_num_fmts identifier id'>num_fmts</span><span class='lbrack token'>[</span><span class='symbol val'>:numFmt</span><span class='rbrack token'>]</span>
+    <span class='rubyid_num_fmts identifier id'>num_fmts</span><span class='lbrack token'>[</span><span class='symbol val'>:numFmt</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_num_fmt identifier id'>num_fmt</span><span class='bitor op'>|</span>
+      <span class='rubyid_@num_fmts_hash ivar id'>@num_fmts_hash</span><span class='lbrack token'>[</span><span class='rubyid_num_fmt identifier id'>num_fmt</span><span class='lbrack token'>[</span><span class='symbol val'>:attributes</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:numFmtId</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span><span class='assign token'>=</span><span class='rubyid_num_fmt identifier id'>num_fmt</span>
+    <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_@num_fmts_hash ivar id'>@num_fmts_hash</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jan 15 16:27:00 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -13,12 +13,18 @@ module Workbook
     # Note that these types are sorted by 'importance'
     VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass]
     
+    # Evaluates a value for class-validity
+    #
+    # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Object] value the value to evaluate
+    # @return [Boolean] returns true when the value is a valid cell value
     def valid_value? value
       valid_type = false 
       VALID_TYPES.each {|t| return true if value.is_a? t} 
       valid_type
     end
     
+    # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value
+    # @param [Hash] options a reference to :format (Workbook::Format) can be specified
     def initialize value=nil, options={}
       if valid_value? value
         format = options[:format] 
@@ -28,6 +34,7 @@ module Workbook
       end
     end
     
+    # @param [Workbook::Format, Hash] f set the formatting properties of this Cell
     def format= f
       if f.is_a? Workbook::Format
         @format = f
@@ -42,6 +49,8 @@ module Workbook
       @format ||= Workbook::Format.new
     end
 
+    # @param [Workbook::Cell] other cell to compare against
+    # @return [Boolean]
     def ==(other)
       if other.is_a? Cell
         other.value == self.value
@@ -50,6 +59,8 @@ module Workbook
       end
     end
     
+    # returns true when the value of the cell is nil.
+    # @return [Boolean]
     def nil?
       return value.nil?
     end
@@ -98,6 +109,7 @@ module Workbook
       v
     end
     
+    # @param [Workbook::Cell] other cell to compare against, can compare different value-types using #compare_on_class
     def <=> other
       rv = nil
       begin
@@ -112,6 +124,9 @@ module Workbook
 
     end
     
+    # Compare on class level
+    #
+    # @param [Workbook::Cell] other cell to compare against
     def compare_on_class other
       other_value = nil
       other_value = other.value if other
@@ -120,6 +135,9 @@ module Workbook
       self_value <=> other_value
     end
     
+    # Returns the importance of a value's class
+    #
+    # @param value a potential value for a cell
     def importance_of_class value
       VALID_TYPES.each_with_index do |c,i|  
         return i if value.is_a? c
@@ -131,6 +149,7 @@ module Workbook
       "<Workbook::Cell @value=#{value}>"
     end
     
+    # convert value to string, and in case of a Date or Time value, apply formatting
     def to_s
       if (value.is_a? Date or value.is_a? Time) and format[:number_format]
         value.strftime(format[:number_format])

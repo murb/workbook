@@ -1,0 +1,870 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Workbook::Table
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (T)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Workbook.html" title="Workbook (module)">Workbook</a></span></span>
+     &raquo; 
+    <span class="title">Table</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Workbook::Table
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Array</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Array</li>
+          
+            <li class="next">Workbook::Table</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="Modules/TableDiffSort.html" title="Workbook::Modules::TableDiffSort (module)">Modules::TableDiffSort</a></span>, <span class='object_link'><a href="Writers/CsvTableWriter.html" title="Workbook::Writers::CsvTableWriter (module)">Writers::CsvTableWriter</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/workbook/table.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#header-instance_method" title="#header (instance method)">- (Workbook::Row) <strong>header</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the header of this table (typically the first row, but can be a
+different row).</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sheet-instance_method" title="#sheet (instance method)">- (Object) <strong>sheet</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute sheet.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3C%3C-instance_method" title="#&lt;&lt; (instance method)">- (Object) <strong>&lt;&lt;</strong>(row) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#contains_row%3F-instance_method" title="#contains_row? (instance method)">- (Boolean) <strong>contains_row?</strong>(row) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_or_open_row_at-instance_method" title="#create_or_open_row_at (instance method)">- (Object) <strong>create_or_open_row_at</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_contents%3F-instance_method" title="#has_contents? (instance method)">- (Boolean) <strong>has_contents?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Table) <strong>initialize</strong>(row_cel_values = [], sheet = nil, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Table.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new_row-instance_method" title="#new_row (instance method)">- (Object) <strong>new_row</strong>(cell_values = []) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Generates a new row, with optionally predefined cell-values, that is
+already connected to this table.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#push-instance_method" title="#push (instance method)">- (Object) <strong>push</strong>(row) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove_empty_lines%21-instance_method" title="#remove_empty_lines! (instance method)">- (Object) <strong>remove_empty_lines!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Writers/CsvTableWriter.html" title="Workbook::Writers::CsvTableWriter (module)">Writers::CsvTableWriter</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Writers/CsvTableWriter.html#to_csv-instance_method" title="Workbook::Writers::CsvTableWriter#to_csv (method)">#to_csv</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Modules/TableDiffSort.html" title="Workbook::Modules::TableDiffSort (module)">Modules::TableDiffSort</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Modules/TableDiffSort.html#align-instance_method" title="Workbook::Modules::TableDiffSort#align (method)">#align</a></span>, <span class='object_link'><a href="Modules/TableDiffSort.html#align_row-instance_method" title="Workbook::Modules::TableDiffSort#align_row (method)">#align_row</a></span>, <span class='object_link'><a href="Modules/TableDiffSort.html#diff-instance_method" title="Workbook::Modules::TableDiffSort#diff (method)">#diff</a></span>, <span class='object_link'><a href="Modules/TableDiffSort.html#diff_template-instance_method" title="Workbook::Modules::TableDiffSort#diff_template (method)">#diff_template</a></span>, <span class='object_link'><a href="Modules/TableDiffSort.html#insert_placeholder%3F-instance_method" title="Workbook::Modules::TableDiffSort#insert_placeholder? (method)">#insert_placeholder?</a></span>, <span class='object_link'><a href="Modules/TableDiffSort.html#placeholder_row-instance_method" title="Workbook::Modules::TableDiffSort#placeholder_row (method)">#placeholder_row</a></span></p>
+
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Table (class)">Table</a></span></tt>) <strong>initialize</strong>(row_cel_values = [], sheet = nil, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>A new instance of Table</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 12</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span> <span class='rubyid_row_cel_values identifier id'>row_cel_values</span><span class='assign token'>=</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_sheet identifier id'>sheet</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="header=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="header-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Row.html" title="Workbook::Row (class)">Workbook::Row</a></span></tt>) <strong>header</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the header of this table (typically the first row, but can be a
+different row).  The header row is also used for finding values in a
+aribrary row.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Row.html" title="Workbook::Row (class)">Workbook::Row</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The header</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 30</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_header identifier id'>header</span>
+  <span class='rubyid_@header ivar id'>@header</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="sheet=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="sheet-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sheet</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute sheet</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 9</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_sheet identifier id'>sheet</span>
+  <span class='rubyid_@sheet ivar id'>@sheet</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="<<-instance_method">
+  
+    - (<tt>Object</tt>) <strong>&lt;&lt;</strong>(row) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+65
+66
+67
+68</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 65</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='lshft op'>&lt;&lt;</span><span class='lparen token'>(</span><span class='rubyid_row identifier id'>row</span><span class='rparen token'>)</span>
+  <span class='rubyid_super super kw'>super</span><span class='lparen token'>(</span><span class='rubyid_row identifier id'>row</span><span class='rparen token'>)</span>
+  <span class='rubyid_row identifier id'>row</span><span class='dot token'>.</span><span class='rubyid_set_table identifier id'>set_table</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="contains_row?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>contains_row?</strong>(row) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 74</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_contains_row? fid id'>contains_row?</span> <span class='rubyid_row identifier id'>row</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='dstring node'>&quot;table should be a Workbook::Row (you passed a #{t.class})&quot;</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_row identifier id'>row</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Row constant id'>Row</span><span class='rparen token'>)</span>
+  <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_r identifier id'>r</span><span class='bitor op'>|</span> <span class='rubyid_r identifier id'>r</span><span class='dot token'>.</span><span class='rubyid_object_id identifier id'>object_id</span><span class='rbrace token'>}</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span> <span class='rubyid_row identifier id'>row</span><span class='dot token'>.</span><span class='rubyid_object_id identifier id'>object_id</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="create_or_open_row_at-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_or_open_row_at</strong>(index) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48
+49
+50
+51
+52
+53</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 46</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_open_row_at identifier id'>create_or_open_row_at</span> <span class='rubyid_index identifier id'>index</span>
+  <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='lbrack token'>[</span><span class='rubyid_index identifier id'>index</span><span class='rbrack token'>]</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_r identifier id'>r</span> <span class='eq op'>==</span> <span class='rubyid_nil nil kw'>nil</span>
+    <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Row constant id'>Row</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+    <span class='rubyid_r identifier id'>r</span><span class='dot token'>.</span><span class='rubyid_table identifier id'>table</span><span class='assign token'>=</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_r identifier id'>r</span> 
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_contents?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_contents?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 70</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_has_contents? fid id'>has_contents?</span>
+  <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_clone identifier id'>clone</span><span class='dot token'>.</span><span class='rubyid_remove_empty_lines! fid id'>remove_empty_lines!</span><span class='dot token'>.</span><span class='rubyid_count identifier id'>count</span> <span class='neq op'>!=</span> <span class='integer val'>0</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="new_row-instance_method">
+  
+    - (<tt>Object</tt>) <strong>new_row</strong>(cell_values = []) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Generates a new row, with optionally predefined cell-values, that is
+already connected to this table.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+41
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 41</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_new_row identifier id'>new_row</span> <span class='rubyid_cell_values identifier id'>cell_values</span><span class='assign token'>=</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span>
+  <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Row constant id'>Row</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_cell_values identifier id'>cell_values</span><span class='comma token'>,</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_r identifier id'>r</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="push-instance_method">
+  
+    - (<tt>Object</tt>) <strong>push</strong>(row) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 60</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_push identifier id'>push</span><span class='lparen token'>(</span><span class='rubyid_row identifier id'>row</span><span class='rparen token'>)</span>
+  <span class='rubyid_super super kw'>super</span><span class='lparen token'>(</span><span class='rubyid_row identifier id'>row</span><span class='rparen token'>)</span>
+  <span class='rubyid_row identifier id'>row</span><span class='dot token'>.</span><span class='rubyid_set_table identifier id'>set_table</span><span class='lparen token'>(</span><span class='rubyid_self self kw'>self</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_empty_lines!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>remove_empty_lines!</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/table.rb', line 55</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_remove_empty_lines! fid id'>remove_empty_lines!</span>
+  <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_delete_if identifier id'>delete_if</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_r identifier id'>r</span><span class='bitor op'>|</span> <span class='rubyid_r identifier id'>r</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span> <span class='rubyid_or or kw'>or</span> <span class='rubyid_r identifier id'>r</span><span class='dot token'>.</span><span class='rubyid_compact identifier id'>compact</span><span class='dot token'>.</span><span class='rubyid_empty? fid id'>empty?</span><span class='rbrace token'>}</span>
+  <span class='rubyid_self self kw'>self</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jan 15 16:27:00 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

@@ -1,0 +1,1462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: Workbook::Book
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (B)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Workbook.html" title="Workbook (module)">Workbook</a></span></span>
+     &raquo; 
+    <span class="title">Book</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: Workbook::Book
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Array</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Array</li>
+          
+            <li class="next">Workbook::Book</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+      <dt class="r2">Includes:</dt>
+      <dd class="r2"><span class='object_link'><a href="Readers/CsvReader.html" title="Workbook::Readers::CsvReader (module)">Readers::CsvReader</a></span>, <span class='object_link'><a href="Readers/TxtReader.html" title="Workbook::Readers::TxtReader (module)">Readers::TxtReader</a></span>, <span class='object_link'><a href="Readers/XlsReader.html" title="Workbook::Readers::XlsReader (module)">Readers::XlsReader</a></span>, <span class='object_link'><a href="Readers/XlsShared.html" title="Workbook::Readers::XlsShared (module)">Readers::XlsShared</a></span>, <span class='object_link'><a href="Readers/XlsxReader.html" title="Workbook::Readers::XlsxReader (module)">Readers::XlsxReader</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html" title="Workbook::Writers::XlsWriter (module)">Writers::XlsWriter</a></span></dd>
+      
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/workbook/book.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>The Book class is the container of sheets. It can be inialized by either
+the standard initalizer or the open method. The  Book class can also keep a
+reference to a template class, storing shared formatting options.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+  <h2>Constant Summary</h2>
+  
+
+
+
+  <h2>Constant Summary</h2>
+  
+  <h3 class="inherited">Constants included
+     from <span class='object_link'><a href="Readers/XlsShared.html" title="Workbook::Readers::XlsShared (module)">Readers::XlsShared</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Readers/XlsShared.html#XLS_COLORS-constant" title="Workbook::Readers::XlsShared::XLS_COLORS (constant)">Readers::XlsShared::XLS_COLORS</a></span></p>
+
+
+  <h2>Instance Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#template-instance_method" title="#template (instance method)">- (Workbook::Format) <strong>template</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the template describing how the document should be/is formatted.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#title-instance_method" title="#title (instance method)">- (String) <strong>title</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The title of the workbook.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open-class_method" title="open (class method)">+ (Workbook::Book) <strong>open</strong>(filename, ext = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create an instance from a file, using open.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#create_or_open_sheet_at-instance_method" title="#create_or_open_sheet_at (instance method)">- (Object) <strong>create_or_open_sheet_at</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#file_extension-instance_method" title="#file_extension (instance method)">- (String) <strong>file_extension</strong>(filename) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The file extension.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#has_contents%3F-instance_method" title="#has_contents? (instance method)">- (Boolean) <strong>has_contents?</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns true if the first sheet has contents.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Workbook::Book) <strong>initialize</strong>(sheet = Workbook::Sheet.new([], self, options={})) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open-instance_method" title="#open (instance method)">- (Workbook::Book) <strong>open</strong>(filename, ext = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Loads an external file into an existing worbook.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open_binary-instance_method" title="#open_binary (instance method)">- (Workbook::Book) <strong>open_binary</strong>(filename, ext = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Open the file in binary, read-only mode, do not read it, but pas it throug
+to the extension determined loaded.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#open_text-instance_method" title="#open_text (instance method)">- (Object) <strong>open_text</strong>(filename, ext = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Open the file in non-binary, read-only mode, read it and parse it to UTF-8.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#push-instance_method" title="#push (instance method)">- (Object) <strong>push</strong>(sheet = Workbook::Sheet.new) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sheet-instance_method" title="#sheet (instance method)">- (Workbook::Sheet) <strong>sheet</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The first sheet, and creates an empty one if one doesn’t exists.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#sort-instance_method" title="#sort (instance method)">- (Object) <strong>sort</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/TxtReader.html" title="Workbook::Readers::TxtReader (module)">Readers::TxtReader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Readers/TxtReader.html#load_txt-instance_method" title="Workbook::Readers::TxtReader#load_txt (method)">#load_txt</a></span>, <span class='object_link'><a href="Readers/TxtReader.html#parse_txt-instance_method" title="Workbook::Readers::TxtReader#parse_txt (method)">#parse_txt</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/CsvReader.html" title="Workbook::Readers::CsvReader (module)">Readers::CsvReader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Readers/CsvReader.html#load_csv-instance_method" title="Workbook::Readers::CsvReader#load_csv (method)">#load_csv</a></span>, <span class='object_link'><a href="Readers/CsvReader.html#parse_csv-instance_method" title="Workbook::Readers::CsvReader#parse_csv (method)">#parse_csv</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/XlsxReader.html" title="Workbook::Readers::XlsxReader (module)">Readers::XlsxReader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Readers/XlsxReader.html#load_xlsx-instance_method" title="Workbook::Readers::XlsxReader#load_xlsx (method)">#load_xlsx</a></span>, <span class='object_link'><a href="Readers/XlsxReader.html#ms_formatting_to_strftime-instance_method" title="Workbook::Readers::XlsxReader#ms_formatting_to_strftime (method)">#ms_formatting_to_strftime</a></span>, <span class='object_link'><a href="Readers/XlsxReader.html#parse_xlsx-instance_method" title="Workbook::Readers::XlsxReader#parse_xlsx (method)">#parse_xlsx</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/XlsReader.html" title="Workbook::Readers::XlsReader (module)">Readers::XlsReader</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Readers/XlsReader.html#load_xls-instance_method" title="Workbook::Readers::XlsReader#load_xls (method)">#load_xls</a></span>, <span class='object_link'><a href="Readers/XlsReader.html#ms_formatting_to_strftime-instance_method" title="Workbook::Readers::XlsReader#ms_formatting_to_strftime (method)">#ms_formatting_to_strftime</a></span>, <span class='object_link'><a href="Readers/XlsReader.html#parse_xls-instance_method" title="Workbook::Readers::XlsReader#parse_xls (method)">#parse_xls</a></span>, <span class='object_link'><a href="Readers/XlsReader.html#xls_color_to_html_hex-instance_method" title="Workbook::Readers::XlsReader#xls_color_to_html_hex (method)">#xls_color_to_html_hex</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Writers/XlsWriter.html" title="Workbook::Writers::XlsWriter (module)">Writers::XlsWriter</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Writers/XlsWriter.html#format_to_xls_format-instance_method" title="Workbook::Writers::XlsWriter#format_to_xls_format (method)">#format_to_xls_format</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#html_color_to_xls_color-instance_method" title="Workbook::Writers::XlsWriter#html_color_to_xls_color (method)">#html_color_to_xls_color</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#init_spreadsheet_template-instance_method" title="Workbook::Writers::XlsWriter#init_spreadsheet_template (method)">#init_spreadsheet_template</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#strftime_to_ms_format-instance_method" title="Workbook::Writers::XlsWriter#strftime_to_ms_format (method)">#strftime_to_ms_format</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#to_xls-instance_method" title="Workbook::Writers::XlsWriter#to_xls (method)">#to_xls</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#write_to_xls-instance_method" title="Workbook::Writers::XlsWriter#write_to_xls (method)">#write_to_xls</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#xls_sheet-instance_method" title="Workbook::Writers::XlsWriter#xls_sheet (method)">#xls_sheet</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html#xls_template-instance_method" title="Workbook::Writers::XlsWriter#xls_template (method)">#xls_template</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  <div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>initialize</strong>(sheet = Workbook::Sheet.new([], self, options={})) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>Create</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Sheet.html" title="Workbook::Sheet (class)">Workbook::Sheet</a></span></tt>, <tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a new workbook based on an existing sheet, or initialize a sheet based on
+the array</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 26</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span> <span class='rubyid_sheet identifier id'>sheet</span><span class='assign token'>=</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='lbrack token'>[</span><span class='rbrack token'>]</span><span class='comma token'>,</span> <span class='rubyid_self self kw'>self</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_sheet identifier id'>sheet</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span>
+    <span class='rubyid_push identifier id'>push</span> <span class='rubyid_sheet identifier id'>sheet</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_push identifier id'>push</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_sheet identifier id'>sheet</span><span class='comma token'>,</span> <span class='rubyid_self self kw'>self</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="template=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="template-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>) <strong>template</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the template describing how the document should be/is formatted</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>returns the template describing how the document should be/is formatted</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 35</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_template identifier id'>template</span>
+  <span class='rubyid_@template ivar id'>@template</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="title=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="title-instance_method">
+  
+    - (<tt>String</tt>) <strong>title</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The title of the workbook</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the title of the workbook</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+46
+47
+48</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 46</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_title identifier id'>title</span>
+  <span class='rubyid_@title ivar id'>@title</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="open-class_method">
+  
+    + (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open</strong>(filename, ext = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create an instance from a file, using open.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>filename of the document</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>(not</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>required) enforce a certain extension, the parser is based on the extension
+of the file</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A new instance, based on the filename</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115
+116
+117
+118
+119</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 115</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_wb identifier id'>wb</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+  <span class='rubyid_wb identifier id'>wb</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_wb identifier id'>wb</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="create_or_open_sheet_at-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_or_open_sheet_at</strong>(index) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123
+124
+125
+126</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 121</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_open_sheet_at identifier id'>create_or_open_sheet_at</span> <span class='rubyid_index identifier id'>index</span>
+  <span class='rubyid_s identifier id'>s</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='lbrack token'>[</span><span class='rubyid_index identifier id'>index</span><span class='rbrack token'>]</span>
+  <span class='rubyid_s identifier id'>s</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='lbrack token'>[</span><span class='rubyid_index identifier id'>index</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_s identifier id'>s</span> <span class='eq op'>==</span> <span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_s identifier id'>s</span><span class='dot token'>.</span><span class='rubyid_book identifier id'>book</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span>
+  <span class='rubyid_s identifier id'>s</span> 
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="file_extension-instance_method">
+  
+    - (<tt>String</tt>) <strong>file_extension</strong>(filename) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The file extension</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>The</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>full filename, or path</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The file extension</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+106
+107
+108</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 106</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
+  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_filename identifier id'>filename</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_contents?-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>has_contents?</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns true if the first sheet has contents</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>returns true if the first sheet has contents</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 61</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_has_contents? fid id'>has_contents?</span>
+  <span class='rubyid_sheet identifier id'>sheet</span><span class='dot token'>.</span><span class='rubyid_has_contents? fid id'>has_contents?</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open</strong>(filename, ext = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Loads an external file into an existing worbook</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>string with a reference to the file to be opened</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>an</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional string enforcing a certain parser (based on the file extension,
+e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A new instance, based on the filename</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+70
+71
+72
+73
+74
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 70</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_if if kw'>if</span> <span class='lbrack token'>[</span><span class='string val'>'txt'</span><span class='comma token'>,</span><span class='string val'>'csv'</span><span class='comma token'>,</span><span class='string val'>'xml'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_ext identifier id'>ext</span><span class='rparen token'>)</span>
+    <span class='rubyid_open_text identifier id'>open_text</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_open_binary identifier id'>open_binary</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open_binary-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open_binary</strong>(filename, ext = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Open the file in binary, read-only mode, do not read it, but pas it throug
+to the extension determined loaded</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>string with a reference to the file to be opened</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>an</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional string enforcing a certain parser (based on the file extension,
+e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A new instance, based on the filename</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 84</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_open_binary identifier id'>open_binary</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_f identifier id'>f</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span><span class='string val'>'rb'</span><span class='rparen token'>)</span>
+  <span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;load_#{ext}&quot;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='comma token'>,</span><span class='rubyid_f identifier id'>f</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="open_text-instance_method">
+  
+    - (<tt>Object</tt>) <strong>open_text</strong>(filename, ext = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Open the file in non-binary, read-only mode, read it and parse it to UTF-8</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>a</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>string with a reference to the file to be opened</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>an</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>optional string enforcing a certain parser (based on the file extension,
+e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97
+98
+99
+100
+101</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 94</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_open_text identifier id'>open_text</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_f identifier id'>f</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span><span class='string val'>'r'</span><span class='rparen token'>)</span>
+  <span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='dot token'>.</span><span class='rubyid_read identifier id'>read</span>
+  <span class='rubyid_detected_encoding identifier id'>detected_encoding</span> <span class='assign token'>=</span> <span class='rubyid_CharDet constant id'>CharDet</span><span class='dot token'>.</span><span class='rubyid_detect identifier id'>detect</span><span class='lparen token'>(</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>'encoding'</span><span class='rbrack token'>]</span>
+  <span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_Iconv constant id'>Iconv</span><span class='dot token'>.</span><span class='rubyid_conv identifier id'>conv</span><span class='lparen token'>(</span><span class='string val'>&quot;UTF-8//TRANSLIT//IGNORE&quot;</span><span class='comma token'>,</span><span class='rubyid_detected_encoding identifier id'>detected_encoding</span><span class='comma token'>,</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span>
+  <span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;load_#{ext}&quot;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='comma token'>,</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="push-instance_method">
+  
+    - (<tt>Object</tt>) <strong>push</strong>(sheet = Workbook::Sheet.new) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 50</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_push identifier id'>push</span> <span class='rubyid_sheet identifier id'>sheet</span><span class='assign token'>=</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+  <span class='rubyid_super super kw'>super</span><span class='lparen token'>(</span><span class='rubyid_sheet identifier id'>sheet</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sheet-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Sheet.html" title="Workbook::Sheet (class)">Workbook::Sheet</a></span></tt>) <strong>sheet</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The first sheet, and creates an empty one if one doesn’t exists</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Sheet.html" title="Workbook::Sheet (class)">Workbook::Sheet</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The first sheet, and creates an empty one if one doesn’t exists</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55
+56
+57
+58</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 55</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_sheet identifier id'>sheet</span>
+  <span class='rubyid_push identifier id'>push</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_first identifier id'>first</span>
+  <span class='rubyid_first identifier id'>first</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="sort-instance_method">
+  
+    - (<tt>Object</tt>) <strong>sort</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 128</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_sort identifier id'>sort</span>
+  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exception constant id'>Exception</span><span class='lparen token'>(</span><span class='string val'>&quot;Books can't be sorted&quot;</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jan 15 16:26:59 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

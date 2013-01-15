@@ -4,9 +4,9 @@ module Workbook
     
     # Initialize a new sheet
     #
-    # @param [Workbook::Table, Array<Array>] The first table of this sheet
-    # @param [Workbook::Book] The book this sheet belongs to
-    # @param [Hash] options, forwarded to Workbook::Table.new
+    # @param [Workbook::Table, Array<Array>] table   The first table of this sheet
+    # @param [Workbook::Book] book                   The book this sheet belongs to
+    # @param [Hash] options                          are forwarded to Workbook::Table.new
     # @return [Workbook::Sheet] (self)
     def initialize table=Workbook::Table.new([], self), book=nil, options={}
       if table.is_a? Workbook::Table

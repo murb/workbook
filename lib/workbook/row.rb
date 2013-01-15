@@ -6,9 +6,9 @@ module Workbook
     
     # Initialize a new row
     #
-    # @param [Workbook::Row, Array<Workbook::Cell>, Array] list of cells to initialize the row with, default is empty
-    # @param [Workbook::Table] a row normally belongs to a table, reference it here
-    # @param [Hash], option hash. Supprted options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
+    # @param [Workbook::Row, Array<Workbook::Cell>, Array] cells list of cells to initialize the row with, default is empty
+    # @param [Workbook::Table] table a row normally belongs to a table, reference it here
+    # @param [Hash] options  Supprted options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
     def initialize cells=[], table=nil, options={}
       options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{}}.merge(options) : {} 
       cells = [] if cells==nil
@@ -40,14 +40,14 @@ module Workbook
     
     # Set reference to the table this row belongs to without adding the row to the table
     #
-    # @param [Workbook::Table] 
+    # @param [Workbook::Table] t the table this row belongs to
     def set_table(t)
       @table = t
     end
     
     # Set reference to the table this row belongs to and add the row to this table
     #
-    # @param [Workbook::Table] 
+    # @param [Workbook::Table] t the table this row belongs to
     def table= t
       raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) or t == nil
       if t
@@ -62,7 +62,7 @@ module Workbook
     #   row[1] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
-    # @param [Fixnum, Symbol]
+    # @param [Fixnum, Symbol] index_or_hash
     # @return [Workbook::Cell, nil]
     def [](index_or_hash)
       if index_or_hash.is_a? Symbol
@@ -85,8 +85,8 @@ module Workbook
     #   row[1] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
-    # @param [Fixnum, Symbol]
-    # @param [String, Fixnum, NilClass, Date, DateTime, Time, Float] the value 
+    # @param [Fixnum, Symbol] index_or_hash
+    # @param [String, Fixnum, NilClass, Date, DateTime, Time, Float] value 
     # @return [Workbook::Cell, nil]
     def []= (index_or_hash, value)
       index = index_or_hash
@@ -109,8 +109,8 @@ module Workbook
         
     # Returns an array of cells allows you to find cells by a given color, normally a string containing a hex
     #
-    # @param [String] default :any colour, can be a CSS-style hex-string
-    # @param [Hash] options. Option :hash_keys (default true) returns row as an array of symbols
+    # @param [String] color  a CSS-style hex-string
+    # @param [Hash] options Option :hash_keys (default true) returns row as an array of symbols
     # @return [Array<Symbol>, Workbook::Row<Workbook::Cell>]
     def find_cells_by_background_color color=:any, options={}
       options = {:hash_keys=>true}.merge(options)
@@ -161,7 +161,7 @@ module Workbook
     
     # Compares one row wiht another
     #
-    # @param [Workbook::Row] the row to compare against
+    # @param [Workbook::Row] other row to compare against
     # @return [Workbook::Row] a row with the diff result. 
     def <=> other
       a = self.header? ? 0 : 1
@@ -180,6 +180,9 @@ module Workbook
       r = r.collect{|c| c unless c.nil?}.compact
     end
     
+    # clone the row with together with the cells
+    #
+    # @return [Workbook::Row] a cloned copy of self with cells
     def clone
       Workbook::Row.new(to_a.collect{|c| c.clone})
     end

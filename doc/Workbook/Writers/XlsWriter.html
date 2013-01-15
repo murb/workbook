@@ -1,0 +1,813 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: Workbook::Writers::XlsWriter
+  
+    &mdash; Documentation by YARD 0.8.3
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../../_index.html">Index (X)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Workbook.html" title="Workbook (module)">Workbook</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Writers.html" title="Workbook::Writers (module)">Writers</a></span></span>
+     &raquo; 
+    <span class="title">XlsWriter</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: Workbook::Writers::XlsWriter
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1">Included in:</dt>
+    <dd class="r1"><span class='object_link'><a href="../Book.html" title="Workbook::Book (class)">Book</a></span></dd>
+    
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/workbook/writers/xls_writer.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#format_to_xls_format-instance_method" title="#format_to_xls_format (instance method)">- (Spreadsheet::Format) <strong>format_to_xls_format</strong>(f) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Generates an Spreadsheet (from the spreadsheet gem) in order to build an
+XlS.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#html_color_to_xls_color-instance_method" title="#html_color_to_xls_color (instance method)">- (Object) <strong>html_color_to_xls_color</strong>(hex) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#init_spreadsheet_template-instance_method" title="#init_spreadsheet_template (instance method)">- (Object) <strong>init_spreadsheet_template</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#strftime_to_ms_format-instance_method" title="#strftime_to_ms_format (instance method)">- (String<sup>?</sup>) <strong>strftime_to_ms_format</strong>(numberformat) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Converts standard (ruby/C++/unix/…) strftime formatting to MS’s
+formatting.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_xls-instance_method" title="#to_xls (instance method)">- (Spreadsheet) <strong>to_xls</strong>(options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Generates an Spreadsheet (from the spreadsheet gem) in order to build an
+XlS.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#write_to_xls-instance_method" title="#write_to_xls (instance method)">- (Object) <strong>write_to_xls</strong>(filename = &quot;#{title}.xls&quot;, options = {}) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Write the current workbook to Microsoft Excel format (using the spreadsheet
+gem).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#xls_sheet-instance_method" title="#xls_sheet (instance method)">- (Object) <strong>xls_sheet</strong>(a) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#xls_template-instance_method" title="#xls_template (instance method)">- (Object) <strong>xls_template</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="format_to_xls_format-instance_method">
+  
+    - (<tt>Spreadsheet::Format</tt>) <strong>format_to_xls_format</strong>(f) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Generates an Spreadsheet (from the spreadsheet gem) in order to build an
+XlS</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>A</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>, <tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Workbook::Format or hash with format-options (:font_weight, :rotation,
+:background_color, :number_format, :text_direction, :color, :font_family)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Spreadsheet::Format</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A Spreadsheet format-object, ready for writing or more lower level
+operations</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 37</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_format_to_xls_format identifier id'>format_to_xls_format</span> <span class='rubyid_f identifier id'>f</span>
+  <span class='rubyid_xlsfmt identifier id'>xlsfmt</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_f identifier id'>f</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Format constant id'>Format</span>
+    <span class='rubyid_f identifier id'>f</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Format constant id'>Format</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_f identifier id'>f</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_xlsfmt identifier id'>xlsfmt</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='dot token'>.</span><span class='rubyid_return_raw_for identifier id'>return_raw_for</span> <span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Format constant id'>Format</span>
+  <span class='rubyid_unless unless kw'>unless</span> <span class='rubyid_xlsfmt identifier id'>xlsfmt</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='assign token'>=</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Format constant id'>Format</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='symbol val'>:weight=</span><span class='gt op'>&gt;</span><span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:font_weight</span><span class='rbrack token'>]</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_rotation identifier id'>rotation</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:rotation</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:rotation</span><span class='rbrack token'>]</span> 
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_pattern_fg_color identifier id'>pattern_fg_color</span> <span class='assign token'>=</span> <span class='rubyid_html_color_to_xls_color identifier id'>html_color_to_xls_color</span><span class='lparen token'>(</span><span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:background_color</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_html_color_to_xls_color identifier id'>html_color_to_xls_color</span><span class='lparen token'>(</span><span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:background_color</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_pattern identifier id'>pattern</span> <span class='assign token'>=</span> <span class='integer val'>1</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_html_color_to_xls_color identifier id'>html_color_to_xls_color</span><span class='lparen token'>(</span><span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:background_color</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_number_format identifier id'>number_format</span> <span class='assign token'>=</span> <span class='rubyid_strftime_to_ms_format identifier id'>strftime_to_ms_format</span><span class='lparen token'>(</span><span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:number_format</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:number_format</span><span class='rbrack token'>]</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_text_direction identifier id'>text_direction</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:text_direction</span><span class='rbrack token'>]</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:text_direction</span><span class='rbrack token'>]</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_font identifier id'>font</span><span class='dot token'>.</span><span class='rubyid_name identifier id'>name</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:font_family</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='dot token'>.</span><span class='rubyid_first identifier id'>first</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:font_family</span><span class='rbrack token'>]</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_font identifier id'>font</span><span class='dot token'>.</span><span class='rubyid_family identifier id'>family</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:font_family</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_split identifier id'>split</span><span class='dot token'>.</span><span class='rubyid_last identifier id'>last</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:font_family</span><span class='rbrack token'>]</span>
+    <span class='rubyid_xlsfmt identifier id'>xlsfmt</span><span class='dot token'>.</span><span class='rubyid_font identifier id'>font</span><span class='dot token'>.</span><span class='rubyid_color identifier id'>color</span> <span class='assign token'>=</span> <span class='rubyid_html_color_to_xls_color identifier id'>html_color_to_xls_color</span><span class='lparen token'>(</span><span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:color</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_f identifier id'>f</span><span class='lbrack token'>[</span><span class='symbol val'>:color</span><span class='rbrack token'>]</span>
+    <span class='rubyid_f identifier id'>f</span><span class='dot token'>.</span><span class='rubyid_add_raw identifier id'>add_raw</span> <span class='rubyid_xlsfmt identifier id'>xlsfmt</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_xlsfmt identifier id'>xlsfmt</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="html_color_to_xls_color-instance_method">
+  
+    - (<tt>Object</tt>) <strong>html_color_to_xls_color</strong>(hex) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+58
+59
+60
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 58</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_html_color_to_xls_color identifier id'>html_color_to_xls_color</span> <span class='rubyid_hex identifier id'>hex</span>
+  <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Readers constant id'>Readers</span><span class='colon2 op'>::</span><span class='rubyid_XlsShared constant id'>XlsShared</span><span class='colon2 op'>::</span><span class='rubyid_XLS_COLORS constant id'>XLS_COLORS</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_k identifier id'>k</span><span class='comma token'>,</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_k identifier id'>k</span> <span class='rubyid_if if_mod kw'>if</span> <span class='lparen token'>(</span><span class='rubyid_v identifier id'>v</span> <span class='eq op'>==</span> <span class='rubyid_hex identifier id'>hex</span> <span class='rubyid_or or kw'>or</span> <span class='lparen token'>(</span><span class='rubyid_hex identifier id'>hex</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_hex identifier id'>hex</span> <span class='neq op'>!=</span> <span class='string val'>&quot;&quot;</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_k identifier id'>k</span> <span class='eq op'>==</span> <span class='rubyid_hex identifier id'>hex</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rparen token'>)</span><span class='rparen token'>)</span>
+  <span class='rubyid_end end kw'>end</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="init_spreadsheet_template-instance_method">
+  
+    - (<tt>Object</tt>) <strong>init_spreadsheet_template</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+97
+98
+99
+100
+101
+102
+103
+104
+105</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 97</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_init_spreadsheet_template identifier id'>init_spreadsheet_template</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_xls_template identifier id'>xls_template</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_xls_template identifier id'>xls_template</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+    <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_add_raw identifier id'>add_raw</span> <span class='rubyid_t identifier id'>t</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_t identifier id'>t</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="strftime_to_ms_format-instance_method">
+  
+    - (<tt>String</tt><sup>?</sup>) <strong>strftime_to_ms_format</strong>(numberformat) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Converts standard (ruby/C++/unix/…) strftime formatting to MS’s
+formatting</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>(nil</span>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>returns nil)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 69</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_strftime_to_ms_format identifier id'>strftime_to_ms_format</span> <span class='rubyid_numberformat identifier id'>numberformat</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_numberformat identifier id'>numberformat</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_numberformat identifier id'>numberformat</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%Y'</span><span class='comma token'>,</span><span class='string val'>'yyyy'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%A'</span><span class='comma token'>,</span><span class='string val'>'dddd'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%B'</span><span class='comma token'>,</span><span class='string val'>'mmmm'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%a'</span><span class='comma token'>,</span><span class='string val'>'ddd'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%b'</span><span class='comma token'>,</span><span class='string val'>'mmm'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%y'</span><span class='comma token'>,</span><span class='string val'>'yy'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%d'</span><span class='comma token'>,</span><span class='string val'>'dd'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%m'</span><span class='comma token'>,</span><span class='string val'>'mm'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%y'</span><span class='comma token'>,</span><span class='string val'>'y'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%y'</span><span class='comma token'>,</span><span class='string val'>'%%y'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'%e'</span><span class='comma token'>,</span><span class='string val'>'d'</span><span class='rparen token'>)</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_xls-instance_method">
+  
+    - (<tt>Spreadsheet</tt>) <strong>to_xls</strong>(options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Generates an Spreadsheet (from the spreadsheet gem) in order to build an
+XlS</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>A</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>hash with options (unused so far)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Spreadsheet</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A Spreadsheet object, ready for writing or more lower level operations</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 11</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_xls identifier id'>to_xls</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="write_to_xls-instance_method">
+  
+    - (<tt>Object</tt>) <strong>write_to_xls</strong>(filename = &quot;#{title}.xls&quot;, options = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Write the current workbook to Microsoft Excel format (using the spreadsheet
+gem)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>the</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>filename</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>options,</span>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>see #to_xls</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 78</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_write_to_xls identifier id'>write_to_xls</span> <span class='rubyid_filename identifier id'>filename</span><span class='assign token'>=</span><span class='dstring node'>&quot;#{title}.xls&quot;</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="xls_sheet-instance_method">
+  
+    - (<tt>Object</tt>) <strong>xls_sheet</strong>(a) 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+84
+85
+86
+87
+88
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 84</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_xls_sheet identifier id'>xls_sheet</span> <span class='rubyid_a identifier id'>a</span>
+  <span class='rubyid_if if kw'>if</span> <span class='rubyid_xls_template identifier id'>xls_template</span><span class='dot token'>.</span><span class='rubyid_worksheet identifier id'>worksheet</span><span class='lparen token'>(</span><span class='rubyid_a identifier id'>a</span><span class='rparen token'>)</span>
+    <span class='rubyid_return return kw'>return</span> <span class='rubyid_xls_template identifier id'>xls_template</span><span class='dot token'>.</span><span class='rubyid_worksheet identifier id'>worksheet</span><span class='lparen token'>(</span><span class='rubyid_a identifier id'>a</span><span class='rparen token'>)</span>
+  <span class='rubyid_else else kw'>else</span>
+    <span class='rubyid_xls_template identifier id'>xls_template</span><span class='dot token'>.</span><span class='rubyid_create_worksheet identifier id'>create_worksheet</span>
+    <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_xls_sheet identifier id'>xls_sheet</span> <span class='rubyid_a identifier id'>a</span>
+  <span class='rubyid_end end kw'>end</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="xls_template-instance_method">
+  
+    - (<tt>Object</tt>) <strong>xls_template</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+93
+94
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 93</span>
+
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_xls_template identifier id'>xls_template</span>
+  <span class='rubyid_return return kw'>return</span> <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_raws identifier id'>raws</span><span class='lbrack token'>[</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Excel constant id'>Excel</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_raws identifier id'>raws</span><span class='lbrack token'>[</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Excel constant id'>Excel</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='rbrack token'>]</span> <span class='colon op'>:</span> <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_raws identifier id'>raws</span><span class='lbrack token'>[</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='rbrack token'>]</span>
+<span class='rubyid_end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jan 15 16:26:55 2013 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.3 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>
