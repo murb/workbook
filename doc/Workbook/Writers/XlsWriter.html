@@ -131,7 +131,7 @@ XlS.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#html_color_to_xls_color-instance_method" title="#html_color_to_xls_color (instance method)">- (Object) <strong>html_color_to_xls_color</strong>(hex) </a>
+      <a href="#html_color_to_xls_color-instance_method" title="#html_color_to_xls_color (instance method)">- (String) <strong>html_color_to_xls_color</strong>(hex) </a>
     
 
     
@@ -145,7 +145,9 @@ XlS.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Attempt to convert html-hex color value to xls color number.</p>
+</div></span>
   
 </li>
 
@@ -324,7 +326,7 @@ XlS</p>
   
     <li>
       
-        <span class='name'>A</span>
+        <span class='name'>f</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="../Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>, <tt>Hash</tt>)</span>
@@ -333,7 +335,7 @@ XlS</p>
       
         &mdash;
         <div class='inline'>
-<p>Workbook::Format or hash with format-options (:font_weight, :rotation,
+<p>A Workbook::Format or hash with format-options (:font_weight, :rotation,
 :background_color, :number_format, :text_direction, :color, :font_family)</p>
 </div>
       
@@ -420,27 +422,76 @@ operations</p>
       <div class="method_details ">
   <h3 class="signature " id="html_color_to_xls_color-instance_method">
   
-    - (<tt>Object</tt>) <strong>html_color_to_xls_color</strong>(hex) 
+    - (<tt>String</tt>) <strong>html_color_to_xls_color</strong>(hex) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Attempt to convert html-hex color value to xls color number</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>hex</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>color</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>xls color</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-58
-59
-60
-61
 62
-63</pre>
+63
+64
+65
+66
+67</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 62</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_html_color_to_xls_color identifier id'>html_color_to_xls_color</span> <span class='rubyid_hex identifier id'>hex</span>
   <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Readers constant id'>Readers</span><span class='colon2 op'>::</span><span class='rubyid_XlsShared constant id'>XlsShared</span><span class='colon2 op'>::</span><span class='rubyid_XLS_COLORS constant id'>XLS_COLORS</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_k identifier id'>k</span><span class='comma token'>,</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
@@ -469,18 +520,18 @@ operations</p>
       <pre class="lines">
 
 
-97
-98
-99
-100
 101
 102
 103
 104
-105</pre>
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 101</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_init_spreadsheet_template identifier id'>init_spreadsheet_template</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_xls_template identifier id'>xls_template</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span>
@@ -521,7 +572,7 @@ formatting</p>
   
     <li>
       
-        <span class='name'>(nil</span>
+        <span class='name'>numberformat</span>
       
       
         <span class='type'>(<tt>String</tt>, <tt>nil</tt>)</span>
@@ -530,7 +581,7 @@ formatting</p>
       
         &mdash;
         <div class='inline'>
-<p>returns nil)</p>
+<p>(nil returns nil)</p>
 </div>
       
     </li>
@@ -557,13 +608,13 @@ formatting</p>
       <pre class="lines">
 
 
-69
-70
-71
-72</pre>
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 69</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 73</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_strftime_to_ms_format identifier id'>strftime_to_ms_format</span> <span class='rubyid_numberformat identifier id'>numberformat</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_numberformat identifier id'>numberformat</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
@@ -599,16 +650,18 @@ XlS</p>
   
     <li>
       
-        <span class='name'>A</span>
+        <span class='name'>options</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>hash with options (unused so far)</p>
+<p>A hash with options (unused so far)</p>
 </div>
       
     </li>
@@ -676,27 +729,26 @@ gem)</p>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>&quot;#{title}.xls&quot;</tt>)</em>
       
-        &mdash;
-        <div class='inline'>
-<p>filename</p>
-</div>
       
     </li>
   
     <li>
       
-        <span class='name'>options,</span>
+        <span class='name'>options</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
@@ -715,10 +767,10 @@ gem)</p>
       <pre class="lines">
 
 
-78</pre>
+82</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 82</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_write_to_xls identifier id'>write_to_xls</span> <span class='rubyid_filename identifier id'>filename</span><span class='assign token'>=</span><span class='dstring node'>&quot;#{title}.xls&quot;</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
 </pre>
@@ -742,17 +794,17 @@ gem)</p>
       <pre class="lines">
 
 
-84
-85
-86
-87
 88
 89
 90
-91</pre>
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 88</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_xls_sheet identifier id'>xls_sheet</span> <span class='rubyid_a identifier id'>a</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_xls_template identifier id'>xls_template</span><span class='dot token'>.</span><span class='rubyid_worksheet identifier id'>worksheet</span><span class='lparen token'>(</span><span class='rubyid_a identifier id'>a</span><span class='rparen token'>)</span>
@@ -783,12 +835,12 @@ gem)</p>
       <pre class="lines">
 
 
-93
-94
-95</pre>
+97
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 93</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/writers/xls_writer.rb', line 97</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_xls_template identifier id'>xls_template</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_raws identifier id'>raws</span><span class='lbrack token'>[</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Excel constant id'>Excel</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='rbrack token'>]</span> <span class='question op'>?</span> <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_raws identifier id'>raws</span><span class='lbrack token'>[</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Excel constant id'>Excel</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='rbrack token'>]</span> <span class='colon op'>:</span> <span class='rubyid_template identifier id'>template</span><span class='dot token'>.</span><span class='rubyid_raws identifier id'>raws</span><span class='lbrack token'>[</span><span class='rubyid_Spreadsheet constant id'>Spreadsheet</span><span class='colon2 op'>::</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='rbrack token'>]</span>
@@ -804,7 +856,7 @@ gem)</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 16:26:55 2013 by
+  Generated on Tue Jan 15 17:11:40 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

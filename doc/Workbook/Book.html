@@ -204,7 +204,7 @@ reference to a template class, storing shared formatting options.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#open-class_method" title="open (class method)">+ (Workbook::Book) <strong>open</strong>(filename, ext = nil) </a>
+      <a href="#open-class_method" title="open (class method)">+ (Workbook::Book) <strong>open</strong>(filename, extension = nil) </a>
     
 
     
@@ -251,7 +251,9 @@ reference to a template class, storing shared formatting options.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Create or open the existing sheet at an index value.</p>
+</div></span>
   
 </li>
 
@@ -298,7 +300,7 @@ reference to a template class, storing shared formatting options.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns true if the first sheet has contents.</p>
+<p>If the first sheet has any contents.</p>
 </div></span>
   
 </li>
@@ -331,7 +333,7 @@ reference to a template class, storing shared formatting options.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#open-instance_method" title="#open (instance method)">- (Workbook::Book) <strong>open</strong>(filename, ext = nil) </a>
+      <a href="#open-instance_method" title="#open (instance method)">- (Workbook::Book) <strong>open</strong>(filename, extension = nil) </a>
     
 
     
@@ -355,7 +357,7 @@ reference to a template class, storing shared formatting options.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#open_binary-instance_method" title="#open_binary (instance method)">- (Workbook::Book) <strong>open_binary</strong>(filename, ext = nil) </a>
+      <a href="#open_binary-instance_method" title="#open_binary (instance method)">- (Workbook::Book) <strong>open_binary</strong>(filename, extension = nil) </a>
     
 
     
@@ -380,7 +382,7 @@ to the extension determined loaded.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#open_text-instance_method" title="#open_text (instance method)">- (Object) <strong>open_text</strong>(filename, ext = nil) </a>
+      <a href="#open_text-instance_method" title="#open_text (instance method)">- (Object) <strong>open_text</strong>(filename, extension = nil) </a>
     
 
     
@@ -418,7 +420,10 @@ to the extension determined loaded.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Push (like in array) a sheet to the workbook (parameter is optional,
+default is a new sheet).</p>
+</div></span>
   
 </li>
 
@@ -441,30 +446,8 @@ to the extension determined loaded.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>The first sheet, and creates an empty one if one doesn’t exists.</p>
+<p>Sheet returns the first sheet of a workbook, or an empty one.</p>
 </div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#sort-instance_method" title="#sort (instance method)">- (Object) <strong>sort</strong> </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -558,17 +541,19 @@ to the extension determined loaded.</p>
   
     <li>
       
-        <span class='name'>Create</span>
+        <span class='name'>sheet</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="Sheet.html" title="Workbook::Sheet (class)">Workbook::Sheet</a></span></tt>, <tt>Array</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>Workbook::Sheet.new([], self, options={})</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>a new workbook based on an existing sheet, or initialize a sheet based on
-the array</p>
+<p>create a new workbook based on an existing sheet, or initialize a sheet
+based on the array</p>
 </div>
       
     </li>
@@ -719,12 +704,12 @@ the array</p>
       <pre class="lines">
 
 
-46
-47
-48</pre>
+48
+49
+50</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 48</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_title identifier id'>title</span>
   <span class='rubyid_@title ivar id'>@title</span>
@@ -745,7 +730,7 @@ the array</p>
       <div class="method_details first">
   <h3 class="signature first" id="open-class_method">
   
-    + (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open</strong>(filename, ext = nil) 
+    + (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open</strong>(filename, extension = nil) 
   
 
   
@@ -765,7 +750,7 @@ the array</p>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -774,24 +759,26 @@ the array</p>
       
         &mdash;
         <div class='inline'>
-<p>filename of the document</p>
+<p>of the document</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>(not</span>
+        <span class='name'>extension</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>required) enforce a certain extension, the parser is based on the extension
-of the file</p>
+<p>of the document (not required). The parser used is based on the extension
+of the file, this option allows you to override the default.</p>
 </div>
       
     </li>
@@ -823,18 +810,18 @@ of the file</p>
       <pre class="lines">
 
 
-115
-116
-117
-118
-119</pre>
+124
+125
+126
+127
+128</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 124</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
   <span class='rubyid_wb identifier id'>wb</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
-  <span class='rubyid_wb identifier id'>wb</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span>
+  <span class='rubyid_wb identifier id'>wb</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_wb identifier id'>wb</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -858,21 +845,52 @@ of the file</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create or open the existing sheet at an index value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the index of the sheet</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-121
-122
-123
-124
-125
-126</pre>
+133
+134
+135
+136
+137
+138</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 133</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_open_sheet_at identifier id'>create_or_open_sheet_at</span> <span class='rubyid_index identifier id'>index</span>
   <span class='rubyid_s identifier id'>s</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='lbrack token'>[</span><span class='rubyid_index identifier id'>index</span><span class='rbrack token'>]</span>
@@ -909,7 +927,7 @@ of the file</p>
   
     <li>
       
-        <span class='name'>The</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -918,7 +936,7 @@ of the file</p>
       
         &mdash;
         <div class='inline'>
-<p>full filename, or path</p>
+<p>The full filename, or path</p>
 </div>
       
     </li>
@@ -950,12 +968,12 @@ of the file</p>
       <pre class="lines">
 
 
-106
-107
-108</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 115</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span>
   <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_extname identifier id'>extname</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'.'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_filename identifier id'>filename</span>
@@ -978,7 +996,7 @@ of the file</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns true if the first sheet has contents</p>
+<p>If the first sheet has any contents</p>
 
 
   </div>
@@ -1010,12 +1028,12 @@ of the file</p>
       <pre class="lines">
 
 
-61
-62
-63</pre>
+70
+71
+72</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 61</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 70</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_has_contents? fid id'>has_contents?</span>
   <span class='rubyid_sheet identifier id'>sheet</span><span class='dot token'>.</span><span class='rubyid_has_contents? fid id'>has_contents?</span>
@@ -1029,7 +1047,7 @@ of the file</p>
       <div class="method_details ">
   <h3 class="signature " id="open-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open</strong>(filename, ext = nil) 
+    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open</strong>(filename, extension = nil) 
   
 
   
@@ -1049,7 +1067,7 @@ of the file</p>
   
     <li>
       
-        <span class='name'>a</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1058,23 +1076,25 @@ of the file</p>
       
         &mdash;
         <div class='inline'>
-<p>string with a reference to the file to be opened</p>
+<p>a string with a reference to the file to be opened</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>an</span>
+        <span class='name'>extension</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>optional string enforcing a certain parser (based on the file extension,
+<p>an optional string enforcing a certain parser (based on the file extension,
 e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
 </div>
       
@@ -1107,24 +1127,24 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-70
-71
-72
-73
-74
-75
-76
-77</pre>
+79
+80
+81
+82
+83
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 79</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span>
-  <span class='rubyid_if if kw'>if</span> <span class='lbrack token'>[</span><span class='string val'>'txt'</span><span class='comma token'>,</span><span class='string val'>'csv'</span><span class='comma token'>,</span><span class='string val'>'xml'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_ext identifier id'>ext</span><span class='rparen token'>)</span>
-    <span class='rubyid_open_text identifier id'>open_text</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_extension identifier id'>extension</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_extension identifier id'>extension</span>
+  <span class='rubyid_if if kw'>if</span> <span class='lbrack token'>[</span><span class='string val'>'txt'</span><span class='comma token'>,</span><span class='string val'>'csv'</span><span class='comma token'>,</span><span class='string val'>'xml'</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_include? fid id'>include?</span><span class='lparen token'>(</span><span class='rubyid_extension identifier id'>extension</span><span class='rparen token'>)</span>
+    <span class='rubyid_open_text identifier id'>open_text</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span>
   <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_open_binary identifier id'>open_binary</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span>
+    <span class='rubyid_open_binary identifier id'>open_binary</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span>
   <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
@@ -1136,7 +1156,7 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <div class="method_details ">
   <h3 class="signature " id="open_binary-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open_binary</strong>(filename, ext = nil) 
+    - (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>open_binary</strong>(filename, extension = nil) 
   
 
   
@@ -1157,7 +1177,7 @@ to the extension determined loaded</p>
   
     <li>
       
-        <span class='name'>a</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1166,23 +1186,25 @@ to the extension determined loaded</p>
       
         &mdash;
         <div class='inline'>
-<p>string with a reference to the file to be opened</p>
+<p>a string with a reference to the file to be opened</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>an</span>
+        <span class='name'>extension</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>optional string enforcing a certain parser (based on the file extension,
+<p>an optional string enforcing a certain parser (based on the file extension,
 e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
 </div>
       
@@ -1215,19 +1237,19 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-84
-85
-86
-87
-88</pre>
+93
+94
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 93</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_open_binary identifier id'>open_binary</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_open_binary identifier id'>open_binary</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_extension identifier id'>extension</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_extension identifier id'>extension</span>
   <span class='rubyid_f identifier id'>f</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span><span class='string val'>'rb'</span><span class='rparen token'>)</span>
-  <span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;load_#{ext}&quot;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='comma token'>,</span><span class='rubyid_f identifier id'>f</span><span class='rparen token'>)</span>
+  <span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;load_#{extension}&quot;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='comma token'>,</span><span class='rubyid_f identifier id'>f</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1238,7 +1260,7 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <div class="method_details ">
   <h3 class="signature " id="open_text-instance_method">
   
-    - (<tt>Object</tt>) <strong>open_text</strong>(filename, ext = nil) 
+    - (<tt>Object</tt>) <strong>open_text</strong>(filename, extension = nil) 
   
 
   
@@ -1258,7 +1280,7 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
   
     <li>
       
-        <span class='name'>a</span>
+        <span class='name'>filename</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
@@ -1267,23 +1289,25 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       
         &mdash;
         <div class='inline'>
-<p>string with a reference to the file to be opened</p>
+<p>a string with a reference to the file to be opened</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>an</span>
+        <span class='name'>extension</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>optional string enforcing a certain parser (based on the file extension,
+<p>an optional string enforcing a certain parser (based on the file extension,
 e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
 </div>
       
@@ -1298,25 +1322,25 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-94
-95
-96
-97
-98
-99
-100
-101</pre>
+103
+104
+105
+106
+107
+108
+109
+110</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 94</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 103</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_open_text identifier id'>open_text</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_ext identifier id'>ext</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_ext identifier id'>ext</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_ext identifier id'>ext</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_open_text identifier id'>open_text</span> <span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span> <span class='rubyid_extension identifier id'>extension</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span>
+  <span class='rubyid_extension identifier id'>extension</span> <span class='assign token'>=</span> <span class='rubyid_file_extension identifier id'>file_extension</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='rparen token'>)</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_extension identifier id'>extension</span>
   <span class='rubyid_f identifier id'>f</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span><span class='lparen token'>(</span><span class='rubyid_filename identifier id'>filename</span><span class='comma token'>,</span><span class='string val'>'r'</span><span class='rparen token'>)</span>
   <span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_f identifier id'>f</span><span class='dot token'>.</span><span class='rubyid_read identifier id'>read</span>
   <span class='rubyid_detected_encoding identifier id'>detected_encoding</span> <span class='assign token'>=</span> <span class='rubyid_CharDet constant id'>CharDet</span><span class='dot token'>.</span><span class='rubyid_detect identifier id'>detect</span><span class='lparen token'>(</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='string val'>'encoding'</span><span class='rbrack token'>]</span>
   <span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_Iconv constant id'>Iconv</span><span class='dot token'>.</span><span class='rubyid_conv identifier id'>conv</span><span class='lparen token'>(</span><span class='string val'>&quot;UTF-8//TRANSLIT//IGNORE&quot;</span><span class='comma token'>,</span><span class='rubyid_detected_encoding identifier id'>detected_encoding</span><span class='comma token'>,</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span>
-  <span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;load_#{ext}&quot;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='comma token'>,</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span>
+  <span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='dstring node'>&quot;load_#{extension}&quot;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='comma token'>,</span><span class='rubyid_t identifier id'>t</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1333,18 +1357,47 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Push (like in array) a sheet to the workbook (parameter is optional,
+default is a new sheet)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>sheet</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Sheet.html" title="Workbook::Sheet (class)">Workbook::Sheet</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>Workbook::Sheet.new</tt>)</em>
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-50
-51
-52</pre>
+55
+56
+57</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 55</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_push identifier id'>push</span> <span class='rubyid_sheet identifier id'>sheet</span><span class='assign token'>=</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
   <span class='rubyid_super super kw'>super</span><span class='lparen token'>(</span><span class='rubyid_sheet identifier id'>sheet</span><span class='rparen token'>)</span>
@@ -1367,7 +1420,7 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>The first sheet, and creates an empty one if one doesn’t exists</p>
+<p>Sheet returns the first sheet of a workbook, or an empty one.</p>
 
 
   </div>
@@ -1399,48 +1452,17 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-55
-56
-57
-58</pre>
+62
+63
+64
+65</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 62</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_sheet identifier id'>sheet</span>
   <span class='rubyid_push identifier id'>push</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Sheet constant id'>Sheet</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='rubyid_unless unless_mod kw'>unless</span> <span class='rubyid_first identifier id'>first</span>
   <span class='rubyid_first identifier id'>first</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="sort-instance_method">
-  
-    - (<tt>Object</tt>) <strong>sort</strong> 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-128
-129
-130</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 128</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_sort identifier id'>sort</span>
-  <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_Exception constant id'>Exception</span><span class='lparen token'>(</span><span class='string val'>&quot;Books can't be sorted&quot;</span><span class='rparen token'>)</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -1453,7 +1475,7 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 16:26:59 2013 by
+  Generated on Tue Jan 15 17:11:44 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

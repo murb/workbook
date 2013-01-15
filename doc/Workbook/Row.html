@@ -225,7 +225,7 @@ identify a column based on the header-values.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#clone-instance_method" title="#clone (instance method)">- (Object) <strong>clone</strong> </a>
+      <a href="#clone-instance_method" title="#clone (instance method)">- (Workbook::Row) <strong>clone</strong> </a>
     
 
     
@@ -239,7 +239,9 @@ identify a column based on the header-values.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>clone the row with together with the cells.</p>
+</div></span>
   
 </li>
 
@@ -612,50 +614,56 @@ table.</p>
   
     <li>
       
-        <span class='name'>list</span>
+        <span class='name'>cells</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>, <tt>Array&lt;<span class='object_link'><a href="Cell.html" title="Workbook::Cell (class)">Workbook::Cell</a></span>&gt;</tt>, <tt>Array</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>of cells to initialize the row with, default is empty</p>
+<p>list of cells to initialize the row with, default is empty</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>a</span>
+        <span class='name'>table</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="Table.html" title="Workbook::Table (class)">Workbook::Table</a></span></tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>row normally belongs to a table, reference it here</p>
+<p>a row normally belongs to a table, reference it here</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>,</span>
+        <span class='name'>options</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>option hash. Supprted options: parse_cells_on_batch_creation (parse cell
-values during row-initalization, default: false), cell_parse_options
-(default {}, see Workbook::Modules::TypeParser)</p>
+<p>Supprted options: parse_cells_on_batch_creation (parse cell values during
+row-initalization, default: false), cell_parse_options (default {}, see
+Workbook::Modules::TypeParser)</p>
 </div>
       
     </li>
@@ -760,7 +768,7 @@ values during row-initalization, default: false), cell_parse_options
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>other</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>)</span>
@@ -861,7 +869,7 @@ identify a column based on the header-values</p>
   
     <li>
       
-        <span class='name'></span>
+        <span class='name'>index_or_hash</span>
       
       
         <span class='type'>(<tt>Fixnum</tt>, <tt>Symbol</tt>)</span>
@@ -968,7 +976,7 @@ identify a column based on the header-values</p>
   
     <li>
       
-        <span class='name'></span>
+        <span class='name'>index_or_hash</span>
       
       
         <span class='type'>(<tt>Fixnum</tt>, <tt>Symbol</tt>)</span>
@@ -979,17 +987,12 @@ identify a column based on the header-values</p>
   
     <li>
       
-        <span class='name'>the</span>
+        <span class='name'>value</span>
       
       
         <span class='type'>(<tt>String</tt>, <tt>Fixnum</tt>, <tt>NilClass</tt>, <tt>Date</tt>, <tt>DateTime</tt>, <tt>Time</tt>, <tt>Float</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>value</p>
-</div>
       
     </li>
   
@@ -1064,24 +1067,53 @@ identify a column based on the header-values</p>
       <div class="method_details ">
   <h3 class="signature " id="clone-instance_method">
   
-    - (<tt>Object</tt>) <strong>clone</strong> 
+    - (<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>) <strong>clone</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>clone the row with together with the cells</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a cloned copy of self with cells</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-183
-184
-185</pre>
+186
+187
+188</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 183</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 186</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_clone identifier id'>clone</span>
   <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Row constant id'>Row</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_to_a identifier id'>to_a</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span> <span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_clone identifier id'>clone</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
@@ -1160,27 +1192,31 @@ normally a string containing a hex</p>
   
     <li>
       
-        <span class='name'>default</span>
+        <span class='name'>color</span>
       
       
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>:any</tt>)</em>
+      
       
         &mdash;
         <div class='inline'>
-<p>:any colour, can be a CSS-style hex-string</p>
+<p>a CSS-style hex-string</p>
 </div>
       
     </li>
   
     <li>
       
-        <span class='name'>options.</span>
+        <span class='name'>options</span>
       
       
         <span class='type'>(<tt>Hash</tt>)</span>
       
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
       
       
         &mdash;
@@ -1457,12 +1493,17 @@ the table</p>
   
     <li>
       
-        <span class='name'></span>
+        <span class='name'>t</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="Table.html" title="Workbook::Table (class)">Workbook::Table</a></span></tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>the table this row belongs to</p>
+</div>
       
     </li>
   
@@ -1575,12 +1616,17 @@ table</p>
   
     <li>
       
-        <span class='name'></span>
+        <span class='name'>t</span>
       
       
         <span class='type'>(<tt><span class='object_link'><a href="Table.html" title="Workbook::Table (class)">Workbook::Table</a></span></tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>the table this row belongs to</p>
+</div>
       
     </li>
   
@@ -1851,7 +1897,7 @@ table</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 16:26:57 2013 by
+  Generated on Tue Jan 15 17:11:43 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
