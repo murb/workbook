@@ -65,6 +65,11 @@ module Workbook
       return value.nil?
     end
     
+    # returns a symbol representation of the cell's value
+    # @return [Symbol] a symbol representation
+    # @example 
+    #
+    #     <Workbook::Cell value="yet another value">.to_sym # returns :yet_another_value
     def to_sym
       #mb_chars.normalize(:kd).
       v = nil
@@ -150,6 +155,7 @@ module Workbook
     end
     
     # convert value to string, and in case of a Date or Time value, apply formatting
+    # @return [String]
     def to_s
       if (value.is_a? Date or value.is_a? Time) and format[:number_format]
         value.strftime(format[:number_format])
