@@ -76,5 +76,14 @@ module Workbook
       self.collect{|r| r.object_id}.include? row.object_id
     end
     
+    def sheet
+      if @sheet
+        return @sheet
+      else
+        self.sheet = Workbook::Sheet.new(self)
+        return @sheet
+      end
+    end
+    
   end
 end

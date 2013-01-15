@@ -1,5 +1,6 @@
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
+require 'workbook/readers/xls_shared'
 require 'workbook/readers/xlsx_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
@@ -10,6 +11,7 @@ module Workbook
   # Book class can also keep a reference to a template class, storing shared formatting options.
   # 
   class Book < Array
+    include Workbook::Readers::XlsShared
     include Workbook::Writers::XlsWriter
     include Workbook::Readers::XlsReader
     include Workbook::Readers::XlsxReader

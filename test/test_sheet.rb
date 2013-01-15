@@ -22,5 +22,13 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(w.table,t)
     
   end
+  
+  def test_book
+    s = Workbook::Sheet.new
+    b = s.book
+    assert_equal(s.book, b)
+    assert_equal(s, b.sheet)
+    assert_equal(s.book.sheet, b.sheet.table.sheet)
+  end
  
 end

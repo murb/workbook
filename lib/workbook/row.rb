@@ -94,18 +94,17 @@ module Workbook
         index = table_header_keys.index(index_or_hash)
       end
     
-      # TODO: maybe this type logic should be moved to cell
-      new_value = Workbook::Cell.new
+      value_celled = Workbook::Cell.new
       if value.is_a? Workbook::Cell
-        new_value = value
+        value_celled = value
       else
         current_cell = self[index]
         if current_cell.is_a? Workbook::Cell
-          new_value = current_cell 
+          value_celled = current_cell 
         end
-        new_value.value=(value)
+        value_celled.value=(value)
       end
-      super(index,new_value)
+      super(index,value_celled)
     end
         
     # Returns an array of cells allows you to find cells by a given color, normally a string containing a hex

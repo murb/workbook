@@ -51,5 +51,12 @@ class TestTable< Test::Unit::TestCase
     t << row 
     assert_equal(t, row.table)
   end
+  
+  def test_sheet
+    t = Workbook::Table.new
+    s = t.sheet
+    assert_equal(t, s.table)
+    assert_equal(t.sheet, s)
+  end
 
 end

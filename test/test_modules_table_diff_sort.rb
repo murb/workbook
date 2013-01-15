@@ -78,7 +78,7 @@ module Modules
       a = Workbook::Book.new([['a','b',nil],[1,2,3]])
       b = Workbook::Book.new([['a','b','c'],[1,2,3]])
       c = a.sheet.table.diff b.sheet.table
-      puts c.sheet.table.to_csv
+      assert_equal("a,b,(was: c)\n1,2,(was: 3)\n",c.to_csv)
     end
     
     # def test_diff_file
@@ -111,8 +111,8 @@ module Modules
       tother = bb.sheet.table
       diff_result = tself.diff tother
       assert_equal('a',diff_result.sheet.table.header[0].value)
-      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.sheet.table.to_csv)
-      diff_result.write_to_xls
+      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.to_csv)
+      diff_result.sheet.book.write_to_xls
     end
   end
 end

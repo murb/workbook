@@ -5,7 +5,6 @@ module Workbook
       # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
       #
       # @return [Workbook::Book] (note should and will become Workbook::Table as diffing occurs on table level...)
-      # TODO: return Workbook::Table instead...
       def diff other, options={:sort=>true,:ignore_headers=>false}
         
         aligned = align(other, options)
@@ -17,7 +16,7 @@ module Workbook
         else
           iteration_cols = (aother.header.to_symbols+aother.header.to_symbols).uniq
         end
-        diff_table = diff_template.sheet.table
+        diff_table = diff_template
         maxri = (aself.count-1)
         for ri in 0..maxri do
           row = diff_table[ri]
@@ -53,7 +52,7 @@ module Workbook
           diff_table[0].format = diff_template.template.create_or_find_format_by 'header'
         end
 
-        diff_template
+        diff_table
       end
       
       def diff_template
@@ -72,7 +71,7 @@ module Workbook
         f[:font_weight] = :bold
         f[:height] = 80
         @diff_template = diffbook
-        return diffbook
+        return difftable
       end
       
       # aligns itself with another table, used by diff
