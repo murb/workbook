@@ -395,7 +395,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_s-instance_method" title="#to_s (instance method)">- (Object) <strong>to_s</strong> </a>
+      <a href="#to_s-instance_method" title="#to_s (instance method)">- (String) <strong>to_s</strong> </a>
     
 
     
@@ -420,7 +420,7 @@ formatting.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_sym-instance_method" title="#to_sym (instance method)">- (Object) <strong>to_sym</strong> </a>
+      <a href="#to_sym-instance_method" title="#to_sym (instance method)">- (Symbol) <strong>to_sym</strong> </a>
     
 
     
@@ -434,7 +434,9 @@ formatting.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>returns a symbol representation of the cell’s value.</p>
+</div></span>
   
 </li>
 
@@ -747,11 +749,6 @@ formatting.</p>
       <pre class="lines">
 
 
-113
-114
-115
-116
-117
 118
 119
 120
@@ -759,10 +756,15 @@ formatting.</p>
 122
 123
 124
-125</pre>
+125
+126
+127
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 113</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 118</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='cmp op'>&lt;=&gt;</span> <span class='rubyid_other identifier id'>other</span>
   <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
@@ -910,16 +912,16 @@ formatting.</p>
       <pre class="lines">
 
 
-130
-131
-132
-133
-134
 135
-136</pre>
+136
+137
+138
+139
+140
+141</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 130</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 135</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_compare_on_class identifier id'>compare_on_class</span> <span class='rubyid_other identifier id'>other</span>
   <span class='rubyid_other_value identifier id'>other_value</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
@@ -980,15 +982,15 @@ formatting.</p>
       <pre class="lines">
 
 
-141
-142
-143
-144
-145
-146</pre>
+146
+147
+148
+149
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 141</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 146</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_importance_of_class identifier id'>importance_of_class</span> <span class='rubyid_value identifier id'>value</span>
   <span class='rubyid_VALID_TYPES constant id'>VALID_TYPES</span><span class='dot token'>.</span><span class='rubyid_each_with_index identifier id'>each_with_index</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='comma token'>,</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>  
@@ -1017,12 +1019,12 @@ formatting.</p>
       <pre class="lines">
 
 
-148
-149
-150</pre>
+153
+154
+155</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 153</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_inspect identifier id'>inspect</span>
   <span class='dstring node'>&quot;&lt;Workbook::Cell @value=#{value}&gt;&quot;</span>
@@ -1091,7 +1093,7 @@ formatting.</p>
       <div class="method_details ">
   <h3 class="signature " id="to_s-instance_method">
   
-    - (<tt>Object</tt>) <strong>to_s</strong> 
+    - (<tt>String</tt>) <strong>to_s</strong> 
   
 
   
@@ -1108,6 +1110,19 @@ formatting</p>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -1115,16 +1130,16 @@ formatting</p>
       <pre class="lines">
 
 
-153
-154
-155
-156
-157
-158
-159</pre>
+159
+160
+161
+162
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 159</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
   <span class='rubyid_if if kw'>if</span> <span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Date constant id'>Date</span> <span class='rubyid_or or kw'>or</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Time constant id'>Time</span><span class='rparen token'>)</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_format identifier id'>format</span><span class='lbrack token'>[</span><span class='symbol val'>:number_format</span><span class='rbrack token'>]</span>
@@ -1142,23 +1157,57 @@ formatting</p>
       <div class="method_details ">
   <h3 class="signature " id="to_sym-instance_method">
   
-    - (<tt>Object</tt>) <strong>to_sym</strong> 
+    - (<tt>Symbol</tt>) <strong>to_sym</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns a symbol representation of the cell’s value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code">
+<span class='lt op'>&lt;</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Cell constant id'>Cell</span> <span class='rubyid_value identifier id'>value</span><span class='assign token'>=</span><span class='string val'>&quot;yet another value&quot;</span><span class='gt op'>&gt;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span> <span class='comment val'># returns :yet_another_value</span>
+</pre>
+    
+  </div>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a symbol representation</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
 73
 74
 75
@@ -1196,10 +1245,15 @@ formatting</p>
 107
 108
 109
-110</pre>
+110
+111
+112
+113
+114
+115</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 73</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_sym identifier id'>to_sym</span>
   <span class='comment val'>#mb_chars.normalize(:kd).</span>
@@ -1339,7 +1393,7 @@ formatting</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 17:11:44 2013 by
+  Generated on Tue Jan 15 17:23:06 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

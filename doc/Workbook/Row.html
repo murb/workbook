@@ -373,7 +373,7 @@ normally a string containing a hex.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#key-instance_method" title="#key (instance method)">- (Object) <strong>key</strong> </a>
+      <a href="#key-instance_method" title="#key (instance method)">- (Workbook::Cell) <strong>key</strong> </a>
     
 
     
@@ -387,7 +387,9 @@ normally a string containing a hex.</p>
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>The first cell of the row is considered to be the key.</p>
+</div></span>
   
 </li>
 
@@ -530,7 +532,7 @@ table.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns row as an array of symbols.</p>
+<p>Converts the row to an array of Workbook::Cell’s.</p>
 </div></span>
   
 </li>
@@ -578,7 +580,8 @@ table.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns row as an array of symbols.</p>
+<p>Converts a row to an array of symbol representations of the row content,
+see also: Workbook::Cell#to_sym.</p>
 </div></span>
   
 </li>
@@ -809,15 +812,15 @@ Workbook::Modules::TypeParser)</p>
       <pre class="lines">
 
 
-166
-167
 168
 169
 170
-171</pre>
+171
+172
+173</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 166</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 168</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='cmp op'>&lt;=&gt;</span> <span class='rubyid_other identifier id'>other</span>
   <span class='rubyid_a identifier id'>a</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_header? fid id'>header?</span> <span class='integer val'>? </span><span class='integer val'>0</span> <span class='colon op'>:</span> <span class='integer val'>1</span>
@@ -1108,12 +1111,12 @@ identify a column based on the header-values</p>
       <pre class="lines">
 
 
-186
-187
-188</pre>
+191
+192
+193</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 186</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 191</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_clone identifier id'>clone</span>
   <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Row constant id'>Row</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span><span class='lparen token'>(</span><span class='rubyid_to_a identifier id'>to_a</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span> <span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_clone identifier id'>clone</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
@@ -1150,13 +1153,13 @@ identify a column based on the header-values</p>
       <pre class="lines">
 
 
-178
-179
-180
-181</pre>
+183
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 178</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 183</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_compact identifier id'>compact</span>
   <span class='rubyid_r identifier id'>r</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_clone identifier id'>clone</span>
@@ -1380,24 +1383,53 @@ first row of a table and true when it is.</p>
       <div class="method_details ">
   <h3 class="signature " id="key-instance_method">
   
-    - (<tt>Object</tt>) <strong>key</strong> 
+    - (<tt><span class='object_link'><a href="Cell.html" title="Workbook::Cell (class)">Workbook::Cell</a></span></tt>) <strong>key</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>The first cell of the row is considered to be the key</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Cell.html" title="Workbook::Cell (class)">Workbook::Cell</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the key cell</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-173
-174
-175</pre>
+178
+179
+180</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 173</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 178</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_key identifier id'>key</span>
   <span class='rubyid_first identifier id'>first</span>
@@ -1691,12 +1723,12 @@ table</p>
       <pre class="lines">
 
 
-146
-147
-148</pre>
+148
+149
+150</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 148</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_table_header_keys identifier id'>table_header_keys</span>
   <span class='rubyid_table identifier id'>table</span><span class='dot token'>.</span><span class='rubyid_header identifier id'>header</span><span class='dot token'>.</span><span class='rubyid_to_symbols identifier id'>to_symbols</span>
@@ -1719,7 +1751,7 @@ table</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns row as an array of symbols</p>
+<p>Converts the row to an array of Workbook::Cell’s</p>
 
 
   </div>
@@ -1751,12 +1783,12 @@ table</p>
       <pre class="lines">
 
 
-142
-143
-144</pre>
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 142</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 144</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_a identifier id'>to_a</span>
   <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span> <span class='rubyid_c identifier id'>c</span><span class='rbrace token'>}</span>
@@ -1806,17 +1838,17 @@ table</p>
       <pre class="lines">
 
 
-153
-154
 155
 156
 157
 158
 159
-160</pre>
+160
+161
+162</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 155</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_hash identifier id'>to_hash</span>
   <span class='rubyid_return return kw'>return</span> <span class='rubyid_@hash ivar id'>@hash</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_@hash ivar id'>@hash</span>
@@ -1844,7 +1876,8 @@ table</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns row as an array of symbols</p>
+<p>Converts a row to an array of symbol representations of the row content,
+see also: Workbook::Cell#to_sym</p>
 
 
   </div>
@@ -1876,12 +1909,12 @@ table</p>
       <pre class="lines">
 
 
-137
 138
-139</pre>
+139
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 138</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_symbols identifier id'>to_symbols</span>
   <span class='rubyid_collect identifier id'>collect</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span> <span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span><span class='rbrace token'>}</span>
@@ -1897,7 +1930,7 @@ table</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 17:11:43 2013 by
+  Generated on Tue Jan 15 17:23:06 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>
