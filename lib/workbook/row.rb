@@ -133,11 +133,13 @@ module Workbook
       table != nil and self.object_id == table.first.object_id
     end
     
+    # Converts a row to an array of symbol representations of the row content, see also: Workbook::Cell#to_sym
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
       collect{|c| c.to_sym}
     end
     
+    # Converts the row to an array of Workbook::Cell's
     # @return [Array<Workbook::Cell>] returns row as an array of symbols
     def to_a
       self.collect{|c| c}
@@ -170,6 +172,9 @@ module Workbook
       compare_without_header other
     end
     
+    # The first cell of the row is considered to be the key
+    #
+    # @return [Workbook::Cell] the key cell
     def key
       first
     end
