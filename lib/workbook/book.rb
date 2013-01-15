@@ -21,7 +21,7 @@ module Workbook
     attr_accessor :title
     attr_accessor :template
     
-    # @param [Workbook::Sheet, Array] Create a new workbook based on an existing sheet, or initialize a sheet based on the array
+    # @param [Workbook::Sheet, Array] worksheet    create a new workbook based on an existing sheet, or initialize a sheet based on the array
     # @return [Workbook::Book]  
     def initialize sheet=Workbook::Sheet.new([], self, options={})
       if sheet.is_a? Workbook::Sheet
@@ -36,27 +36,36 @@ module Workbook
       @template ||= Workbook::Template.new
     end
     
-    # @param [Workbook::Format] a template describing how the document should be/is formatted
+    # @param [Workbook::Format] template, a template describing how the document should be/is formatted
     def template= template
       raise ArgumentError, "format should be a Workboot::Format" unless template.is_a? Workbook::Template
       @template = template
     end
     
+    # The title of the workbook
+    #
     # @return [String] the title of the workbook
     def title
       @title ? @title : "untitled document"
     end
     
+    # Push (like in array) a sheet to the workbook (parameter is optional, default is a new sheet)
+    #
+    # @param [Workbook::Sheet] worksheet
   	def push sheet=Workbook::Sheet.new
       super(sheet)
     end
     
+    # Sheet returns the first sheet of a workbook, or an empty one.
+    #
     # @return [Workbook::Sheet] The first sheet, and creates an empty one if one doesn't exists
     def sheet
       push Workbook::Sheet.new unless first
       first
     end
     
+    # If the first sheet has any contents
+    #
     # @return [Boolean] returns true if the first sheet has contents
     def has_contents?
       sheet.has_contents?
@@ -64,8 +73,8 @@ module Workbook
     
     # Loads an external file into an existing worbook
     #
-    # @param [String] a string with a reference to the file to be opened
-    # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
+    # @param [String] filename   a string with a reference to the file to be opened
+    # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     # @return [Workbook::Book] A new instance, based on the filename
     def open filename, ext=nil
       ext = file_extension(filename) unless ext
@@ -78,8 +87,8 @@ module Workbook
     
     # Open the file in binary, read-only mode, do not read it, but pas it throug to the extension determined loaded
     #
-    # @param [String] a string with a reference to the file to be opened
-    # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
+    # @param [String] filereference a string with a reference to the file to be opened
+    # @param [String] parser an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     # @return [Workbook::Book] A new instance, based on the filename
     def open_binary filename, ext=nil
       ext = file_extension(filename) unless ext
@@ -89,8 +98,8 @@ module Workbook
     
     # Open the file in non-binary, read-only mode, read it and parse it to UTF-8
     #
-    # @param [String] a string with a reference to the file to be opened
-    # @param [String] an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
+    # @param [String] filename   a string with a reference to the file to be opened
+    # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, ext=nil
       ext = file_extension(filename) unless ext
       f = File.open(filename,'r')
@@ -100,7 +109,7 @@ module Workbook
       send("load_#{ext}".to_sym,t)
     end
     
-    # @param [String] The full filename, or path
+    # @param [String] filename   The full filename, or path
     #
     # @return [String] The file extension
     def file_extension(filename)
@@ -109,8 +118,8 @@ module Workbook
     
     # Create an instance from a file, using open.
     #
-    # @param [String] the filename of the document
-    # @param [String] (not required) enforce a certain extension, the parser is based on the extension of the file
+    # @param [String] filename of the document
+    # @param [String] extension of the document (not required). The parser used is based on the extension of the file, this option allows you to override the default.
     # @return [Workbook::Book] A new instance, based on the filename
     def self.open filename, ext=nil
       wb = self.new
@@ -118,17 +127,15 @@ module Workbook
       return wb
     end
 
+    # Create or open the existing sheet at an index value
+    # 
+    # @param [Integer] sheet_index
     def create_or_open_sheet_at index
       s = self[index]
       s = self[index] = Workbook::Sheet.new if s == nil
       s.book = self
       s 
     end
-    
-    def sort
-      raise Exception("Books can't be sorted")
-    end
-
     
   end
 end
