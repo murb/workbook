@@ -1,6 +1,6 @@
-# Adds diffing and sorting functions
 module Workbook
 	module Modules
+    # Adds diffing and sorting functions
 		module TableDiffSort
       # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
       #

@@ -88,7 +88,18 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Adds type parsing capabilities to e.g. a Cell.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -142,7 +153,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the parsed value (retrieved by calling #value).</p>
+</div></span>
   
 </li>
 
@@ -282,7 +295,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#string_parsers-instance_method" title="#string_parsers (instance method)">- (Object) <strong>string_parsers</strong> </a>
+      <a href="#string_parsers-instance_method" title="#string_parsers (instance method)">- (Array&lt;Symbol&gt;) <strong>string_parsers</strong> </a>
     
 
     
@@ -296,7 +309,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Return the different active string parsers.</p>
+</div></span>
   
 </li>
 
@@ -304,7 +319,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#string_parsers%3D-instance_method" title="#string_parsers= (instance method)">- (Object) <strong>string_parsers=</strong>(arr) </a>
+      <a href="#string_parsers%3D-instance_method" title="#string_parsers= (instance method)">- (Array&lt;Symbol&gt;) <strong>string_parsers=</strong>(parsers) </a>
     
 
     
@@ -318,7 +333,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Set the list of string parsers.</p>
+</div></span>
   
 </li>
 
@@ -326,7 +343,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#string_parsers_as_procs-instance_method" title="#string_parsers_as_procs (instance method)">- (Object) <strong>string_parsers_as_procs</strong> </a>
+      <a href="#string_parsers_as_procs-instance_method" title="#string_parsers_as_procs (instance method)">- (Array&lt;Proc&gt;) <strong>string_parsers_as_procs</strong> </a>
     
 
     
@@ -340,7 +357,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Return the different active string parsers.</p>
+</div></span>
   
 </li>
 
@@ -362,7 +381,10 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Cleans a text file from all kinds of different ways of representing new
+lines.</p>
+</div></span>
   
 </li>
 
@@ -391,10 +413,10 @@
       <pre class="lines">
 
 
-36</pre>
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 49</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_clean! fid id'>clean!</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
 </pre>
@@ -412,16 +434,45 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the parsed value (retrieved by calling #value)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The parsed object, ideally a date or integer when found to be a such…</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-20</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 33</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse identifier id'>parse</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
 </pre>
@@ -445,10 +496,10 @@
       <pre class="lines">
 
 
-32</pre>
+45</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 45</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_parse! fid id'>parse!</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
 </pre>
@@ -472,20 +523,20 @@
       <pre class="lines">
 
 
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94</pre>
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 97</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_boolean_converter identifier id'>string_boolean_converter</span>
   <span class='rubyid_proc identifier id'>proc</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
@@ -519,15 +570,15 @@
       <pre class="lines">
 
 
-40
-41
-42
-43
-44
-45</pre>
+53
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 53</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_cleaner identifier id'>string_cleaner</span>
   <span class='rubyid_proc identifier id'>proc</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
@@ -556,18 +607,18 @@
       <pre class="lines">
 
 
-53
-54
-55
-56
-57
-58
-59
-60
-61</pre>
+66
+67
+68
+69
+70
+71
+72
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 53</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 66</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_integer_converter identifier id'>string_integer_converter</span>
   <span class='rubyid_proc identifier id'>proc</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
@@ -599,14 +650,14 @@
       <pre class="lines">
 
 
-47
-48
-49
-50
-51</pre>
+60
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 47</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 60</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_nil_converter identifier id'>string_nil_converter</span>
   <span class='rubyid_proc identifier id'>proc</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
@@ -634,29 +685,29 @@
       <pre class="lines">
 
 
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
 76
 77
 78
 79
 80
 81
-82</pre>
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 76</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_optimistic_date_converter identifier id'>string_optimistic_date_converter</span>
   <span class='rubyid_proc identifier id'>proc</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>  
@@ -687,24 +738,53 @@
       <div class="method_details ">
   <h3 class="signature " id="string_parsers-instance_method">
   
-    - (<tt>Object</tt>) <strong>string_parsers</strong> 
+    - (<tt>Array&lt;Symbol&gt;</tt>) <strong>string_parsers</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the different active string parsers</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A list of parsers</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-8
-9
-10</pre>
+14
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 8</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 14</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_parsers identifier id'>string_parsers</span>
   <span class='rubyid_@string_parsers ivar id'>@string_parsers</span> <span class='opasgn op'>||=</span> <span class='lbrack token'>[</span><span class='symbol val'>:string_cleaner</span><span class='comma token'>,</span><span class='symbol val'>:string_nil_converter</span><span class='comma token'>,</span><span class='symbol val'>:string_integer_converter</span><span class='comma token'>,</span><span class='symbol val'>:string_boolean_converter</span><span class='rbrack token'>]</span>
@@ -718,27 +798,76 @@
       <div class="method_details ">
   <h3 class="signature " id="string_parsers=-instance_method">
   
-    - (<tt>Object</tt>) <strong>string_parsers=</strong>(arr) 
+    - (<tt>Array&lt;Symbol&gt;</tt>) <strong>string_parsers=</strong>(parsers) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Set the list of string parsers</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>parsers</span>
+      
+      
+        <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A list of parsers</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A list of parsers</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-12
-13
-14</pre>
+21
+22
+23</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 21</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_string_parsers= identifier id'>string_parsers=</span> <span class='rubyid_arr identifier id'>arr</span>
-  <span class='rubyid_@string_parsers ivar id'>@string_parsers</span> <span class='assign token'>=</span> <span class='rubyid_arr identifier id'>arr</span>
+<span class='rubyid_def def kw'>def</span> <span class='rubyid_string_parsers= identifier id'>string_parsers=</span> <span class='rubyid_parsers identifier id'>parsers</span>
+  <span class='rubyid_@string_parsers ivar id'>@string_parsers</span> <span class='assign token'>=</span> <span class='rubyid_parsers identifier id'>parsers</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -749,24 +878,53 @@
       <div class="method_details ">
   <h3 class="signature " id="string_parsers_as_procs-instance_method">
   
-    - (<tt>Object</tt>) <strong>string_parsers_as_procs</strong> 
+    - (<tt>Array&lt;Proc&gt;</tt>) <strong>string_parsers_as_procs</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the different active string parsers</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Proc&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A list of parsers as Procs</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-16
-17
-18</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 27</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_string_parsers_as_procs identifier id'>string_parsers_as_procs</span>
   <span class='rubyid_string_parsers identifier id'>string_parsers</span><span class='dot token'>.</span><span class='rubyid_collect identifier id'>collect</span><span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='bitor op'>|</span> <span class='rubyid_c identifier id'>c</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_Proc constant id'>Proc</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_c identifier id'>c</span> <span class='colon op'>:</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_send identifier id'>send</span><span class='lparen token'>(</span><span class='rubyid_c identifier id'>c</span><span class='rparen token'>)</span><span class='rbrace token'>}</span>
@@ -786,18 +944,50 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Cleans a text file from all kinds of different ways of representing new
+lines</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>csv_raw</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a raw csv string</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-4
-5
-6</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 4</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 8</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_strip_win_chars identifier id'>strip_win_chars</span> <span class='rubyid_csv_raw identifier id'>csv_raw</span>
   <span class='rubyid_csv_raw identifier id'>csv_raw</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/(\n\r|\r\n|\r)/</span><span class='comma token'>,</span><span class='string val'>&quot;\n&quot;</span><span class='rparen token'>)</span>
@@ -813,7 +1003,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 17:23:04 2013 by
+  Generated on Thu Jan 17 13:15:58 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

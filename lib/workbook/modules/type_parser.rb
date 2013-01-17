@@ -1,22 +1,35 @@
 module Workbook
   module Modules
+    # Adds type parsing capabilities to e.g. a Cell.
     module TypeParser
+      
+      # Cleans a text file from all kinds of different ways of representing new lines
+      # @param [String] csv_raw a raw csv string
       def strip_win_chars csv_raw
         csv_raw.gsub(/(\n\r|\r\n|\r)/,"\n")
       end
       
+      # Return the different active string parsers
+      # @return [Array<Symbol>] A list of parsers
       def string_parsers
         @string_parsers ||= [:string_cleaner,:string_nil_converter,:string_integer_converter,:string_boolean_converter]
       end
       
-      def string_parsers= arr
-        @string_parsers = arr
+      # Set the list of string parsers
+      # @param [Array<Symbol>] parsers A list of parsers
+      # @return [Array<Symbol>] A list of parsers
+      def string_parsers= parsers
+        @string_parsers = parsers
       end
-      
+
+      # Return the different active string parsers
+      # @return [Array<Proc>] A list of parsers as Procs   
       def string_parsers_as_procs
         string_parsers.collect{|c| c.is_a?(Proc) ? c : self.send(c)}
       end
       
+      # Returns the parsed value (retrieved by calling #value)
+      # @return [Object] The parsed object, ideally a date or integer when found to be a such...
       def parse options={}
         options = {:detect_date=>false}.merge(options)
         string_parsers.push :string_optimistic_date_converter if options[:detect_date]

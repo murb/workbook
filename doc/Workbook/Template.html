@@ -103,7 +103,20 @@
 </dl>
 <div class="clear"></div>
 
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Workbook::Template is a container for different Workbook::Format’s and
+the storage of raw template data that isn’t really supported by Workbook,
+but should survive a typical read/write cyclus.</p>
 
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
 
 
 
@@ -135,7 +148,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Add a Workbook::Format to the template.</p>
+</div></span>
   
 </li>
 
@@ -143,7 +158,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_or_find_format_by-instance_method" title="#create_or_find_format_by (instance method)">- (Object) <strong>create_or_find_format_by</strong>(name, variant = :default) </a>
+      <a href="#create_or_find_format_by-instance_method" title="#create_or_find_format_by (instance method)">- (Workbook::Format) <strong>create_or_find_format_by</strong>(name, variant = :default) </a>
     
 
     
@@ -157,7 +172,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Create or find a format by name.</p>
+</div></span>
   
 </li>
 
@@ -165,7 +182,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#formats-instance_method" title="#formats (instance method)">- (Object) <strong>formats</strong> </a>
+      <a href="#formats-instance_method" title="#formats (instance method)">- (Hash) <strong>formats</strong> </a>
     
 
     
@@ -179,29 +196,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#has_header%3D-instance_method" title="#has_header= (instance method)">- (Object) <strong>has_header=</strong>(boolean) </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Return the list of associated formats.</p>
+</div></span>
   
 </li>
 
@@ -223,7 +220,9 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>Whether the template has a predefined header (headers are used ).</p>
+</div></span>
   
 </li>
 
@@ -248,7 +247,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>A new instance of Template.</p>
+<p>Initialize Workbook::Template.</p>
 </div></span>
   
 </li>
@@ -283,7 +282,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>A new instance of Template</p>
+<p>Initialize Workbook::Template</p>
 
 
   </div>
@@ -297,13 +296,13 @@
       <pre class="lines">
 
 
-7
-8
 9
-10</pre>
+10
+11
+12</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 9</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span> 
   <span class='rubyid_@formats ivar id'>@formats</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
@@ -331,22 +330,53 @@
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Add a Workbook::Format to the template</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>format</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(of a cell) to add to the template</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+21
+22
+23
 24
 25
 26
-27
-28
-29
-30</pre>
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 24</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 21</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_add_format identifier id'>add_format</span> <span class='rubyid_format identifier id'>format</span>
   <span class='rubyid_if if kw'>if</span> <span class='rubyid_format identifier id'>format</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Format constant id'>Format</span>
@@ -364,21 +394,86 @@
       <div class="method_details ">
   <h3 class="signature " id="create_or_find_format_by-instance_method">
   
-    - (<tt>Object</tt>) <strong>create_or_find_format_by</strong>(name, variant = :default) 
+    - (<tt><span class='object_link'><a href="Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>) <strong>create_or_find_format_by</strong>(name, variant = :default) 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create or find a format by name</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the format (e.g. whatever you want, in diff names such as
+‘destroyed’, ‘updated’ and ‘created’ are being used)</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>variant</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>:default</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>can also be a strftime formatting string (e.g. “%Y-%m-%d”)</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Format.html" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The new or found format</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-36
-37
-38
 39
 40
 41
@@ -388,10 +483,13 @@
 45
 46
 47
-48</pre>
+48
+49
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 39</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_create_or_find_format_by identifier id'>create_or_find_format_by</span> <span class='rubyid_name identifier id'>name</span><span class='comma token'>,</span> <span class='rubyid_variant identifier id'>variant</span><span class='assign token'>=</span><span class='symbol val'>:default</span>
   <span class='rubyid_fs identifier id'>fs</span> <span class='assign token'>=</span> <span class='rubyid_@formats ivar id'>@formats</span><span class='lbrack token'>[</span><span class='rubyid_name identifier id'>name</span><span class='rbrack token'>]</span>
@@ -415,66 +513,56 @@
       <div class="method_details ">
   <h3 class="signature " id="formats-instance_method">
   
-    - (<tt>Object</tt>) <strong>formats</strong> 
+    - (<tt>Hash</tt>) <strong>formats</strong> 
   
 
   
 
   
-</h3><table class="source_code">
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Return the list of associated formats</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A keyed-hash of named formats</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
+31
 32
-33
-34</pre>
+33</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 32</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 31</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_formats identifier id'>formats</span>
   <span class='rubyid_@formats ivar id'>@formats</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="has_header=-instance_method">
-  
-    - (<tt>Object</tt>) <strong>has_header=</strong>(boolean) 
-  
-
-  
-
-  
-</h3><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-16
-17
-18
-19
-20
-21
-22</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 16</span>
-
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_has_header= identifier id'>has_header=</span> <span class='rubyid_boolean identifier id'>boolean</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_format identifier id'>format</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_TrueClass constant id'>TrueClass</span> <span class='rubyid_or or kw'>or</span> <span class='rubyid_format identifier id'>format</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_FalseClass constant id'>FalseClass</span>
-    <span class='rubyid_@has_header ivar id'>@has_header</span> <span class='assign token'>=</span> <span class='rubyid_boolean identifier id'>boolean</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_raise identifier id'>raise</span> <span class='rubyid_ArgumentError constant id'>ArgumentError</span><span class='comma token'>,</span> <span class='string val'>&quot;format should be a boolean, true of false&quot;</span>
-  <span class='rubyid_end end kw'>end</span>  
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -494,6 +582,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Whether the template has a predefined header (headers are used )</p>
+
 
   </div>
 </div>
@@ -519,12 +609,12 @@
       <pre class="lines">
 
 
-12
-13
-14</pre>
+15
+16
+17</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/template.rb', line 15</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_has_header? fid id'>has_header?</span>
   <span class='rubyid_@has_header ivar id'>@has_header</span>
@@ -540,7 +630,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Jan 15 17:23:09 2013 by
+  Generated on Thu Jan 17 13:16:06 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.3 (ruby-1.8.7).
 </div>

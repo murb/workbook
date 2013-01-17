@@ -3,6 +3,7 @@ require 'workbook/writers/csv_table_writer'
 
 
 module Workbook  
+  # A table is a container of rows and keeps track of the sheet it belongs to and which row is its header. Additionally suport for CSV writing and diffing with another table is included.
   class Table < Array
     include Workbook::Modules::TableDiffSort
     include Workbook::Writers::CsvTableWriter
@@ -10,7 +11,6 @@ module Workbook
     attr_accessor :header
     
     def initialize row_cel_values=[], sheet=nil, options={}
-      #@rows = []
       row_cel_values = [] if row_cel_values == nil
       row_cel_values.each do |r|
         if r.is_a? Workbook::Row

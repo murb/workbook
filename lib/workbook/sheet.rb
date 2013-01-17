@@ -1,5 +1,6 @@
 module Workbook
   class Sheet < Array
+    # A Sheet is a container of tables
     attr_accessor :book
     
     # Initialize a new sheet
