@@ -30,5 +30,15 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(s, b.sheet)
     assert_equal(s.book.sheet, b.sheet.table.sheet)
   end
+  
+  def test_clone
+    w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
+    s = w.sheet
+    assert_equal(3,s.table[2][:a])
+    s2 = s.clone
+    s2.table[2][:a] = 5
+    assert_equal(3,s.table[2][:a])
+    assert_equal(5,s2.table[2][:a])
+  end
  
 end

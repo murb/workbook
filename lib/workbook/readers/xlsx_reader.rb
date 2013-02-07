@@ -1,8 +1,10 @@
 require 'rubyXL'
 
-#monkeypatching rubyXL, pull request submitted: https://github.com/gilt/rubyXL/pull/47
+# Monkeypatching rubyXL, pull request submitted: https://github.com/gilt/rubyXL/pull/47
 module RubyXL
   class Workbook
+    
+    # Improves upon date format detection
     def is_date_format?(num_fmt)
       num_fmt.downcase!
       skip_chars = ['$', '-', '+', '/', '(', ')', ':', ' ']

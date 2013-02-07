@@ -2,6 +2,7 @@ module Workbook
   class Sheet < Array
     # A Sheet is a container of tables
     attr_accessor :book
+    attr_accessor :name
     
     # Initialize a new sheet
     #
@@ -43,6 +44,24 @@ module Workbook
         self.book = Workbook::Book.new(self)
         return @book
       end
+    end
+    
+    # Removes all lines from this table
+    #
+    # @return [Workbook::Table] (self)
+    def delete_all
+      self.delete_if{|b| true}
+    end
+    
+    # clones itself *and* the tables it contains
+    #
+    # @return [Workbook::Sheet] The cloned sheet
+    def clone
+      s = self
+      c = super
+      c.delete_all
+      s.each{|t| c << t.clone}
+      return c
     end
   end
 end

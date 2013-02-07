@@ -71,11 +71,18 @@ module Workbook
       self.clone.remove_empty_lines!.count != 0
     end
     
+    # Returns true if the row exists in this table
+    #
+    # @param [Workbook::Row] row to test for
+    # @return [Boolean] whether the row exist in this table 
     def contains_row? row
       raise ArgumentError, "table should be a Workbook::Row (you passed a #{t.class})" unless row.is_a?(Workbook::Row)
       self.collect{|r| r.object_id}.include? row.object_id
     end
     
+    # Returns the sheet this table belongs to, creates a new sheet if none exists
+    #
+    # @return [Workbook::Sheet] The sheet this table belongs to
     def sheet
       if @sheet
         return @sheet
@@ -83,6 +90,26 @@ module Workbook
         self.sheet = Workbook::Sheet.new(self)
         return @sheet
       end
+    end
+    
+    # Removes all lines from this table
+    #
+    # @return [Workbook::Table] (self)
+    def delete_all
+      self.delete_if{|b| true}
+    end
+    
+    # clones itself *and* the rows it contains
+    #
+    # @return [Workbook::Table] The cloned table
+    def clone
+      t = self
+      c = super
+      header_row_index = t.index(t.header)
+      c.delete_all
+      t.each{|r| c << r.clone}
+      c.header = c[header_row_index] if header_row_index
+      return c
     end
     
   end

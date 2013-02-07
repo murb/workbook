@@ -3,7 +3,7 @@ module Modules
   class TestTypeParser < Test::Unit::TestCase
     def examples
       {"2312"=>2312,
-     #  "12-12-2012"=>Date.new(2012,12,12),
+       "12-12-2012"=>Date.new(2012,12,12),
        "12-12-2012 12:24"=>DateTime.new(2012,12,12,12,24),
        "2012-12-12 12:24"=>DateTime.new(2012,12,12,12,24),
        "2011-05-19T15_37_49 - 52349.xml"=>"2011-05-19T15_37_49 - 52349.xml",
@@ -15,7 +15,8 @@ module Modules
        "12 bomenasdfasdfsadf"=>"12 bomenasdfasdfsadf",
        ""=>nil,
        " "=>nil,
-       "mailto:sadf@asdf.as"=>"sadf@asdf.as"
+       "mailto:sadf@asdf.as"=>"sadf@asdf.as",
+       "012-3456789"=>"012-3456789"
        }
     end
     
