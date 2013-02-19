@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Workbook
 	module Modules
     # Adds support for storing raw objects, used in e.g. Format and Template

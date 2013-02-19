@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Workbook
   class Sheet < Array
     # A Sheet is a container of tables

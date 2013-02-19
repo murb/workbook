@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Workbook
 	module Modules
     # Adds diffing and sorting functions

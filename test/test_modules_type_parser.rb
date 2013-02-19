@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Modules
   class TestTypeParser < Test::Unit::TestCase

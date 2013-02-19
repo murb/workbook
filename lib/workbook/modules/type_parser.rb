@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Workbook
   module Modules
     # Adds type parsing capabilities to e.g. a Cell.
@@ -59,14 +60,14 @@ module Workbook
       
       def string_nil_converter
         proc do |v|
-          return v == "" ? nil : v
+          (v == "" ? nil : v)
         end
       end
       
       def string_integer_converter
         proc do |v|
           if v.to_i.to_s == v
-            return v.to_i
+            v.to_i
           else
             v
           end

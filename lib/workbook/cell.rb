@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 
 require 'workbook/modules/type_parser'
 
@@ -108,8 +108,19 @@ module Workbook
             v = v.gsub(s, rep)
           end
         end
-        
-        v = v.gsub(/[^\x00-\x7F]/n,'').downcase.to_sym
+        if RUBY_VERSION < '1.9'
+          v = v.gsub(/[^\x00-\x7F]/n,'')
+        else
+          # See String#encode
+          encoding_options = {
+            :invalid           => :replace,  # Replace invalid byte sequences
+            :undef             => :replace,  # Replace anything not defined in ASCII
+            :replace           => '',        # Use a blank for those replacements
+            :universal_newline => true       # Always break lines with \n
+          }
+          v = v.encode(Encoding.find('ASCII'), encoding_options)
+        end
+        v = v.downcase.to_sym
       end
       v
     end

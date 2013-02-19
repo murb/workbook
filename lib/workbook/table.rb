@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'workbook/modules/table_diff_sort'
 require 'workbook/writers/csv_table_writer'
 

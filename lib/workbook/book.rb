@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
 require 'workbook/readers/xls_shared'
@@ -5,6 +6,7 @@ require 'workbook/readers/xlsx_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
 require 'rchardet'
+require 'iconv'
 
 module Workbook
   # The Book class is the container of sheets. It can be inialized by either the standard initalizer or the open method. The 
@@ -104,6 +106,7 @@ module Workbook
       extension = file_extension(filename) unless extension
       f = File.open(filename,'r')
       t = f.read
+      t = t.force_encoding("BINARY") unless RUBY_VERSION < '1.9'
       detected_encoding = CharDet.detect(t)['encoding']
       t = Iconv.conv("UTF-8//TRANSLIT//IGNORE",detected_encoding,t)
       send("load_#{extension}".to_sym,t)

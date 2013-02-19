@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
   class TestCsvWriter < Test::Unit::TestCase

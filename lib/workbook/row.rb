@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Workbook
   class Row < Array
     alias_method :compare_without_header, :<=>

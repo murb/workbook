@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rubyXL'
 
 # Monkeypatching rubyXL, pull request submitted: https://github.com/gilt/rubyXL/pull/47

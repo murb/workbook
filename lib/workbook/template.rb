@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'workbook/modules/raw_objects_storage'
 
 module Workbook
