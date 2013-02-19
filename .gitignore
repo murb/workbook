@@ -3,3 +3,4 @@ test.xls
 compare*.xls
 sharepoint_download_excel.*
 *.gem
+bin
