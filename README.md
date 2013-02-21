@@ -116,6 +116,10 @@ Currently writing is limited to the following formats. Templating support is sti
 	
 In case you want to display the table in HTML, some conversion is offered to convert text/background properties to css-entities. Internally the hash storing style elements tries to map to CSS where possible.
 	
+## Compatibility
+
+Workbook should be compatible with ruby 1.8.7 and 1.9.3. 
+
 ## Alternatives
 
 The [ruby toolbox lists plenty of alternatives](https://www.ruby-toolbox.com/search?utf8=%E2%9C%93&q=spreadsheet), that just didn't suit my needs.
