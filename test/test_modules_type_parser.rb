@@ -17,7 +17,8 @@ module Modules
        ""=>nil,
        " "=>nil,
        "mailto:sadf@asdf.as"=>"sadf@asdf.as",
-       "012-3456789"=>"012-3456789"
+       "012-3456789"=>"012-3456789",
+       "TRUE"=>true
        }
     end
     
@@ -49,7 +50,10 @@ module Modules
       r[1] = Workbook::Cell.new ""    
       r[1].parse!    
       assert_equal(nil,r[1].value)
-      
+    end
+    
+    def test_once_failing_files
+      w = Workbook::Book.open("test/artifacts/failing_import1.xls") # TRUE wasn't parsed properly
     end
   end
 end

@@ -100,11 +100,13 @@ module Workbook
       
       def string_boolean_converter
         proc do |v|
+          puts v
           dv = v.downcase
+          puts dv
           if dv == "true"
-            return true
+            v = true
           elsif dv == "false"
-            return false
+            v = false
           end
           v
         end
