@@ -1,5 +1,4 @@
 # -*- encoding : utf-8 -*-
-require 'faster_csv'
 module Workbook
   module Readers
     module TxtReader
