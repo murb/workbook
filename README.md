@@ -118,7 +118,7 @@ In case you want to display the table in HTML, some conversion is offered to con
 	
 ## Compatibility
 
-Workbook should be compatible with ruby 1.8.7 and 1.9.3. Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook). 
+Workbook should be compatible with ruby 1.8.7 and 1.9.3. Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.png?branch=master)](https://travis-ci.org/murb/workbook). 
 
 ## Alternatives
 

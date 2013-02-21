@@ -52,6 +52,13 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(b,b.first.table.sheet.book)
     assert_equal(Workbook::Row, b.first.table.header.class)
     assert_equal(b,b.first.table.header.table.sheet.book)
-    
+  end
+  
+  def test_text_to_utf8
+    f = File.open("test/artifacts/excel_different_types.txt",'r')
+    t = f.read
+    w = Workbook::Book.new
+    t = w.text_to_utf8(t)
+    assert_equal("a\tb\tc\td", t.split(/(\n|\r)/).first)
   end
 end

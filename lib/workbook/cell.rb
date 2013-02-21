@@ -112,12 +112,7 @@ module Workbook
           v = v.gsub(/[^\x00-\x7F]/n,'')
         else
           # See String#encode
-          encoding_options = {
-            :invalid           => :replace,  # Replace invalid byte sequences
-            :undef             => :replace,  # Replace anything not defined in ASCII
-            :replace           => '',        # Use a blank for those replacements
-            :universal_newline => true       # Always break lines with \n
-          }
+          encoding_options = {:invalid => :replace, :undef => :replace, :replace => ''}
           v = v.encode(Encoding.find('ASCII'), encoding_options)
         end
         v = v.downcase.to_sym

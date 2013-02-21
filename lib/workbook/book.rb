@@ -5,8 +5,6 @@ require 'workbook/readers/xls_shared'
 require 'workbook/readers/xlsx_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
-require 'rchardet'
-require 'iconv'
 
 module Workbook
   # The Book class is the container of sheets. It can be inialized by either the standard initalizer or the open method. The 
@@ -106,10 +104,31 @@ module Workbook
       extension = file_extension(filename) unless extension
       f = File.open(filename,'r')
       t = f.read
-      t = t.force_encoding("BINARY") unless RUBY_VERSION < '1.9'
-      detected_encoding = CharDet.detect(t)['encoding']
-      t = Iconv.conv("UTF-8//TRANSLIT//IGNORE",detected_encoding,t)
+      t = text_to_utf8(t)
       send("load_#{extension}".to_sym,t)
+    end
+    
+    
+    # Helper method to convert text in a file to UTF-8
+    # 
+    # @param [String] text a string to convert
+    def text_to_utf8 text
+      if RUBY_VERSION < '1.9'
+        require 'rchardet' 
+        require 'iconv'
+        detected_encoding = CharDet.detect(text)
+        detected_encoding = detected_encoding['encoding']
+        text = Iconv.conv("UTF-8//TRANSLIT//IGNORE",detected_encoding,text)
+        text = text.gsub("\xEF\xBB\xBF", '') # removing the BOM...
+      else
+        unless text.valid_encoding? and text.encoding == "UTF-8"
+          # TODO: had some ruby 1.9 problems with rchardet ... but ideally it or a similar functionality will be reintroduced
+          source_encoding = text.valid_encoding? ? text.encoding : "US-ASCII"
+          text = text.encode('UTF-8', source_encoding, {:invalid=>:replace, :undef=>:replace, :replace=>""})
+          text = text.gsub("\u0000","") # TODO: this cleanup of nil values isn't supposed to be needed...
+        end
+      end
+      return text
     end
     
     # @param [String] filename   The full filename, or path
