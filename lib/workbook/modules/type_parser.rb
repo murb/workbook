@@ -97,12 +97,12 @@ module Workbook
           rv
         end
       end
-      
+
+      # converts 'true' or 'false' strings in `true` or `false` values
+      # return [Proc] that returns a boolean value if it is considered as such 
       def string_boolean_converter
         proc do |v|
-          puts v
           dv = v.downcase
-          puts dv
           if dv == "true"
             v = true
           elsif dv == "false"
