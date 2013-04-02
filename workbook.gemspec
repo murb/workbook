@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake")
   s.add_dependency('rubyXL')
+  #s.add_dependency('rods')
   s.add_dependency('nokogiri')
   s.add_dependency('rubyzip')
   s.platform    = Gem::Platform::RUBY

@@ -3,6 +3,7 @@ require 'workbook/writers/xls_writer'
 require 'workbook/readers/xls_reader'
 require 'workbook/readers/xls_shared'
 require 'workbook/readers/xlsx_reader'
+require 'workbook/readers/ods_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
 
@@ -14,6 +15,7 @@ module Workbook
     include Workbook::Readers::XlsShared
     include Workbook::Writers::XlsWriter
     include Workbook::Readers::XlsReader
+    include Workbook::Readers::OdsReader
     include Workbook::Readers::XlsxReader
     include Workbook::Readers::CsvReader
     include Workbook::Readers::TxtReader    
