@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-require 'rods'
-# TODO: rods works weird... write my own parser.
+
+# TODO: rods (require 'rods') works weird... going to write my own parser.
 
 module Workbook
   module Readers
