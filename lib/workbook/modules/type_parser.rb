@@ -90,8 +90,15 @@ module Workbook
               rv = v
             end
             begin
-              rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify is it is only based on the first number
+              rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify if it is only based on the first number
             rescue ArgumentError
+            end
+            # try strptime with format 'mm/dd/yyyy'
+            if rv == v && /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}/ =~ v
+              begin
+                rv = Date.strptime(v, "%m/%d/%Y")
+              rescue ArgumentError
+              end
             end
           end          
           rv
