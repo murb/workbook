@@ -151,6 +151,25 @@ module Workbook
       return wb
     end
 
+    # Create an instance from the given stream or string, which should be in CSV format
+    #
+    # @param [StringIO] a StringIO stream or String object, with data in CSV format
+    # @return [Workbook::Book] A new instance
+    def self.from_stream(stringio_or_string)
+      wb = self.new
+      wb.load_stream(stringio_or_string)
+      wb
+    end
+    
+    # Load the CSV data contained in the given StringIO or String object
+    #
+    # @param [StringIO] a StringIO stream or String object, with data in CSV format
+    def load_stream(stringio_or_string)
+      t = stringio_or_string.respond_to?(:read) ? stringio_or_string.read : stringio_or_string.to_s
+      t = text_to_utf8(t)
+      load_csv(t)
+    end
+
     # Create or open the existing sheet at an index value
     # 
     # @param [Integer] index    the index of the sheet
