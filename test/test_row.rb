@@ -67,6 +67,18 @@ class TestRow < Test::Unit::TestCase
     assert_equal(r1, t.first) 
   end
   
+  def test_no_values?
+    t = Workbook::Table.new
+    r1 = Workbook::Row.new
+    r1.table = t
+    assert_equal(true, r1.no_values?)
+    r1 << Workbook::Cell.new('abcd')
+    assert_equal(false, r1.no_values?)
+    r2 = Workbook::Row.new [nil, '', nil, '', '']
+    r2.table = t
+    assert_equal(true, r2.no_values?)
+  end
+  
   def test_to_symbols
     r1 = Workbook::Row.new ["test", "asdf-asd", "asdf - asdf", "asdf2"]
     assert_equal([:test, :asdfasd, :asdf_asdf, :asdf2], r1.to_symbols)
