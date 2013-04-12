@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII" />
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.5.2
   
 </title>
 
@@ -99,63 +99,63 @@
 
 <p>Simply initialize a simple spreadsheet using:</p>
 
-<pre class="code ruby"><code><span class='rubyid_b identifier id'>b</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Book constant id'>Book</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Book</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 </code></pre>
 
 <p>or</p>
 
-<pre class="code ruby"><code><span class='rubyid_b identifier id'>b</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Book constant id'>Book</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span> <span class='rubyid_filename identifier id'>filename</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Book</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span> <span class='id identifier rubyid_filename'>filename</span>
 </code></pre>
 
 <p>Calling</p>
 
-<pre class="code ruby"><code><span class='rubyid_s identifier id'>s</span> <span class='assign token'>=</span> <span class='rubyid_b identifier id'>b</span><span class='dot token'>.</span><span class='rubyid_sheet identifier id'>sheet</span>
-<span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_s identifier id'>s</span><span class='dot token'>.</span><span class='rubyid_table identifier id'>table</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_sheet'>sheet</span>
+<span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
 </code></pre>
 
 <p>will give you an the first Sheet and Table (if one doesn&#8217;t exist it is created on the fly).</p>
 
 <p>You can initialize with simple 2-d array like this:</p>
 
-<pre class="code ruby"><code><span class='rubyid_b identifier id'>b</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Book constant id'>Book</span><span class='dot token'>.</span><span class='rubyid_new identifier id'>new</span> <span class='lbrack token'>[</span><span class='lbrack token'>[</span><span class='string val'>'a'</span><span class='comma token'>,</span><span class='string val'>'b'</span><span class='rbrack token'>]</span><span class='comma token'>,</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='comma token'>,</span><span class='integer val'>2</span><span class='rbrack token'>]</span><span class='comma token'>,</span><span class='lbrack token'>[</span><span class='integer val'>3</span><span class='comma token'>,</span><span class='integer val'>4</span><span class='rbrack token'>]</span><span class='comma token'>,</span><span class='lbrack token'>[</span><span class='integer val'>5</span><span class='comma token'>,</span><span class='integer val'>6</span><span class='rbrack token'>]</span><span class='rbrack token'>]</span>
-<span class='rubyid_t identifier id'>t</span> <span class='assign token'>=</span> <span class='rubyid_s identifier id'>s</span><span class='dot token'>.</span><span class='rubyid_sheet identifier id'>sheet</span><span class='dot token'>.</span><span class='rubyid_table identifier id'>table</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Book</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='lbracket'>[</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>a</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>b</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>2</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='int'>3</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='comma'>,</span><span class='lbracket'>[</span><span class='int'>5</span><span class='comma'>,</span><span class='int'>6</span><span class='rbracket'>]</span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_sheet'>sheet</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
 </code></pre>
 
 <p>Subsequently you look up values in the table like this:</p>
 
-<pre class="code ruby"><code><span class='rubyid_t identifier id'>t</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:b</span><span class='rbrack token'>]</span> 
-<span class='comment val'># returns &lt;Workbook::Cel @value=2&gt;</span>
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span> 
+<span class='comment'># returns &lt;Workbook::Cel @value=2&gt;
+</span></code></pre>
 
 <p>which is equivalent to</p>
 
-<pre class="code ruby"><code><span class='rubyid_t identifier id'>t</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span> 
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> 
 </code></pre>
 
 <p>Of course you&#8217;ll be able to write a new value back to it. If you just enter a value, formatting of the original cell will be maintained.</p>
 
-<pre class="code ruby"><code><span class='rubyid_t identifier id'>t</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:b</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='integer val'>5</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>5</span>
 </code></pre>
 
 <p>If you want to use an existing file as a template (which you can create in Excel to create nice looking templates), 
 simply clone the row, and add it back:</p>
 
-<pre class="code ruby"><code><span class='rubyid_b identifier id'>b</span> <span class='assign token'>=</span> <span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Book constant id'>Book</span><span class='dot token'>.</span><span class='rubyid_open identifier id'>open</span><span class='lparen token'>(</span><span class='string val'>&quot;template.xls&quot;</span><span class='rparen token'>)</span>
-<span class='rubyid_table identifier id'>table</span> <span class='assign token'>=</span> <span class='rubyid_b identifier id'>b</span><span class='dot token'>.</span><span class='rubyid_sheet identifier id'>sheet</span><span class='dot token'>.</span><span class='rubyid_table identifier id'>table</span>
-<span class='rubyid_template_row identifier id'>template_row</span> <span class='assign token'>=</span> <span class='rubyid_table identifier id'>table</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span> <span class='comment val'># can be any, but I typically have a well</span>
-                        <span class='comment val'># formatted header row + an example template </span>
-        <span class='comment val'># row for the data</span>
-<span class='lbrack token'>[</span><span class='integer val'>1</span><span class='comma token'>,</span><span class='integer val'>2</span><span class='comma token'>,</span><span class='integer val'>3</span><span class='comma token'>,</span><span class='integer val'>4</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_v identifier id'>v</span><span class='bitor op'>|</span>
-  <span class='rubyid_new_row identifier id'>new_row</span> <span class='assign token'>=</span> <span class='rubyid_template_row identifier id'>template_row</span><span class='dot token'>.</span><span class='rubyid_clone identifier id'>clone</span>
-  <span class='rubyid_table identifier id'>table</span> <span class='lshft op'>&lt;&lt;</span> <span class='rubyid_new_row identifier id'>new_row</span>      <span class='comment val'># to use the symbol style header references, </span>
-                        <span class='comment val'># the row first needs to be added back to the </span>
-        <span class='comment val'># table</span>
-  <span class='rubyid_new_row identifier id'>new_row</span><span class='lbrack token'>[</span><span class='symbol val'>:a</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='rubyid_v identifier id'>v</span>
-<span class='rubyid_end end kw'>end</span>
-<span class='rubyid_table identifier id'>table</span><span class='dot token'>.</span><span class='rubyid_delete identifier id'>delete</span><span class='lparen token'>(</span><span class='rubyid_template_row identifier id'>template_row</span><span class='rparen token'>)</span> <span class='comment val'># you don't want the template to show up</span>
-                           <span class='comment val'># in the endresult</span>
-<span class='rubyid_b identifier id'>b</span><span class='dot token'>.</span><span class='rubyid_write identifier id'>write</span><span class='lparen token'>(</span><span class='string val'>&quot;result.xls&quot;</span><span class='rparen token'>)</span>   <span class='comment val'># write it!</span>
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_b'>b</span> <span class='op'>=</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Book</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>template.xls</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_table'>table</span> <span class='op'>=</span> <span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_sheet'>sheet</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span>
+<span class='id identifier rubyid_template_row'>template_row</span> <span class='op'>=</span> <span class='id identifier rubyid_table'>table</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span> <span class='comment'># can be any, but I typically have a well
+</span>                        <span class='comment'># formatted header row + an example template 
+</span>		    <span class='comment'># row for the data
+</span><span class='lbracket'>[</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>2</span><span class='comma'>,</span><span class='int'>3</span><span class='comma'>,</span><span class='int'>4</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
+  <span class='id identifier rubyid_new_row'>new_row</span> <span class='op'>=</span> <span class='id identifier rubyid_template_row'>template_row</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
+  <span class='id identifier rubyid_table'>table</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_new_row'>new_row</span>      <span class='comment'># to use the symbol style header references, 
+</span>                        <span class='comment'># the row first needs to be added back to the 
+</span>		    <span class='comment'># table
+</span>  <span class='id identifier rubyid_new_row'>new_row</span><span class='lbracket'>[</span><span class='symbol'>:a</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span>
+<span class='kw'>end</span>
+<span class='id identifier rubyid_table'>table</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_template_row'>template_row</span><span class='rparen'>)</span> <span class='comment'># you don't want the template to show up
+</span>                           <span class='comment'># in the endresult
+</span><span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>result.xls</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>   <span class='comment'># write it!
+</span></code></pre>
 
 <!-- Feature *to implement*: 
 
@@ -177,21 +177,21 @@ On my wishlist: In the future I hope to return the cell value directly, without 
 
 <p>Sorting leaves the header alone, if it exists, and doesn&#8217;t complain about comparing strings with dates with floats (Ever found OpenOffice Calc or Excel complainging about its inability to compare integers and strings? We&#8217;re talking spreadsheet here). When classes are different the following (default) order is used: Numbers, Strings, Dates and Times, Booleans and Nils (empty values).</p>
 
-<pre class="code ruby"><code><span class='rubyid_t identifier id'>t</span><span class='dot token'>.</span><span class='rubyid_sort identifier id'>sort</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_sort'>sort</span>
 </code></pre>
 
 <p><em>To implement</em>:</p>
 
 <p>To some extent, sort_by works, it doesn&#8217;t, however, adhere to the header settings&#8230; </p>
 
-<pre class="code ruby"><code><span class='rubyid_t identifier id'>t</span><span class='dot token'>.</span><span class='rubyid_sort_by identifier id'>sort_by</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_r identifier id'>r</span><span class='bitor op'>|</span> <span class='rubyid_r identifier id'>r</span><span class='lbrack token'>[</span><span class='symbol val'>:b</span><span class='rbrack token'>]</span><span class='rbrace token'>}</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_r'>r</span><span class='op'>|</span> <span class='id identifier rubyid_r'>r</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span><span class='rbrace'>}</span>
 </code></pre>
 
 <h3 id="comparing-tables">Comparing tables</h3>
 
 <p>Simply call on a Workbook::Table</p>
 
-<pre class="code ruby"><code><span class='rubyid_t1 identifier id'>t1</span><span class='dot token'>.</span><span class='rubyid_diff identifier id'>diff</span> <span class='rubyid_t2 identifier id'>t2</span>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t1'>t1</span><span class='period'>.</span><span class='id identifier rubyid_diff'>diff</span> <span class='id identifier rubyid_t2'>t2</span>
 </code></pre>
 
 <p>And a new book with a new sheet/table will be returned containing the differences between the two tables.</p>
@@ -200,12 +200,16 @@ On my wishlist: In the future I hope to return the cell value directly, without 
 
 <p>Currently writing is limited to the following formats. Templating support is still limited.</p>
 
-<pre class="code ruby"><code><span class='rubyid_b identifier id'>b</span><span class='dot token'>.</span><span class='rubyid_to_xls identifier id'>to_xls</span>      <span class='comment val'># returns a spreadsheet workbook</span>
-<span class='rubyid_b identifier id'>b</span><span class='dot token'>.</span><span class='rubyid_write_to_xls identifier id'>write_to_xls</span> <span class='rubyid_filename identifier id'>filename</span>   <span class='comment val'># writes to filename</span>
-<span class='rubyid_t identifier id'>t</span><span class='dot token'>.</span><span class='rubyid_to_csv identifier id'>to_csv</span>      <span class='comment val'># returns a csv-string (called on tables)</span>
-</code></pre>
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_to_xls'>to_xls</span> 			<span class='comment'># returns a spreadsheet workbook
+</span><span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_write_to_xls'>write_to_xls</span> <span class='id identifier rubyid_filename'>filename</span> 	<span class='comment'># writes to filename
+</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_to_csv'>to_csv</span> 			<span class='comment'># returns a csv-string (called on tables)
+</span></code></pre>
 
 <p>In case you want to display the table in HTML, some conversion is offered to convert text/background properties to css-entities. Internally the hash storing style elements tries to map to CSS where possible.</p>
+
+<h2 id="compatibility">Compatibility</h2>
+
+<p>Workbook should be compatible with ruby 1.8.7 and 1.9.3. Check <a href="https://travis-ci.org/murb/workbook">Travis for Workbook&#8217;s current build status</a> <a href="https://travis-ci.org/murb/workbook"><img src="https://travis-ci.org/murb/workbook.png?branch=master" alt="Build Status" /></a>. </p>
 
 <h2 id="alternatives">Alternatives</h2>
 
@@ -220,16 +224,16 @@ On my wishlist: In the future I hope to return the cell value directly, without 
 <ul>
   <li><a href="https://github.com/zdavatz/spreadsheet">Spreadsheet</a> Used for reading and writing old style .xls files (Copyright (c) 2010 ywesee GmbH (mhatakeyama@ywesee.com, zdavatz@ywesee.com); GPL3 (License required for closed implementations))</li>
   <li><a href="http://code.google.com/p/ruby-ole/">ruby-ole</a> Used in the Spreadsheet Gem (Copyright (c) 2007-2010 Charles Lowe; MIT)</li>
-  <li><a href="http://fastercsv.rubyforge.org/">FasterCSV</a> Used for reading CSV (comma separated text) and TXT (tab separated text) files (Copyright (c) James Edward Gray II; GPL2 &amp; Ruby License) (not actively included for ruby 1.9 installs)</li>
+  <li><a href="http://fastercsv.rubyforge.org/">FasterCSV</a> Used for reading CSV (comma separated text) and TXT (tab separated text) files (Copyright (c) James Edward Gray II; GPL2 &amp; Ruby License)</li>
   <li><a href="http://rubyforge.org/projects/rchardet">rchardet</a> Used for detecting encoding in CSV and TXT importers (Copyright (c) JMHodges; LGPL)</li>
   <li><a href="https://github.com/gilt/rubyXL">RubyXL</a> Used for reading the newer .xlsx files (Copyright (c) 2011 Vivek Bhagwat; MIT-Licensed)</li>
 </ul>
 </div></div>
 
     <div id="footer">
-  Generated on Thu Jan 17 13:15:55 2013 by
+  Generated on Tue Apr  9 11:53:59 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.5.2 (ruby-1.9.3).
 </div>
 
   </body>

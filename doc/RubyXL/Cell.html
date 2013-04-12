@@ -6,7 +6,7 @@
 <title>
   Class: RubyXL::Cell
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.5.2
   
 </title>
 
@@ -160,29 +160,28 @@
       <pre class="lines">
 
 
-114
-115
-116
 117
 118
 119
 120
 121
-122</pre>
+122
+123
+124
+125</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/readers/xlsx_reader.rb', line 114</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/readers/xlsx_reader.rb', line 117</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_number_format identifier id'>number_format</span>
-  <span class='rubyid_if if kw'>if</span> <span class='notop op'>!</span><span class='rubyid_@value ivar id'>@value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span><span class='lparen token'>(</span><span class='rubyid_String constant id'>String</span><span class='rparen token'>)</span>
-    <span class='rubyid_if if kw'>if</span> <span class='rubyid_@workbook ivar id'>@workbook</span><span class='dot token'>.</span><span class='rubyid_num_fmts_by_id identifier id'>num_fmts_by_id</span>
-      <span class='rubyid_num_fmt_id identifier id'>num_fmt_id</span> <span class='assign token'>=</span> <span class='rubyid_xf_id identifier id'>xf_id</span><span class='lparen token'>(</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='symbol val'>:numFmtId</span><span class='rbrack token'>]</span>
-      <span class='rubyid_tmp_num_fmt identifier id'>tmp_num_fmt</span> <span class='assign token'>=</span> <span class='rubyid_@workbook ivar id'>@workbook</span><span class='dot token'>.</span><span class='rubyid_num_fmts_by_id identifier id'>num_fmts_by_id</span><span class='lbrack token'>[</span><span class='rubyid_num_fmt_id identifier id'>num_fmt_id</span><span class='rbrack token'>]</span>
-      <span class='rubyid_return return kw'>return</span> <span class='lparen token'>(</span><span class='rubyid_tmp_num_fmt identifier id'>tmp_num_fmt</span> <span class='andop op'>&amp;&amp;</span><span class='rubyid_tmp_num_fmt identifier id'>tmp_num_fmt</span><span class='lbrack token'>[</span><span class='symbol val'>:attributes</span><span class='rbrack token'>]</span> <span class='andop op'>&amp;&amp;</span> <span class='rubyid_tmp_num_fmt identifier id'>tmp_num_fmt</span><span class='lbrack token'>[</span><span class='symbol val'>:attributes</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:formatCode</span><span class='rbrack token'>]</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='rubyid_tmp_num_fmt identifier id'>tmp_num_fmt</span><span class='lbrack token'>[</span><span class='symbol val'>:attributes</span><span class='rbrack token'>]</span><span class='lbrack token'>[</span><span class='symbol val'>:formatCode</span><span class='rbrack token'>]</span> <span class='colon op'>:</span> <span class='rubyid_nil nil kw'>nil</span>
-    <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_number_format'>number_format</span>
+  <span class='kw'>if</span> <span class='op'>!</span><span class='ivar'>@value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>String</span><span class='rparen'>)</span>
+    <span class='kw'>if</span> <span class='ivar'>@workbook</span><span class='period'>.</span><span class='id identifier rubyid_num_fmts_by_id'>num_fmts_by_id</span>
+      <span class='id identifier rubyid_num_fmt_id'>num_fmt_id</span> <span class='op'>=</span> <span class='id identifier rubyid_xf_id'>xf_id</span><span class='lparen'>(</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='symbol'>:numFmtId</span><span class='rbracket'>]</span>
+      <span class='id identifier rubyid_tmp_num_fmt'>tmp_num_fmt</span> <span class='op'>=</span> <span class='ivar'>@workbook</span><span class='period'>.</span><span class='id identifier rubyid_num_fmts_by_id'>num_fmts_by_id</span><span class='lbracket'>[</span><span class='id identifier rubyid_num_fmt_id'>num_fmt_id</span><span class='rbracket'>]</span>
+      <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_tmp_num_fmt'>tmp_num_fmt</span> <span class='op'>&amp;&amp;</span><span class='id identifier rubyid_tmp_num_fmt'>tmp_num_fmt</span><span class='lbracket'>[</span><span class='symbol'>:attributes</span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_tmp_num_fmt'>tmp_num_fmt</span><span class='lbracket'>[</span><span class='symbol'>:attributes</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:formatCode</span><span class='rbracket'>]</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_tmp_num_fmt'>tmp_num_fmt</span><span class='lbracket'>[</span><span class='symbol'>:attributes</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:formatCode</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='kw'>nil</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -193,9 +192,9 @@
 </div>
 
     <div id="footer">
-  Generated on Thu Jan 17 13:16:06 2013 by
+  Generated on Tue Apr  9 11:54:05 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.5.2 (ruby-1.9.3).
 </div>
 
   </body>

@@ -6,7 +6,7 @@
 <title>
   Class: Workbook::Cell
   
-    &mdash; Documentation by YARD 0.8.3
+    &mdash; Documentation by YARD 0.8.5.2
   
 </title>
 
@@ -112,7 +112,7 @@
           <div class="docstring">
   <div class="discussion">
     
-<p>Note that these types are sorted by ‘importance’</p>
+<p>Note that these types are sorted by 'importance'</p>
 
 
   </div>
@@ -122,8 +122,7 @@
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbrack token'>[</span><span class='rubyid_Numeric constant id'>Numeric</span><span class='comma token'>,</span><span class='rubyid_String constant id'>String</span><span class='comma token'>,</span><span class='rubyid_Time constant id'>Time</span><span class='comma token'>,</span><span class='rubyid_Date constant id'>Date</span><span class='comma token'>,</span><span class='rubyid_TrueClass constant id'>TrueClass</span><span class='comma token'>,</span><span class='rubyid_FalseClass constant id'>FalseClass</span><span class='comma token'>,</span><span class='rubyid_NilClass constant id'>NilClass</span><span class='rbrack token'>]</span>
-</pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='const'>Numeric</span><span class='comma'>,</span><span class='const'>String</span><span class='comma'>,</span><span class='const'>Time</span><span class='comma'>,</span><span class='const'>Date</span><span class='comma'>,</span><span class='const'>TrueClass</span><span class='comma'>,</span><span class='const'>FalseClass</span><span class='comma'>,</span><span class='const'>NilClass</span><span class='rbracket'>]</span></pre></dd>
       
     </dl>
   
@@ -314,7 +313,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Returns the importance of a value’s class.</p>
+<p>Returns the importance of a value's class.</p>
 </div></span>
   
 </li>
@@ -435,7 +434,7 @@ formatting.</p>
 
   
     <span class="summary_desc"><div class='inline'>
-<p>returns a symbol representation of the cell’s value.</p>
+<p>returns a symbol representation of the cell's value.</p>
 </div></span>
   
 </li>
@@ -548,13 +547,26 @@ formatting.</p>
       <pre class="lines">
 
 
-28</pre>
+28
+29
+30
+31
+32
+33
+34
+35</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 28</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_initialize identifier id'>initialize</span> <span class='rubyid_value identifier id'>value</span><span class='assign token'>=</span><span class='rubyid_nil nil kw'>nil</span><span class='comma token'>,</span> <span class='rubyid_options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_value'>value</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_valid_value?'>valid_value?</span> <span class='id identifier rubyid_value'>value</span>
+    <span class='id identifier rubyid_format'>format</span> <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='lbracket'>[</span><span class='symbol'>:format</span><span class='rbracket'>]</span> 
+    <span class='ivar'>@value</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>value should be of a primitive type, e.g. a string, or an integer, not a </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='rbrace'>}</span><span class='tstring_content'> (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -600,10 +612,9 @@ formatting.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 10</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_format identifier id'>format</span>
-  <span class='rubyid_@format ivar id'>@format</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_format'>format</span>
+  <span class='ivar'>@format</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -644,10 +655,9 @@ formatting.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 11</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_formula identifier id'>formula</span>
-  <span class='rubyid_@formula ivar id'>@formula</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_formula'>formula</span>
+  <span class='ivar'>@formula</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -688,10 +698,9 @@ formatting.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 9</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_@value ivar id'>@value</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='ivar'>@value</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -749,37 +758,36 @@ formatting.</p>
       <pre class="lines">
 
 
-118
-119
-120
-121
-122
-123
 124
 125
 126
 127
 128
 129
-130</pre>
+130
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 124</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='cmp op'>&lt;=&gt;</span> <span class='rubyid_other identifier id'>other</span>
-  <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_begin begin kw'>begin</span>
-    <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span> <span class='cmp op'>&lt;=&gt;</span> <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_rescue rescue kw'>rescue</span> <span class='rubyid_NoMethodError constant id'>NoMethodError</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='rubyid_e identifier id'>e</span>
-    <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_compare_on_class identifier id'>compare_on_class</span> <span class='rubyid_other identifier id'>other</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_rv identifier id'>rv</span> <span class='eq op'>==</span> <span class='rubyid_nil nil kw'>nil</span>        
-    <span class='rubyid_rv identifier id'>rv</span> <span class='assign token'>=</span> <span class='rubyid_compare_on_class identifier id'>compare_on_class</span> <span class='rubyid_other identifier id'>other</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_rv identifier id'>rv</span>
+<span class='kw'>def</span> <span class='op'>&lt;=&gt;</span> <span class='id identifier rubyid_other'>other</span>
+  <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>begin</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span> <span class='op'>&lt;=&gt;</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>rescue</span> <span class='const'>NoMethodError</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_compare_on_class'>compare_on_class</span> <span class='id identifier rubyid_other'>other</span>
+  <span class='kw'>end</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>==</span> <span class='kw'>nil</span>        
+    <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_compare_on_class'>compare_on_class</span> <span class='id identifier rubyid_other'>other</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_rv'>rv</span>
 
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -853,14 +861,13 @@ formatting.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 54</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='eq op'>==</span><span class='lparen token'>(</span><span class='rubyid_other identifier id'>other</span><span class='rparen token'>)</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Cell constant id'>Cell</span>
-    <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span> <span class='eq op'>==</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_other identifier id'>other</span> <span class='eq op'>==</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other'>other</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Cell</span>
+    <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span> <span class='op'>==</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_other'>other</span> <span class='op'>==</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -912,25 +919,24 @@ formatting.</p>
       <pre class="lines">
 
 
-135
-136
-137
-138
-139
-140
-141</pre>
+141
+142
+143
+144
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 135</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 141</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_compare_on_class identifier id'>compare_on_class</span> <span class='rubyid_other identifier id'>other</span>
-  <span class='rubyid_other_value identifier id'>other_value</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_other_value identifier id'>other_value</span> <span class='assign token'>=</span> <span class='rubyid_other identifier id'>other</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_other identifier id'>other</span>
-  <span class='rubyid_self_value identifier id'>self_value</span> <span class='assign token'>=</span> <span class='rubyid_importance_of_class identifier id'>importance_of_class</span> <span class='rubyid_self self kw'>self</span><span class='dot token'>.</span><span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_other_value identifier id'>other_value</span> <span class='assign token'>=</span> <span class='rubyid_importance_of_class identifier id'>importance_of_class</span> <span class='rubyid_other_value identifier id'>other_value</span>
-  <span class='rubyid_self_value identifier id'>self_value</span> <span class='cmp op'>&lt;=&gt;</span> <span class='rubyid_other_value identifier id'>other_value</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_compare_on_class'>compare_on_class</span> <span class='id identifier rubyid_other'>other</span>
+  <span class='id identifier rubyid_other_value'>other_value</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_other_value'>other_value</span> <span class='op'>=</span> <span class='id identifier rubyid_other'>other</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span> <span class='kw'>if</span> <span class='id identifier rubyid_other'>other</span>
+  <span class='id identifier rubyid_self_value'>self_value</span> <span class='op'>=</span> <span class='id identifier rubyid_importance_of_class'>importance_of_class</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span>
+  <span class='id identifier rubyid_other_value'>other_value</span> <span class='op'>=</span> <span class='id identifier rubyid_importance_of_class'>importance_of_class</span> <span class='id identifier rubyid_other_value'>other_value</span>
+  <span class='id identifier rubyid_self_value'>self_value</span> <span class='op'>&lt;=&gt;</span> <span class='id identifier rubyid_other_value'>other_value</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -948,7 +954,7 @@ formatting.</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns the importance of a value’s class</p>
+<p>Returns the importance of a value's class</p>
 
 
   </div>
@@ -982,23 +988,22 @@ formatting.</p>
       <pre class="lines">
 
 
-146
-147
-148
-149
-150
-151</pre>
+152
+153
+154
+155
+156
+157</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 152</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_importance_of_class identifier id'>importance_of_class</span> <span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_VALID_TYPES constant id'>VALID_TYPES</span><span class='dot token'>.</span><span class='rubyid_each_with_index identifier id'>each_with_index</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_c identifier id'>c</span><span class='comma token'>,</span><span class='rubyid_i identifier id'>i</span><span class='bitor op'>|</span>  
-    <span class='rubyid_return return kw'>return</span> <span class='rubyid_i identifier id'>i</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_c identifier id'>c</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_nil nil kw'>nil</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_importance_of_class'>importance_of_class</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='const'>VALID_TYPES</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='comma'>,</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span>  
+    <span class='kw'>return</span> <span class='id identifier rubyid_i'>i</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='id identifier rubyid_c'>c</span>
+  <span class='kw'>end</span>
+  <span class='kw'>return</span> <span class='kw'>nil</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1019,17 +1024,16 @@ formatting.</p>
       <pre class="lines">
 
 
-153
-154
-155</pre>
+159
+160
+161</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 159</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_inspect identifier id'>inspect</span>
-  <span class='dstring node'>&quot;&lt;Workbook::Cell @value=#{value}&gt;&quot;</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>&lt;Workbook::Cell @value=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_value'>value</span><span class='rbrace'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1081,10 +1085,9 @@ formatting.</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 64</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_nil? fid id'>nil?</span>
-  <span class='rubyid_return return kw'>return</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_nil? fid id'>nil?</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1130,25 +1133,24 @@ formatting</p>
       <pre class="lines">
 
 
-159
-160
-161
-162
-163
-164
-165</pre>
+165
+166
+167
+168
+169
+170
+171</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 165</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='rubyid_if if kw'>if</span> <span class='lparen token'>(</span><span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Date constant id'>Date</span> <span class='rubyid_or or kw'>or</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_Time constant id'>Time</span><span class='rparen token'>)</span> <span class='rubyid_and and kw'>and</span> <span class='rubyid_format identifier id'>format</span><span class='lbrack token'>[</span><span class='symbol val'>:number_format</span><span class='rbrack token'>]</span>
-    <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_strftime identifier id'>strftime</span><span class='lparen token'>(</span><span class='rubyid_format identifier id'>format</span><span class='lbrack token'>[</span><span class='symbol val'>:number_format</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
-  <span class='rubyid_else else kw'>else</span>
-    <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span>
-  <span class='rubyid_end end kw'>end</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Date</span> <span class='kw'>or</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Time</span><span class='rparen'>)</span> <span class='kw'>and</span> <span class='id identifier rubyid_format'>format</span><span class='lbracket'>[</span><span class='symbol'>:number_format</span><span class='rbracket'>]</span>
+    <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='id identifier rubyid_format'>format</span><span class='lbracket'>[</span><span class='symbol'>:number_format</span><span class='rbracket'>]</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1166,7 +1168,7 @@ formatting</p>
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>returns a symbol representation of the cell’s value</p>
+<p>returns a symbol representation of the cell's value</p>
 
 
   </div>
@@ -1177,9 +1179,8 @@ formatting</p>
     <p class="tag_title">Examples:</p>
     
       
-      <pre class="example code">
-<span class='lt op'>&lt;</span><span class='rubyid_Workbook constant id'>Workbook</span><span class='colon2 op'>::</span><span class='rubyid_Cell constant id'>Cell</span> <span class='rubyid_value identifier id'>value</span><span class='assign token'>=</span><span class='string val'>&quot;yet another value&quot;</span><span class='gt op'>&gt;</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span> <span class='comment val'># returns :yet_another_value</span>
-</pre>
+      <pre class="example code"><code>
+&lt;Workbook::Cell value=&quot;yet another value&quot;&gt;.to_sym # returns :yet_another_value</code></pre>
     
   </div>
 
@@ -1250,55 +1251,66 @@ formatting</p>
 112
 113
 114
-115</pre>
+115
+116
+117
+118
+119
+120
+121</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 73</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_to_sym identifier id'>to_sym</span>
-  <span class='comment val'>#mb_chars.normalize(:kd).</span>
-  <span class='rubyid_v identifier id'>v</span> <span class='assign token'>=</span> <span class='rubyid_nil nil kw'>nil</span>
-  <span class='rubyid_if if kw'>if</span> <span class='rubyid_value identifier id'>value</span>
-    <span class='rubyid_v identifier id'>v</span> <span class='assign token'>=</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span>
-    <span class='rubyid_v identifier id'>v</span> <span class='assign token'>=</span> <span class='rubyid_v identifier id'>v</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>' (j/?/leeg)'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/dd-mm-(.*)/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/\ja\/nee/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/\(\)/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/[\(\)]+/</span><span class='comma token'>,</span> <span class='string val'>''</span><span class='rparen token'>)</span>
-    <span class='rubyid_v identifier id'>v</span> <span class='assign token'>=</span> <span class='rubyid_v identifier id'>v</span><span class='dot token'>.</span><span class='rubyid_strip identifier id'>strip</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/(\.|\?|,|\=)/</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'$'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/\&amp;/</span><span class='comma token'>,</span><span class='string val'>'en'</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/\+/</span><span class='comma token'>,</span><span class='string val'>'_plus_'</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/\s/</span><span class='comma token'>,</span> <span class='string val'>&quot;_&quot;</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'–_'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'-_'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'+_'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'/_'</span><span class='comma token'>,</span><span class='string val'>'_'</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'/'</span><span class='comma token'>,</span><span class='string val'>'_'</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'__'</span><span class='comma token'>,</span><span class='string val'>'_'</span><span class='rparen token'>)</span><span class='dot token'>.</span>
-        <span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>'-'</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='comment'>#mb_chars.normalize(:kd).
+</span>  <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span>
+    <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span>
+    <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'> (j/?/leeg)</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>dd-mm-(.*)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\ja\/nee</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\(\)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[\(\)]+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>(\.|\?|,|\=)</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>$</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\&amp;</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>en</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\+</span><span class='regexp_end'>/</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>_plus_</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>\s</span><span class='regexp_end'>/</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>_</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>–_</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>-_</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>+_</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/_</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>_</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>/</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>_</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>__</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>_</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span>
+        <span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>-</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
         
-    <span class='rubyid_accents identifier id'>accents</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span> 
-      <span class='lbrack token'>[</span><span class='string val'>'á'</span><span class='comma token'>,</span><span class='string val'>'à'</span><span class='comma token'>,</span><span class='string val'>'â'</span><span class='comma token'>,</span><span class='string val'>'ä'</span><span class='comma token'>,</span><span class='string val'>'ã'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'a'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'Ã'</span><span class='comma token'>,</span><span class='string val'>'Ä'</span><span class='comma token'>,</span><span class='string val'>'Â'</span><span class='comma token'>,</span><span class='string val'>'À'</span><span class='comma token'>,</span><span class='string val'>'�?'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'A'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'é'</span><span class='comma token'>,</span><span class='string val'>'è'</span><span class='comma token'>,</span><span class='string val'>'ê'</span><span class='comma token'>,</span><span class='string val'>'ë'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'e'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'Ë'</span><span class='comma token'>,</span><span class='string val'>'É'</span><span class='comma token'>,</span><span class='string val'>'È'</span><span class='comma token'>,</span><span class='string val'>'Ê'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'E'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'í'</span><span class='comma token'>,</span><span class='string val'>'ì'</span><span class='comma token'>,</span><span class='string val'>'î'</span><span class='comma token'>,</span><span class='string val'>'ï'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'i'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'�?'</span><span class='comma token'>,</span><span class='string val'>'Î'</span><span class='comma token'>,</span><span class='string val'>'Ì'</span><span class='comma token'>,</span><span class='string val'>'�?'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'I'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'ó'</span><span class='comma token'>,</span><span class='string val'>'ò'</span><span class='comma token'>,</span><span class='string val'>'ô'</span><span class='comma token'>,</span><span class='string val'>'ö'</span><span class='comma token'>,</span><span class='string val'>'õ'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'o'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'Õ'</span><span class='comma token'>,</span><span class='string val'>'Ö'</span><span class='comma token'>,</span><span class='string val'>'Ô'</span><span class='comma token'>,</span><span class='string val'>'Ò'</span><span class='comma token'>,</span><span class='string val'>'Ó'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'O'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'ú'</span><span class='comma token'>,</span><span class='string val'>'ù'</span><span class='comma token'>,</span><span class='string val'>'û'</span><span class='comma token'>,</span><span class='string val'>'ü'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'u'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'Ú'</span><span class='comma token'>,</span><span class='string val'>'Û'</span><span class='comma token'>,</span><span class='string val'>'Ù'</span><span class='comma token'>,</span><span class='string val'>'Ü'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'U'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'ç'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'c'</span><span class='comma token'>,</span> <span class='lbrack token'>[</span><span class='string val'>'Ç'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'C'</span><span class='comma token'>,</span>
-      <span class='lbrack token'>[</span><span class='string val'>'ñ'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'n'</span><span class='comma token'>,</span> <span class='lbrack token'>[</span><span class='string val'>'Ñ'</span><span class='rbrack token'>]</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>'N'</span>
-    <span class='rbrace token'>}</span>
-    <span class='rubyid_accents identifier id'>accents</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_ac identifier id'>ac</span><span class='comma token'>,</span><span class='rubyid_rep identifier id'>rep</span><span class='bitor op'>|</span>
-      <span class='rubyid_ac identifier id'>ac</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='rubyid_do do kw'>do</span> <span class='bitor op'>|</span><span class='rubyid_s identifier id'>s</span><span class='bitor op'>|</span>
-        <span class='rubyid_v identifier id'>v</span> <span class='assign token'>=</span> <span class='rubyid_v identifier id'>v</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='rubyid_s identifier id'>s</span><span class='comma token'>,</span> <span class='rubyid_rep identifier id'>rep</span><span class='rparen token'>)</span>
-      <span class='rubyid_end end kw'>end</span>
-    <span class='rubyid_end end kw'>end</span>
-    
-    <span class='rubyid_v identifier id'>v</span> <span class='assign token'>=</span> <span class='rubyid_v identifier id'>v</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/[^\x00-\x7F]/n</span><span class='comma token'>,</span><span class='string val'>''</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_downcase identifier id'>downcase</span><span class='dot token'>.</span><span class='rubyid_to_sym identifier id'>to_sym</span>
-  <span class='rubyid_end end kw'>end</span>
-  <span class='rubyid_v identifier id'>v</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+    <span class='id identifier rubyid_accents'>accents</span> <span class='op'>=</span> <span class='lbrace'>{</span> 
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>á</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>à</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>â</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ä</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ã</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>a</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ã</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ä</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Â</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>À</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>�?</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>A</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>é</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>è</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ê</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ë</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>e</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ë</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>É</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>È</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ê</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>E</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>í</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ì</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>î</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ï</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>i</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>�?</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Î</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ì</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>�?</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>I</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ó</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ò</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ô</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ö</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>õ</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>o</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Õ</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ö</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ô</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ò</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ó</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>O</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ú</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ù</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>û</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ü</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>u</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ú</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Û</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ù</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ü</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>U</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ç</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>c</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ç</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>C</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
+      <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ñ</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>n</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Ñ</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>N</span><span class='tstring_end'>'</span></span>
+    <span class='rbrace'>}</span>
+    <span class='id identifier rubyid_accents'>accents</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_ac'>ac</span><span class='comma'>,</span><span class='id identifier rubyid_rep'>rep</span><span class='op'>|</span>
+      <span class='id identifier rubyid_ac'>ac</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_s'>s</span><span class='op'>|</span>
+        <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='id identifier rubyid_s'>s</span><span class='comma'>,</span> <span class='id identifier rubyid_rep'>rep</span><span class='rparen'>)</span>
+      <span class='kw'>end</span>
+    <span class='kw'>end</span>
+    <span class='kw'>if</span> <span class='const'>RUBY_VERSION</span> <span class='op'>&lt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>1.9</span><span class='tstring_end'>'</span></span>
+      <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>[^\x00-\x7F]</span><span class='regexp_end'>/n</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='comment'># See String#encode
+</span>      <span class='id identifier rubyid_encoding_options'>encoding_options</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='symbol'>:invalid</span> <span class='op'>=&gt;</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='symbol'>:undef</span> <span class='op'>=&gt;</span> <span class='symbol'>:replace</span><span class='comma'>,</span> <span class='symbol'>:replace</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rbrace'>}</span>
+      <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='const'>Encoding</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ASCII</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_encoding_options'>encoding_options</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+    <span class='id identifier rubyid_v'>v</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_v'>v</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1377,12 +1389,11 @@ formatting</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/cell.rb', line 20</span>
 
-<span class='rubyid_def def kw'>def</span> <span class='rubyid_valid_value? fid id'>valid_value?</span> <span class='rubyid_value identifier id'>value</span>
-  <span class='rubyid_valid_type identifier id'>valid_type</span> <span class='assign token'>=</span> <span class='rubyid_false false kw'>false</span> 
-  <span class='rubyid_VALID_TYPES constant id'>VALID_TYPES</span><span class='dot token'>.</span><span class='rubyid_each identifier id'>each</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='rubyid_t identifier id'>t</span><span class='bitor op'>|</span> <span class='rubyid_return return kw'>return</span> <span class='rubyid_true true kw'>true</span> <span class='rubyid_if if_mod kw'>if</span> <span class='rubyid_value identifier id'>value</span><span class='dot token'>.</span><span class='rubyid_is_a? fid id'>is_a?</span> <span class='rubyid_t identifier id'>t</span><span class='rbrace token'>}</span> 
-  <span class='rubyid_valid_type identifier id'>valid_type</span>
-<span class='rubyid_end end kw'>end</span>
-</pre>
+<span class='kw'>def</span> <span class='id identifier rubyid_valid_value?'>valid_value?</span> <span class='id identifier rubyid_value'>value</span>
+  <span class='id identifier rubyid_valid_type'>valid_type</span> <span class='op'>=</span> <span class='kw'>false</span> 
+  <span class='const'>VALID_TYPES</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='id identifier rubyid_t'>t</span><span class='rbrace'>}</span> 
+  <span class='id identifier rubyid_valid_type'>valid_type</span>
+<span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
@@ -1393,9 +1404,9 @@ formatting</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Jan 17 13:16:03 2013 by
+  Generated on Tue Apr  9 11:54:03 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.3 (ruby-1.8.7).
+  0.8.5.2 (ruby-1.9.3).
 </div>
 
   </body>
