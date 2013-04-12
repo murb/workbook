@@ -11,7 +11,7 @@ module Modules
        "20-2-2012 20:52"=>DateTime.new(2012,2,20,20,52),
        "1-11-2011"=>Date.new(2011,11,1),
        "12/12/2012"=>Date.new(2012,12,12),
-       "12/23/1980"=>Date.new(1980,12,23),
+       "12/23/1980"=>Date.new(1980,12,23), #TODO: should probably depend on locale, see: http://bugs.ruby-lang.org/issues/634#note-10
        "jA"=>"jA",
        "n"=>"n",
        "12 bomen"=>"12 bomen",
