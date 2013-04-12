@@ -12,7 +12,6 @@ module Modules
        "1-11-2011"=>Date.new(2011,11,1),
        "12/12/2012"=>Date.new(2012,12,12),
        "12/23/1980"=>Date.new(1980,12,23),
-       "12/23/80"=> (RUBY_VERSION.split('.')[1] == '9' || RUBY_VERSION.split('.')[0].to_i > 1) ? "12/23/80" : Date.new(80, 12, 23),
        "jA"=>"jA",
        "n"=>"n",
        "12 bomen"=>"12 bomen",
