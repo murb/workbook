@@ -51,9 +51,9 @@ module Readers
       assert_equal(42000,w.sheet.table[3][:b].value)
       assert_equal(nil,w.sheet.table[2][:c].value)
     end
-    def test_from_stream
+    def test_class_read_string
       s = File.read 'test/artifacts/simple_csv.csv'
-      w = Workbook::Book.from_stream( s )
+      w = Workbook::Book.read( s, :csv )
       # reads
       #       a,b,c,d
       #       1,2,3,4
@@ -65,10 +65,25 @@ module Readers
       assert_equal("asdf",w.sheet.table[3][:a].value)
       assert_equal(Date.new(2001,2,2),w.sheet.table[3][:d].value)
     end
-    def test_load_stream
+    def test_instance_read_string
       w = Workbook::Book.new
       s = File.read 'test/artifacts/simple_csv.csv'
-      w.load_stream( s )
+      w.read( s, :csv )
+      # reads
+      #       a,b,c,d
+      #       1,2,3,4
+      #       5,3,2,1
+      #       "asdf",123,12,2001-02-02
+      #       
+      assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
+      assert_equal(3,w.sheet.table[2][:b].value)
+      assert_equal("asdf",w.sheet.table[3][:a].value)
+      assert_equal(Date.new(2001,2,2),w.sheet.table[3][:d].value)
+    end
+    def test_instance_read_stringio
+      w = Workbook::Book.new
+      sio = StringIO.new(File.read 'test/artifacts/simple_csv.csv')
+      w.read( sio, :csv )
       # reads
       #       a,b,c,d
       #       1,2,3,4
