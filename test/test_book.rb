@@ -61,4 +61,10 @@ class TestWorkbook < Test::Unit::TestCase
     t = w.text_to_utf8(t)
     assert_equal("a\tb\tc\td", t.split(/(\n|\r)/).first)
   end
+  
+  def test_read_bad_filetype
+    assert_raises(ArgumentError) { Workbook::Book.read("test string here", :xls) }
+    assert_raises(ArgumentError) { Workbook::Book.read("test string here", :ods) }
+    assert_raises(ArgumentError) { Workbook::Book.read("test string here", :xlsx) }
+  end
 end
