@@ -134,6 +134,13 @@ module Workbook
       table != nil and self.object_id == table.first.object_id
     end
     
+    # Returns true when all the cells in the row have values whose to_s value equals an empty string
+    #
+    # @return [Boolean]
+    def no_values?
+      all? {|c| c.value.to_s == ''}
+    end
+    
     # Converts a row to an array of symbol representations of the row content, see also: Workbook::Cell#to_sym
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
