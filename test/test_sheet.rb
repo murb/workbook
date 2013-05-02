@@ -42,4 +42,16 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(5,s2.table[2][:a])
   end
  
+  def test_create_or_open_table_at
+    s = Workbook::Sheet.new
+    table0=s.create_or_open_table_at(0)
+    assert_equal(Workbook::Table, table0.class)
+    assert_equal(s, table0.sheet)
+    table1=s.create_or_open_table_at(1)
+    assert_equal(Workbook::Table, table1.class)
+    assert_equal(s, table1.sheet)
+    table1<<Workbook::Row.new([1,2,3,4])    
+    assert_equal(false, table1 == table0)    
+    
+  end
 end

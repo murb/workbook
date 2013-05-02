@@ -64,5 +64,15 @@ module Workbook
       s.each{|t| c << t.clone}
       return c
     end
+    
+    # Create or open the existing table at an index value
+    # 
+    # @param [Integer] index    the index of the table
+    def create_or_open_table_at index
+      t = self[index]
+      t = self[index] = Workbook::Table.new if t == nil
+      t.sheet = self
+      t 
+    end
   end
 end
