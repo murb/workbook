@@ -4,7 +4,7 @@ lib/workbook/cell.rb 1d473a2d019574c68c94aff9e638078b09b51a9e
 lib/workbook/book.rb fd40b28d0f3c55819a46852d6f4559b3d60b8465
 lib/workbook/sheet.rb 89ad56bc5aacbc73654be598deac704d8cb1ad27
 lib/workbook/table.rb e974410b96aac59fa122d9e8c2f047b575f444a3
-lib/workbook/format.rb c633749077438ff9d46c4e7b2ded71c605afbd52
+lib/workbook/format.rb c028e371c1a0db6587d1076770fcd8bd810ecb2a
 lib/workbook/version.rb 8e7f1b86ea78dd111eaa0a3f7d4c9a09861bc670
 lib/workbook/template.rb 22be72752470300104bc9df07b6537c9b44b29a0
 lib/workbook/readers/ods_reader.rb 21470d8d7433bfe452edfc36e22da51f932ae4c7

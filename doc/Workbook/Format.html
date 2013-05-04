@@ -152,6 +152,33 @@ preserve attributes Workbook cannot modify/access.</p>
 </li>
 
     
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#parent-instance_method" title="#parent (instance method)">- (Object) <strong>parent</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute parent.</p>
+</div></span>
+  
+</li>
+
+    
   </ul>
 
 
@@ -164,6 +191,81 @@ preserve attributes Workbook cannot modify/access.</p>
     </h2>
 
     <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#all_names-instance_method" title="#all_names (instance method)">- (Array&lt;String&gt;) <strong>all_names</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>returns an array of all format-names this style is inheriting from (and
+this style).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#flattened-instance_method" title="#flattened (instance method)">- (Workbook::Format) <strong>flattened</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Applies the formatting options of self with its parents until no parent can
+be found.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#formats-instance_method" title="#formats (instance method)">- (Array&lt;Workbook::Format&gt;) <strong>formats</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>returns an array of all formats this style is inheriting from (including
+itself).</p>
+</div></span>
+  
+</li>
+
       
         <li class="public ">
   <span class="summary_signature">
@@ -193,7 +295,7 @@ white or transparant).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Format) <strong>initialize</strong>(options = {}) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Format) <strong>initialize</strong>(options = {}, name = nil) </a>
     
 
     
@@ -219,7 +321,7 @@ white or transparant).</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#merge-instance_method" title="#merge (instance method)">- (Object) <strong>merge</strong>(other_format) </a>
+      <a href="#merge-instance_method" title="#merge (instance method)">- (Workbook::Format) <strong>merge</strong>(other_format) </a>
     
 
     
@@ -235,6 +337,31 @@ white or transparant).</p>
   
     <span class="summary_desc"><div class='inline'>
 <p>Combines the formatting options of one with another, removes as a
+consequence the reference to the raw object's equivalent.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#merge%21-instance_method" title="#merge! (instance method)">- (Workbook::Format) <strong>merge!</strong>(other_format) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Applies the formatting options of self with another, removes as a
 consequence the reference to the raw object's equivalent.</p>
 </div></span>
   
@@ -266,7 +393,29 @@ consequence the reference to the raw object's equivalent.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#to_css-instance_method" title="#to_css (instance method)">- (String) <strong>to_css</strong> </a>
+      <a href="#merge_hash%21-instance_method" title="#merge_hash! (instance method)">- (Object) <strong>merge_hash!</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_css-instance_method" title="#to_css (instance method)">- (Object) <strong>to_css</strong> </a>
     
 
     
@@ -309,7 +458,7 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`).</p>
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Format</a></span></tt>) <strong>initialize</strong>(options = {}) 
+    - (<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Format</a></span></tt>) <strong>initialize</strong>(options = {}, name = nil) 
   
 
   
@@ -354,15 +503,17 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`).</p>
       <pre class="lines">
 
 
-14
 15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 15</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_k'>k</span><span class='comma'>,</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_k'>k</span><span class='rbracket'>]</span><span class='op'>=</span><span class='id identifier rubyid_v'>v</span><span class='rbrace'>}</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span> <span class='op'>=</span> <span class='id identifier rubyid_name'>name</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -402,15 +553,58 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`).</p>
       <pre class="lines">
 
 
-10
 11
-12</pre>
+12
+13</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 11</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="parent=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="parent-instance_method">
+  
+    - (<tt>Object</tt>) <strong>parent</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute parent</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_parent'>parent</span>
+  <span class='ivar'>@parent</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -425,7 +619,206 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`).</p>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="has_background_color?-instance_method">
+  <h3 class="signature first" id="all_names-instance_method">
+  
+    - (<tt>Array&lt;String&gt;</tt>) <strong>all_names</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns an array of all format-names this style is inheriting from (and
+this style)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;String&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an array of Workbook::Formats</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 69</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_all_names'>all_names</span> 
+  <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_a'>a</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="flattened-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>) <strong>flattened</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Applies the formatting options of self with its parents until no parent can
+be found</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>new Workbook::Format that is the result of merging current style with all
+its parent’s styles.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 75</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_flattened'>flattened</span>
+  <span class='id identifier rubyid_ff'>ff</span><span class='op'>=</span><span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Format</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='id identifier rubyid_ff'>ff</span><span class='period'>.</span><span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_a'>a</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_ff'>ff</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="formats-instance_method">
+  
+    - (<tt>Array&lt;<span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span>&gt;</tt>) <strong>formats</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns an array of all formats this style is inheriting from (including
+itself)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>an array of Workbook::Formats</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_formats'>formats</span>
+  <span class='id identifier rubyid_formats'>formats</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='id identifier rubyid_formats'>formats</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_f'>f</span>
+  <span class='kw'>while</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
+    <span class='id identifier rubyid_formats'>formats</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
+    <span class='id identifier rubyid_f'>f</span> <span class='op'>=</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_parent'>parent</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_formats'>formats</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="has_background_color?-instance_method">
   
     - (<tt>Boolean</tt>) <strong>has_background_color?</strong>(color = :any) 
   
@@ -464,20 +857,20 @@ white or transparant).</p>
       <pre class="lines">
 
 
-19
-20
 21
 22
 23
 24
-25</pre>
+25
+26
+27</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 21</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_background_color?'>has_background_color?</span> <span class='id identifier rubyid_color'>color</span><span class='op'>=</span><span class='symbol'>:any</span>
-  <span class='kw'>if</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span>
-    <span class='kw'>return</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>==</span><span class='id identifier rubyid_color'>color</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span> <span class='kw'>or</span> <span class='lparen'>(</span><span class='op'>!</span><span class='lparen'>(</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='op'>==</span><span class='kw'>nil</span> <span class='kw'>or</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>String</span> <span class='kw'>and</span> <span class='lparen'>(</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>#ffffff</span><span class='tstring_end'>'</span></span> <span class='kw'>or</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>#000000</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>and</span> <span class='id identifier rubyid_color'>color</span><span class='op'>==</span><span class='symbol'>:any</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span>
+    <span class='kw'>return</span> <span class='lparen'>(</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>==</span><span class='id identifier rubyid_color'>color</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span> <span class='kw'>or</span> <span class='lparen'>(</span><span class='op'>!</span><span class='lparen'>(</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='op'>==</span><span class='kw'>nil</span> <span class='kw'>or</span> <span class='lparen'>(</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>String</span> <span class='kw'>and</span> <span class='lparen'>(</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>#ffffff</span><span class='tstring_end'>'</span></span> <span class='kw'>or</span> <span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='op'>==</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>#000000</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>and</span> <span class='id identifier rubyid_color'>color</span><span class='op'>==</span><span class='symbol'>:any</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='kw'>else</span>
     <span class='kw'>return</span> <span class='kw'>false</span>
   <span class='kw'>end</span>
@@ -490,7 +883,7 @@ white or transparant).</p>
       <div class="method_details ">
   <h3 class="signature " id="merge-instance_method">
   
-    - (<tt>Object</tt>) <strong>merge</strong>(other_format) 
+    - (<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>) <strong>merge</strong>(other_format) 
   
 
   
@@ -522,6 +915,24 @@ consequence the reference to the raw object's equivalent.</p>
   
 </ul>
 
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a new resulting Workbook::Format</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -529,17 +940,94 @@ consequence the reference to the raw object's equivalent.</p>
       <pre class="lines">
 
 
-38
-39
-40
-41</pre>
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 38</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_other_format'>other_format</span><span class='rparen'>)</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_remove_all_raws!'>remove_all_raws!</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_merge_hash'>merge_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_other_format'>other_format</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="merge!-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>) <strong>merge!</strong>(other_format) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Applies the formatting options of self with another, removes as a
+consequence the reference to the raw object's equivalent.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>other_format</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Format (class)">Workbook::Format</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>self</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+49
+50
+51
+52</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 49</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_merge!'>merge!</span><span class='lparen'>(</span><span class='id identifier rubyid_other_format'>other_format</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_remove_all_raws!'>remove_all_raws!</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_merge_hash!'>merge_hash!</span><span class='lparen'>(</span><span class='id identifier rubyid_other_format'>other_format</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -573,9 +1061,35 @@ consequence the reference to the raw object's equivalent.</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="merge_hash!-instance_method">
+  
+    - (<tt>Object</tt>) <strong>merge_hash!</strong> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 9</span>
+
+<span class='id identifier rubyid_alias_method'>alias_method</span> <span class='symbol'>:merge_hash!</span><span class='comma'>,</span> <span class='symbol'>:merge!</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="to_css-instance_method">
   
-    - (<tt>String</tt>) <strong>to_css</strong> 
+    - (<tt>Object</tt>) <strong>to_css</strong> 
   
 
   
@@ -598,13 +1112,13 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`)</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'></span>
       
       
       
-        &mdash;
+        
         <div class='inline'>
-<p>very basic CSS styling string</p>
+<p>String very basic CSS styling string</p>
 </div>
       
     </li>
@@ -617,20 +1131,20 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`)</p>
       <pre class="lines">
 
 
-29
-30
 31
 32
 33
-34</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/format.rb', line 31</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_to_css'>to_css</span>
   <span class='id identifier rubyid_css_parts'>css_parts</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_css_parts'>css_parts</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>background: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background</span><span class='rbracket'>]</span> <span class='kw'>or</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_css_parts'>css_parts</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>color: </span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_css_parts'>css_parts</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>background: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_content'> </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_strip'>strip</span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background</span><span class='rbracket'>]</span> <span class='kw'>or</span> <span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:background_color</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_css_parts'>css_parts</span><span class='period'>.</span><span class='id identifier rubyid_push'>push</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>color: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_flattened'>flattened</span><span class='lbracket'>[</span><span class='symbol'>:color</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_css_parts'>css_parts</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>; </span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -643,7 +1157,7 @@ style="&lt;%=cell.format.to_css%&gt;"&gt;&lt;%=cell%&gt;&lt;/td&gt;`)</p>
 </div>
 
     <div id="footer">
-  Generated on Sat May  4 17:43:39 2013 by
+  Generated on Sat May  4 18:52:02 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

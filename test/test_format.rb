@@ -57,4 +57,43 @@ class TestFormat < Test::Unit::TestCase
     
   end
   
+  def test_parent_style
+    a = Workbook::Format.new({:background_color=>'#ffffff'})
+    b = Workbook::Format.new({:color=>'#000'})
+    a.parent = b
+    assert_equal(b, a.parent)
+  end
+  def test_parent_style_flattened_properties
+    a = Workbook::Format.new({:background_color=>'#ffffff'})
+    b = Workbook::Format.new({:color=>'#000'})
+    a.parent = b
+    assert_equal(Workbook::Format.new({:color=>'#000',:background_color=>'#ffffff'}), a.flattened)
+    c = Workbook::Format.new({:color=>'#f00'})
+    c.parent = a
+    assert_equal(Workbook::Format.new({:color=>'#f00',:background_color=>'#ffffff'}), c.flattened)
+  end
+  def test_formats
+    a = Workbook::Format.new({:background_color=>'#ffffff'})
+    b = Workbook::Format.new({:color=>'#000'})
+    c = Workbook::Format.new({:color=>'#f00'})
+    a.parent = b
+    c.parent = a
+    assert_equal([b,a,c], c.formats) 
+  end
+  def test_parent_style_to_css
+    a = Workbook::Format.new({:background_color=>'#ffffff'})
+    b = Workbook::Format.new({:color=>'#000'})
+    c = Workbook::Format.new({:color=>'#f00'})
+    a.parent = b
+    c.parent = a
+    assert_equal("background: #ffffff; color: #f00", c.to_css)
+  end
+  def test_all_names
+    a = Workbook::Format.new({:background_color=>'#ffffff'}, "a")
+    b = Workbook::Format.new({:color=>'#000'},"b")
+    c = Workbook::Format.new({:color=>'#f00'},"c")
+    a.parent = b
+    c.parent = a
+    assert_equal(["b","a","c"],c.all_names)
+  end
 end
