@@ -563,20 +563,20 @@ lines.</p>
       <pre class="lines">
 
 
-103
-104
-105
-106
-107
-108
-109
 110
 111
 112
-113</pre>
+113
+114
+115
+116
+117
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_string_boolean_converter'>string_boolean_converter</span>
   <span class='id identifier rubyid_proc'>proc</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_v'>v</span><span class='op'>|</span>
@@ -743,7 +743,14 @@ lines.</p>
 96
 97
 98
-99</pre>
+99
+100
+101
+102
+103
+104
+105
+106</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/workbook/modules/type_parser.rb', line 77</span>
@@ -764,8 +771,15 @@ lines.</p>
         <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='id identifier rubyid_v'>v</span>
       <span class='kw'>end</span>
       <span class='kw'>begin</span>
-        <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>?</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span> <span class='comment'># disqualify is it is only based on the first number
+        <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span> <span class='op'>==</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>?</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>:</span> <span class='id identifier rubyid_rv'>rv</span> <span class='comment'># disqualify if it is only based on the first number
 </span>      <span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
+      <span class='kw'>end</span>
+      <span class='comment'># try strptime with format 'mm/dd/yyyy'
+</span>      <span class='kw'>if</span> <span class='id identifier rubyid_rv'>rv</span> <span class='op'>==</span> <span class='id identifier rubyid_v'>v</span> <span class='op'>&amp;&amp;</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}</span><span class='regexp_end'>/</span></span> <span class='op'>=~</span> <span class='id identifier rubyid_v'>v</span>
+        <span class='kw'>begin</span>
+          <span class='id identifier rubyid_rv'>rv</span> <span class='op'>=</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_strptime'>strptime</span><span class='lparen'>(</span><span class='id identifier rubyid_v'>v</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>%m/%d/%Y</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+        <span class='kw'>rescue</span> <span class='const'>ArgumentError</span>
+        <span class='kw'>end</span>
       <span class='kw'>end</span>
     <span class='kw'>end</span>          
     <span class='id identifier rubyid_rv'>rv</span>
@@ -1040,7 +1054,7 @@ lines</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Apr  9 11:54:01 2013 by
+  Generated on Sat May  4 17:43:37 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

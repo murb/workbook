@@ -202,6 +202,30 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#create_or_open_table_at-instance_method" title="#create_or_open_table_at (instance method)">- (Object) <strong>create_or_open_table_at</strong>(index) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create or open the existing table at an index value.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#delete_all-instance_method" title="#delete_all (instance method)">- (Workbook::Table) <strong>delete_all</strong> </a>
     
 
@@ -599,6 +623,73 @@
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="create_or_open_table_at-instance_method">
+  
+    - (<tt>Object</tt>) <strong>create_or_open_table_at</strong>(index) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create or open the existing table at an index value</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>index</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>the index of the table</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71
+72
+73
+74
+75
+76</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/sheet.rb', line 71</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_create_or_open_table_at'>create_or_open_table_at</span> <span class='id identifier rubyid_index'>index</span>
+  <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Table</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_t'>t</span> <span class='op'>==</span> <span class='kw'>nil</span>
+  <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_sheet'>sheet</span> <span class='op'>=</span> <span class='kw'>self</span>
+  <span class='id identifier rubyid_t'>t</span> 
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="delete_all-instance_method">
   
     - (<tt><span class='object_link'><a href="Table.html" title="Workbook::Table (class)">Workbook::Table</a></span></tt>) <strong>delete_all</strong> 
@@ -775,7 +866,7 @@
 </div>
 
     <div id="footer">
-  Generated on Tue Apr  9 11:54:04 2013 by
+  Generated on Sat May  4 17:43:39 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

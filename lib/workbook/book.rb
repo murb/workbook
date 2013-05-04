@@ -153,8 +153,8 @@ module Workbook
 
     # Create an instance from the given stream or string, which should be in CSV or TXT format
     #
-    # @param [StringIO] a StringIO stream or String object, with data in CSV or TXT format
-    # @param [Symbol] :csv or :txt, indicating the format of the first parameter
+    # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV or TXT format
+    # @param [Symbol] filetype (currently only :csv or :txt), indicating the format of the first parameter
     # @return [Workbook::Book] A new instance
     def self.read(stringio_or_string, filetype)
       wb = self.new
@@ -164,8 +164,8 @@ module Workbook
     
     # Load the CSV data contained in the given StringIO or String object
     #
-    # @param [StringIO] a StringIO stream or String object, with data in CSV format
-    # @param [Symbol] :csv or :txt, indicating the format of the first parameter
+    # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV format
+    # @param [Symbol] filetype (currently only :csv or :txt), indicating the format of the first parameter
     def read(stringio_or_string, filetype)
       raise ArgumentError.new("The filetype parameter should be either :csv or :txt") unless [:csv, :txt].include?(filetype)
       t = stringio_or_string.respond_to?(:read) ? stringio_or_string.read : stringio_or_string.to_s

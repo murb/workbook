@@ -1,10 +1,11 @@
 # -*- encoding : utf-8 -*-
-
-# TODO: rods (require 'rods') works weird... going to write my own parser.
-
 module Workbook
   module Readers
     module OdsReader
+      
+      # reads self with and ods-type content.xml
+      # @param [String,File] file_obj a file or file reference
+      # @return [Workbook::Book] self
       def load_ods file_obj
         file_obj = file_obj.path if file_obj.is_a? File
         content = ""
@@ -18,6 +19,9 @@ module Workbook
         parse_ods content
       end
       
+      # updates self with and ods-type content.xml
+      # @param [Nokogiri::XML::Document] ods_spreadsheet nokogirified content.xml
+      # @return [Workbook::Book] self
       def parse_ods ods_spreadsheet=template.raws[Nokogiri::XML::Document], options={}
         options = {:additional_type_parsing=>false}.merge options
         ods_spreadsheet.xpath("//office:body/office:spreadsheet").each_with_index do |sheet,sheetindex|
@@ -45,6 +49,7 @@ module Workbook
             end
           end
         end
+        return self
       end
     end
   end

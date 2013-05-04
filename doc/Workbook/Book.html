@@ -225,6 +225,31 @@ reference to a template class, storing shared formatting options.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#read-class_method" title="read (class method)">+ (Workbook::Book) <strong>read</strong>(stringio_or_string, filetype) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Create an instance from the given stream or string, which should be in CSV
+or TXT format.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
     <h2>
@@ -431,6 +456,30 @@ default is a new sheet).</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#read-instance_method" title="#read (instance method)">- (Object) <strong>read</strong>(stringio_or_string, filetype) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Load the CSV data contained in the given StringIO or String object.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#sheet-instance_method" title="#sheet (instance method)">- (Workbook::Sheet) <strong>sheet</strong> </a>
     
 
@@ -522,7 +571,7 @@ default is a new sheet).</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/OdsReader.html" title="Workbook::Readers::OdsReader (module)">Readers::OdsReader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Readers/OdsReader.html#load_ods-instance_method" title="Workbook::Readers::OdsReader#load_ods (method)">#load_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods-instance_method" title="Workbook::Readers::OdsReader#parse_ods (method)">#parse_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods_cell-instance_method" title="Workbook::Readers::OdsReader#parse_ods_cell (method)">#parse_ods_cell</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods_row-instance_method" title="Workbook::Readers::OdsReader#parse_ods_row (method)">#parse_ods_row</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Readers/OdsReader.html#load_ods-instance_method" title="Workbook::Readers::OdsReader#load_ods (method)">#load_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods-instance_method" title="Workbook::Readers::OdsReader#parse_ods (method)">#parse_ods</a></span></p>
 
   
   
@@ -861,6 +910,106 @@ of the file, this option allows you to override the default.</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="read-class_method">
+  
+    + (<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>) <strong>read</strong>(stringio_or_string, filetype) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Create an instance from the given stream or string, which should be in CSV
+or TXT format</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>stringio_or_string</span>
+      
+      
+        <span class='type'>(<tt>StringIO</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>StringIO stream or String object, with data in CSV or TXT format</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>filetype</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(currently only :csv or :txt), indicating the format of the first parameter</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Book (class)">Workbook::Book</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A new instance</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+159
+160
+161
+162
+163</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 159</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='comma'>,</span> <span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_wb'>wb</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_wb'>wb</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='comma'>,</span> <span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_wb'>wb</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
   <div id="instance_method_details" class="method_details_list">
@@ -913,15 +1062,15 @@ of the file, this option allows you to override the default.</p>
       <pre class="lines">
 
 
-157
-158
-159
-160
-161
-162</pre>
+179
+180
+181
+182
+183
+184</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 179</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_or_open_sheet_at'>create_or_open_sheet_at</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
@@ -1431,6 +1580,102 @@ default is a new sheet)</p>
 </div>
     
       <div class="method_details ">
+  <h3 class="signature " id="read-instance_method">
+  
+    - (<tt>Object</tt>) <strong>read</strong>(stringio_or_string, filetype) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Load the CSV data contained in the given StringIO or String object</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>stringio_or_string</span>
+      
+      
+        <span class='type'>(<tt>StringIO</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>StringIO stream or String object, with data in CSV format</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>filetype</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>(currently only :csv or :txt), indicating the format of the first parameter</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+169
+170
+171
+172
+173
+174</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 169</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='comma'>,</span> <span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The filetype parameter should be either :csv or :txt</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='lbracket'>[</span><span class='symbol'>:csv</span><span class='comma'>,</span> <span class='symbol'>:txt</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:read</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span> <span class='op'>:</span> <span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_t'>t</span> <span class='op'>=</span> <span class='id identifier rubyid_text_to_utf8'>text_to_utf8</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_send'>send</span><span class='lparen'>(</span><span class='symbol'>:parse_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_filetype'>filetype</span><span class='rbrace'>}</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
   <h3 class="signature " id="sheet-instance_method">
   
     - (<tt><span class='object_link'><a href="Sheet.html" title="Workbook::Sheet (class)">Workbook::Sheet</a></span></tt>) <strong>sheet</strong> 
@@ -1587,7 +1832,7 @@ default is a new sheet)</p>
 </div>
 
     <div id="footer">
-  Generated on Tue Apr  9 11:54:03 2013 by
+  Generated on Sat May  4 17:43:38 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>
