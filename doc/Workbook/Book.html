@@ -93,7 +93,7 @@
   
     
       <dt class="r2">Includes:</dt>
-      <dd class="r2"><span class='object_link'><a href="Readers/CsvReader.html" title="Workbook::Readers::CsvReader (module)">Readers::CsvReader</a></span>, <span class='object_link'><a href="Readers/OdsReader.html" title="Workbook::Readers::OdsReader (module)">Readers::OdsReader</a></span>, <span class='object_link'><a href="Readers/TxtReader.html" title="Workbook::Readers::TxtReader (module)">Readers::TxtReader</a></span>, <span class='object_link'><a href="Readers/XlsReader.html" title="Workbook::Readers::XlsReader (module)">Readers::XlsReader</a></span>, <span class='object_link'><a href="Readers/XlsShared.html" title="Workbook::Readers::XlsShared (module)">Readers::XlsShared</a></span>, <span class='object_link'><a href="Readers/XlsxReader.html" title="Workbook::Readers::XlsxReader (module)">Readers::XlsxReader</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html" title="Workbook::Writers::XlsWriter (module)">Writers::XlsWriter</a></span></dd>
+      <dd class="r2"><span class='object_link'><a href="Readers/CsvReader.html" title="Workbook::Readers::CsvReader (module)">Readers::CsvReader</a></span>, <span class='object_link'><a href="Readers/OdsReader.html" title="Workbook::Readers::OdsReader (module)">Readers::OdsReader</a></span>, <span class='object_link'><a href="Readers/TxtReader.html" title="Workbook::Readers::TxtReader (module)">Readers::TxtReader</a></span>, <span class='object_link'><a href="Readers/XlsReader.html" title="Workbook::Readers::XlsReader (module)">Readers::XlsReader</a></span>, <span class='object_link'><a href="Readers/XlsShared.html" title="Workbook::Readers::XlsShared (module)">Readers::XlsShared</a></span>, <span class='object_link'><a href="Readers/XlsxReader.html" title="Workbook::Readers::XlsxReader (module)">Readers::XlsxReader</a></span>, <span class='object_link'><a href="Writers/HtmlWriter.html" title="Workbook::Writers::HtmlWriter (module)">Writers::HtmlWriter</a></span>, <span class='object_link'><a href="Writers/XlsWriter.html" title="Workbook::Writers::XlsWriter (module)">Writers::XlsWriter</a></span></dd>
       
     
   
@@ -571,7 +571,7 @@ default is a new sheet).</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/OdsReader.html" title="Workbook::Readers::OdsReader (module)">Readers::OdsReader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Readers/OdsReader.html#load_ods-instance_method" title="Workbook::Readers::OdsReader#load_ods (method)">#load_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods-instance_method" title="Workbook::Readers::OdsReader#parse_ods (method)">#parse_ods</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Readers/OdsReader.html#load_ods-instance_method" title="Workbook::Readers::OdsReader#load_ods (method)">#load_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods-instance_method" title="Workbook::Readers::OdsReader#parse_ods (method)">#parse_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods_style-instance_method" title="Workbook::Readers::OdsReader#parse_ods_style (method)">#parse_ods_style</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#set_format_property-instance_method" title="Workbook::Readers::OdsReader#set_format_property (method)">#set_format_property</a></span></p>
 
   
   
@@ -583,6 +583,17 @@ default is a new sheet).</p>
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/XlsReader.html" title="Workbook::Readers::XlsReader (module)">Readers::XlsReader</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="Readers/XlsReader.html#load_xls-instance_method" title="Workbook::Readers::XlsReader#load_xls (method)">#load_xls</a></span>, <span class='object_link'><a href="Readers/XlsReader.html#parse_xls-instance_method" title="Workbook::Readers::XlsReader#parse_xls (method)">#parse_xls</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Writers/HtmlWriter.html" title="Workbook::Writers::HtmlWriter (module)">Writers::HtmlWriter</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Writers/HtmlWriter.html#to_html-instance_method" title="Workbook::Writers::HtmlWriter#to_html (method)">#to_html</a></span>, <span class='object_link'><a href="Writers/HtmlWriter.html#write_to_html-instance_method" title="Workbook::Writers::HtmlWriter#write_to_html (method)">#write_to_html</a></span></p>
 
   
   
@@ -651,16 +662,16 @@ based on the array</p>
       <pre class="lines">
 
 
-28
-29
 30
 31
 32
 33
-34</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_sheet'>sheet</span><span class='op'>=</span><span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Sheet</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_sheet'>sheet</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Sheet</span>
@@ -725,12 +736,12 @@ based on the array</p>
       <pre class="lines">
 
 
-37
-38
-39</pre>
+39
+40
+41</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 37</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 39</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_template'>template</span>
   <span class='ivar'>@template</span>
@@ -786,12 +797,12 @@ based on the array</p>
       <pre class="lines">
 
 
-50
-51
-52</pre>
+52
+53
+54</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 52</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_title'>title</span>
   <span class='ivar'>@title</span>
@@ -891,14 +902,14 @@ of the file, this option allows you to override the default.</p>
       <pre class="lines">
 
 
-148
-149
 150
 151
-152</pre>
+152
+153
+154</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span> <span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_extension'>extension</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_wb'>wb</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -991,14 +1002,14 @@ or TXT format</p>
       <pre class="lines">
 
 
-159
-160
 161
 162
-163</pre>
+163
+164
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 159</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 161</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='comma'>,</span> <span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_wb'>wb</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
@@ -1062,15 +1073,15 @@ or TXT format</p>
       <pre class="lines">
 
 
-179
-180
 181
 182
 183
-184</pre>
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 181</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_or_open_sheet_at'>create_or_open_sheet_at</span> <span class='id identifier rubyid_index'>index</span>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
@@ -1147,12 +1158,12 @@ or TXT format</p>
       <pre class="lines">
 
 
-139
-140
-141</pre>
+141
+142
+143</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 139</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 141</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_file_extension'>file_extension</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span>
   <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_extname'>extname</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_gsub'>gsub</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='comma'>,</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span> <span class='kw'>if</span> <span class='id identifier rubyid_filename'>filename</span>
@@ -1206,12 +1217,12 @@ or TXT format</p>
       <pre class="lines">
 
 
-72
-73
-74</pre>
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 72</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_has_contents?'>has_contents?</span>
   <span class='id identifier rubyid_sheet'>sheet</span><span class='period'>.</span><span class='id identifier rubyid_has_contents?'>has_contents?</span>
@@ -1304,17 +1315,17 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-81
-82
 83
 84
 85
 86
 87
-88</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 81</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_open'>open</span> <span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_extension'>extension</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_extension'>extension</span> <span class='op'>=</span> <span class='id identifier rubyid_file_extension'>file_extension</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_extension'>extension</span>
@@ -1413,14 +1424,14 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-95
-96
 97
 98
-99</pre>
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_open_binary'>open_binary</span> <span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_extension'>extension</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_extension'>extension</span> <span class='op'>=</span> <span class='id identifier rubyid_file_extension'>file_extension</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_extension'>extension</span>
@@ -1497,16 +1508,16 @@ e.g. ‘txt’, ‘csv’ or ‘xls’)</p>
       <pre class="lines">
 
 
-105
-106
 107
 108
 109
 110
-111</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 107</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_open_text'>open_text</span> <span class='id identifier rubyid_filename'>filename</span><span class='comma'>,</span> <span class='id identifier rubyid_extension'>extension</span><span class='op'>=</span><span class='kw'>nil</span>
   <span class='id identifier rubyid_extension'>extension</span> <span class='op'>=</span> <span class='id identifier rubyid_file_extension'>file_extension</span><span class='lparen'>(</span><span class='id identifier rubyid_filename'>filename</span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='id identifier rubyid_extension'>extension</span>
@@ -1564,12 +1575,12 @@ default is a new sheet)</p>
       <pre class="lines">
 
 
-57
-58
-59</pre>
+59
+60
+61</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 57</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_push'>push</span> <span class='id identifier rubyid_sheet'>sheet</span><span class='op'>=</span><span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Sheet</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
   <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_sheet'>sheet</span><span class='rparen'>)</span>
@@ -1654,15 +1665,15 @@ default is a new sheet)</p>
       <pre class="lines">
 
 
-169
-170
 171
 172
 173
-174</pre>
+174
+175
+176</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 169</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 171</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_read'>read</span><span class='lparen'>(</span><span class='id identifier rubyid_stringio_or_string'>stringio_or_string</span><span class='comma'>,</span> <span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The filetype parameter should be either :csv or :txt</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>unless</span> <span class='lbracket'>[</span><span class='symbol'>:csv</span><span class='comma'>,</span> <span class='symbol'>:txt</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='id identifier rubyid_filetype'>filetype</span><span class='rparen'>)</span>
@@ -1719,13 +1730,13 @@ default is a new sheet)</p>
       <pre class="lines">
 
 
-64
-65
 66
-67</pre>
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 66</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_sheet'>sheet</span>
   <span class='id identifier rubyid_push'>push</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Sheet</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>unless</span> <span class='id identifier rubyid_first'>first</span>
@@ -1782,8 +1793,6 @@ default is a new sheet)</p>
       <pre class="lines">
 
 
-117
-118
 119
 120
 121
@@ -1799,10 +1808,12 @@ default is a new sheet)</p>
 131
 132
 133
-134</pre>
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 117</span>
+      <pre class="code"><span class="info file"># File 'lib/workbook/book.rb', line 119</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_text_to_utf8'>text_to_utf8</span> <span class='id identifier rubyid_text'>text</span>
   <span class='kw'>if</span> <span class='const'>RUBY_VERSION</span> <span class='op'>&lt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>1.9</span><span class='tstring_end'>'</span></span>
@@ -1832,7 +1843,7 @@ default is a new sheet)</p>
 </div>
 
     <div id="footer">
-  Generated on Sat May  4 18:52:01 2013 by
+  Generated on Sun May  5 14:58:07 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

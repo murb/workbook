@@ -1,13 +1,13 @@
 lib/workbook.rb a4e0003c1f3264f8d574cd3786c6abf735252480
 lib/workbook/row.rb 9d3243ac383ff4fd2185f7613e706cd39f66d053
 lib/workbook/cell.rb 1d473a2d019574c68c94aff9e638078b09b51a9e
-lib/workbook/book.rb fd40b28d0f3c55819a46852d6f4559b3d60b8465
+lib/workbook/book.rb 25189ee5ce3a25182af248f172d4f1a84ea40283
 lib/workbook/sheet.rb 89ad56bc5aacbc73654be598deac704d8cb1ad27
 lib/workbook/table.rb e974410b96aac59fa122d9e8c2f047b575f444a3
-lib/workbook/format.rb c028e371c1a0db6587d1076770fcd8bd810ecb2a
+lib/workbook/format.rb 454ab75f5ef6115e050c0dfc91d2f10859e5f055
 lib/workbook/version.rb 8e7f1b86ea78dd111eaa0a3f7d4c9a09861bc670
 lib/workbook/template.rb 22be72752470300104bc9df07b6537c9b44b29a0
-lib/workbook/readers/ods_reader.rb 21470d8d7433bfe452edfc36e22da51f932ae4c7
+lib/workbook/readers/ods_reader.rb bba4cc352958e26461722d07ce6594b352d23479
 lib/workbook/readers/csv_reader.rb 1245de4bd7c9794cbb26ed49c2d4e260fcbeea09
 lib/workbook/readers/txt_reader.rb 1d69d51c9f6c68c9605390a23ebafb3c7d491605
 lib/workbook/writers/xls_writer.rb cbdf4e016a4b7401ee3f57f24b4a66382b499cd1
@@ -15,6 +15,7 @@ lib/workbook/readers/xls_reader.rb 5de7f7df02ee67945ed215be5fbca36711a3798e
 lib/workbook/readers/xls_shared.rb f7dec9cfd734757b007a9b033c9835fe5db44e9b
 lib/workbook/readers/xlsx_reader.rb c1170f364b5bf385326feb3a712578a164379138
 lib/workbook/modules/type_parser.rb d5f10c357962b97f1346c7ff876c0281b642e39a
+lib/workbook/writers/html_writer.rb e79b56539fca8cddfe1980bb493ff7e09bad7dfa
 lib/workbook/modules/table_diff_sort.rb 4bbf599f3389a6b345b08e3ea660fdd7c075fda2
 lib/workbook/writers/csv_table_writer.rb f8285c58106adf6700a880c12e6473cad095987a
 lib/workbook/modules/raw_objects_storage.rb cb0ba4889f009a66c518608f159f7cfd6155d646
