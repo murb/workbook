@@ -13,21 +13,21 @@ module Readers
     def test_styling
       w = Workbook::Book.new
       w.open 'test/artifacts/book_with_tabs_and_colours.ods'
-      #assert_equal("#CCFFCC",w.sheet.table[3][:c].format[:background_color])
-      #      assert_equal(8.13671875,w.sheet.table.first[:b].format[:width])
-      #      assert_equal(3.85546875,w.sheet.table.first[:a].format[:width])
-      #      assert_equal(25.14453125,w.sheet.table.first[:c].format[:width])
-      #      
-      #   
+      assert_equal("#ffff99",w.sheet.table[3][:c].format[:background_color])
+      assert_equal(true,w.sheet.table[0][:e].format.all_names.include?("Heading1"))
+      # TODO: column styles
+      # assert_equal(8.13671875,w.sheet.table.first[:b].format[:width])
+      # assert_equal(3.85546875,w.sheet.table.first[:a].format[:width])
+      # assert_equal(25.14453125,w.sheet.table.first[:c].format[:width])
     end
     
     def test_complex_types
       w = Workbook::Book.new
       w.open 'test/artifacts/complex_types.ods'
       assert_equal(Date.new(2011,11,15), w.sheet.table[2][3].value)
-       assert_equal("http://murb.nl", w.sheet.table[3][2].value)
-       assert_equal("sadfasdfsd", w.sheet.table[4][2].value)
-       assert_equal(1.2, w.sheet.table[3][1].value)
+      assert_equal("http://murb.nl", w.sheet.table[3][2].value)
+      assert_equal("sadfasdfsd", w.sheet.table[4][2].value)
+      assert_equal(1.2, w.sheet.table[3][1].value)
     end
     
     def test_excel_standardized_open
