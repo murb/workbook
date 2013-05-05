@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = 'workbook'
   s.rubyforge_project = 'workbook'
   s.version     = Workbook::VERSION
-  s.date        = '2013-01-10'
+  s.date        = '2013-04-05'
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excel, ods and csv and tab separated files, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
