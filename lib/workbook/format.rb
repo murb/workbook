@@ -30,7 +30,8 @@ module Workbook
     # @return String very basic CSS styling string
     def to_css
       css_parts = []
-      css_parts.push("background: #{flattened[:background_color].to_s} #{flattened[:background].to_s}".strip) if flattened[:background] or flattened[:background_color]
+      background = [flattened[:background_color].to_s,flattened[:background].to_s].join(" ").strip
+      css_parts.push("background: #{background}") if background and background != ""
       css_parts.push("color: #{flattened[:color].to_s}") if flattened[:color]
       css_parts.join("; ")
     end

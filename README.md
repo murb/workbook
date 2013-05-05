@@ -130,8 +130,11 @@ This code MIT (but see below) (c) murb / Maarten Brouwers, 2011-2013
 
 Workbook uses the following gems:
 
-* [Spreadsheet](https://github.com/zdavatz/spreadsheet) Used for reading and writing old style .xls files (Copyright (c) 2010 ywesee GmbH (mhatakeyama@ywesee.com, zdavatz@ywesee.com); GPL3 (License required for closed implementations))
-* [ruby-ole](http://code.google.com/p/ruby-ole/) Used in the Spreadsheet Gem (Copyright (c) 2007-2010 Charles Lowe; MIT)
-* [FasterCSV](http://fastercsv.rubyforge.org/) Used for reading CSV (comma separated text) and TXT (tab separated text) files (Copyright (c) James Edward Gray II; GPL2 & Ruby License)
-* [rchardet](http://rubyforge.org/projects/rchardet) Used for detecting encoding in CSV and TXT importers (Copyright (c) JMHodges; LGPL)
-* [RubyXL](https://github.com/gilt/rubyXL) Used for reading the newer .xlsx files (Copyright (c) 2011 Vivek Bhagwat; MIT-Licensed)
+* [Spreadsheet](https://github.com/zdavatz/spreadsheet) Used for reading and writing old style .xls files (Copyright © 2010 ywesee GmbH (mhatakeyama@ywesee.com, zdavatz@ywesee.com); GPL3 (License required for closed implementations))
+* [ruby-ole](http://code.google.com/p/ruby-ole/) Used in the Spreadsheet Gem (Copyright © 2007-2010 Charles Lowe; MIT)
+* [FasterCSV](http://fastercsv.rubyforge.org/) Used for reading CSV (comma separated text) and TXT (tab separated text) files (Copyright © James Edward Gray II; GPL2 & Ruby License)
+* [rchardet](http://rubyforge.org/projects/rchardet) Used for detecting encoding in CSV and TXT importers (Copyright © JMHodges; LGPL)
+* [RubyXL](https://github.com/gilt/rubyXL) Used for reading the newer .xlsx files (Copyright © 2011 Vivek Bhagwat; MIT-Licensed)
+* [Nokogiri](http://nokogiri.org/) Used for reading ODS documents (Copyright © 2008 - 2012 Aaron Patterson, Mike Dalessio, Charles Nutter, Sergio Arbeo, Patrick Mahoney, Yoko Harada; MIT Licensed)
+
+

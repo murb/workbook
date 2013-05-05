@@ -10,14 +10,13 @@ Gem::Specification.new do |s|
   s.version     = Workbook::VERSION
   s.date        = '2013-01-10'
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
-  s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excels and csv's and tab separated, and offers basic diffing and sorting capabilities."
+  s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excel, ods and csv and tab separated files, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
   s.add_dependency('spreadsheet', '>= 0.7.5')
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake")
   s.add_dependency('rubyXL')
-  #s.add_dependency('rods')
   s.add_dependency('nokogiri')
   s.add_dependency('rubyzip')
   s.platform    = Gem::Platform::RUBY
