@@ -142,7 +142,7 @@ module Workbook
       string.upcase!
       sum = 0
       string.chars.each_with_index do | char, char_index| 
-        sum = sum * 26 + char.ord-64
+        sum = sum * 26 + char.unpack('U')[0]-64
       end
       return sum-1
     end
