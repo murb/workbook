@@ -127,6 +127,7 @@ module Workbook
         match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
         cell_index = alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
+        return self[row_index][cell_index]
       else 
         if index_or_string
           return to_a[index_or_string]

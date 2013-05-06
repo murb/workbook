@@ -9,9 +9,11 @@ module Workbook
     attr_accessor :value
     attr_accessor :format
     attr_accessor :formula
+    attr_accessor :colspan
+    attr_accessor :rowspan
     
     # Note that these types are sorted by 'importance'
-    VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass]
+    VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Workbook::NilValue]
     
     # Evaluates a value for class-validity
     #
@@ -170,5 +172,11 @@ module Workbook
       end
     end
     
+    def colspan
+      @colspan.to_i if @colspan.to_i > 1
+    end
+    def rowspan
+      @rowspan.to_i if @rowspan.to_i > 1
+    end
   end
 end

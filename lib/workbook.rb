@@ -3,6 +3,7 @@ $KCODE="u" if RUBY_VERSION < "1.9"
 require 'workbook/book'
 require 'workbook/sheet'
 require 'workbook/table'
+require 'workbook/nil_value'
 require 'workbook/row'
 require 'workbook/cell'
 require 'workbook/format'

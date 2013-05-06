@@ -80,4 +80,26 @@ class TestCell < Test::Unit::TestCase
     c = Workbook::Cell.new nil
     assert_equal(true,c.nil?)
   end
+  
+  def test_colspan_rowspan
+    c = Workbook::Cell.new
+    c.colspan = 1
+    c.rowspan = 1
+    assert_equal(nil,c.colspan)
+    assert_equal(nil,c.rowspan)
+    c.colspan = nil
+    c.rowspan = ""
+    assert_equal(nil,c.colspan)
+    assert_equal(nil,c.rowspan)   
+    c.colspan = 3
+    c.rowspan = "4"
+    assert_equal(3,c.colspan)
+    c.rowspan = 0
+    assert_equal(nil,c.rowspan)  
+    assert_equal(3,c.colspan)
+    c.colspan = 0
+    c.rowspan = 3
+    assert_equal(3,c.rowspan)  
+    assert_equal(nil,c.colspan)    
+  end
 end

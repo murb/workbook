@@ -46,6 +46,18 @@ module Readers
       assert_equal(42000,w.sheet.table[3][:b].value)
       assert_equal(nil,w.sheet.table[2][:c].value)
     end
-    
+    def test_sheet_with_combined_cells
+      w = Workbook::Book.new
+      w.open("test/artifacts/sheet_with_combined_cells.ods")
+      t = w.sheet.table
+      assert_equal("14 90589",t[1][:a].value)
+      assert_equal(Workbook::NilValue,t[1][:b].value.class)
+      assert_equal(:covered,t[1][:b].value.reason)
+      assert_equal(2,t[1][:a].colspan)
+      assert_equal(nil,t[1][:c].colspan)
+      assert_equal(2,t["D3"].rowspan)
+      assert_equal(2,t["D5"].rowspan)
+      assert_equal(2,t["D5"].colspan)
+    end    
   end
 end

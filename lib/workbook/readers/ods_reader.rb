@@ -68,27 +68,35 @@ module Workbook
             t.name = table.xpath("@table:name").to_s
             columns = table.xpath("table:table-column").count
             table.xpath("table:table-row").each_with_index do |row,rowindex|
-              cells = row.xpath("table:table-cell")
+              cells = row.xpath("table:table-cell|table:covered-table-cell")
               r = Workbook::Row.new
               columns.times do |column_index|
                 cell = cells[column_index]
                 c = Workbook::Cell.new()
                 value = nil
                 if cell
-                  cell_style_name = cell.xpath('@table:style-name').to_s
-                  c.format = self.template.formats[cell_style_name]
-                  valuetype = cell.xpath('@office:value-type').to_s
-                  value = CGI.unescapeHTML(cell.xpath("text:p//text()").to_s)
-                  value = (value == "") ? nil : value
-                  case valuetype
-                  when 'float'
-                    value = cell.xpath("@office:value").to_s.to_f
-                  when 'integer'
-                    value = cell.xpath("@office:value").to_s.to_i
-                  when 'date'
-                    value = DateTime.parse(cell.xpath("@office:date-value").to_s)
-                  end    
-                end       
+                  if cell.name == "covered-table-cell"
+                    value = Workbook::NilValue.new(:covered)
+                  else
+                    cell_style_name = cell.xpath('@table:style-name').to_s
+                    c.format = self.template.formats[cell_style_name]
+                    valuetype = cell.xpath('@office:value-type').to_s
+                    c.colspan= cell.xpath('@table:number-columns-spanned').to_s
+                    c.rowspan= cell.xpath('@table:number-rows-spanned').to_s
+
+                    value = CGI.unescapeHTML(cell.xpath("text:p//text()").to_s)
+                    value = (value == "") ? nil : value
+                    case valuetype
+                    when 'float'
+                      value = cell.xpath("@office:value").to_s.to_f
+                    when 'integer'
+                      value = cell.xpath("@office:value").to_s.to_i
+                    when 'date'
+                      value = DateTime.parse(cell.xpath("@office:date-value").to_s)
+                    end    
+                  end
+                end     
+
                 c.value = value
                 r << c
               end
