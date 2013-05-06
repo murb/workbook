@@ -53,6 +53,8 @@ module Workbook
       # @param [Nokogiri::XML::Document] ods_spreadsheet nokogirified content.xml
       # @return [Workbook::Book] self
       def parse_ods ods_spreadsheet=template.raws[Nokogiri::XML::Document], options={}
+        require 'cgi'
+        
         options = {:additional_type_parsing=>false}.merge options
         # styles
         #puts ods_spreadsheet
@@ -69,8 +71,8 @@ module Workbook
                 cell_style_name = cell.xpath('@table:style-name').to_s
                 c.format = self.template.formats[cell_style_name]
                 valuetype = cell.xpath('@office:value-type').to_s
-                value = cell.xpath("text:p//text()").to_s
-                value = value == "" ? nil : value
+                value = CGI.unescapeHTML(cell.xpath("text:p//text()").to_s)
+                value = (value == "") ? nil : value
                 case valuetype
                 when 'float'
                   value = cell.xpath("@office:value").to_s.to_f

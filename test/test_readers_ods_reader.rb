@@ -26,7 +26,7 @@ module Readers
       w.open 'test/artifacts/complex_types.ods'
       assert_equal(Date.new(2011,11,15), w.sheet.table[2][3].value)
       assert_equal("http://murb.nl", w.sheet.table[3][2].value)
-      assert_equal("sadfasdfsd", w.sheet.table[4][2].value)
+      assert_equal("Sadfasdfsd > 2", w.sheet.table[4][2].value)
       assert_equal(1.2, w.sheet.table[3][1].value)
     end
     
