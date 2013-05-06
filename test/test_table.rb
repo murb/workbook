@@ -60,6 +60,12 @@ class TestTable< Test::Unit::TestCase
     assert_equal(t.sheet, s)
   end
   
+  def test_name
+    t = Workbook::Table.new
+    t.name = "test naam"
+    assert_equal("test naam", t.name)
+  end
+  
   def test_delete_all
     w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
     t = w.sheet.table

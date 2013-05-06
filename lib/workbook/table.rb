@@ -9,6 +9,7 @@ module Workbook
     include Workbook::Modules::TableDiffSort
     include Workbook::Writers::CsvTableWriter
     attr_accessor :sheet
+    attr_accessor :name
     attr_accessor :header
     
     def initialize row_cel_values=[], sheet=nil, options={}

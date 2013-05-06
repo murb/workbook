@@ -19,6 +19,9 @@ module Workbook
                   doc.text sheet.name
                 }
                 sheet.each{|table|
+                  doc.h2 {
+                    doc.text table.name
+                  }
                   doc.table {
                     table.each{|row|
                       doc.tr {

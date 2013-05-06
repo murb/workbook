@@ -33,5 +33,13 @@ module Writers
       match = html.match(/<td style="background: #f00">a<\/td>/) ? true : false
       assert_equal(true, match)
     end
+    def test_sheet_and_table_names
+      b = Workbook::Book.new([['a','b'],[1,2],[3,4]])
+      b.sheet.name = "Sheet name"
+      b.sheet.table.name = "Table name"
+      html = b.to_html
+      assert_equal(true, (html.match(/<h1>Sheet name<\/h1>/) ? true : false) )
+      assert_equal(true, (html.match(/<h2>Table name<\/h2>/) ? true : false) )
+    end
   end
 end

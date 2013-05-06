@@ -65,26 +65,34 @@ module Workbook
           s = self.create_or_open_sheet_at(sheetindex)
           sheet.xpath("table:table").each_with_index do |table,tableindex|
             t = s.create_or_open_table_at(tableindex)
+            t.name = table.xpath("@table:name").to_s
+            columns = table.xpath("table:table-column").count
             table.xpath("table:table-row").each_with_index do |row,rowindex|
-              row = row.xpath("table:table-cell").collect do |cell|
+              cells = row.xpath("table:table-cell")
+              r = Workbook::Row.new
+              columns.times do |column_index|
+                cell = cells[column_index]
                 c = Workbook::Cell.new()
-                cell_style_name = cell.xpath('@table:style-name').to_s
-                c.format = self.template.formats[cell_style_name]
-                valuetype = cell.xpath('@office:value-type').to_s
-                value = CGI.unescapeHTML(cell.xpath("text:p//text()").to_s)
-                value = (value == "") ? nil : value
-                case valuetype
-                when 'float'
-                  value = cell.xpath("@office:value").to_s.to_f
-                when 'integer'
-                  value = cell.xpath("@office:value").to_s.to_i
-                when 'date'
-                  value = DateTime.parse(cell.xpath("@office:date-value").to_s)
-                end           
+                value = nil
+                if cell
+                  cell_style_name = cell.xpath('@table:style-name').to_s
+                  c.format = self.template.formats[cell_style_name]
+                  valuetype = cell.xpath('@office:value-type').to_s
+                  value = CGI.unescapeHTML(cell.xpath("text:p//text()").to_s)
+                  value = (value == "") ? nil : value
+                  case valuetype
+                  when 'float'
+                    value = cell.xpath("@office:value").to_s.to_f
+                  when 'integer'
+                    value = cell.xpath("@office:value").to_s.to_i
+                  when 'date'
+                    value = DateTime.parse(cell.xpath("@office:date-value").to_s)
+                  end    
+                end       
                 c.value = value
-                c
+                r << c
               end
-              t << Workbook::Row.new(row)
+              t << r
             end
           end
         end
