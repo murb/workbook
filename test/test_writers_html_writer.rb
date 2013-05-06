@@ -41,5 +41,13 @@ module Writers
       assert_equal(true, (html.match(/<h1>Sheet name<\/h1>/) ? true : false) )
       assert_equal(true, (html.match(/<h2>Table name<\/h2>/) ? true : false) )
     end
+    def test_col_and_rowspans
+      w = Workbook::Book.new
+      w.open("test/artifacts/sheet_with_combined_cells.ods")
+      html = w.to_html
+      assert_equal(true, (html.match(/rowspan="2">15 nov 11 15 nov 11/) ? true : false) )
+      assert_equal(true, (html.match(/colspan="2" rowspan="2">13 mrt 12 15 mrt 12 13 mrt 12 15 mrt 12/) ? true : false) )
+      assert_equal(true, (html.match(/colspan="2">14 90589/) ? true : false) )
+    end
   end
 end

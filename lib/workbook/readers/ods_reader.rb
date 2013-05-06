@@ -3,7 +3,6 @@
 module Workbook
   module Readers
     module OdsReader
-      
       # reads self with and ods-type content.xml
       # @param [String,File] file_obj a file or file reference
       # @return [Workbook::Book] self
@@ -95,8 +94,7 @@ module Workbook
                       value = DateTime.parse(cell.xpath("@office:date-value").to_s)
                     end    
                   end
-                end     
-
+                end
                 c.value = value
                 r << c
               end

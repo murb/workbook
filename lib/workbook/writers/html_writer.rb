@@ -29,9 +29,13 @@ module Workbook
                           classnames = cell.format.all_names.join(" ").strip
                           td_options = classnames != "" ? {:class=>classnames} : {}
                           td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
-                          doc.td(td_options) {
-                            doc.text cell.value
-                          }
+                          td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
+                          td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
+                          unless cell.value.class == Workbook::NilValue
+                            doc.td(td_options) {
+                              doc.text cell.value
+                            }
+                          end
                         }
                       }
                     }
