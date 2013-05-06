@@ -7,7 +7,6 @@ module Workbook
     include Workbook::Modules::RawObjectsStorage
     alias_method :merge_hash, :merge
     alias_method :merge_hash!, :merge!
-    
     attr_accessor :name, :parent
     
     # Initialize

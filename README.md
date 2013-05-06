@@ -29,19 +29,19 @@ or
 Calling
 
     s = b.sheet
-	t = s.table
+    t = s.table
 	
 will give you an the first Sheet and Table (if one doesn't exist it is created on the fly).
 
 You can initialize with simple 2-d array like this:
 
     b = Workbook::Book.new [['a','b'],[1,2],[3,4],[5,6]]
-	t = s.sheet.table
+    t = s.sheet.table
 	
 Subsequently you look up values in the table like this:
 
     t[1][:b] 
-	# returns <Workbook::Cel @value=2>
+    # returns <Workbook::Cel @value=2>
 
 which is equivalent to
 
@@ -50,6 +50,10 @@ which is equivalent to
 Of course you'll be able to write a new value back to it. If you just enter a value, formatting of the original cell will be maintained.
 
     t[1][:b] = 5
+    
+Alternatively (more spreadsheet like) you can read cells like this (writing to be supported, not implemented yet)
+    
+    t['A2']
     
 If you want to use an existing file as a template (which you can create in Excel to create nice looking templates), 
 simply clone the row, and add it back:
@@ -70,10 +74,9 @@ simply clone the row, and add it back:
                                # in the endresult
     b.write("result.xls")   # write it!
     
-<!-- Feature *to implement*: 
 
-	t['A2']
-	# returns <Workbook::Cel @value=1>
+
+  <!-- Feature *to implement*: 
 	
 Feature *to implement*, get a single column:
 

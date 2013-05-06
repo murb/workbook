@@ -94,5 +94,32 @@ class TestTable< Test::Unit::TestCase
     assert_equal(3,t[3][:a])
     assert_equal(5,t2[3][:a])
   end
+  
+  def test_spreadsheet_style_cell_addressing
+    w = Workbook::Book.new [[nil, nil],["a","b"],[1,2],[3,4]]
+    t = w.sheet.table
+    assert_equal(nil,t["A1"].value)
+    assert_equal(nil,t["B1"].value)
+    assert_equal("a",t["A2"].value)
+    assert_equal("b",t["B2"].value)
+    assert_equal(1,t["A3"].value)
+    assert_equal(2,t["B3"].value)
+    assert_equal(3,t["A4"].value)
+    assert_equal(4,t["B4"].value)
+    # t["B4"]="asdf"
+    # assert_equal("asdf",t["B4"].value)
+    
+  end
 
+  def test_alpha_index_to_number_index
+     w = Workbook::Book.new
+     t = w.sheet.table
+     assert_equal(0,t.alpha_index_to_number_index("A"))
+     assert_equal(2,t.alpha_index_to_number_index("C"))
+     assert_equal(25,t.alpha_index_to_number_index("Z"))
+     assert_equal(26,t.alpha_index_to_number_index("AA"))
+     assert_equal(27,t.alpha_index_to_number_index("AB"))
+     assert_equal(51,t.alpha_index_to_number_index("AZ"))
+     assert_equal(52,t.alpha_index_to_number_index("BA"))
+  end
 end

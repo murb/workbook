@@ -114,5 +114,37 @@ module Workbook
       return c
     end
     
+    # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
+    #
+    # @example Lookup using fixnum or header value encoded as symbol
+    #   table[0] #=> <Row [a,2,3,4]> (first row)
+    #   table["A1"] #=> <Cell value="a"> (first cell of first row)
+    #
+    # @param [Fixnum, String] index_or_string to reference to either the row, or the cell
+    # @return [Workbook::Row, Workbook::Cell, nil]
+    def [](index_or_string)
+      if index_or_string.is_a? String
+        match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
+        cell_index = alpha_index_to_number_index(match[1])
+        row_index = match[2].to_i - 1
+      else 
+        if index_or_string
+          return to_a[index_or_string]
+        end
+      end
+    end
+    
+    # Helps to convert from e.g. "AA" to 26
+    # @param [String] string that typically identifies a column
+    # @return [Integer]
+    def alpha_index_to_number_index string
+      string.upcase!
+      sum = 0
+      string.chars.each_with_index do | char, char_index| 
+        sum = sum * 26 + char.ord-64
+      end
+      return sum-1
+    end
+    
   end
 end
