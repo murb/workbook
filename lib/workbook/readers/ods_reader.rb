@@ -61,49 +61,67 @@ module Workbook
         
         # data
         ods_spreadsheet.xpath("//office:body/office:spreadsheet").each_with_index do |sheet,sheetindex|
-          s = self.create_or_open_sheet_at(sheetindex)
+          workbook_sheet = self.create_or_open_sheet_at(sheetindex)
           sheet.xpath("table:table").each_with_index do |table,tableindex|
-            t = s.create_or_open_table_at(tableindex)
-            t.name = table.xpath("@table:name").to_s
-            columns = table.xpath("table:table-column").count
-            table.xpath("table:table-row").each_with_index do |row,rowindex|
-              cells = row.xpath("table:table-cell|table:covered-table-cell")
-              r = Workbook::Row.new
-              columns.times do |column_index|
-                cell = cells[column_index]
-                c = Workbook::Cell.new()
-                value = nil
-                if cell
-                  if cell.name == "covered-table-cell"
-                    value = Workbook::NilValue.new(:covered)
-                  else
-                    cell_style_name = cell.xpath('@table:style-name').to_s
-                    c.format = self.template.formats[cell_style_name]
-                    valuetype = cell.xpath('@office:value-type').to_s
-                    c.colspan= cell.xpath('@table:number-columns-spanned').to_s
-                    c.rowspan= cell.xpath('@table:number-rows-spanned').to_s
-
-                    value = CGI.unescapeHTML(cell.xpath("text:p//text()").to_s)
-                    value = (value == "") ? nil : value
-                    case valuetype
-                    when 'float'
-                      value = cell.xpath("@office:value").to_s.to_f
-                    when 'integer'
-                      value = cell.xpath("@office:value").to_s.to_i
-                    when 'date'
-                      value = DateTime.parse(cell.xpath("@office:date-value").to_s)
-                    end    
-                  end
-                end
-                c.value = value
-                r << c
-              end
-              t << r
-            end
+            parse_local_table(workbook_sheet,table,tableindex)
           end
         end
         return self
       end
+      
+      #parse the contents of an entire table by parsing every row in it and adding it to the table
+      def parse_local_table(sheet,table,tableindex)
+        local_table = sheet.create_or_open_table_at(tableindex)
+        local_table.name = table.xpath("@table:name").to_s
+        column_count = table.xpath("table:table-column").count
+        table.xpath("table:table-row").each_with_index do |row,rowindex|
+          local_table << parse_local_row(row,column_count)
+        end
+      end      
+      
+      #parse the contents of an entire row by parsing every cell in it and adding it to the row
+      def parse_local_row(row,column_count)
+        cells = row.xpath("table:table-cell|table:covered-table-cell")
+        workbook_row = Workbook::Row.new
+        column_count.times do |column_index|
+          @cell = cells[column_index]
+          workbook_cell = Workbook::Cell.new()
+          workbook_cell.value = @cell.nil? ? nil : parse_local_cell(workbook_cell)
+          workbook_row << workbook_cell
+        end
+        return workbook_row
+      end
+      
+      #parse the contents of a single cell    
+      def parse_local_cell(workbook_cell)
+        return Workbook::NilValue.new(:covered) if @cell.name == "covered-table-cell"        
+        set_cell_attributes(workbook_cell)
+        valuetype = @cell.xpath('@office:value-type').to_s                
+        parse_local_value(valuetype)
+      end
+      
+      # Sets cell attributes for rowspan, colspan and format
+      def set_cell_attributes(workbook_cell)
+        workbook_cell.format = self.template.formats[@cell.xpath('@table:style-name').to_s]
+        workbook_cell.colspan= @cell.xpath('@table:number-columns-spanned').to_s
+        workbook_cell.rowspan= @cell.xpath('@table:number-rows-spanned').to_s
+      end
+      
+      # Sets value in right context type
+      def parse_local_value(valuetype)
+        value = CGI.unescapeHTML(@cell.xpath("text:p//text()").to_s)
+        value = (value=="") ? nil : value
+        case valuetype
+        when 'float'
+          value = @cell.xpath("@office:value").to_s.to_f
+        when 'integer'
+          value = @cell.xpath("@office:value").to_s.to_i
+        when 'date'
+          value = DateTime.parse(@cell.xpath("@office:date-value").to_s)
+        end
+        value
+      end
+        
     end
   end
 end
