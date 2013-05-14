@@ -4,7 +4,7 @@ module Workbook
     # A Sheet is a container of tables
     attr_accessor :book
     attr_accessor :name
-    
+
     # Initialize a new sheet
     #
     # @param [Workbook::Table, Array<Array>] table   The first table of this sheet
@@ -20,21 +20,21 @@ module Workbook
       self.book = book
       return self
     end
-    
+
     # Returns true if the first table of this sheet contains anything
     #
     # @return [Boolean]
     def has_contents?
       table.has_contents?
     end
-        
+
     # Returns the first table of this sheet
     #
     # @return [Workbook::Table] the first table of this sheet
     def table
       first
     end
-    
+
     # Returns the book this sheet belongs to
     #
     # @return [Workbook::Book] the book this sheet belongs to
@@ -46,14 +46,14 @@ module Workbook
         return @book
       end
     end
-    
+
     # Removes all lines from this table
     #
     # @return [Workbook::Table] (self)
     def delete_all
       self.delete_if{|b| true}
     end
-    
+
     # clones itself *and* the tables it contains
     #
     # @return [Workbook::Sheet] The cloned sheet
@@ -64,15 +64,15 @@ module Workbook
       s.each{|t| c << t.clone}
       return c
     end
-    
+
     # Create or open the existing table at an index value
-    # 
+    #
     # @param [Integer] index    the index of the table
     def create_or_open_table_at index
       t = self[index]
       t = self[index] = Workbook::Table.new if t == nil
       t.sheet = self
-      t 
+      t
     end
   end
 end

@@ -10,7 +10,7 @@ module Readers
       #       1,2,3,4
       #       5,3,2,1
       #       "asdf",123,12,2001-02-02
-      #       
+      #
       assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
       assert_equal(3,w.sheet.table[2][:b].value)
       assert_equal("asdf",w.sheet.table[3][:a].value)
@@ -43,7 +43,7 @@ module Readers
       # 2012-02-22,2014-12-27,2012-11-23,2012-11-12T04:20:00+00:00
       # c,222.0,,0027-12-14T05:21:00+00:00
       # 2012-01-22T11:00:00+00:00,42000.0,"goh, idd",ls
-      
+
       assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols)
       assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
       assert_equal("c",w.sheet.table[2][:a].value)
@@ -59,7 +59,7 @@ module Readers
       #       1,2,3,4
       #       5,3,2,1
       #       "asdf",123,12,2001-02-02
-      #       
+      #
       assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
       assert_equal(3,w.sheet.table[2][:b].value)
       assert_equal("asdf",w.sheet.table[3][:a].value)
@@ -74,7 +74,7 @@ module Readers
       #       1,2,3,4
       #       5,3,2,1
       #       "asdf",123,12,2001-02-02
-      #       
+      #
       assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
       assert_equal(3,w.sheet.table[2][:b].value)
       assert_equal("asdf",w.sheet.table[3][:a].value)
@@ -89,7 +89,7 @@ module Readers
       #       1,2,3,4
       #       5,3,2,1
       #       "asdf",123,12,2001-02-02
-      #       
+      #
       assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
       assert_equal(3,w.sheet.table[2][:b].value)
       assert_equal("asdf",w.sheet.table[3][:a].value)

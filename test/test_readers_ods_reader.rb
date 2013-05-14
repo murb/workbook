@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), 'helper')
 module Readers
   class TestXlsWriter < Test::Unit::TestCase
     def test_open
-      
+
       w = Workbook::Book.new
       w.open 'test/artifacts/book_with_tabs_and_colours.ods'
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
@@ -20,7 +20,7 @@ module Readers
       # assert_equal(3.85546875,w.sheet.table.first[:a].format[:width])
       # assert_equal(25.14453125,w.sheet.table.first[:c].format[:width])
     end
-    
+
     def test_complex_types
       w = Workbook::Book.new
       w.open 'test/artifacts/complex_types.ods'
@@ -29,7 +29,7 @@ module Readers
       assert_equal("Sadfasdfsd > 2", w.sheet.table[4][2].value)
       assert_equal(1.2, w.sheet.table[3][1].value)
     end
-    
+
     def test_excel_standardized_open
       w = Workbook::Book.new
       w.open("test/artifacts/excel_different_types.ods")
@@ -40,7 +40,7 @@ module Readers
       assert_equal(42000,w.sheet.table[3][:b].value)
       assert_equal(nil,w.sheet.table[2][:c].value)
     end
-    
+
     def test_sheet_with_combined_cells
       w = Workbook::Book.new
       w.open("test/artifacts/sheet_with_combined_cells.ods")
@@ -53,6 +53,18 @@ module Readers
       assert_equal(2,t["D3"].rowspan)
       assert_equal(2,t["D5"].rowspan)
       assert_equal(2,t["D5"].colspan)
-    end    
+    end
+
+    def test_duca_sheet
+      w = Workbook::Book.new
+      w.open("test/artifacts/book_with_colspans.ods")
+      t = w.sheet.table
+      assert_equal(2,t["B1"].colspan)
+      assert_equal(2,t["D1"].colspan)
+      assert_equal(nil,t["D3"].value)
+      assert_equal("g",t["A19"].value)
+      assert_equal(0.03,t["D17"].value)
+    end
+
   end
 end

@@ -18,7 +18,7 @@ module Workbook
         end
         csv
       end
-      
+
     end
   end
 end

@@ -7,7 +7,7 @@ class TestTable< Test::Unit::TestCase
     assert_equal(t,[])
     c = Workbook::Cell.new("celllll")
     t = Workbook::Table.new [[c]]
-     
+
     assert_equal([[c]],t)
   end
   def test_header
@@ -17,28 +17,28 @@ class TestTable< Test::Unit::TestCase
     assert_equal(t.header,[1])
     assert_equal(t.header.class,Workbook::Row)
   end
-  
+
   def test_new_row
     t = Workbook::Table.new
     assert_equal(t.count, 0)
-    
+
     r = t.new_row [1,2,3,4]
     assert_equal(r, [1,2,3,4])
-    assert_equal(r.class, Workbook::Row)    
+    assert_equal(r.class, Workbook::Row)
     assert_equal(1,t.count)
-    
+
     r = t.new_row
     assert_equal(r.empty?, true)
     assert_equal(r.class, Workbook::Row)
-    
+
     assert_equal(2, t.count)
     assert_equal(r, t.last)
-    
+
     r << 2
 
     assert_equal(t.last.empty?, false)
   end
-  
+
   def test_append_row
     t = Workbook::Table.new
     row = t.new_row(["a","b"])
@@ -49,23 +49,23 @@ class TestTable< Test::Unit::TestCase
     assert_equal(t, row.table)
     row = Workbook::Row.new([3,4])
     assert_equal(nil, row.table)
-    t << row 
+    t << row
     assert_equal(t, row.table)
   end
-  
+
   def test_sheet
     t = Workbook::Table.new
     s = t.sheet
     assert_equal(t, s.table)
     assert_equal(t.sheet, s)
   end
-  
+
   def test_name
     t = Workbook::Table.new
     t.name = "test naam"
     assert_equal("test naam", t.name)
   end
-  
+
   def test_delete_all
     w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
     t = w.sheet.table
@@ -83,7 +83,7 @@ class TestTable< Test::Unit::TestCase
     assert_equal(3,t[2][:a])
     assert_equal(5,t2[2][:a])
   end
-  
+
   def test_clone_custom_header
     w = Workbook::Book.new [[nil, nil],["a","b"],[1,2],[3,4]]
     t = w.sheet.table
@@ -94,7 +94,7 @@ class TestTable< Test::Unit::TestCase
     assert_equal(3,t[3][:a])
     assert_equal(5,t2[3][:a])
   end
-  
+
   def test_spreadsheet_style_cell_addressing
     w = Workbook::Book.new [[nil, nil],["a","b"],[1,2],[3,4]]
     t = w.sheet.table
@@ -108,18 +108,18 @@ class TestTable< Test::Unit::TestCase
     assert_equal(4,t["B4"].value)
     # t["B4"]="asdf"
     # assert_equal("asdf",t["B4"].value)
-    
+
   end
 
   def test_alpha_index_to_number_index
-     w = Workbook::Book.new
-     t = w.sheet.table
-     assert_equal(0,t.alpha_index_to_number_index("A"))
-     assert_equal(2,t.alpha_index_to_number_index("C"))
-     assert_equal(25,t.alpha_index_to_number_index("Z"))
-     assert_equal(26,t.alpha_index_to_number_index("AA"))
-     assert_equal(27,t.alpha_index_to_number_index("AB"))
-     assert_equal(51,t.alpha_index_to_number_index("AZ"))
-     assert_equal(52,t.alpha_index_to_number_index("BA"))
+    w = Workbook::Book.new
+    t = w.sheet.table
+    assert_equal(0,t.alpha_index_to_number_index("A"))
+    assert_equal(2,t.alpha_index_to_number_index("C"))
+    assert_equal(25,t.alpha_index_to_number_index("Z"))
+    assert_equal(26,t.alpha_index_to_number_index("AA"))
+    assert_equal(27,t.alpha_index_to_number_index("AB"))
+    assert_equal(51,t.alpha_index_to_number_index("AZ"))
+    assert_equal(52,t.alpha_index_to_number_index("BA"))
   end
 end

@@ -10,10 +10,10 @@ module Writers
       t.add_raw raw
       b.template = t
       assert_equal(true, b.to_xls.is_a?(Spreadsheet::Workbook))
-      
+
       assert_equal('untitled document.xls', b.write_to_xls)
     end
-    
+
     def test_roundtrip
       b = Workbook::Book.open('test/artifacts/simple_sheet.xls')
       assert_equal(3.85546875,b.sheet.table.first[:a].format[:width])
@@ -31,13 +31,13 @@ module Writers
       assert_equal(90588,b.sheet.table[5][:b].value)
       assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
     end
-    
+
     def test_init_spreadsheet_template
       b = Workbook::Book.new
       b.init_spreadsheet_template
       assert_equal(Spreadsheet::Workbook,b.xls_template.class)
     end
-    
+
     def test_xls_sheet
       b = Workbook::Book.new
       b.init_spreadsheet_template

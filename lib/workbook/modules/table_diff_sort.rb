@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 module Workbook
-	module Modules
+  module Modules
     # Adds diffing and sorting functions
-		module TableDiffSort
+    module TableDiffSort
       # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
       #
       # @return [Workbook::Book] (note should and will become Workbook::Table as diffing occurs on table level...)
       def diff other, options={:sort=>true,:ignore_headers=>false}
-        
+
         aligned = align(other, options)
         aself = aligned[:self]
         aother = aligned[:other]
@@ -24,7 +24,7 @@ module Workbook
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
           srow = aself[ri]
           orow = aother[ri]
-          
+
           iteration_cols.each_with_index do |ch, ci|
             scell = srow[ch]
             ocell = orow[ch]
@@ -45,7 +45,7 @@ module Workbook
               f = diff_template.template.create_or_find_format_by 'updated'
               dcell.format = f
             end
-            
+
             row[ci]=dcell
           end
         end
@@ -55,7 +55,7 @@ module Workbook
 
         diff_table
       end
-      
+
       def diff_template
         return @diff_template if @diff_template
         diffbook = Workbook::Book.new
@@ -74,12 +74,12 @@ module Workbook
         @diff_template = diffbook
         return difftable
       end
-      
+
       # aligns itself with another table, used by diff
       def align other, options={:sort=>true,:ignore_headers=>false}
-        
+
         options = {:sort=>true,:ignore_headers=>false}.merge(options)
-        
+
         iteration_cols = nil
         sother = other.clone.remove_empty_lines!
         sself = self.clone.remove_empty_lines!
@@ -88,20 +88,20 @@ module Workbook
           sother.header = false
           sself.header = false
         end
-        
+
         sother = options[:sort] ? Workbook::Table.new(sother.sort) : sother
         sself = options[:sort] ? Workbook::Table.new(sself.sort) : sself
-        
+
         iteration_rows =  [sother.count,sself.count].max.times.collect
 
         row_index = 0
         while row_index < [sother.count,sself.count].max and row_index < other.count+self.count do
           row_index = align_row(sself, sother, row_index)
         end
-        
-        {:self=>sself, :other=>sother}     
+
+        {:self=>sself, :other=>sother}
       end
-      
+
       # for use in the align 'while' loop
       def align_row sself, sother, row_index
         asd = 0
@@ -119,25 +119,25 @@ module Workbook
           sself.insert row_index, placeholder_row
           row_index -=1
         end
-        
+
         row_index += 1
       end
-      
+
       def insert_placeholder? sother, sself, row_index
         (sother[row_index].nil? or !sother[row_index].placeholder?) and
         (sself[row_index].nil? or !sself[row_index].placeholder?)
       end
-      
+
       # returns a placeholder row, for internal use only
-      def placeholder_row 
+      def placeholder_row
         if @placeholder_row != nil
-          return @placeholder_row 
+          return @placeholder_row
         else
           @placeholder_row = Workbook::Row.new [nil]
           placeholder_row.placeholder = true
-          return @placeholder_row 
+          return @placeholder_row
         end
       end
-	  end
-	end
+    end
+  end
 end

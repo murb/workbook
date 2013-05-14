@@ -3,7 +3,7 @@ require 'workbook/modules/table_diff_sort'
 require 'workbook/writers/csv_table_writer'
 
 
-module Workbook  
+module Workbook
   # A table is a container of rows and keeps track of the sheet it belongs to and which row is its header. Additionally suport for CSV writing and diffing with another table is included.
   class Table < Array
     include Workbook::Modules::TableDiffSort
@@ -11,7 +11,7 @@ module Workbook
     attr_accessor :sheet
     attr_accessor :name
     attr_accessor :header
-    
+
     def initialize row_cel_values=[], sheet=nil, options={}
       row_cel_values = [] if row_cel_values == nil
       row_cel_values.each do |r|
@@ -24,8 +24,8 @@ module Workbook
       self.sheet = sheet
       # Column data is considered as a 'row' with 'cells' that contain 'formatting'
     end
-    
-    # Returns the header of this table (typically the first row, but can be a different row). 
+
+    # Returns the header of this table (typically the first row, but can be a different row).
     # The header row is also used for finding values in a aribrary row.
     #
     # @return [Workbook::Row] The header
@@ -38,50 +38,50 @@ module Workbook
         first
       end
     end
-    
+
     # Generates a new row, with optionally predefined cell-values, that is already connected to this table.
     def new_row cell_values=[]
       r = Workbook::Row.new(cell_values,self)
       return r
     end
-    
+
     def create_or_open_row_at index
       r = self[index]
       if r == nil
         r = Workbook::Row.new
         r.table=(self)
       end
-      r 
-    end  
-    
+      r
+    end
+
     def remove_empty_lines!
       self.delete_if{|r| r.nil? or r.compact.empty?}
       self
     end
-    
+
     def push(row)
       super(row)
       row.set_table(self)
     end
-    
+
     def <<(row)
       super(row)
       row.set_table(self)
     end
-    
+
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
     end
-    
+
     # Returns true if the row exists in this table
     #
     # @param [Workbook::Row] row to test for
-    # @return [Boolean] whether the row exist in this table 
+    # @return [Boolean] whether the row exist in this table
     def contains_row? row
       raise ArgumentError, "table should be a Workbook::Row (you passed a #{t.class})" unless row.is_a?(Workbook::Row)
       self.collect{|r| r.object_id}.include? row.object_id
     end
-    
+
     # Returns the sheet this table belongs to, creates a new sheet if none exists
     #
     # @return [Workbook::Sheet] The sheet this table belongs to
@@ -93,14 +93,14 @@ module Workbook
         return @sheet
       end
     end
-    
+
     # Removes all lines from this table
     #
     # @return [Workbook::Table] (self)
     def delete_all
       self.delete_if{|b| true}
     end
-    
+
     # clones itself *and* the rows it contains
     #
     # @return [Workbook::Table] The cloned table
@@ -113,7 +113,7 @@ module Workbook
       c.header = c[header_row_index] if header_row_index
       return c
     end
-    
+
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
     #
     # @example Lookup using fixnum or header value encoded as symbol
@@ -128,24 +128,24 @@ module Workbook
         cell_index = alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
         return self[row_index][cell_index]
-      else 
+      else
         if index_or_string
           return to_a[index_or_string]
         end
       end
     end
-    
+
     # Helps to convert from e.g. "AA" to 26
     # @param [String] string that typically identifies a column
     # @return [Integer]
     def alpha_index_to_number_index string
       string.upcase!
       sum = 0
-      string.chars.each_with_index do | char, char_index| 
+      string.chars.each_with_index do | char, char_index|
         sum = sum * 26 + char.unpack('U')[0]-64
       end
       return sum-1
     end
-    
+
   end
 end

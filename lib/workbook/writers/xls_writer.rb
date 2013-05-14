@@ -6,7 +6,7 @@ module Workbook
     module XlsWriter
 
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
-      # 
+      #
       # @param [Hash] options A hash with options (unused so far)
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xls options={}
@@ -30,9 +30,9 @@ module Workbook
         end
         book
       end
-      
+
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
-      # 
+      #
       # @param [Workbook::Format, Hash] f A Workbook::Format or hash with format-options (:font_weight, :rotation, :background_color, :number_format, :text_direction, :color, :font_family)
       # @return [Spreadsheet::Format] A Spreadsheet format-object, ready for writing or more lower level operations
       def format_to_xls_format f
@@ -43,7 +43,7 @@ module Workbook
         xlsfmt = f.return_raw_for Spreadsheet::Format
         unless xlsfmt
           xlsfmt=Spreadsheet::Format.new :weight=>f[:font_weight]
-          xlsfmt.rotation = f[:rotation] if f[:rotation] 
+          xlsfmt.rotation = f[:rotation] if f[:rotation]
           xlsfmt.pattern_fg_color = html_color_to_xls_color(f[:background_color]) if html_color_to_xls_color(f[:background_color])
           xlsfmt.pattern = 1 if html_color_to_xls_color(f[:background_color])
           xlsfmt.number_format = strftime_to_ms_format(f[:number_format]) if f[:number_format]
@@ -55,7 +55,7 @@ module Workbook
         end
         return xlsfmt
       end
-      
+
       # Attempt to convert html-hex color value to xls color number
       #
       # @param [String] hex color
@@ -66,26 +66,26 @@ module Workbook
         end
         return nil
       end
-      
+
       # Converts standard (ruby/C++/unix/...) strftime formatting to MS's formatting
-      # 
+      #
       # @param [String, nil] numberformat (nil returns nil)
       # @return [String, nil]
       def strftime_to_ms_format numberformat
         return nil if numberformat.nil?
         return numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
       end
-      
+
       # Write the current workbook to Microsoft Excel format (using the spreadsheet gem)
       #
       # @param [String] filename
-      # @param [Hash] options   see #to_xls 
+      # @param [Hash] options   see #to_xls
       def write_to_xls filename="#{title}.xls", options={}
         if to_xls(options).write(filename)
           return filename
         end
       end
-    
+
       def xls_sheet a
         if xls_template.worksheet(a)
           return xls_template.worksheet(a)
@@ -94,11 +94,11 @@ module Workbook
           self.xls_sheet a
         end
       end
-      
+
       def xls_template
         return template.raws[Spreadsheet::Excel::Workbook] ? template.raws[Spreadsheet::Excel::Workbook] : template.raws[Spreadsheet::Workbook]
       end
-            
+
       def init_spreadsheet_template
         if self.xls_template.is_a? Spreadsheet::Workbook
           return self.xls_template

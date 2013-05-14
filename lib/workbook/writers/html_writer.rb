@@ -6,7 +6,7 @@ module Workbook
     module HtmlWriter
 
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
-      # 
+      #
       # @param [Hash] options A hash with options
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_html options={}
@@ -14,7 +14,7 @@ module Workbook
         builder = Nokogiri::HTML::Builder.new do |doc|
           doc.html {
             doc.body {
-              self.each{|sheet| 
+              self.each{|sheet|
                 doc.h1 {
                   doc.text sheet.name
                 }
@@ -53,7 +53,7 @@ module Workbook
       # Write the current workbook to Microsoft Excel format (using the spreadsheet gem)
       #
       # @param [String] filename
-      # @param [Hash] options   see #to_xls 
+      # @param [Hash] options   see #to_xls
       def write_to_html filename="#{title}.html", options={}
         File.open(filename, 'w') {|f| f.write(to_html(options)) }
         return filename

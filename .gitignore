@@ -4,3 +4,4 @@ compare*.xls
 sharepoint_download_excel.*
 *.gem
 bin
+*.rb~

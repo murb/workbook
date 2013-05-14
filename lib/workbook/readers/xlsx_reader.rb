@@ -4,7 +4,7 @@ require 'rubyXL'
 # Monkeypatching rubyXL, pull request submitted: https://github.com/gilt/rubyXL/pull/47
 module RubyXL
   class Workbook
-    
+
     # Improves upon date format detection
     def is_date_format?(num_fmt)
       num_fmt.downcase!
@@ -71,36 +71,36 @@ module RubyXL
     def num_fmts_by_id
       return @num_fmts_hash unless @num_fmts_hash.nil?
       @num_fmts_hash={1=>{:attributes=>{:formatCode=>'0'}},
-2=>{:attributes=>{:formatCode=>'0.00'}},
-3=>{:attributes=>{:formatCode=>'#, ##0'}},
-4=>{:attributes=>{:formatCode=>'#, ##0.00'}},
-5=>{:attributes=>{:formatCode=>'$#, ##0_);($#, ##0)'}},
-6=>{:attributes=>{:formatCode=>'$#, ##0_);[Red]($#, ##0)'}},
-7=>{:attributes=>{:formatCode=>'$#, ##0.00_);($#, ##0.00)'}},
-8=>{:attributes=>{:formatCode=>'$#, ##0.00_);[Red]($#, ##0.00)'}},
-9=>{:attributes=>{:formatCode=>'0%'}},
-10=>{:attributes=>{:formatCode=>'0.00%'}},
-11=>{:attributes=>{:formatCode=>'0.00E+00'}},
-12=>{:attributes=>{:formatCode=>'# ?/?'}},
-13=>{:attributes=>{:formatCode=>'# ??/??'}},
-14=>{:attributes=>{:formatCode=>'m/d/yyyy'}},
-15=>{:attributes=>{:formatCode=>'d-mmm-yy'}},
-16=>{:attributes=>{:formatCode=>'d-mmm'}},
-17=>{:attributes=>{:formatCode=>'mmm-yy'}},
-18=>{:attributes=>{:formatCode=>'h:mm AM/PM'}},
-19=>{:attributes=>{:formatCode=>'h:mm:ss AM/PM'}},
-20=>{:attributes=>{:formatCode=>'h:mm'}},
-21=>{:attributes=>{:formatCode=>'h:mm:ss'}},
-22=>{:attributes=>{:formatCode=>'m/d/yyyy h:mm'}},
-37=>{:attributes=>{:formatCode=>'#, ##0_);(#, ##0)'}},
-38=>{:attributes=>{:formatCode=>'#, ##0_);[Red](#, ##0)'}},
-39=>{:attributes=>{:formatCode=>'#, ##0.00_);(#, ##0.00)'}},
-40=>{:attributes=>{:formatCode=>'#, ##0.00_);[Red](#, ##0.00)'}},
-45=>{:attributes=>{:formatCode=>'mm:ss'}},
-46=>{:attributes=>{:formatCode=>'[h]:mm:ss'}},
-47=>{:attributes=>{:formatCode=>'mm:ss.0'}},
-48=>{:attributes=>{:formatCode=>'##0.0E+0'}},
-49=>{:attributes=>{:formatCode=>'@'}}}
+        2=>{:attributes=>{:formatCode=>'0.00'}},
+        3=>{:attributes=>{:formatCode=>'#, ##0'}},
+        4=>{:attributes=>{:formatCode=>'#, ##0.00'}},
+        5=>{:attributes=>{:formatCode=>'$#, ##0_);($#, ##0)'}},
+        6=>{:attributes=>{:formatCode=>'$#, ##0_);[Red]($#, ##0)'}},
+        7=>{:attributes=>{:formatCode=>'$#, ##0.00_);($#, ##0.00)'}},
+        8=>{:attributes=>{:formatCode=>'$#, ##0.00_);[Red]($#, ##0.00)'}},
+        9=>{:attributes=>{:formatCode=>'0%'}},
+        10=>{:attributes=>{:formatCode=>'0.00%'}},
+        11=>{:attributes=>{:formatCode=>'0.00E+00'}},
+        12=>{:attributes=>{:formatCode=>'# ?/?'}},
+        13=>{:attributes=>{:formatCode=>'# ??/??'}},
+        14=>{:attributes=>{:formatCode=>'m/d/yyyy'}},
+        15=>{:attributes=>{:formatCode=>'d-mmm-yy'}},
+        16=>{:attributes=>{:formatCode=>'d-mmm'}},
+        17=>{:attributes=>{:formatCode=>'mmm-yy'}},
+        18=>{:attributes=>{:formatCode=>'h:mm AM/PM'}},
+        19=>{:attributes=>{:formatCode=>'h:mm:ss AM/PM'}},
+        20=>{:attributes=>{:formatCode=>'h:mm'}},
+        21=>{:attributes=>{:formatCode=>'h:mm:ss'}},
+        22=>{:attributes=>{:formatCode=>'m/d/yyyy h:mm'}},
+        37=>{:attributes=>{:formatCode=>'#, ##0_);(#, ##0)'}},
+        38=>{:attributes=>{:formatCode=>'#, ##0_);[Red](#, ##0)'}},
+        39=>{:attributes=>{:formatCode=>'#, ##0.00_);(#, ##0.00)'}},
+        40=>{:attributes=>{:formatCode=>'#, ##0.00_);[Red](#, ##0.00)'}},
+        45=>{:attributes=>{:formatCode=>'mm:ss'}},
+        46=>{:attributes=>{:formatCode=>'[h]:mm:ss'}},
+        47=>{:attributes=>{:formatCode=>'mm:ss.0'}},
+        48=>{:attributes=>{:formatCode=>'##0.0E+0'}},
+      49=>{:attributes=>{:formatCode=>'@'}}}
       if num_fmts and num_fmts[:numFmt]
         num_fmts[:numFmt].each do |num_fmt|
           @num_fmts_hash[num_fmt[:attributes][:numFmtId]]=num_fmt
@@ -125,7 +125,7 @@ module RubyXL
     end
   end
 end
-# end of monkey patch 
+# end of monkey patch
 
 module Workbook
   module Readers
@@ -136,25 +136,25 @@ module Workbook
         template.add_raw sp
         parse_xlsx sp
       end
-      
+
       def parse_xlsx xlsx_spreadsheet=template.raws[RubyXL::Workbook], options={}
         options = {:additional_type_parsing=>false}.merge options
         #number_of_worksheets = xlsx_spreadsheet.worksheets.count
         xlsx_spreadsheet.worksheets.each_with_index do |worksheet, si|
-          s = create_or_open_sheet_at(si)    
+          s = create_or_open_sheet_at(si)
           col_widths = xlsx_spreadsheet.worksheets.first.cols.collect{|a| a[:attributes][:width].to_f if a[:attributes]}
           worksheet.each_with_index do |row, ri|
             r = s.table.create_or_open_row_at(ri)
-            
+
             row.each_with_index do |cell,ci|
               if cell.nil?
                 r[ci] = Workbook::Cell.new nil
               else
-                r[ci] = Workbook::Cell.new cell.value        
-                r[ci].parse!    
+                r[ci] = Workbook::Cell.new cell.value
+                r[ci].parse!
                 xls_format = cell.style_index
                 col_width = nil
-              
+
                 if ri == 0
                   col_width = col_widths[ci]
                 end
@@ -166,16 +166,16 @@ module Workbook
                 f[:color] = "##{cell.font_color}"
 
                 f.add_raw xls_format
-     
+
                 r[ci].format = f
               end
             end
           end
         end
       end
-    private 
-      def ms_formatting_to_strftime ms_nr_format   
-        if ms_nr_format    
+      private
+      def ms_formatting_to_strftime ms_nr_format
+        if ms_nr_format
           ms_nr_format = ms_nr_format.downcase
           return nil if ms_nr_format == 'general'
           ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub(';@','').gsub('\\','')
