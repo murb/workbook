@@ -11,7 +11,7 @@ module Workbook
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_html options={}
         options = {:style_with_inline_css=>false}.merge(options)
-        builder = Nokogiri::HTML::Builder.new do |doc|
+        builder = Nokogiri::XML::Builder.new do |doc|
           doc.html {
             doc.body {
               self.each{|sheet|
@@ -45,7 +45,7 @@ module Workbook
             }
           }
         end
-        return builder.to_html
+        return builder.doc.to_xhtml
       end
 
 
