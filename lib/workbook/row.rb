@@ -199,5 +199,35 @@ module Workbook
     def clone
       Workbook::Row.new(to_a.collect{|c| c.clone})
     end
+    
+    # remove all the trailing nil-cells (returning a trimmed clone)
+    #
+    # @param [Integer] desired_length of the new row
+    # @return [Workbook::Row] a trimmed clone of the array
+    def trim(desired_length=nil)
+      self.clone.trim!(desired_length)
+    end
+    
+    # remove all the trailing nil-cells (returning a trimmed self)
+    #
+    # @param [Integer] desired_length of the new row
+    # @return [Workbook::Row] self
+    def trim!(desired_length=nil)
+      self_count = self.count-1
+      self.count.times do |index| 
+        index = self_count - index
+        if desired_length and index < desired_length
+          break
+        elsif desired_length and index >= desired_length
+          self.delete_at(index)
+        elsif self[index].nil?
+          self.delete_at(index)
+        else
+          break
+        end
+      end
+      (desired_length - self.count).times{|a| self << (Workbook::Cell.new(nil))} if desired_length and (desired_length - self.count) > 0
+      self 
+    end
   end
 end

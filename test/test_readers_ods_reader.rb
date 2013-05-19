@@ -6,7 +6,7 @@ module Readers
 
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.ods')
-      assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols[0..4])
+      assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
       assert_equal(90588,w.sheet.table[2][:b].value)
     end
 

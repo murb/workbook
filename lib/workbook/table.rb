@@ -58,17 +58,23 @@ module Workbook
       self.delete_if{|r| r.nil? or r.compact.empty?}
       self
     end
-
+    
+    # Add row
+    # @param [Workbook::Table, Array] row to add
     def push(row)
+      row = Workbook::Row.new(row) if row.class == Array
       super(row)
       row.set_table(self)
     end
 
+    # Add row
+    # @param [Workbook::Table, Array] row to add
     def <<(row)
+      row = Workbook::Row.new(row) if row.class == Array
       super(row)
       row.set_table(self)
     end
-
+    
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
     end
@@ -145,6 +151,33 @@ module Workbook
         sum = sum * 26 + char.unpack('U')[0]-64
       end
       return sum-1
+    end
+    
+    # remove all the trailing empty-rows (returning a trimmed clone)
+    #
+    # @param [Integer] desired_row_length of the rows
+    # @return [Workbook::Row] a trimmed clone of the array
+    def trim(desired_row_length=nil)
+      self.clone.trim!(desired_row_length)
+    end
+    
+    # remove all the trailing empty-rows (returning a trimmed self)
+    #
+    # @param [Integer] desired_row_length of the new row
+    # @return [Workbook::Row] self
+    def trim!(desired_row_length=nil)
+      max_length = self.collect{|a| a.trim.length }.max
+      self_count = self.count-1
+      self.count.times do |index| 
+        index = self_count - index
+        if self[index].trim.empty?
+          self.delete_at(index)
+        else
+          break
+        end
+      end
+      self.each{|a| a.trim!(max_length)}
+      self
     end
 
   end

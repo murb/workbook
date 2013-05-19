@@ -71,6 +71,7 @@ module Workbook
 
       #parse the contents of an entire table by parsing every row in it and adding it to the table
       def parse_local_table(sheet,table,tableindex)
+        puts table.to_xml
         local_table = sheet.create_or_open_table_at(tableindex)
         local_table.name = table.xpath("@table:name").to_s
         #column_count = get_column_count(table)

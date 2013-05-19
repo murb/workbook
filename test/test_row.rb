@@ -178,4 +178,74 @@ class TestRow < Test::Unit::TestCase
     row[:b]= 15
     assert_equal(15, table.last.last.value)
   end
+  
+  def test_trim!
+    a = Workbook::Row.new
+    a[0] = 1
+    a[1] = 2
+    a[2] = nil
+    b = Workbook::Row.new
+    b[0] = 1
+    b[1] = 2
+    a.trim!
+    assert_equal(b, a)
+    a = Workbook::Row.new
+    a[0] = nil
+    a[1] = 2
+    a[2] = nil
+    b = Workbook::Row.new
+    b[0] = nil
+    b[1] = 2
+    a.trim!
+    assert_equal(b, a)
+    a = Workbook::Row.new
+    a[0] = 1
+    a[1] = 2
+    a[2] = nil
+    b = Workbook::Row.new
+    b[0] = 1
+    b[1] = 2
+    b[2] = nil
+    a.trim!(3)
+    assert_equal(b, a)
+    a = Workbook::Row.new
+    a[0] = 1
+    a[1] = 2
+    a[2] = nil
+    b = Workbook::Row.new
+    b[0] = 1
+    b[1] = 2
+    b[2] = nil
+    b[3] = nil
+    b[4] = nil
+    b[5] = nil
+    a.trim!(6)
+    assert_equal(b, a)
+    a = Workbook::Row.new
+    a[0] = 1
+    a[1] = 2
+    a[2] = 3
+    b = Workbook::Row.new
+    b[0] = 1
+    a.trim!(1)
+    assert_equal(b, a)
+  end
+  
+  def test_trim
+    a = Workbook::Row.new
+    a[0] = nil
+    a[1] = 2
+    a[2] = nil
+    b = Workbook::Row.new
+    b[0] = nil
+    b[1] = 2
+    b[2] = nil
+    c = Workbook::Row.new
+    c[0] = nil
+    c[1] = 2
+    d = a.trim
+    assert_equal(b, a)
+    assert_equal(c, d)
+
+  end
 end

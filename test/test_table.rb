@@ -51,6 +51,9 @@ class TestTable< Test::Unit::TestCase
     assert_equal(nil, row.table)
     t << row
     assert_equal(t, row.table)
+    t = Workbook::Table.new
+    t << [1,2,3,4]
+    assert_equal(Workbook::Row,t.first.class)
   end
 
   def test_sheet
@@ -106,9 +109,6 @@ class TestTable< Test::Unit::TestCase
     assert_equal(2,t["B3"].value)
     assert_equal(3,t["A4"].value)
     assert_equal(4,t["B4"].value)
-    # t["B4"]="asdf"
-    # assert_equal("asdf",t["B4"].value)
-
   end
 
   def test_alpha_index_to_number_index
@@ -121,5 +121,21 @@ class TestTable< Test::Unit::TestCase
     assert_equal(27,t.alpha_index_to_number_index("AB"))
     assert_equal(51,t.alpha_index_to_number_index("AZ"))
     assert_equal(52,t.alpha_index_to_number_index("BA"))
+  end
+
+  def test_trim!
+    t = Workbook::Table.new
+    t << [1,2,3]
+    t << [1,2,nil,nil]
+    t.trim!
+    assert_equal("1,2,3\n1,2,\n",t.to_csv)
+    t = Workbook::Table.new
+    t << [1,2,3]
+    t << [nil]
+    t << [1,2,nil,nil]
+    t << [nil,nil,nil,nil]
+    t << [nil,nil,nil,nil]
+    t.trim!
+    assert_equal("1,2,3\n,,\n1,2,\n",t.to_csv)
   end
 end
