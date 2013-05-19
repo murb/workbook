@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), 'helper')
 module Writers
   class TestHtmlWriter < Test::Unit::TestCase
     def test_to_html
-      match = Workbook::Book.new.to_html.match(/<table><\/table>/) ? true : false
+      match = Workbook::Book.new.to_html.match(/<table>(\n)*<\/table>/) ? true : false
       assert_equal(true, match)
       html = Workbook::Book.new([['a','b'],[1,2],[3,4]]).to_html
       match = html.match(/<table><\/table>/) ? true : false
