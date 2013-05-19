@@ -109,7 +109,7 @@
   <div class="discussion">
     
 <p>The Book class is the container of sheets. It can be inialized by either
-the standard initalizer or the open method. The  Book class can also keep a
+the standard initalizer or the open method. The Book class can also keep a
 reference to a template class, storing shared formatting options.</p>
 
 
@@ -571,7 +571,7 @@ default is a new sheet).</p>
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="Readers/OdsReader.html" title="Workbook::Readers::OdsReader (module)">Readers::OdsReader</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="Readers/OdsReader.html#load_ods-instance_method" title="Workbook::Readers::OdsReader#load_ods (method)">#load_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods-instance_method" title="Workbook::Readers::OdsReader#parse_ods (method)">#parse_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods_style-instance_method" title="Workbook::Readers::OdsReader#parse_ods_style (method)">#parse_ods_style</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#set_format_property-instance_method" title="Workbook::Readers::OdsReader#set_format_property (method)">#set_format_property</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="Readers/OdsReader.html#get_column_count-instance_method" title="Workbook::Readers::OdsReader#get_column_count (method)">#get_column_count</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#get_repeat-instance_method" title="Workbook::Readers::OdsReader#get_repeat (method)">#get_repeat</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#load_ods-instance_method" title="Workbook::Readers::OdsReader#load_ods (method)">#load_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_local_cell-instance_method" title="Workbook::Readers::OdsReader#parse_local_cell (method)">#parse_local_cell</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_local_row-instance_method" title="Workbook::Readers::OdsReader#parse_local_row (method)">#parse_local_row</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_local_table-instance_method" title="Workbook::Readers::OdsReader#parse_local_table (method)">#parse_local_table</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_local_value-instance_method" title="Workbook::Readers::OdsReader#parse_local_value (method)">#parse_local_value</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods-instance_method" title="Workbook::Readers::OdsReader#parse_ods (method)">#parse_ods</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#parse_ods_style-instance_method" title="Workbook::Readers::OdsReader#parse_ods_style (method)">#parse_ods_style</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#set_cell_attributes-instance_method" title="Workbook::Readers::OdsReader#set_cell_attributes (method)">#set_cell_attributes</a></span>, <span class='object_link'><a href="Readers/OdsReader.html#set_format_property-instance_method" title="Workbook::Readers::OdsReader#set_format_property (method)">#set_format_property</a></span></p>
 
   
   
@@ -1087,7 +1087,7 @@ or TXT format</p>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
   <span class='id identifier rubyid_s'>s</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Sheet</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='kw'>if</span> <span class='id identifier rubyid_s'>s</span> <span class='op'>==</span> <span class='kw'>nil</span>
   <span class='id identifier rubyid_s'>s</span><span class='period'>.</span><span class='id identifier rubyid_book'>book</span> <span class='op'>=</span> <span class='kw'>self</span>
-  <span class='id identifier rubyid_s'>s</span> 
+  <span class='id identifier rubyid_s'>s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1817,7 +1817,7 @@ default is a new sheet)</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_text_to_utf8'>text_to_utf8</span> <span class='id identifier rubyid_text'>text</span>
   <span class='kw'>if</span> <span class='const'>RUBY_VERSION</span> <span class='op'>&lt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>1.9</span><span class='tstring_end'>'</span></span>
-    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>rchardet</span><span class='tstring_end'>'</span></span> 
+    <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>rchardet</span><span class='tstring_end'>'</span></span>
     <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>iconv</span><span class='tstring_end'>'</span></span>
     <span class='id identifier rubyid_detected_encoding'>detected_encoding</span> <span class='op'>=</span> <span class='const'>CharDet</span><span class='period'>.</span><span class='id identifier rubyid_detect'>detect</span><span class='lparen'>(</span><span class='id identifier rubyid_text'>text</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_detected_encoding'>detected_encoding</span> <span class='op'>=</span> <span class='id identifier rubyid_detected_encoding'>detected_encoding</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>encoding</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span>
@@ -1843,7 +1843,7 @@ default is a new sheet)</p>
 </div>
 
     <div id="footer">
-  Generated on Sun May  5 14:58:07 2013 by
+  Generated on Sun May 19 23:16:31 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

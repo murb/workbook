@@ -137,6 +137,11 @@
 <pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='int'>1</span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='int'>5</span>
 </code></pre>
 
+<p>Alternatively (more spreadsheet like) you can read cells like this (writing to be supported, not implemented yet)</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>A2</span><span class='tstring_end'>'</span></span><span class='rbracket'>]</span>
+</code></pre>
+
 <p>If you want to use an existing file as a template (which you can create in Excel to create nice looking templates), 
 simply clone the row, and add it back:</p>
 
@@ -157,19 +162,18 @@ simply clone the row, and add it back:</p>
 </span><span class='id identifier rubyid_b'>b</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>result.xls</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>   <span class='comment'># write it!
 </span></code></pre>
 
-<!-- Feature *to implement*: 
+<p>&lt;!– Feature <em>to implement</em>: </p>
 
-	t['A2']
-	# returns <Workbook::Cel @value=1>
-	
-Feature *to implement*, get a single column:
+<p>Feature <em>to implement</em>, get a single column:</p>
 
-    t[:b]
-	# returns [<Workbook::Cel @value=2>,<Workbook::Cel @value=4>,<Workbook::Cel @value=6>] 
-	
-On my wishlist: In the future I hope to return the cell value directly, without the intermediate Workbook::Cel class in between.
-	
-	-->
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_t'>t</span><span class='lbracket'>[</span><span class='symbol'>:b</span><span class='rbracket'>]</span>
+<span class='comment'># returns [&lt;Workbook::Cel @value=2&gt;,&lt;Workbook::Cel @value=4&gt;,&lt;Workbook::Cel @value=6&gt;] 
+</span></code></pre>
+
+<p>On my wishlist: In the future I hope to return the cell value directly, without the intermediate Workbook::Cel class in between.</p>
+
+<pre class="code ruby"><code class="ruby">--&gt;
+</code></pre>
 
 <h2 id="utilities">Utilities</h2>
 
@@ -232,7 +236,7 @@ On my wishlist: In the future I hope to return the cell value directly, without 
 </div></div>
 
     <div id="footer">
-  Generated on Sun May  5 14:58:04 2013 by
+  Generated on Sun May 19 23:16:28 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>

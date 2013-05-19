@@ -662,6 +662,54 @@ see also: Workbook::Cell#to_sym.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trim-instance_method" title="#trim (instance method)">- (Workbook::Row) <strong>trim</strong>(desired_length = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>remove all the trailing nil-cells (returning a trimmed clone).</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#trim%21-instance_method" title="#trim! (instance method)">- (Workbook::Row) <strong>trim!</strong>(desired_length = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>remove all the trailing nil-cells (returning a trimmed self).</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -774,10 +822,10 @@ Workbook::Modules::TypeParser)</p>
       <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 13</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span> <span class='id identifier rubyid_cells'>cells</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_table'>table</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span>
-  <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='id identifier rubyid_options'>options</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='symbol'>:parse_cells_on_batch_creation</span><span class='op'>=&gt;</span><span class='kw'>false</span><span class='comma'>,</span><span class='symbol'>:cell_parse_options</span><span class='op'>=&gt;</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span> 
+  <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='id identifier rubyid_options'>options</span> <span class='op'>?</span> <span class='lbrace'>{</span><span class='symbol'>:parse_cells_on_batch_creation</span><span class='op'>=&gt;</span><span class='kw'>false</span><span class='comma'>,</span><span class='symbol'>:cell_parse_options</span><span class='op'>=&gt;</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='lbrace'>{</span><span class='rbrace'>}</span>
   <span class='id identifier rubyid_cells'>cells</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='kw'>if</span> <span class='id identifier rubyid_cells'>cells</span><span class='op'>==</span><span class='kw'>nil</span>
   <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_table'>table</span><span class='op'>=</span> <span class='id identifier rubyid_table'>table</span>
-  <span class='id identifier rubyid_cells'>cells</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span> 
+  <span class='id identifier rubyid_cells'>cells</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_c'>c</span><span class='op'>|</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_c'>c</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Cell</span>
       <span class='id identifier rubyid_c'>c</span> <span class='op'>=</span> <span class='id identifier rubyid_c'>c</span>
     <span class='kw'>else</span>
@@ -1070,7 +1118,7 @@ a column based on the header-values</p>
     <span class='kw'>rescue</span> <span class='const'>NoMethodError</span>
     <span class='kw'>end</span>
     <span class='kw'>return</span> <span class='id identifier rubyid_rv'>rv</span>
-  <span class='kw'>else</span> 
+  <span class='kw'>else</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_index_or_hash'>index_or_hash</span>
       <span class='kw'>return</span> <span class='id identifier rubyid_to_a'>to_a</span><span class='lbracket'>[</span><span class='id identifier rubyid_index_or_hash'>index_or_hash</span><span class='rbracket'>]</span>
     <span class='kw'>end</span>
@@ -1194,7 +1242,7 @@ identify a column based on the header-values</p>
   <span class='kw'>else</span>
     <span class='id identifier rubyid_current_cell'>current_cell</span> <span class='op'>=</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_current_cell'>current_cell</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span> <span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Cell</span>
-      <span class='id identifier rubyid_value_celled'>value_celled</span> <span class='op'>=</span> <span class='id identifier rubyid_current_cell'>current_cell</span> 
+      <span class='id identifier rubyid_value_celled'>value_celled</span> <span class='op'>=</span> <span class='id identifier rubyid_current_cell'>current_cell</span>
     <span class='kw'>end</span>
     <span class='id identifier rubyid_value_celled'>value_celled</span><span class='period'>.</span><span class='id identifier rubyid_value'>value</span><span class='op'>=</span><span class='lparen'>(</span><span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='kw'>end</span>
@@ -2140,12 +2188,202 @@ see also: Workbook::Cell#to_sym</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="trim-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>) <strong>trim</strong>(desired_length = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>remove all the trailing nil-cells (returning a trimmed clone)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>desired_length</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the new row</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>a trimmed clone of the array</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+207
+208
+209</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 207</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trim'>trim</span><span class='lparen'>(</span><span class='id identifier rubyid_desired_length'>desired_length</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span><span class='period'>.</span><span class='id identifier rubyid_trim!'>trim!</span><span class='lparen'>(</span><span class='id identifier rubyid_desired_length'>desired_length</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="trim!-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>) <strong>trim!</strong>(desired_length = nil) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>remove all the trailing nil-cells (returning a trimmed self)</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>desired_length</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>of the new row</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="" title="Workbook::Row (class)">Workbook::Row</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>self</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/workbook/row.rb', line 215</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_trim!'>trim!</span><span class='lparen'>(</span><span class='id identifier rubyid_desired_length'>desired_length</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_self_count'>self_count</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='op'>-</span><span class='int'>1</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_index'>index</span><span class='op'>|</span> 
+    <span class='id identifier rubyid_index'>index</span> <span class='op'>=</span> <span class='id identifier rubyid_self_count'>self_count</span> <span class='op'>-</span> <span class='id identifier rubyid_index'>index</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_desired_length'>desired_length</span> <span class='kw'>and</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>&lt;</span> <span class='id identifier rubyid_desired_length'>desired_length</span>
+      <span class='kw'>break</span>
+    <span class='kw'>elsif</span> <span class='id identifier rubyid_desired_length'>desired_length</span> <span class='kw'>and</span> <span class='id identifier rubyid_index'>index</span> <span class='op'>&gt;=</span> <span class='id identifier rubyid_desired_length'>desired_length</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_delete_at'>delete_at</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+    <span class='kw'>elsif</span> <span class='kw'>self</span><span class='lbracket'>[</span><span class='id identifier rubyid_index'>index</span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_delete_at'>delete_at</span><span class='lparen'>(</span><span class='id identifier rubyid_index'>index</span><span class='rparen'>)</span>
+    <span class='kw'>else</span>
+      <span class='kw'>break</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+  <span class='lparen'>(</span><span class='id identifier rubyid_desired_length'>desired_length</span> <span class='op'>-</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_times'>times</span><span class='lbrace'>{</span><span class='op'>|</span><span class='id identifier rubyid_a'>a</span><span class='op'>|</span> <span class='kw'>self</span> <span class='op'>&lt;&lt;</span> <span class='lparen'>(</span><span class='const'>Workbook</span><span class='op'>::</span><span class='const'>Cell</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>nil</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rbrace'>}</span> <span class='kw'>if</span> <span class='id identifier rubyid_desired_length'>desired_length</span> <span class='kw'>and</span> <span class='lparen'>(</span><span class='id identifier rubyid_desired_length'>desired_length</span> <span class='op'>-</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+  <span class='kw'>self</span> 
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Sun May  5 14:58:06 2013 by
+  Generated on Sun May 19 23:16:30 2013 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.5.2 (ruby-1.9.3).
 </div>
