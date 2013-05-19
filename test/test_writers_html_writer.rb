@@ -2,7 +2,7 @@
 require File.join(File.dirname(__FILE__), 'helper')
 
 module Writers
-  class TestXlsWriter < Test::Unit::TestCase
+  class TestHtmlWriter < Test::Unit::TestCase
     def test_to_html
       match = Workbook::Book.new.to_html.match(/<table><\/table>/) ? true : false
       assert_equal(true, match)
@@ -43,7 +43,7 @@ module Writers
     end
     def test_col_and_rowspans
       w = Workbook::Book.new
-      w.open("test/artifacts/sheet_with_combined_cells.ods")
+      w.open File.join(File.dirname(__FILE__), 'artifacts/sheet_with_combined_cells.ods')
       html = w.to_html
       assert_equal(true, (html.match(/rowspan="2">15 nov 11 15 nov 11/) ? true : false) )
       assert_equal(true, (html.match(/colspan="2" rowspan="2">13 mrt 12 15 mrt 12 13 mrt 12 15 mrt 12/) ? true : false) )
