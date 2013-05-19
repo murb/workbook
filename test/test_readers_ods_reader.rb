@@ -5,14 +5,14 @@ module Readers
     def test_open
 
       w = Workbook::Book.new
-      w.open 'test/artifacts/book_with_tabs_and_colours.ods'
-      assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
+      w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.ods')
+      assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols[0..4])
       assert_equal(90588,w.sheet.table[2][:b].value)
     end
 
     def test_styling
       w = Workbook::Book.new
-      w.open 'test/artifacts/book_with_tabs_and_colours.ods'
+      w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.ods')
       assert_equal("#ffff99",w.sheet.table[3][:c].format[:background_color])
       assert_equal(true,w.sheet.table[0][:e].format.all_names.include?("Heading1"))
       # TODO: column styles
@@ -23,7 +23,7 @@ module Readers
 
     def test_complex_types
       w = Workbook::Book.new
-      w.open 'test/artifacts/complex_types.ods'
+      w.open File.join(File.dirname(__FILE__), 'artifacts/complex_types.ods')
       assert_equal(Date.new(2011,11,15), w.sheet.table[2][3].value)
       assert_equal("http://murb.nl", w.sheet.table[3][2].value)
       assert_equal("Sadfasdfsd > 2", w.sheet.table[4][2].value)
@@ -32,7 +32,7 @@ module Readers
 
     def test_excel_standardized_open
       w = Workbook::Book.new
-      w.open("test/artifacts/excel_different_types.ods")
+      w.open File.join(File.dirname(__FILE__), 'artifacts/excel_different_types.ods')
       assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols[0..3])
       assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
       assert_equal("c",w.sheet.table[2][:a].value)
@@ -43,7 +43,7 @@ module Readers
 
     def test_sheet_with_combined_cells
       w = Workbook::Book.new
-      w.open("test/artifacts/sheet_with_combined_cells.ods")
+      w.open File.join(File.dirname(__FILE__), 'artifacts/sheet_with_combined_cells.ods')
       t = w.sheet.table
       assert_equal("14 90589",t[1][:a].value)
       assert_equal(Workbook::NilValue,t[1][:b].value.class)
@@ -57,7 +57,7 @@ module Readers
 
     def test_duca_sheet
       w = Workbook::Book.new
-      w.open("test/artifacts/book_with_colspans.ods")
+      w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_colspans.ods')
       t = w.sheet.table
       assert_equal(2,t["B1"].colspan)
       assert_equal(2,t["D1"].colspan)

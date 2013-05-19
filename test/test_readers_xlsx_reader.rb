@@ -4,7 +4,7 @@ module Readers
   class TestXlsxWriter < Test::Unit::TestCase
     def test_open
       w = Workbook::Book.new
-      w.open 'test/artifacts/book_with_tabs_and_colours.xlsx'
+      w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
       assert_equal(90588,w.sheet.table[2][:b].value)
       assert_equal(DateTime.new(2011,11,15),w.sheet.table[3][:d].value)
@@ -15,7 +15,7 @@ module Readers
     end
     def test_open_native_xlsx
       w = Workbook::Book.new
-      w.open 'test/artifacts/native_xlsx.xlsx'
+      w.open File.join(File.dirname(__FILE__), 'artifacts/native_xlsx.xlsx')
 
       assert_equal([:datum_gemeld, :adm_gereed, :callnr],w.sheet.table.header.to_symbols)
 

@@ -4,7 +4,7 @@ module Readers
   class TestXlsWriter < Test::Unit::TestCase
     def test_open
       w = Workbook::Book.new
-      w.open 'test/artifacts/book_with_tabs_and_colours.xls'
+      w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xls')
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
       assert_equal(90588,w.sheet.table[2][:b].value)
       assert_equal("#CCFFCC",w.sheet.table[3][:c].format[:background_color])
@@ -17,7 +17,7 @@ module Readers
 
     def test_complex_types
       w = Workbook::Book.new
-      w.open 'test/artifacts/complex_types.xls'
+      w.open File.join(File.dirname(__FILE__), 'artifacts/complex_types.xls')
       assert_equal(Date.new(2011,11,15), w.sheet.table[2][3].value)
       assert_equal("http://murb.nl", w.sheet.table[3][2].value)
       assert_equal("sadfasdfsd", w.sheet.table[4][2].value)
@@ -26,7 +26,7 @@ module Readers
 
     def test_excel_standardized_open
       w = Workbook::Book.new
-      w.open("test/artifacts/excel_different_types.xls")
+      w.open(File.join(File.dirname(__FILE__), "artifacts/excel_different_types.xls"))
       # reads
       #   a,b,c,d
       # 2012-02-22,2014-12-27,2012-11-23,2012-11-12T04:20:00+00:00
@@ -43,7 +43,7 @@ module Readers
 
     def test_txt_in_xls_open
       w = Workbook::Book.new
-      w.open("test/artifacts/txt_in_xls.xls")
+      w.open(File.join(File.dirname(__FILE__), "artifacts/txt_in_xls.xls"))
       assert_equal([:naam,:nummer,:ilt,:corporate_key,:naam_medewerker, nil, nil, :telefoon, :openingsdatum],w.sheet.table.header.to_symbols)
       assert_equal(["dddd",2222,"i9000","asd","Anita",nil,"Betera","012-3456789",Date.new(2011,10,5)],w.sheet.table[1].collect{|a| a.value})
     end
@@ -51,7 +51,7 @@ module Readers
       w = Workbook::Book.new
       failed_properly = false
       begin
-        w.open("test/artifacts/zip_in_xls.xls")
+        w.open(File.join(File.dirname(__FILE__), "artifacts/zip_in_xls.xls"))
         w.sheet.table.to_csv
       rescue Ole::Storage::FormatError
         failed_properly = true

@@ -55,7 +55,7 @@ module Modules
     end
 
     def test_once_failing_files
-      w = Workbook::Book.open("test/artifacts/failing_import1.xls") # TRUE wasn't parsed properly
+      w = Workbook::Book.open(File.join(File.dirname(__FILE__), 'artifacts/failing_import1.xls')) # TRUE wasn't parsed properly
     end
   end
 end

@@ -55,7 +55,7 @@ class TestWorkbook < Test::Unit::TestCase
   end
 
   def test_text_to_utf8
-    f = File.open("test/artifacts/excel_different_types.txt",'r')
+    f = File.open(File.join(File.dirname(__FILE__), 'artifacts/excel_different_types.txt'),'r')
     t = f.read
     w = Workbook::Book.new
     t = w.text_to_utf8(t)

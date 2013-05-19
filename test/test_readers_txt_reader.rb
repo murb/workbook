@@ -5,13 +5,13 @@ module Readers
     # Should one day throw an error..
     # def test_failure_excel_as_txt_open
     #   w = Workbook::Book.new
-    #   w.open("test/artifacts/xls_with_txt_extension.txt")
+    #   w.open(File.join(File.dirname(__FILE__), "artifacts/xls_with_txt_extension.txt")
     #   puts w.sheet.table
     # end
 
     def test_excel_standardized_open
       w = Workbook::Book.new
-      w.open("test/artifacts/excel_different_types.txt")
+      w.open(File.join(File.dirname(__FILE__), "artifacts/excel_different_types.txt"))
       # reads
       #   a,b,c,d
       # 2012-02-22,2014-12-27,2012-11-23,2012-11-12T04:20:00+00:00
@@ -27,7 +27,7 @@ module Readers
     end
 
     def test_excel_class_read_string
-      s = File.read("test/artifacts/excel_different_types.txt")
+      s = File.read(File.join(File.dirname(__FILE__), "artifacts/excel_different_types.txt"))
       w = Workbook::Book.read(s, :txt)
       # reads
       #   a,b,c,d
@@ -44,7 +44,7 @@ module Readers
     end
 
     def test_excel_instance_read_string
-      s = File.read("test/artifacts/excel_different_types.txt")
+      s = File.read(File.join(File.dirname(__FILE__), "artifacts/excel_different_types.txt"))
       w = Workbook::Book.new
       w.read(s, :txt)
       # reads
@@ -62,7 +62,7 @@ module Readers
     end
 
     def test_excel_instance_read_stringio
-      sio = StringIO.new(File.read("test/artifacts/excel_different_types.txt"))
+      sio = StringIO.new(File.read(File.join(File.dirname(__FILE__), "artifacts/excel_different_types.txt")))
       w = Workbook::Book.new
       w.read(sio, :txt)
       # reads
