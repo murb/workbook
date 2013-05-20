@@ -25,6 +25,12 @@ class TestCell < Test::Unit::TestCase
     assert_equal("asdf",w.value)
     w.value = Date.new
     assert_equal(Date.new,w.value)
+    w.value = 1
+    assert_equal(1,w.value)
+    assert_equal(Fixnum,w.value.class)
+    w.value = 1.0
+    assert_equal(1.0,w.value)
+    assert_equal(Float,w.value.class)
   end
 
   def test_comp

@@ -13,7 +13,6 @@ module Workbook
         Zip::ZipFile.open(file_obj) do |zipfile|
           zipfile.entries.each do |file|
             styles = zipfile.read(file.name) if file.name == "styles.xml"
-
             content = zipfile.read(file.name) if file.name == "content.xml"
           end
         end
@@ -140,10 +139,11 @@ module Workbook
         value = CGI.unescapeHTML(@cell.xpath("text:p//text()").to_s)
         value = (value=="") ? nil : value
         case valuetype
-        when 'float'
-          value = @cell.xpath("@office:value").to_s.to_f
         when 'integer'
           value = @cell.xpath("@office:value").to_s.to_i
+        when 'float'
+          value = @cell.xpath("@office:value").to_s.to_f
+          value = value.to_i unless @cell.xpath("@office:value").to_s.match(/\./) #sadly most integers are typed as floats...
         when 'date'
           value = DateTime.parse(@cell.xpath("@office:date-value").to_s)
         end

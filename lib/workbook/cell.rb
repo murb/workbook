@@ -35,7 +35,20 @@ module Workbook
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
       end
     end
+    
+    # Change the current value
+    #
+    # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value
+    def value= value
+      if valid_value? value
+        @value = value
+      else
+        raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
+      end
+    end
 
+    # Change the current format
+    #
     # @param [Workbook::Format, Hash] f set the formatting properties of this Cell
     def format= f
       if f.is_a? Workbook::Format
@@ -47,10 +60,15 @@ module Workbook
       end
     end
 
+    # Returns current format
+    #
+    # @returns [Workbook::Format] the current format
     def format
       @format ||= Workbook::Format.new
     end
 
+    # Tests for equality based on its value (formatting is irrelevant)
+    #
     # @param [Workbook::Cell] other cell to compare against
     # @return [Boolean]
     def ==(other)
@@ -122,7 +140,9 @@ module Workbook
       v
     end
 
-    # @param [Workbook::Cell] other cell to compare against, can compare different value-types using #compare_on_class
+    # Compare
+    # @param [Workbook::Cell] other cell to compare against (based on value), can compare different value-types using #compare_on_class
+    # @returns [Fixnum] -1, 0, 1
     def <=> other
       rv = nil
       begin
