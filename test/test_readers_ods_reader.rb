@@ -6,7 +6,7 @@ module Readers
 
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.ods')
-      
+
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
       assert_equal(90588,w.sheet.table[2][:b].value)
     end
@@ -38,7 +38,7 @@ module Readers
       assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
       assert_equal("c",w.sheet.table[2][:a].value)
       assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
-      assert_equal("42000",w.sheet.table[3][:b].value.to_s) 
+      assert_equal("42000",w.sheet.table[3][:b].value.to_s)
       assert_equal(nil,w.sheet.table[2][:c].value)
     end
 

@@ -178,7 +178,7 @@ class TestRow < Test::Unit::TestCase
     row[:b]= 15
     assert_equal(15, table.last.last.value)
   end
-  
+
   def test_trim!
     a = Workbook::Row.new
     a[0] = 1
@@ -230,7 +230,7 @@ class TestRow < Test::Unit::TestCase
     a.trim!(1)
     assert_equal(b, a)
   end
-  
+
   def test_trim
     a = Workbook::Row.new
     a[0] = nil

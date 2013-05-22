@@ -34,7 +34,7 @@ module Workbook
     def table
       first
     end
-    
+
     # Returns the book this sheet belongs to
     #
     # @return [Workbook::Book] the book this sheet belongs to

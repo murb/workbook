@@ -20,6 +20,8 @@
  *   Free Software Foundation, Inc.,                                       *
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
+
+To recursively execute this script run: `find . -name "*.rb"|xargs ./rbeautify.rb`
 =end
 
 PVERSION = "Version 2.9, 10/24/2008"

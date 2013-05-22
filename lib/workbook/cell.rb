@@ -35,7 +35,7 @@ module Workbook
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
       end
     end
-    
+
     # Change the current value
     #
     # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value

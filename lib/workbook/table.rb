@@ -58,7 +58,7 @@ module Workbook
       self.delete_if{|r| r.nil? or r.compact.empty?}
       self
     end
-    
+
     # Add row
     # @param [Workbook::Table, Array] row to add
     def push(row)
@@ -74,7 +74,7 @@ module Workbook
       super(row)
       row.set_table(self)
     end
-    
+
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
     end
@@ -152,7 +152,7 @@ module Workbook
       end
       return sum-1
     end
-    
+
     # remove all the trailing empty-rows (returning a trimmed clone)
     #
     # @param [Integer] desired_row_length of the rows
@@ -160,7 +160,7 @@ module Workbook
     def trim(desired_row_length=nil)
       self.clone.trim!(desired_row_length)
     end
-    
+
     # remove all the trailing empty-rows (returning a trimmed self)
     #
     # @param [Integer] desired_row_length of the new row
@@ -168,7 +168,7 @@ module Workbook
     def trim!(desired_row_length=nil)
       max_length = self.collect{|a| a.trim.length }.max
       self_count = self.count-1
-      self.count.times do |index| 
+      self.count.times do |index|
         index = self_count - index
         if self[index].trim.empty?
           self.delete_at(index)
