@@ -161,7 +161,7 @@ module Workbook
     #
     # @return [Hash]
     def to_hash
-      return @hash if @hash
+      #return @hash if @hash
       keys = table_header_keys
       values = self
       @hash = {}
