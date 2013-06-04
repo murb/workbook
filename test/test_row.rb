@@ -156,7 +156,6 @@ class TestRow < Test::Unit::TestCase
   end
 
   def test_clone_has_no_table
-    # actually not desired, but for now enforced.
     b = Workbook::Book.new
     table = b.sheet.table
     table << Workbook::Row.new(["a","b"])
@@ -166,6 +165,37 @@ class TestRow < Test::Unit::TestCase
     assert_equal(nil,row[:b])
     assert_equal(1,row[0].value)
     assert_equal(2,row[1].value)
+  end
+  
+  def test_push
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table << Workbook::Row.new(["a","b"])
+    table << Workbook::Row.new([1,2])
+    assert_equal(1,table[1][:a].value)
+    assert_equal(2,table[1][:b].value)
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table.push Workbook::Row.new(["a","b"])
+    table.push Workbook::Row.new([1,2])
+    assert_equal(1,table[1][:a].value)
+    assert_equal(2,table[1][:b].value)
+  end
+  
+  def test_assign
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table.push Workbook::Row.new(["a","b"])
+    table[1] = Workbook::Row.new([1,2])
+    assert_equal(1,table[1][:a].value)
+    assert_equal(2,table[1][:b].value)    
+    
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table.push Workbook::Row.new(["a","b"])
+    table[1] = [1,2]
+    assert_equal(1,table[1][:a].value)
+    assert_equal(2,table[1][:b].value)  
   end
 
   def test_row_hash_index_assignment

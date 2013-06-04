@@ -75,6 +75,18 @@ module Workbook
       row.set_table(self)
     end
 
+    # Overrides normal Row's []=-function; automatically converting to row and setting
+    # with the label correctly
+    #
+    # @param [Fixnum] index
+    # @param [Workbook::Table, Array] row to set
+    # @return [Workbook::Cell, nil]
+    def []= (index, row)
+      row = Workbook::Row.new(row) if row.class == Array
+      super(index,row)
+      row.set_table(self)
+    end
+
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
     end
