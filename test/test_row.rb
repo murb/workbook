@@ -104,6 +104,22 @@ class TestRow < Test::Unit::TestCase
     assert_equal(date, r2[:asdfasd].value)
     assert_equal(date, r2[1].value)
   end
+  
+  def test_to_hash_cache
+    puts "AAAA"
+    t = Workbook::Table.new
+    t << ["test", "asdf-asd"]
+    t << [1, 2]
+    r = t.last
+    assert_equal(1, r[:test].value)
+    t.last[0].value = 3
+    assert_equal(3, r[:test].value)
+    assert_equal(3, r[:test].value)
+    t.last[:test] = nil
+    assert_equal(nil, r[:test].value)  
+    r[:test] = 5
+    assert_equal(5, r[:test].value)    
+  end
 
   def test_compare
     r1 = Workbook::Row.new  ["test", "asdf-asd"]
