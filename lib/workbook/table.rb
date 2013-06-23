@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'workbook/modules/table_diff_sort'
 require 'workbook/writers/csv_table_writer'
+require 'workbook/writers/json_table_writer'
 
 
 module Workbook
@@ -8,6 +9,7 @@ module Workbook
   class Table < Array
     include Workbook::Modules::TableDiffSort
     include Workbook::Writers::CsvTableWriter
+    include Workbook::Writers::JsonTableWriter
     attr_accessor :sheet
     attr_accessor :name
     attr_accessor :header

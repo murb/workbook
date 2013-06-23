@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake")
+  s.add_dependency("json")
   s.add_dependency('rubyXL')
   s.add_dependency('nokogiri')
   s.add_dependency('rubyzip')
