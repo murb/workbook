@@ -18,7 +18,11 @@ Gem::Specification.new do |s|
   s.add_dependency("rake")
   s.add_dependency("json")
   s.add_dependency('rubyXL')
-  s.add_dependency('nokogiri')
+  if RUBY_VERSION < "1.9"
+    s.add_dependency('nokogiri', "~> 1.5.10")
+  else
+    s.add_dependency('nokogiri')
+  end
   s.add_dependency('rubyzip')
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split($/)
