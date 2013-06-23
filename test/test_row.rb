@@ -105,8 +105,21 @@ class TestRow < Test::Unit::TestCase
     assert_equal(date, r2[1].value)
   end
   
+
+  def test_to_hash_with_values
+    t = Workbook::Table.new
+    r1 = Workbook::Row.new  ["test", "asdf-asd"]
+    r1.table = t
+    expected = {:test=>"test", :asdfasd=>"asdf-asd"}
+    assert_equal(expected, r1.to_hash_with_values)
+    date = DateTime.now
+    r2 = Workbook::Row.new  [2, date]
+    r2.table = t
+    expected = {:test=>2, :asdfasd=>date}
+    assert_equal(expected, r2.to_hash_with_values)
+  end
+  
   def test_to_hash_cache
-    puts "AAAA"
     t = Workbook::Table.new
     t << ["test", "asdf-asd"]
     t << [1, 2]

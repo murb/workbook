@@ -168,6 +168,21 @@ module Workbook
       keys.each_with_index {|k,i| @hash[k]=values[i]}
       return @hash
     end
+    
+    # Returns a hash representation of this row
+    #
+    # it differs from #to_hash as it doesn't contain the Workbook's Workbook::Cell-objects, 
+    # but the actual values contained in these cells
+    #
+    # @return [Hash]
+
+    def to_hash_with_values
+      keys = table_header_keys
+      values = self
+      @hash_with_values = {}
+      keys.each_with_index {|k,i| v=values[i]; v=v.value if v; @hash_with_values[k]=v}
+      return @hash_with_values 
+    end
 
     # Compares one row wiht another
     #
