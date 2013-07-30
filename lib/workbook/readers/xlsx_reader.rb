@@ -142,7 +142,12 @@ module Workbook
         #number_of_worksheets = xlsx_spreadsheet.worksheets.count
         xlsx_spreadsheet.worksheets.each_with_index do |worksheet, si|
           s = create_or_open_sheet_at(si)
-          col_widths = xlsx_spreadsheet.worksheets.first.cols.collect{|a| a[:attributes][:width].to_f if a[:attributes]}
+          col_widths = []
+          begin
+            col_widths = xlsx_spreadsheet.worksheets.first.cols.collect{|a| a[:attributes][:width].to_f if a[:attributes]}
+          rescue
+            # Column widths couldn't be read, no big deal...
+          end
           worksheet.each_with_index do |row, ri|
             r = s.table.create_or_open_row_at(ri)
 

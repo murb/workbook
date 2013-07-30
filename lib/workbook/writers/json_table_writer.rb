@@ -6,20 +6,19 @@ module Workbook
     module JsonTableWriter
       # Output the current workbook to JSON format
       #
-      # @param [String] filename
       # @param [Hash] options  
-      # @return [String] csv (comma separated values in a string)
+      # @return [String] json string
       def to_json options={}
         JSON.generate(to_array_of_hashes_with_values(options))
       end
       
-      # Output the current workbook to JSON format
+      # Output the current workbook to an array_of_hashes_with_values format
       #
-      # @param [String] filename
       # @param [Hash] options  
-      # @return [String] csv (comma separated values in a string)
+      # @return [Array<Hash>] array with hashes (comma separated values in a string)
       def to_array_of_hashes_with_values options={}
-        self.collect{|a| a.to_hash_with_values}
+        array_of_hashes = self.collect{|a| a.to_hash_with_values unless a.header?}.compact
+        return array_of_hashes
       end
       
       # Write the current workbook to JSON format
