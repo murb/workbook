@@ -21,7 +21,16 @@ class TestWorkbook < Test::Unit::TestCase
     t = Workbook::Table.new []
     w = Workbook::Sheet.new t
     assert_equal(w.table,t)
+  end
 
+  def test_table_assignment
+    t = Workbook::Table.new []
+    s = Workbook::Sheet.new t
+    assert_equal(s.table,t)
+    data = [["a","b"],[1,2]]
+    s.table=data
+    assert_equal("a",s.table["A1"].value)
+    assert_equal(2,s.table["B2"].value)
   end
 
   def test_book

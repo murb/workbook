@@ -35,6 +35,20 @@ module Workbook
       first
     end
 
+    # Set the first table of this sheet with a table or array of cells/values
+    # @param [Workbook::Table, Array<Array>] table   The new first table of this sheet
+    # @param [Hash] options                          are forwarded to Workbook::Table.new
+
+    # @return [Workbook::Table] the first table of this sheet
+    def table= table, options={}
+      if table.is_a? Workbook::Table
+        self[0] = table
+      else
+        self[0] = Workbook::Table.new(table, self, options)
+      end
+      return table
+    end
+
     # Returns the book this sheet belongs to
     #
     # @return [Workbook::Book] the book this sheet belongs to
