@@ -60,20 +60,33 @@ simply clone the row, and add it back:
 
     b = Workbook::Book.open("template.xls")
     table = b.sheet.table
-    template_row = table[1] # can be any, but I typically have a well
-                            # formatted header row + an example template 
-			    # row for the data
+    template_row = table[1]            # can be any, but I typically have a well
+                                    # formatted header row + an example template
+                                    # row for the data
     [1,2,3,4].each do |v|
       new_row = template_row.clone
-      table << new_row      # to use the symbol style header references, 
-                            # the row first needs to be added back to the 
-			    # table
+      table << new_row              # to use the symbol style header references, 
+                                    # the row first needs to be added back to the 
+                                    # table
       new_row[:a] = v
     end
-    table.delete(template_row) # you don't want the template to show up
-                               # in the endresult
-    b.write("result.xls")   # write it!
+    table.delete(template_row)      # you don't want the template to show up
+                                    # in the endresult
+    b.write("result.xls")           # write it!
     
+Another typical use case is exporting a list of ActiveRecord-objects to xls:
+
+    b = Workbook::Book.open("template.xls")
+    table = b.sheet.table
+    template_row = table[1]         # see above
+    Order.where("created_at > ?", Time.now - 1.week).each do |order|
+      new_row = template_row.clone
+      new_row.table = table
+      order.to_hash.each{|k,v| row[k]=v}
+    end
+    table.delete(template_row)      # you don't want the template to show up
+                                    # in the endresult
+    b.write("recent_orders.xls")    # write it!
 
 
   <!-- Feature *to implement*: 
@@ -83,7 +96,7 @@ Feature *to implement*, get a single column:
     t[:b]
 	# returns [<Workbook::Cel @value=2>,<Workbook::Cel @value=4>,<Workbook::Cel @value=6>] 
 	
-On my wishlist: In the future I hope to return the cell value directly, without the intermediate Workbook::Cel class in between.
+On my wishlist: In the future I hope to return the cell value directly, without the intermediate Workbook::Cell class in between.
 	
 	-->
 	
