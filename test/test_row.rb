@@ -195,7 +195,7 @@ class TestRow < Test::Unit::TestCase
     assert_equal(1,row[0].value)
     assert_equal(2,row[1].value)
   end
-  
+
   def test_push
     b = Workbook::Book.new
     table = b.sheet.table
@@ -210,7 +210,7 @@ class TestRow < Test::Unit::TestCase
     assert_equal(1,table[1][:a].value)
     assert_equal(2,table[1][:b].value)
   end
-  
+
   def test_assign
     b = Workbook::Book.new
     table = b.sheet.table
@@ -225,6 +225,15 @@ class TestRow < Test::Unit::TestCase
     table[1] = [1,2]
     assert_equal(1,table[1][:a].value)
     assert_equal(2,table[1][:b].value)  
+  end
+
+  def test_preservation_of_format_on_assign
+    row = Workbook::Row.new([1,2])
+    cellformat = row.first.format
+    cellformat["background"]="#f00"
+    row[0] = 3
+    assert_equal(3,row[0].value)
+    assert_equal("#f00",row[0].format["background"])
   end
 
   def test_row_hash_index_assignment
