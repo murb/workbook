@@ -74,7 +74,8 @@ simply clone the row, and add it back:
                                     # in the endresult
     b.write("result.xls")           # write it!
     
-Another typical use case is exporting a list of ActiveRecord-objects to xls:
+Another typical use case is exporting a list of ActiveRecord-objects to xls (it is assumed that the headers of the excel-table correspond 
+(like "Total order price" and `total_order_price` match) to the headers of the database-table ):
 
     b = Workbook::Book.open("template.xls")
     table = b.sheet.table
