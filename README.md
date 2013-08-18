@@ -113,15 +113,17 @@ And a new book with a new sheet/table will be returned containing the difference
 
 Currently writing is limited to the following formats. Templating support is still limited.
 	
-	b.to_xls 			# returns a spreadsheet workbook
-	b.write_to_xls filename 	# writes to filename
-	t.to_csv 			# returns a csv-string (called on tables)
-	
-In case you want to display the table in HTML, some conversion is offered to convert text/background properties to css-entities. Internally the hash storing style elements tries to map to CSS where possible.
+	b.to_xls                # returns a spreadsheet workbook
+	b.write_to_xls filename # writes to filename
+	t.(write_)to_csv                # returns a csv-string (called on tables)
+	b.(write_)to_html               # returns a clean html-page with all tables; unformatted, format-names are used in the classes
+    t.(write_)to_json               # returns the values of a table in json
+    
+In case you want to display a formatted table in HTML, some conversion is offered to convert text/background properties to css-entities. Internally the hash storing style elements tries to map to CSS where possible.
 	
 ## Compatibility
 
-Workbook should be compatible with ruby 1.8.7 and 1.9.3. Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.png?branch=master)](https://travis-ci.org/murb/workbook). 
+Workbook should be compatible with ruby 1.8.7, 1.9.3, 2.0.0 (jruby 1.8 mode works as well, but currently there are some issues with jruby 1.9 and encoding). Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.png?branch=master)](https://travis-ci.org/murb/workbook). 
 
 ## Alternatives
 
