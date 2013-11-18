@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excel, ods and csv and tab separated files, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
+  s.add_dependency('rubyzip')
   s.add_dependency('spreadsheet', '>= 0.7.5')
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
@@ -23,7 +24,6 @@ Gem::Specification.new do |s|
   else
     s.add_dependency('nokogiri')
   end
-  s.add_dependency('rubyzip')
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split($/)
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})
