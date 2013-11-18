@@ -9,6 +9,7 @@ require 'workbook/cell'
 require 'workbook/format'
 require 'workbook/template'
 require 'workbook/version'
+require 'workbook/column'
 
 module Workbook
   class << self
