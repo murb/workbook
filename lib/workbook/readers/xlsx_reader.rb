@@ -7,6 +7,7 @@ module RubyXL
 
     # Improves upon date format detection
     def is_date_format?(num_fmt)
+      num_fmt = num_fmt.to_s
       num_fmt.downcase!
       skip_chars = ['$', '-', '+', '/', '(', ')', ':', ' ']
       num_chars = ['0', '#', '?']
@@ -178,11 +179,10 @@ module Workbook
           end
         end
       end
-      private
       def ms_formatting_to_strftime ms_nr_format
         if ms_nr_format
-          ms_nr_format = ms_nr_format.downcase
-          return nil if ms_nr_format == 'general'
+          ms_nr_format = ms_nr_format.to_s.downcase
+          return nil if ms_nr_format == 'general' or ms_nr_format == ""
           ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub(';@','').gsub('\\','')
         end
       end

@@ -24,6 +24,16 @@ module Readers
       assert_equal("2012-12-03T12:30:00+00:00",w.sheet.table[7][:datum_gemeld].value.to_s)
       assert_equal("2012-12-03T09:4",w.sheet.table[6][:datum_gemeld].value.to_s[0..14])
     end
-
+    def test_ms_formatting_to_strftime
+      w = Workbook::Book.new
+      assert_equal(nil,w.ms_formatting_to_strftime(nil));
+      assert_equal(nil,w.ms_formatting_to_strftime(""));
+    end
+    def test_monkey_patched_ruby_xl_is_date_format?
+      w = RubyXL::Workbook.new
+      assert_equal(false, w.is_date_format?(nil))
+      assert_equal(false, w.is_date_format?(""))
+      assert_equal(true, w.is_date_format?("D-M-YYY"))
+    end
   end
 end
