@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby -wU
+# add W0 as another argument to hide all warnings in binary
+
+if ARGV.count < 2
+  puts "example usage: axldiff <oldfile> <newfile>"
+  exit
+end
+
+begin
+  require "workbook"
+rescue LoadError
+  require "rubygems"
+  require "workbook"
+end
+
+old_filename = ARGV[0]
+new_filename = ARGV[1]
+diff_resultfilename = ARGV[2]
+
+w_old = Workbook::Book.open old_filename
+w_new = Workbook::Book.open new_filename
+diff_table = w_old.sheet.table.diff w_new.sheet.table
+
+if diff_resultfilename
+  puts "Writing to file #{diff_resultfilename}..."
+  w_new = Workbook::Book.write diff_resultfilename
+else
+  puts diff_table.sheet.book.to_html
+end
