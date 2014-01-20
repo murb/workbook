@@ -112,6 +112,11 @@ module Workbook
       send("load_#{extension}".to_sym,t)
     end
 
+    def write filename, extension=nil
+      extension = file_extension(filename) unless extension
+      send("write_to_#{extension}".to_sym)
+    end
+
 
     # Helper method to convert text in a file to UTF-8
     #
