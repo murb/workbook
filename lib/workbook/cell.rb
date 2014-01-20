@@ -6,11 +6,7 @@ module Workbook
   class Cell
     include Workbook::Modules::TypeParser
 
-    attr_accessor :value
-    attr_accessor :format
     attr_accessor :formula
-    attr_accessor :colspan
-    attr_accessor :rowspan
 
     # Note that these types are sorted by 'importance'
     VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Workbook::NilValue]
@@ -29,7 +25,7 @@ module Workbook
     # @param [Hash] options a reference to :format (Workbook::Format) can be specified
     def initialize value=nil, options={}
       if valid_value? value
-        format = options[:format]
+        self.format = options[:format]
         @value = value
       else
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
@@ -45,6 +41,13 @@ module Workbook
       else
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
       end
+    end
+
+    # Returns the current value
+    #
+    # @return [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] a valid value
+    def value
+      @value
     end
 
     # Change the current format
@@ -95,7 +98,7 @@ module Workbook
       v = nil
       if value
         v = value.to_s.downcase
-        v = v.gsub(' (j/?/leeg)','').gsub(/dd-mm-(.*)/,'').gsub(/\ja\/nee/,'').gsub(/\(\)/,'').gsub(/[\(\)]+/, '')
+        v = v.gsub(' (j/?/leeg)','').gsub(/dd-mm-(.*)/,'').gsub(/ja\/nee/,'').gsub(/\(\)/,'').gsub(/[\(\)]+/, '')
         v = v.strip.gsub(/(\.|\?|,|\=)/,'').
         gsub('$','').
         gsub(/\&/,'en').
@@ -147,7 +150,7 @@ module Workbook
       rv = nil
       begin
         rv = self.value <=> other.value
-      rescue NoMethodError => e
+      rescue NoMethodError
         rv = compare_on_class other
       end
       if rv == nil
@@ -192,11 +195,18 @@ module Workbook
       end
     end
 
+    def colspan= c
+      @colspan = c
+    end
+    def rowspan= r
+      @rowspan = r
+    end
+
     def colspan
-      @colspan.to_i if @colspan.to_i > 1
+      @colspan.to_i if defined?(@colspan) and @colspan.to_i > 1
     end
     def rowspan
-      @rowspan.to_i if @rowspan.to_i > 1
+      @rowspan.to_i if defined?(@rowspan) and @rowspan.to_i > 1
     end
   end
 end

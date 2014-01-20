@@ -81,7 +81,6 @@ module Workbook
 
       #set column count
       def get_column_count(table)
-        init_column_count = table.xpath("table:table-column").count
         first_row = table.xpath("table:table-row").first
         cells = first_row.xpath("table:table-cell|table:covered-table-cell")
         column_count = 0

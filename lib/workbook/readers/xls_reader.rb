@@ -7,7 +7,7 @@ module Workbook
 
       def load_xls file_obj
         begin
-          sp = Spreadsheet.open(file_obj, mode='rb')
+          sp = Spreadsheet.open(file_obj, 'rb')
           template.add_raw sp
           parse_xls sp
         rescue Ole::Storage::FormatError => e

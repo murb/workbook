@@ -2,7 +2,7 @@
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
   class TestXlsWriter < Test::Unit::TestCase
-    def test_open
+    def test_xls_open
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xls')
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
@@ -15,7 +15,7 @@ module Readers
 
     end
 
-    def test_complex_types
+    def test_xls_complex_types
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/complex_types.xls')
       assert_equal(Date.new(2011,11,15), w.sheet.table[2][3].value)
@@ -24,7 +24,7 @@ module Readers
       assert_equal(1.2, w.sheet.table[3][1].value)
     end
 
-    def test_excel_standardized_open
+    def test_xls_excel_standardized_open
       w = Workbook::Book.new
       w.open(File.join(File.dirname(__FILE__), "artifacts/excel_different_types.xls"))
       # reads

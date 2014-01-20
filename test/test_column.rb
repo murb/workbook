@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestRow < Test::Unit::TestCase
+class TestColumn < Test::Unit::TestCase
 
   def test_init
     c = Workbook::Column.new

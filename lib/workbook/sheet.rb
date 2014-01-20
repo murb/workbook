@@ -2,7 +2,6 @@
 module Workbook
   class Sheet < Array
     # A Sheet is a container of tables
-    attr_accessor :book
     attr_accessor :name
 
     # Initialize a new sheet
@@ -59,6 +58,10 @@ module Workbook
         self.book = Workbook::Book.new(self)
         return @book
       end
+    end
+
+    def book= b
+      @book = b
     end
 
     # Removes all lines from this table

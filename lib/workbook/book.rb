@@ -22,9 +22,6 @@ module Workbook
     include Workbook::Readers::CsvReader
     include Workbook::Readers::TxtReader
 
-    attr_accessor :title
-    attr_accessor :template
-
     # @param [Workbook::Sheet, Array] sheet    create a new workbook based on an existing sheet, or initialize a sheet based on the array
     # @return [Workbook::Book]
     def initialize sheet=Workbook::Sheet.new([], self, options={})
@@ -51,6 +48,10 @@ module Workbook
     # @return [String] the title of the workbook
     def title
       @title ? @title : "untitled document"
+    end
+
+    def title= t
+      @title = t
     end
 
     # Push (like in array) a sheet to the workbook (parameter is optional, default is a new sheet)
@@ -112,9 +113,13 @@ module Workbook
       send("load_#{extension}".to_sym,t)
     end
 
+    # Writes the book to a file. Filetype is based on the extension, but can be overridden
+    #
+    # @param [String] filename   a string with a reference to the file to be written to
+    # @param [String] extension  an optional string enforcing a certain writer (based on the file extension, e.g. 'txt', 'csv', 'html' or 'xls')
     def write filename, extension=nil
       extension = file_extension(filename) unless extension
-      send("write_to_#{extension}".to_sym)
+      send("write_to_#{extension}".to_sym, filename)
     end
 
 

@@ -12,7 +12,6 @@ module Workbook
     include Workbook::Writers::JsonTableWriter
     attr_accessor :sheet
     attr_accessor :name
-    attr_accessor :header
 
     def initialize row_cel_values=[], sheet=nil, options={}
       row_cel_values = [] if row_cel_values == nil
@@ -32,13 +31,17 @@ module Workbook
     #
     # @return [Workbook::Row] The header
     def header
-      if @header == false
+      if defined?(@header) and @header == false
         false
-      elsif @header
+      elsif defined?(@header) and @header
         @header
       else
         first
       end
+    end
+
+    def header= h
+      @header = h
     end
 
     # Generates a new row, with optionally predefined cell-values, that is already connected to this table.

@@ -20,10 +20,11 @@ diff_resultfilename = ARGV[2]
 w_old = Workbook::Book.open old_filename
 w_new = Workbook::Book.open new_filename
 diff_table = w_old.sheet.table.diff w_new.sheet.table
+diff_book = diff_table.sheet.book
 
 if diff_resultfilename
   puts "Writing to file #{diff_resultfilename}..."
-  w_new = Workbook::Book.write diff_resultfilename
+  w_new = diff_book.write diff_resultfilename
 else
-  puts diff_table.sheet.book.to_html
+  puts diff_book.to_html
 end

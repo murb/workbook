@@ -80,7 +80,6 @@ module Workbook
 
         options = {:sort=>true,:ignore_headers=>false}.merge(options)
 
-        iteration_cols = nil
         sother = other.clone.remove_empty_lines!
         sself = self.clone.remove_empty_lines!
 
@@ -91,8 +90,6 @@ module Workbook
 
         sother = options[:sort] ? Workbook::Table.new(sother.sort) : sother
         sself = options[:sort] ? Workbook::Table.new(sself.sort) : sself
-
-        iteration_rows =  [sother.count,sself.count].max.times.collect
 
         row_index = 0
         while row_index < [sother.count,sself.count].max and row_index < other.count+self.count do

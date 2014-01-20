@@ -2,7 +2,6 @@ module Workbook
 
   # Used in cases col or rowspans are used
   class NilValue
-    attr_accessor :reason #:covered
 
     # initialize this special nilvalue with a reason
     # @params [String] reason (currently only :covered, in case this cell is coverd because an adjecant cell spans over it)
@@ -18,6 +17,10 @@ module Workbook
 
     def <=> v
       value <=> v
+    end
+
+    def reason
+      @reason
     end
 
     # set the reason why this value is nil

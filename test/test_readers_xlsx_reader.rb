@@ -2,7 +2,7 @@
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
   class TestXlsxWriter < Test::Unit::TestCase
-    def test_open
+    def test_xlsx_open
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
