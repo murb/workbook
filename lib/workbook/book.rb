@@ -116,10 +116,10 @@ module Workbook
     # Writes the book to a file. Filetype is based on the extension, but can be overridden
     #
     # @param [String] filename   a string with a reference to the file to be written to
-    # @param [String] extension  an optional string enforcing a certain writer (based on the file extension, e.g. 'txt', 'csv', 'html' or 'xls')
-    def write filename, extension=nil
-      extension = file_extension(filename) unless extension
-      send("write_to_#{extension}".to_sym, filename)
+    # @param [Hash] options  depends on the writer chosen by the file's filetype
+    def write filename, options
+      extension = file_extension(filename)
+      send("write_to_#{extension}".to_sym, filename, options)
     end
 
 

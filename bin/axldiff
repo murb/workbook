@@ -1,10 +1,42 @@
 #!/usr/bin/env ruby -wU
 # add W0 as another argument to hide all warnings in binary
 
-if ARGV.count < 2
-  puts "example usage: axldiff <oldfile> <newfile>"
+
+def display_help(extensive=false)
+  if extensive
+    puts "AxlBase differ"
+    puts "--------------"
+    puts ""
+  end
+  puts "example usage: axldiff [options] oldfile newfile [diffile]"
+  if extensive
+    puts ""
+    puts "oldfile - Original file"
+    puts "newfile - Newer file"
+    puts "diffile - Filename of the file to write to, otherwise HTML will be outputted to stdout"
+    puts ""
+    puts "Valid options:"
+    puts "--nosort Do not sort the tables before diffing (default: rows will be sorted)"
+    puts "--ignore_headers Ignore the headers of the file (default: header will not be ignored)"
+  end
   exit
 end
+
+options = {}
+# argv_offset = 0
+
+argv_offset = ARGV.collect{|arg| 1 if (arg[0] == "-")}.compact.count
+display_help(true) if ARGV.include? "--help"
+display_help(true) if ARGV.include? "-h"
+options[:sort]=false if ARGV.include? "--nosort"
+options[:ignore_headers]=true if ARGV.include? "--ignore_headers"
+
+old_filename = ARGV[argv_offset+0]
+new_filename = ARGV[argv_offset+1]
+diff_resultfilename = ARGV[argv_offset+2]
+
+display_help unless old_filename and new_filename
+
 
 begin
   require "workbook"
@@ -13,18 +45,16 @@ rescue LoadError
   require "workbook"
 end
 
-old_filename = ARGV[0]
-new_filename = ARGV[1]
-diff_resultfilename = ARGV[2]
-
 w_old = Workbook::Book.open old_filename
 w_new = Workbook::Book.open new_filename
-diff_table = w_old.sheet.table.diff w_new.sheet.table
+diff_table = w_old.sheet.table.diff w_new.sheet.table, options
 diff_book = diff_table.sheet.book
 
 if diff_resultfilename
   puts "Writing to file #{diff_resultfilename}..."
-  w_new = diff_book.write diff_resultfilename
+  w_new = diff_book.write diff_resultfilename, options
 else
-  puts diff_book.to_html
+  options = {}
+  options[:style_with_inline_css] = true
+  puts diff_book.to_html options
 end
