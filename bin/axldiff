@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby -wU
+#!/usr/bin/env ruby -wUW0
 # add W0 as another argument to hide all warnings in binary
 
 
