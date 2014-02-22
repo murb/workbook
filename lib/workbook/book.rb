@@ -117,7 +117,7 @@ module Workbook
     #
     # @param [String] filename   a string with a reference to the file to be written to
     # @param [Hash] options  depends on the writer chosen by the file's filetype
-    def write filename, options
+    def write filename, options={}
       extension = file_extension(filename)
       send("write_to_#{extension}".to_sym, filename, options)
     end

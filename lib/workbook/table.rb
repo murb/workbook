@@ -2,6 +2,7 @@
 require 'workbook/modules/table_diff_sort'
 require 'workbook/writers/csv_table_writer'
 require 'workbook/writers/json_table_writer'
+require 'workbook/writers/html_writer'
 
 
 module Workbook
@@ -10,6 +11,8 @@ module Workbook
     include Workbook::Modules::TableDiffSort
     include Workbook::Writers::CsvTableWriter
     include Workbook::Writers::JsonTableWriter
+    include Workbook::Writers::HtmlTableWriter
+
     attr_accessor :sheet
     attr_accessor :name
 
@@ -59,6 +62,9 @@ module Workbook
       r
     end
 
+    # Removes all empty lines. This function is particularly useful if you typically add lines to the end of a template-table, which sometimes has unremovable empty lines.
+    #
+    # @return [Workbook::Table] self
     def remove_empty_lines!
       self.delete_if{|r| r.nil? or r.compact.empty?}
       self
