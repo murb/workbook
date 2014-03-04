@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = "Workbook is a datastructure to contain books of tables (an anlogy used in e.g. Excel)"
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excel, ods and csv and tab separated files, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
+  s.add_development_dependency 'ruby-prof'
   s.add_dependency('rubyzip', '0.9.9')
   s.add_dependency('spreadsheet', '>= 0.7.5')
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"

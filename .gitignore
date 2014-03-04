@@ -6,3 +6,7 @@ sharepoint_download_excel.*
 bin
 Gemfile.lock
 *.rb~
+empty.png
+minus.png
+plus.png
+profile.*

@@ -27,6 +27,7 @@ module Workbook
       if valid_value? value
         self.format = options[:format]
         @value = value
+        @to_sym = nil
       else
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
       end
@@ -38,6 +39,7 @@ module Workbook
     def value= value
       if valid_value? value
         @value = value
+        @to_sym = nil
       else
         raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
       end
@@ -94,13 +96,13 @@ module Workbook
     #
     #     <Workbook::Cell value="yet another value">.to_sym # returns :yet_another_value
     def to_sym
+      return @to_sym if @to_sym
       #mb_chars.normalize(:kd).
       v = nil
       if value
         v = value.to_s.downcase
         v = v.gsub(' (j/?/leeg)','').gsub(/dd-mm-(.*)/,'').gsub(/ja\/nee/,'').gsub(/\(\)/,'').gsub(/[\(\)]+/, '')
-        v = v.strip.gsub(/(\.|\?|,|\=)/,'').
-        gsub('$','').
+        v = v.strip.gsub(/[\.\?\,\=\$]/,'').
         gsub(/\&/,'en').
         gsub(/\+/,'_plus_').
         gsub(/\s/, "_").
@@ -140,7 +142,8 @@ module Workbook
         end
         v = v.downcase.to_sym
       end
-      v
+      @to_sym = v
+      return @to_sym
     end
 
     # Compare

@@ -61,6 +61,17 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(s, table1.sheet)
     table1<<Workbook::Row.new([1,2,3,4])
     assert_equal(false, table1 == table0)
+  end
+  def test_profile_speed
+    w = Workbook::Book.new [["a","b"],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4],[1,2],[3,4]]
+    require 'ruby-prof'
+    RubyProf.start
+    w.sheet.table.each do |row|
+       row[:a].value
+    end
+    result = RubyProf.stop
+    printer = RubyProf::MultiPrinter.new(result)
+    printer.print(:path => ".", :profile => "profile")
 
   end
 end

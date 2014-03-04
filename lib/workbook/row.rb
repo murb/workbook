@@ -124,7 +124,7 @@ module Workbook
     #
     # @return [Boolean]
     def header?
-      table != nil and self.object_id == table.header.object_id
+      table != nil and self.object_id == table_header.object_id
     end
 
     # Is this the first row in the table
@@ -153,25 +153,28 @@ module Workbook
       self.collect{|c| c}
     end
 
+    def table_header
+      table.header
+    end
+
     def table_header_keys
-      table.header.to_symbols
+      table_header.to_symbols
     end
 
     # Returns a hash representation of this row
     #
     # @return [Hash]
     def to_hash
-      #return @hash if @hash
       keys = table_header_keys
       values = self
-      @hash = {}
-      keys.each_with_index {|k,i| @hash[k]=values[i]}
-      return @hash
+      hash = {}
+      keys.each_with_index {|k,i| hash[k]=values[i]}
+      return hash
     end
-    
+
     # Returns a hash representation of this row
     #
-    # it differs from #to_hash as it doesn't contain the Workbook's Workbook::Cell-objects, 
+    # it differs from #to_hash as it doesn't contain the Workbook's Workbook::Cell-objects,
     # but the actual values contained in these cells
     #
     # @return [Hash]
@@ -181,7 +184,7 @@ module Workbook
       values = self
       @hash_with_values = {}
       keys.each_with_index {|k,i| v=values[i]; v=v.value if v; @hash_with_values[k]=v}
-      return @hash_with_values 
+      return @hash_with_values
     end
 
     # Compares one row wiht another
