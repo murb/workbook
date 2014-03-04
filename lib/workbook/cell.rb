@@ -100,9 +100,10 @@ module Workbook
       #mb_chars.normalize(:kd).
       v = nil
       if value
+        ends_with_exclamationmark = (value[-1] == '!')
+        ends_with_questionmark = (value[-1] == '?')
         v = value.to_s.downcase
-        v = v.gsub(' (j/?/leeg)','').gsub(/dd-mm-(.*)/,'').gsub(/ja\/nee/,'').gsub(/\(\)/,'').gsub(/[\(\)]+/, '')
-        v = v.strip.gsub(/[\.\?\,\=\$]/,'').
+        v = v.strip.gsub(/[\(\)\.\?\,\!\=\$]/,'').
         gsub(/\&/,'en').
         gsub(/\+/,'_plus_').
         gsub(/\s/, "_").
@@ -115,8 +116,8 @@ module Workbook
         gsub('-','')
 
         accents = {
-          ['á','à','â','ä','ã'] => 'a',
-          ['Ã','Ä','Â','À','�?'] => 'A',
+          ['á','à','â','ä','ã','å'] => 'a',
+          ['Ã','Ä','Â','À','�?','Å'] => 'A',
           ['é','è','ê','ë'] => 'e',
           ['Ë','É','È','Ê'] => 'E',
           ['í','ì','î','ï'] => 'i',
@@ -125,8 +126,14 @@ module Workbook
           ['Õ','Ö','Ô','Ò','Ó'] => 'O',
           ['ú','ù','û','ü'] => 'u',
           ['Ú','Û','Ù','Ü'] => 'U',
-          ['ç'] => 'c', ['Ç'] => 'C',
-          ['ñ'] => 'n', ['Ñ'] => 'N'
+          ['ç'] => 'c',
+          ['Ç'] => 'C',
+          ['š', 'ś'] => 's',
+          ['Š', 'Ś'] => 'S',
+          ['ž','ź'] => 'z',
+          ['Ž','Ź'] => 'Z',
+          ['ñ'] => 'n',
+          ['Ñ'] => 'N'
         }
         accents.each do |ac,rep|
           ac.each do |s|
@@ -140,6 +147,8 @@ module Workbook
           encoding_options = {:invalid => :replace, :undef => :replace, :replace => ''}
           v = v.encode(Encoding.find('ASCII'), encoding_options)
         end
+        v = "#{v}!" if ends_with_exclamationmark
+        v = "#{v}?" if ends_with_questionmark
         v = v.downcase.to_sym
       end
       @to_sym = v

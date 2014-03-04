@@ -73,12 +73,19 @@ class TestCell < Test::Unit::TestCase
   end
 
   def test_to_sym
-    c = Workbook::Cell.new "A - B"
-    assert_equal(:a_b, c.to_sym)
-    c = Workbook::Cell.new "A-B"
-    assert_equal(:ab, c.to_sym)
-    c = Workbook::Cell.new "A - c (B123)"
-    assert_equal(:a_c_b123, c.to_sym)
+    examples = {
+      "A - B" => :a_b,
+      "A-B" => :ab,
+      "A - c (B123)" => :a_c_b123,
+      "A - c (B123)!" => :a_c_b123!,
+      "A-B?" => :ab?,
+      "A-B!" => :ab!,
+      "éåšžÌ?" => :easzi?
+    }
+    examples.each do |k,v|
+      assert_equal(v, Workbook::Cell.new(k).to_sym)
+    end
+
 
   end
 
