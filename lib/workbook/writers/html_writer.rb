@@ -51,24 +51,46 @@ module Workbook
       def to_html options={}
         options = {:style_with_inline_css=>false}.merge(options)
         builder = Nokogiri::XML::Builder.new do |doc|
-          doc.table {
-            self.each{|row|
-              doc.tr {
-                row.each {|cell|
-                  classnames = cell.format.all_names.join(" ").strip
-                  td_options = classnames != "" ? {:class=>classnames} : {}
-                  td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
-                  td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
-                  td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
-                  unless cell.value.class == Workbook::NilValue
-                    doc.td(td_options) {
-                      doc.text cell.value
-                    }
+          doc.table do
+            doc.thead do
+              if header
+                doc.tr do
+                  header.each do |cell|
+                    classnames = cell.format.all_names.join(" ").strip
+                    td_options = classnames != "" ? {:class=>classnames} : {}
+                    td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
+                    td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
+                    td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
+                    unless cell.value.class == Workbook::NilValue
+                      doc.th(td_options) do
+                        doc.text cell.value
+                      end
+                    end
                   end
-                }
-              }
-            }
-          }
+                end
+              end
+            end
+            doc.tbody do
+              self.each do |row|
+                unless row.header?
+                  doc.tr do
+                    row.each do |cell|
+                      classnames = cell.format.all_names.join(" ").strip
+                      td_options = classnames != "" ? {:class=>classnames} : {}
+                      td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
+                      td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
+                      td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
+                      unless cell.value.class == Workbook::NilValue
+                        doc.td(td_options) do
+                          doc.text cell.value
+                        end
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
         end
         return builder.doc.to_xhtml
       end
