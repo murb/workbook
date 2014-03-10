@@ -49,12 +49,35 @@ module Workbook
           xlsfmt.number_format = strftime_to_ms_format(f[:number_format]) if f[:number_format]
           xlsfmt.text_direction = f[:text_direction] if f[:text_direction]
           xlsfmt.font.name = f[:font_family].split.first if f[:font_family]
-          xlsfmt.font.family = f[:font_family].split.last if f[:font_family]
+          xlsfmt.font.family = parse_font_family(f) if f[:font_family]
           xlsfmt.font.color = html_color_to_xls_color(f[:color]) if f[:color]
           f.add_raw xlsfmt
         end
         return xlsfmt
       end
+
+      # Parses right font-family name
+      #
+      # @param [Workbook::Format, hash] format to parse
+      def parse_font_family(format)
+        font = format[:font_family].to_s.split.last
+        valid_values = [:none,:roman,:swiss,:modern,:script,:decorative]
+        if valid_values.include?(font)
+          return font
+        elsif valid_values.include?(font.to_s.downcase.to_sym)
+          return font.to_s.downcase.to_sym
+        else
+          font = font.to_s.downcase.strip
+          translation = {
+            "arial"=>:swiss,
+            "times"=>:roman,
+            "times new roman"=>:roman
+          }
+          tfont = translation[font]
+          return tfont ? tfont : :none
+        end
+      end
+
 
       # Attempt to convert html-hex color value to xls color number
       #

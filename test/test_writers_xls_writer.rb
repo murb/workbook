@@ -31,6 +31,14 @@ module Writers
       assert_equal(90588,b.sheet.table[5][:b].value)
       assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
     end
+    def test_parse_font_family
+      b = Workbook::Book.new
+      assert_equal(:none,b.parse_font_family({:font_family=>"asdfsdf"}))
+      assert_equal(:swiss,b.parse_font_family({:font_family=>"ArIAL"}))
+      assert_equal(:swiss,b.parse_font_family({:font_family=>:swiss}))
+      assert_equal(:roman,b.parse_font_family({:font_family=>"Times"}))
+      assert_equal(:roman,b.parse_font_family({:font_family=>"roman"}))
+    end
 
     def test_init_spreadsheet_template
       b = Workbook::Book.new
