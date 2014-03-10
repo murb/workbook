@@ -145,7 +145,7 @@ module Workbook
       return text
     end
 
-    # @param [String] filename   The full filename, or path
+    # @param [String, File] filename   The full filename, or path
     #
     # @return [String] The file extension
     def file_extension(filename)

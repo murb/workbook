@@ -44,6 +44,15 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(raw,b.template)
   end
 
+  def test_file_extension
+    b = Workbook::Book.new
+    assert_equal("aaa",b.file_extension("aaa.aaa"))
+    b = Workbook::Book.new
+    assert_equal("xlsx",b.file_extension(File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')))
+    b = Workbook::Book.new
+    assert_equal("xlsx",b.file_extension(File.new(File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx'))))
+  end
+
   def test_parent_child
     b = Workbook::Book.new [[1,2,3],[1,2,3]]
     assert_equal(Workbook::Sheet, b.first.class)
