@@ -157,10 +157,11 @@ module Workbook
         cell_index = alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
         return self[row_index][cell_index]
-      else
-        if index_or_string
-          return to_a[index_or_string]
-        end
+      elsif index_or_string.is_a? Range
+        collection = to_a[index_or_string].collect{|a| a.clone}
+        return Workbook::Table.new collection
+      elsif index_or_string.is_a? Integer
+        return to_a[index_or_string]
       end
     end
 

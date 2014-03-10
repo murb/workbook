@@ -121,6 +121,14 @@ class TestTable< Test::Unit::TestCase
     assert_equal(27,t.alpha_index_to_number_index("AB"))
     assert_equal(51,t.alpha_index_to_number_index("AZ"))
     assert_equal(52,t.alpha_index_to_number_index("BA"))
+    assert_equal((27*26)-1,t.alpha_index_to_number_index("ZZ"))
+  end
+
+  def test_multirowselect_through_collections
+    w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
+    t = w.sheet.table
+    assert_equal(Workbook::Table,t[0..2].class)
+    assert_equal(2,t[0..2][1][1])
   end
 
   def test_trim!
