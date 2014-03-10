@@ -2,6 +2,33 @@
 module Workbook
   module Readers
     module XlsShared
+      def ms_formatting_to_strftime ms_nr_format
+        if ms_nr_format
+          ms_nr_format = ms_nr_format.to_s.downcase
+          return nil if ms_nr_format == 'general' or ms_nr_format == ""
+          translation_table = {
+            'yyyy'=>'%Y',
+            'dddd'=>'%A',
+            'mmmm'=>'%B',
+            'ddd'=>'%a',
+            'mmm'=>'%b',
+            'yy'=>'%y',
+            'dd'=>'%d',
+            'mm'=>'%m',
+            'y'=>'%y',
+            '%%y'=>'%y',
+            'd'=>'%e',
+            '%%e'=>'%d',
+            'm'=>'%m',
+            '%%m'=>'%m',
+            ';@'=>'',
+            '\\'=>''
+          }
+          translation_table.each{|k,v| ms_nr_format.gsub!(k,v) }
+          ms_nr_format
+        end
+      end
+
       XLS_COLORS = {:xls_color_1=>'#000000',
         :xls_color_2=>'#FFFFFF',
         :xls_color_3=>'#FF0000',

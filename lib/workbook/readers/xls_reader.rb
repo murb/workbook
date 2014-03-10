@@ -1,9 +1,12 @@
 # -*- encoding : utf-8 -*-
 require 'spreadsheet'
+require 'workbook/readers/xls_shared'
+
 
 module Workbook
   module Readers
     module XlsReader
+      include Workbook::Readers::XlsShared
 
       def load_xls file_obj
         begin
@@ -91,12 +94,6 @@ module Workbook
       private
       def xls_color_to_html_hex color_sym
         Workbook::Book::XLS_COLORS[color_sym] ? Workbook::Book::XLS_COLORS[color_sym] : "#000000"
-      end
-
-      def ms_formatting_to_strftime ms_nr_format
-        ms_nr_format = ms_nr_format.downcase
-        return nil if ms_nr_format == 'general'
-        ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub(';@','').gsub('\\','')
       end
     end
   end

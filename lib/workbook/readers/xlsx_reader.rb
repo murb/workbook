@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'rubyXL'
+require 'workbook/readers/xls_shared'
 
 # Monkeypatching rubyXL, pull request submitted: https://github.com/gilt/rubyXL/pull/47
 module RubyXL
@@ -131,6 +132,8 @@ end
 module Workbook
   module Readers
     module XlsxReader
+      include Workbook::Readers::XlsShared
+
       # Load method for .xlsm files, an office open file format, hence compatible with .xlsx (it emphasizes that it contains macros)
       #
       # @param [String, File] file_obj   a string with a reference to the file to be written to
@@ -183,13 +186,6 @@ module Workbook
               end
             end
           end
-        end
-      end
-      def ms_formatting_to_strftime ms_nr_format
-        if ms_nr_format
-          ms_nr_format = ms_nr_format.to_s.downcase
-          return nil if ms_nr_format == 'general' or ms_nr_format == ""
-          ms_nr_format.gsub('yyyy','%Y').gsub('dddd','%A').gsub('mmmm','%B').gsub('ddd','%a').gsub('mmm','%b').gsub('yy','%y').gsub('dd','%d').gsub('mm','%m').gsub('y','%y').gsub('%%y','%y').gsub('d','%e').gsub('%%e','%d').gsub('m','%m').gsub('%%m','%m').gsub(';@','').gsub('\\','')
         end
       end
     end
