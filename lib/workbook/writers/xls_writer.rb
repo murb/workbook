@@ -50,7 +50,8 @@ module Workbook
           xlsfmt.text_direction = f[:text_direction] if f[:text_direction]
           xlsfmt.font.name = f[:font_family].split.first if f[:font_family]
           xlsfmt.font.family = parse_font_family(f) if f[:font_family]
-          xlsfmt.font.color = html_color_to_xls_color(f[:color]) if f[:color]
+          color = html_color_to_xls_color(f[:color])
+          xlsfmt.font.color = color if color
           f.add_raw xlsfmt
         end
         return xlsfmt

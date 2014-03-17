@@ -131,6 +131,14 @@ class TestTable< Test::Unit::TestCase
     assert_equal(2,t[0..2][1][1])
   end
 
+  def test_table
+    w = Workbook::Book.new [[nil,nil],["a","b"],[1,2],[3,4]]
+    t = w.sheet.table
+    w2 = Workbook::Book.new
+    w2.sheet.table = t[2..3]
+    assert_equal("1,2\n3,4\n", w2.sheet.table.to_csv)
+  end
+
   def test_trim!
     t = Workbook::Table.new
     t << [1,2,3]

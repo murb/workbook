@@ -97,25 +97,21 @@ module Workbook
     #     <Workbook::Cell value="yet another value">.to_sym # returns :yet_another_value
     def to_sym
       return @to_sym if @to_sym
-      #mb_chars.normalize(:kd).
       v = nil
       if value
         ends_with_exclamationmark = (value[-1] == '!')
         ends_with_questionmark = (value[-1] == '?')
         v = value.to_s.downcase
-        v = v.strip.gsub(/[\(\)\.\?\,\!\=\$]/,'').
-        gsub(/\&/,'en').
-        gsub(/\+/,'_plus_').
-        gsub(/\s/, "_").
-        gsub('–_','').
-        gsub('-_','').
-        gsub('+_','').
-        gsub('/_','_').
-        gsub('/','_').
-        gsub('__','_').
-        gsub('-','')
 
-        accents = {
+        replacements = {
+          [/[\(\)\.\?\,\!\=\$]/,] => '',
+          [/\&/] => 'amp',
+          [/\+/] => '_plus_',
+          [/\s/,'/_','/',"\\"] => '_',
+          ['–_','-_','+_','-'] => '',
+          ['__']=>'_',
+          ['>']=>'gt',
+          ['<']=>'lt',
           ['á','à','â','ä','ã','å'] => 'a',
           ['Ã','Ä','Â','À','�?','Å'] => 'A',
           ['é','è','ê','ë'] => 'e',
@@ -135,7 +131,7 @@ module Workbook
           ['ñ'] => 'n',
           ['Ñ'] => 'N'
         }
-        accents.each do |ac,rep|
+        replacements.each do |ac,rep|
           ac.each do |s|
             v = v.gsub(s, rep)
           end
