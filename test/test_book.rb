@@ -34,6 +34,11 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(w.sheet, s)
   end
 
+  def test_push
+    w = Workbook::Book.new nil
+    assert_equal(1, w.count)
+  end
+
   def test_template
     b = Workbook::Book.new
     raw = "asdf"
