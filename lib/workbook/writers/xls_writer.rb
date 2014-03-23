@@ -30,7 +30,7 @@ module Workbook
           (xls_sheet.last_row_index + 1 - s.table.count).times do |time|
             row_to_remove = s.table.count+time
             xls_sheet.row(row_to_remove).each_with_index do |c, ci|
-              xls_sheet.row(row_to_remove)[ci]=""
+              xls_sheet.row(row_to_remove)[ci]=nil
             end
 
             xls_sheet.delete_row(row_to_remove)

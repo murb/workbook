@@ -63,6 +63,24 @@ module Writers
       assert_equal(nil, t.last.first.value)
 
     end
+    def test_pop_bigtable
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xls')
+      # a  b  c  d  e
+      # 14  90589  a  19 apr 12  23 apr 12
+      # 15  90588  b  15 nov 11  16 jul 12
+      # 25  90463  c  15 nov 11  17 nov 11
+      # 33  90490  d  13 mrt 12  15 mrt 12
+      t = b.sheet.table
+      assert_equal(574, t.count)
+      t.pop(300) #delete last two row
+      assert_equal(274, t.trim.count)
+      filename = b.write_to_xls
+      b = Workbook::Book.open filename
+      t = b.sheet.table
+      assert_equal(274, t.trim.count)
+
+
+    end
     def test_cloning_roundtrip
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xls')
       b.sheet.table << b.sheet.table[2]
