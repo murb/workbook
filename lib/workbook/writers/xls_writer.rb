@@ -27,6 +27,18 @@ module Workbook
               end
             end
           end
+          (xls_sheet.last_row_index + 1 - s.table.count).times do |time|
+            row_to_remove = s.table.count+time
+            xls_sheet.row(row_to_remove).each_with_index do |c, ci|
+              xls_sheet.row(row_to_remove)[ci]=""
+            end
+
+            xls_sheet.delete_row(row_to_remove)
+            xls_sheet.row_updated(row_to_remove, xls_sheet.row(row_to_remove))
+          end
+          xls_sheet.updated_from(s.table.count)
+          xls_sheet.dimensions
+
         end
         book
       end
