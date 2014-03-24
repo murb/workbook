@@ -12,8 +12,9 @@ module Workbook
       def to_xls options={}
         book = init_spreadsheet_template
         self.each_with_index do |s,si|
-          xls_sheet = book.worksheet si
-          xls_sheet = book.create_worksheet if xls_sheet == nil
+          xls_sheet = xls_sheet(si)
+          xls_sheet.name = s.name
+
           s.table.each_with_index do |r, ri|
             xls_sheet.row(ri).height= r.format[:height] if r.format
             r.each_with_index do |c, ci|

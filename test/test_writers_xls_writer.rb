@@ -114,5 +114,18 @@ module Writers
     def test_strftime_to_ms_format_nil
       assert_equal(nil, Workbook::Book.new.strftime_to_ms_format(nil))
     end
+    def test_xls_sheet_writer
+      b = Workbook::Book.new
+      b << Workbook::Sheet.new
+      b << Workbook::Sheet.new
+      b[0].name = "A"
+      b[1].name = "B"
+      b[2].name = "C"
+      assert_equal(["A","B","C"], b.collect{|a| a.name})
+      filename = b.write_to_xls
+      b = Workbook::Book.open filename
+      assert_equal(["A","B","C"], b.collect{|a| a.name})
+
+    end
   end
 end
