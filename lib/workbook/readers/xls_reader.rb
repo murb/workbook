@@ -33,6 +33,7 @@ module Workbook
           begin
             number_of_rows = xls_spreadsheet.worksheets[si].count
             s = create_or_open_sheet_at(si)
+            s.name = xls_sheet.name
             (0..number_of_rows-1).each do |ri|
               xls_row = xls_sheet.row(ri)
               r = s.table.create_or_open_row_at(ri)
