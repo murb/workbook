@@ -92,6 +92,23 @@ class TestWorkbook < Test::Unit::TestCase
 
     # puts b.index b.last
     7.times { |time| assert_equal(b,b[0].book) }
+  end
 
+  def test_removal_of_sheets_pop_and_delete_at_works_as_expected
+    b = Workbook::Book.new [["a","b"],[1,2]]
+    b.push Workbook::Sheet.new([["a","b"],[2,2]])
+    b.push Workbook::Sheet.new([["a","b"],[3,2]])
+    b << Workbook::Sheet.new([["a","b"],[4,2]])
+    b.push Workbook::Sheet.new([["a","b"],[5,2]])
+    b << Workbook::Sheet.new([["a","b"],[6,2]])
+    b.push Workbook::Sheet.new([["a","b"],[7,2]])
+
+    assert_equal(7, b.count)
+    assert_equal(5,b[4][0][1][0].value)
+    b.delete_at(4)
+    assert_equal(6, b.count)
+    assert_equal(6,b[4][0][1][0].value)
+    b.pop(3)
+    assert_equal(3, b.count)
   end
 end

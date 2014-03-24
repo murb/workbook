@@ -11,6 +11,7 @@ module Workbook
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xls options={}
         book = init_spreadsheet_template
+        book.worksheets.pop(self.count) if book.worksheets and book.worksheets.count > self.count
         self.each_with_index do |s,si|
           xls_sheet = xls_sheet(si)
           xls_sheet.name = s.name
