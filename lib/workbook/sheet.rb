@@ -34,6 +34,10 @@ module Workbook
       first
     end
 
+    def name
+      @name ||= "Sheet #{book.index(self)+1}"
+    end
+
     # Set the first table of this sheet with a table or array of cells/values
     # @param [Workbook::Table, Array<Array>] table   The new first table of this sheet
     # @param [Hash] options                          are forwarded to Workbook::Table.new

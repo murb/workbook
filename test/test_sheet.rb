@@ -74,4 +74,12 @@ class TestWorkbook < Test::Unit::TestCase
     printer.print(:path => ".", :profile => "profile")
 
   end
+  def test_name
+    b = Workbook::Book.new [["a","b"],[1,2]]
+    b.push Workbook::Sheet.new([["a","b"],[2,2]])
+    b.push Workbook::Sheet.new([["a","b"],[3,2]])
+
+    # puts b.index b.last
+    assert_equal(["Sheet 1", "Sheet 2", "Sheet 3"], b.collect{|a| a.name})
+  end
 end
