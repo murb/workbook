@@ -26,9 +26,9 @@ module Workbook
     # @return [Workbook::Book]
     def initialize sheet=Workbook::Sheet.new([], self, options={})
       if sheet.is_a? Workbook::Sheet
-        push sheet
+        self.push sheet
       else
-        push Workbook::Sheet.new(sheet, self, options)
+        self.push Workbook::Sheet.new(sheet, self, options)
       end
     end
 
@@ -59,7 +59,17 @@ module Workbook
     # @param [Workbook::Sheet] sheet
     def push sheet=Workbook::Sheet.new
       super(sheet)
+      sheet.book=(self)
     end
+
+    # << (like in array) a sheet to the workbook (parameter is optional, default is a new sheet)
+    #
+    # @param [Workbook::Sheet] sheet
+    def << sheet=Workbook::Sheet.new
+      super(sheet)
+      sheet.book=(self)
+    end
+
 
     # Sheet returns the first sheet of a workbook, or an empty one.
     #

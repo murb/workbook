@@ -10,16 +10,18 @@ class TestWorkbook < Test::Unit::TestCase
 
   def test_push
     w = Workbook::Book.new nil
+    assert_equal(w.count,1)
     assert_equal([[[]]],w)
     w = Workbook::Book.new
-    assert_equal(w.count,1)
-
     w.push
     assert_equal(w.first.class,Workbook::Sheet)
     w.push
+    assert_equal(w,w.last.book)
     assert_equal(w.count,3)
     s = Workbook::Sheet.new
     w.push s
+    assert_equal(w,w.last.book)
+
     assert_equal(w.last,s)
     w = Workbook::Book.new
     assert_equal(w.sheet.table.class,Workbook::Table)
@@ -34,10 +36,7 @@ class TestWorkbook < Test::Unit::TestCase
     assert_equal(w.sheet, s)
   end
 
-  def test_push
-    w = Workbook::Book.new nil
-    assert_equal(1, w.count)
-  end
+
 
   def test_template
     b = Workbook::Book.new
@@ -80,5 +79,19 @@ class TestWorkbook < Test::Unit::TestCase
     assert_raises(ArgumentError) { Workbook::Book.read("test string here", :xls) }
     assert_raises(ArgumentError) { Workbook::Book.read("test string here", :ods) }
     assert_raises(ArgumentError) { Workbook::Book.read("test string here", :xlsx) }
+  end
+
+  def test_push_and_ltlt
+    b = Workbook::Book.new [["a","b"],[1,2]]
+    b.push Workbook::Sheet.new([["a","b"],[2,2]])
+    b.push Workbook::Sheet.new([["a","b"],[3,2]])
+    b << Workbook::Sheet.new([["a","b"],[4,2]])
+    b.push Workbook::Sheet.new([["a","b"],[5,2]])
+    b << Workbook::Sheet.new([["a","b"],[6,2]])
+    b.push Workbook::Sheet.new([["a","b"],[7,2]])
+
+    # puts b.index b.last
+    7.times { |time| assert_equal(b,b[0].book) }
+
   end
 end
