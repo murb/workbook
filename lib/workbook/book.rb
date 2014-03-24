@@ -152,28 +152,6 @@ module Workbook
       File.extname(filename).gsub('.','').downcase if filename
     end
 
-    # Create an instance from a file, using open.
-    #
-    # @param [String] filename of the document
-    # @param [String] extension of the document (not required). The parser used is based on the extension of the file, this option allows you to override the default.
-    # @return [Workbook::Book] A new instance, based on the filename
-    def self.open filename, extension=nil
-      wb = self.new
-      wb.open filename, extension
-      return wb
-    end
-
-    # Create an instance from the given stream or string, which should be in CSV or TXT format
-    #
-    # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV or TXT format
-    # @param [Symbol] filetype (currently only :csv or :txt), indicating the format of the first parameter
-    # @return [Workbook::Book] A new instance
-    def self.read(stringio_or_string, filetype)
-      wb = self.new
-      wb.read(stringio_or_string, filetype)
-      wb
-    end
-
     # Load the CSV data contained in the given StringIO or String object
     #
     # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV format
@@ -195,5 +173,29 @@ module Workbook
       s
     end
 
+    class << self
+      # Create an instance from a file, using open.
+      #
+      # @param [String] filename of the document
+      # @param [String] extension of the document (not required). The parser used is based on the extension of the file, this option allows you to override the default.
+      # @return [Workbook::Book] A new instance, based on the filename
+      def open filename, extension=nil
+        wb = self.new
+        wb.open filename, extension
+        return wb
+      end
+
+      # Create an instance from the given stream or string, which should be in CSV or TXT format
+      #
+      # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV or TXT format
+      # @param [Symbol] filetype (currently only :csv or :txt), indicating the format of the first parameter
+      # @return [Workbook::Book] A new instance
+      def read(stringio_or_string, filetype)
+        wb = self.new
+        wb.read(stringio_or_string, filetype)
+        wb
+      end
+
+    end
   end
 end
