@@ -10,7 +10,7 @@ module Workbook
         file_obj = file_obj.path if file_obj.is_a? File
         content = ""
         styles = ""
-        Zip::ZipFile.open(file_obj) do |zipfile|
+        Zip::File.open(file_obj) do |zipfile|
           zipfile.entries.each do |file|
             styles = zipfile.read(file.name) if file.name == "styles.xml"
             content = zipfile.read(file.name) if file.name == "content.xml"
