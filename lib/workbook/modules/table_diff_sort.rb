@@ -5,7 +5,7 @@ module Workbook
     module TableDiffSort
       # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
       #
-      # @return [Workbook::Book] (note should and will become Workbook::Table as diffing occurs on table level...)
+      # @return [Workbook::Table] the return result
       def diff other, options={:sort=>true,:ignore_headers=>false}
 
         aligned = align(other, options)
@@ -56,6 +56,9 @@ module Workbook
         diff_table
       end
 
+      # Return template table to write the diff result in; in case non exists a default is generated.
+      #
+      # @return [Workbook::Table] the empty table, linked to a book
       def diff_template
         return @diff_template if @diff_template
         diffbook = Workbook::Book.new
@@ -71,11 +74,22 @@ module Workbook
         f[:rotation] = 72
         f[:font_weight] = :bold
         f[:height] = 80
-        @diff_template = diffbook
-        return difftable
+        @diff_template ||= difftable
+      end
+
+      # Set the template table to write the diff result in; in case non exists a default is generated. Make sure that
+      # the following formats exists: destroyed, updated, created and header.
+      #
+      # @param [Workbook::Table] table to diff inside
+      # @return [Workbook::Table] the passed table
+      def diff_template= table
+        @diff_template= table
       end
 
       # aligns itself with another table, used by diff
+      #
+      # @param [Workbook::Table] other table to align with
+      # @param [Hash] options default to: `{:sort=>true,:ignore_headers=>false}`
       def align other, options={:sort=>true,:ignore_headers=>false}
 
         options = {:sort=>true,:ignore_headers=>false}.merge(options)

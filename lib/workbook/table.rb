@@ -29,6 +29,13 @@ module Workbook
       # Column data is considered as a 'row' with 'cells' that contain 'formatting'
     end
 
+    # Quick assessor to the book's template, if it exists
+    #
+    # @return [Workbook::Template]
+    def template
+      sheet.book.template
+    end
+
     # Returns the header of this table (typically the first row, but can be a different row).
     # The header row is also used for finding values in a aribrary row.
     #
