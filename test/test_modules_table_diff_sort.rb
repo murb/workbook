@@ -106,7 +106,6 @@ module Modules
       #  ba = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,3,3,4],[4,2,3,4],[]]
       #  bb = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,2,3,4],[],[5,2,3,4]]
       # hence,
-      expected = [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[3,'3 (was: 2)',3,4],[4,2,3,4],['(was: 5)','(was: 2)','(was: 3)','(was: 4)']]
 
       tself = ba.sheet.table
       tother = bb.sheet.table
@@ -114,6 +113,18 @@ module Modules
       assert_equal('a',diff_result.sheet.table.header[0].value)
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result.to_csv)
       diff_result.sheet.book.write_to_xls
+    end
+
+    def test_workbook_diff
+      ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4],[3,3,3,4]]
+      bb = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4],[3,2,3,4]]
+      ba << [['e','f','g','h'],[1,2,3,4],[4,2,3,4],[3,2,3,4],[3,3,3,4]]
+      bb << [['e','f','g','h'],[1,2,2,2],[4,2,3,4],[3,2,3,4],[3,3,3,6]]
+      diff_result = ba.diff bb
+
+      assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n3,3 (was: 2),3,4\n4,2,3,4\n(was: 5),(was: 2),(was: 3),(was: 4)\n",diff_result[0][0].to_csv)
+      assert_equal("e,f,g,h\n1,2,3 (was: 2),4 (was: 2)\n3,2,3,4\n3,3,3,4 (was: 6)\n4,2,3,4\n",diff_result[1][0].to_csv)
+
     end
   end
 end

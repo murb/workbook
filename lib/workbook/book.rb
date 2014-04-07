@@ -7,6 +7,8 @@ require 'workbook/readers/xlsx_reader'
 require 'workbook/readers/ods_reader'
 require 'workbook/readers/csv_reader'
 require 'workbook/readers/txt_reader'
+require 'workbook/readers/txt_reader'
+require 'workbook/modules/diff_sort'
 
 module Workbook
   # The Book class is the container of sheets. It can be inialized by either the standard initalizer or the open method. The
@@ -25,6 +27,7 @@ module Workbook
     include Workbook::Readers::XlsxReader
     include Workbook::Readers::CsvReader
     include Workbook::Readers::TxtReader
+    include Workbook::Modules::BookDiffSort
 
     # @param [Workbook::Sheet, Array] sheet    create a new workbook based on an existing sheet, or initialize a sheet based on the array
     # @return [Workbook::Book]
@@ -70,6 +73,7 @@ module Workbook
     #
     # @param [Workbook::Sheet] sheet
     def << sheet=Workbook::Sheet.new
+      sheet = Workbook::Sheet.new(sheet) unless sheet.is_a? Workbook::Sheet
       super(sheet)
       sheet.book=(self)
     end

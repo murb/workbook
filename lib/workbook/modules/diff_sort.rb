@@ -1,6 +1,52 @@
 # -*- encoding : utf-8 -*-
 module Workbook
   module Modules
+    # Adds essential diffing and comparing support, as well as diffing entire books
+    module BookDiffSort
+      module ClassMethods
+        # Return template table to write the diff result in; in case non exists a default is generated.
+        #
+        # @return [Workbook::Table] the empty table, linked to a book
+        def new_diff_template
+            diffbook = Workbook::Book.new
+            template = diffbook.template
+            f = template.create_or_find_format_by 'destroyed'
+            f[:background_color]=:red
+            f = template.create_or_find_format_by 'updated'
+            f[:background_color]=:yellow
+            f = template.create_or_find_format_by 'created'
+            f[:background_color]=:lime
+            f = template.create_or_find_format_by 'header'
+            f[:rotation] = 72
+            f[:font_weight] = :bold
+            f[:height] = 80
+            diffbook
+        end
+      end
+      def self.included(base)
+        base.extend(ClassMethods)
+      end
+
+      # Diff an entire workbook against another, sheet by sheet
+      #
+      # @param [Workbook::Book] to_workbook to compare against
+      # @return [Workbook::Book] workbook with compared result
+      def diff to_workbook, options={:sort=>true,:ignore_headers=>false}
+        diff_template = Workbook::Book.new_diff_template
+        self.each_with_index do |from_sheet, sheet_index|
+          to_sheet = to_workbook[sheet_index]
+          if to_sheet
+            from_table = from_sheet.table
+            to_table = to_sheet.table
+            diff_table_template = diff_template.create_or_open_sheet_at(sheet_index).table
+            from_table.diff_template = diff_table_template
+            from_table.diff(to_table, options)
+          end
+        end
+        return diff_template #the template has been filled in the meanwhile, not to use as a template anymore... :)
+      end
+    end
+
     # Adds diffing and sorting functions
     module TableDiffSort
       # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
@@ -45,7 +91,6 @@ module Workbook
               f = diff_template.template.create_or_find_format_by 'updated'
               dcell.format = f
             end
-
             row[ci]=dcell
           end
         end
@@ -61,19 +106,8 @@ module Workbook
       # @return [Workbook::Table] the empty table, linked to a book
       def diff_template
         return @diff_template if @diff_template
-        diffbook = Workbook::Book.new
+        diffbook = Workbook::Book.new_diff_template
         difftable = diffbook.sheet.table
-        template = diffbook.template
-        f = template.create_or_find_format_by 'destroyed'
-        f[:background_color]=:red
-        f = template.create_or_find_format_by 'updated'
-        f[:background_color]=:yellow
-        f = template.create_or_find_format_by 'created'
-        f[:background_color]=:lime
-        f = template.create_or_find_format_by 'header'
-        f[:rotation] = 72
-        f[:font_weight] = :bold
-        f[:height] = 80
         @diff_template ||= difftable
       end
 
