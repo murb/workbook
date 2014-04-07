@@ -111,4 +111,8 @@ class TestWorkbook < Test::Unit::TestCase
     b.pop(3)
     assert_equal(3, b.count)
   end
+
+  def test_supported_mime_types
+    assert_equal true, Workbook::SUPPORTED_MIME_TYPES.include?('text/csv')
+  end
 end

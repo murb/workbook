@@ -47,7 +47,7 @@ module Workbook
       # Generates an HTML table ()
       #
       # @param [Hash] options A hash with options
-      # @return [String] A String containing the HTML code
+      # @return [String] A String containing the HTML code, most importantly `:style_with_inline_css` (default false)
       def to_html options={}
         options = {:style_with_inline_css=>false}.merge(options)
         builder = Nokogiri::XML::Builder.new do |doc|
