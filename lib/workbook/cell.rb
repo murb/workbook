@@ -129,7 +129,9 @@ module Workbook
           ['ž','ź'] => 'z',
           ['Ž','Ź'] => 'Z',
           ['ñ'] => 'n',
-          ['Ñ'] => 'N'
+          ['Ñ'] => 'N',
+          ['#'] => 'hash',
+          ['*'] => 'asterisk'
         }
         replacements.each do |ac,rep|
           ac.each do |s|
