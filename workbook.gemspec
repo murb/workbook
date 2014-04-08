@@ -18,12 +18,12 @@ Gem::Specification.new do |s|
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake", '~> 10.0')
-  s.add_dependency("json")
-  s.add_dependency('rubyXL', '~> 2.4')
+  s.add_dependency("json", '~> 1.8')
+  s.add_dependency('rubyXL', '~> 2.5')
   if RUBY_VERSION < "1.9"
     s.add_dependency('nokogiri', "~> 1.5.10")
   else
-    s.add_dependency('nokogiri')
+    s.add_dependency('nokogiri', '~> 1.6')
   end
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split($/)

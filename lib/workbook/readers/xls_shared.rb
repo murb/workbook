@@ -29,6 +29,26 @@ module Workbook
         end
       end
 
+      # Attempt to convert html-hex color value to xls color number
+      #
+      # @param [String] hex color
+      # @return [String] xls color
+      def html_color_to_xls_color hex
+        Workbook::Readers::XlsShared::XLS_COLORS.each do |k,v|
+          return k if (v == hex or (hex and hex != "" and k == hex.to_sym))
+        end
+        return nil
+      end
+
+      # Converts standard (ruby/C++/unix/...) strftime formatting to MS's formatting
+      #
+      # @param [String, nil] numberformat (nil returns nil)
+      # @return [String, nil]
+      def strftime_to_ms_format numberformat
+        return nil if numberformat.nil?
+        return numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
+      end
+
       XLS_COLORS = {:xls_color_1=>'#000000',
         :xls_color_2=>'#FFFFFF',
         :xls_color_3=>'#FF0000',

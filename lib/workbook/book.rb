@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require 'workbook/writers/xls_writer'
+require 'workbook/writers/xlsx_writer'
 require 'workbook/writers/html_writer'
 require 'workbook/readers/xls_reader'
 require 'workbook/readers/xls_shared'
@@ -21,6 +22,7 @@ module Workbook
 
     include Workbook::Readers::XlsShared
     include Workbook::Writers::XlsWriter
+    include Workbook::Writers::XlsxWriter
     include Workbook::Writers::HtmlWriter
     include Workbook::Readers::XlsReader
     include Workbook::Readers::OdsReader
