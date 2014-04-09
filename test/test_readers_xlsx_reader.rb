@@ -29,6 +29,7 @@ module Readers
       assert_equal(nil,w.ms_formatting_to_strftime(nil));
       assert_equal(nil,w.ms_formatting_to_strftime(""));
     end
+
     # def test_monkey_patched_ruby_xl_is_date_format?
     #   w = RubyXL::Workbook.new
     #   assert_equal(false, w.is_date_format?(nil))

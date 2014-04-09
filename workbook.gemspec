@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake", '~> 10.0')
   s.add_dependency("json", '~> 1.8')
+  s.add_dependency("zip-zip", '~> 0.2') #actually a hack...
   s.add_dependency('rubyXL', '~> 2.5')
   if RUBY_VERSION < "1.9"
     s.add_dependency('nokogiri', "~> 1.5.10")

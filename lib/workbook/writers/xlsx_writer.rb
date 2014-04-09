@@ -12,35 +12,33 @@ module Workbook
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xlsx options={}
         book = init_xlsx_spreadsheet_template
+        book.theme = RubyXL::Theme.new unless book.theme #workaround bug in rubyxl
         book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
         self.each_with_index do |s,si|
-          xls_sheet = xls_sheet(si)
-          xls_sheet.name = s.name
+          xls_sheet = xlsx_sheet(si)
+          xls_sheet.sheet_name = s.name
 
-          s.table.each_with_index do |r, ri|
-            xls_sheet.row(ri).height= r.format[:height] if r.format
-            r.each_with_index do |c, ci|
-              if c
-                if r.first?
-                  xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
-                  xls_sheet.columns[ci].width= c.format[:width]
-                end
-                xls_sheet.row(ri)[ci] = c.value
-                xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
-              end
-            end
-          end
-          (xls_sheet.last_row_index + 1 - s.table.count).times do |time|
+          # s.table.each_with_index do |r, ri|
+#             xls_sheet.row(ri).height= r.format[:height] if r.format
+#             r.each_with_index do |c, ci|
+#               if c
+#                 if r.first?
+#                   xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
+#                   xls_sheet.columns[ci].width= c.format[:width]
+#                 end
+#                 xls_sheet.row(ri)[ci] = c.value
+#                 xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
+#               end
+#             end
+#           end
+          (xls_sheet.count + 1 - s.table.count).times do |time|
             row_to_remove = s.table.count+time
-            xls_sheet.row(row_to_remove).each_with_index do |c, ci|
-              xls_sheet.row(row_to_remove)[ci]=nil
-            end
 
             xls_sheet.delete_row(row_to_remove)
-            xls_sheet.row_updated(row_to_remove, xls_sheet.row(row_to_remove))
+            # xls_sheet.row_updated(row_to_remove, xls_sheet.row(row_to_remove))
           end
-          xls_sheet.updated_from(s.table.count)
-          xls_sheet.dimensions
+          # xls_sheet.updated_from(s.table.count)
+          # xls_sheet.dimensions
 
         end
         book
@@ -106,8 +104,8 @@ module Workbook
       end
 
       def xlsx_sheet a
-        if xlsx_template.worksheet[a]
-          return xlsx_template.worksheet[a]
+        if xlsx_template.worksheets[a]
+          return xlsx_template.worksheets[a]
         else
           xlsx_template.create_worksheet
           self.xls_sheet a

@@ -50,7 +50,10 @@ module Workbook
                   end
                   f = template.create_or_find_format_by "style_index_#{cell.style_index}", col_width
                   f[:width]= col_width
-                  f[:background_color] = "##{cell.fill_color}"
+                  background_color = cell.fill_color
+                  background_color = (background_color.length == 8) ? background_color[2..8] : background_color #ignoring alpha for now.
+                  f[:background_color] = "##{background_color}"
+
                   f[:number_format] = ms_formatting_to_strftime(cell.number_format)
                   # f[:font_family] = cell.font_name
                   # f[:color] = "##{cell.font_color}"
