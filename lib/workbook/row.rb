@@ -57,6 +57,20 @@ module Workbook
       end
     end
 
+    # Add cell
+    # @param [Workbook::Table, Array] row to add
+    def push(cell)
+      cell = Workbook::Cell.new(cell) unless cell.class == Workbook::Cell
+      super(cell)
+    end
+
+    # Add cell
+    # @param [Workbook::Cell, Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] cell or value to add
+    def <<(cell)
+      cell = Workbook::Cell.new(cell) unless cell.class == Workbook::Cell
+      super(cell)
+    end
+
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
     #
     # @example Lookup using fixnum or header value encoded as symbol

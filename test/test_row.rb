@@ -104,7 +104,7 @@ class TestRow < Test::Unit::TestCase
     assert_equal(date, r2[:asdfasd].value)
     assert_equal(date, r2[1].value)
   end
-  
+
 
   def test_to_hash_with_values
     t = Workbook::Table.new
@@ -118,7 +118,7 @@ class TestRow < Test::Unit::TestCase
     expected = {:test=>2, :asdfasd=>date}
     assert_equal(expected, r2.to_hash_with_values)
   end
-  
+
   def test_to_hash_cache
     t = Workbook::Table.new
     t << ["test", "asdf-asd"]
@@ -129,9 +129,9 @@ class TestRow < Test::Unit::TestCase
     assert_equal(3, r[:test].value)
     assert_equal(3, r[:test].value)
     t.last[:test] = nil
-    assert_equal(nil, r[:test].value)  
+    assert_equal(nil, r[:test].value)
     r[:test] = 5
-    assert_equal(5, r[:test].value)    
+    assert_equal(5, r[:test].value)
   end
 
   def test_compare
@@ -217,14 +217,14 @@ class TestRow < Test::Unit::TestCase
     table.push Workbook::Row.new(["a","b"])
     table[1] = Workbook::Row.new([1,2])
     assert_equal(1,table[1][:a].value)
-    assert_equal(2,table[1][:b].value)    
-    
+    assert_equal(2,table[1][:b].value)
+
     b = Workbook::Book.new
     table = b.sheet.table
     table.push Workbook::Row.new(["a","b"])
     table[1] = [1,2]
     assert_equal(1,table[1][:a].value)
-    assert_equal(2,table[1][:b].value)  
+    assert_equal(2,table[1][:b].value)
   end
 
   def test_preservation_of_format_on_assign
@@ -315,5 +315,19 @@ class TestRow < Test::Unit::TestCase
     assert_equal(b, a)
     assert_equal(c, d)
 
+  end
+
+  def test_add
+    a = Workbook::Row.new
+    a << 1
+    a << 2
+    a << "asdf"
+    a << 2.2
+    a.push(5)
+    assert_equal(1,a[0].value)
+    assert_equal(2,a[1].value)
+    assert_equal("asdf",a[2].value)
+    assert_equal(2.2,a[3].value)
+    assert_equal(5,a[4].value)
   end
 end
