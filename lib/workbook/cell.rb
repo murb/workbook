@@ -9,7 +9,7 @@ module Workbook
     attr_accessor :formula
 
     # Note that these types are sorted by 'importance'
-    VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Workbook::NilValue]
+    VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Workbook::NilValue,Symbol]
 
     # Evaluates a value for class-validity
     #
@@ -24,24 +24,20 @@ module Workbook
     # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value
     # @param [Hash] options a reference to :format (Workbook::Format) can be specified
     def initialize value=nil, options={}
-      if valid_value? value
-        self.format = options[:format]
-        @value = value
-        @to_sym = nil
-      else
-        raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
-      end
+      self.format = options[:format]
+      self.value = value
+      @to_sym = nil
     end
 
     # Change the current value
     #
-    # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value
+    # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Symbol] value a valid value
     def value= value
       if valid_value? value
         @value = value
         @to_sym = nil
       else
-        raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass])"
+        raise ArgumentError, "value should be of a primitive type, e.g. a string, or an integer, not a #{value.class} (is_a? [TrueClass,FalseClass,Date,Time,Numeric,String, NilClass, Symbol])"
       end
     end
 

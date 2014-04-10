@@ -330,4 +330,31 @@ class TestRow < Test::Unit::TestCase
     assert_equal(2.2,a[3].value)
     assert_equal(5,a[4].value)
   end
+
+  def test_plus
+    header = Workbook::Row.new([:a,:b])
+    a = Workbook::Row.new
+    table = Workbook::Table.new
+    table << header
+    table << a
+    assert_equal(table, a.table)
+    assert_equal(Workbook::Row, (a + [1,1]).class )
+    assert_equal([1,1],(a + [1,1]).to_a )
+    a += [1,1]
+    assert_equal([1,1],a.to_a )
+    assert_equal(Workbook::Row, a.class )
+    assert_equal(nil, a.table)
+  end
+
+  def test_concat
+    header = Workbook::Row.new([:a,:b])
+    a = Workbook::Row.new
+    table = Workbook::Table.new
+    table << header
+    table << a
+    a.concat [1,1]
+    assert_equal([1,1],a.to_a )
+    assert_equal(Workbook::Row, a.class )
+    assert_equal(table, a.table)
+  end
 end

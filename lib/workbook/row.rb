@@ -58,7 +58,7 @@ module Workbook
     end
 
     # Add cell
-    # @param [Workbook::Table, Array] row to add
+    # @param [Workbook::Cell, Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] cell or value to add
     def push(cell)
       cell = Workbook::Cell.new(cell) unless cell.class == Workbook::Cell
       super(cell)
@@ -69,6 +69,15 @@ module Workbook
     def <<(cell)
       cell = Workbook::Cell.new(cell) unless cell.class == Workbook::Cell
       super(cell)
+    end
+
+    # plus
+    # @param [Workbook::Row, Array] row to add
+    # @return [Workbook::Row] a new row, not linked to the table
+    def +(row)
+      rv = super(row)
+      rv = Workbook::Row.new(rv) unless rv.class == Workbook::Row
+      return rv
     end
 
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
