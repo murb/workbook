@@ -340,10 +340,12 @@ class TestRow < Test::Unit::TestCase
     assert_equal(table, a.table)
     assert_equal(Workbook::Row, (a + [1,1]).class )
     assert_equal([1,1],(a + [1,1]).to_a )
+    assert_equal(Workbook::Cell,(a + [1,1])[0].class )
     a += [1,1]
     assert_equal([1,1],a.to_a )
     assert_equal(Workbook::Row, a.class )
     assert_equal(nil, a.table)
+    assert_equal(Workbook::Cell,a[0].class)
   end
 
   def test_concat
@@ -356,5 +358,6 @@ class TestRow < Test::Unit::TestCase
     assert_equal([1,1],a.to_a )
     assert_equal(Workbook::Row, a.class )
     assert_equal(table, a.table)
+    assert_equal(Workbook::Cell,a[0].class)
   end
 end

@@ -80,6 +80,15 @@ module Workbook
       return rv
     end
 
+    # concat
+    # @param [Workbook::Row, Array] row to add
+    # @return [self] self
+    def concat(row)
+      row = Workbook::Row.new(row) unless row.class == Workbook::Row
+      super(row)
+    end
+
+
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
     #
     # @example Lookup using fixnum or header value encoded as symbol
