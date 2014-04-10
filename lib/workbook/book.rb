@@ -15,7 +15,7 @@ module Workbook
   # The Book class is the container of sheets. It can be inialized by either the standard initalizer or the open method. The
   # Book class can also keep a reference to a template class, storing shared formatting options.
   #
-  SUPPORTED_MIME_TYPES = %w(text/plain application/x-ariadne-download application/vnd.ms-excel application/excel application/vnd.ms-office text/csv text/tab-separated-values application/x-ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet application/vnd.oasis.opendocument.spreadsheet application/x-vnd.oasis.opendocument.spreadsheet)
+  SUPPORTED_MIME_TYPES = %w(application/zip text/plain application/x-ariadne-download application/vnd.ms-excel application/excel application/vnd.ms-office text/csv text/tab-separated-values application/x-ms-excel application/vnd.openxmlformats-officedocument.spreadsheetml.sheet application/vnd.oasis.opendocument.spreadsheet application/x-vnd.oasis.opendocument.spreadsheet)
 
   class Book < Array
 
