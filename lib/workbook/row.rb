@@ -95,7 +95,7 @@ module Workbook
     #   row[1] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
-    # @param [Fixnum, Symbol] index_or_hash
+    # @param [Fixnum, Symbol, String] index_or_hash that identifies the column (strings are converted to symbols)
     # @return [Workbook::Cell, nil]
     def [](index_or_hash)
       if index_or_hash.is_a? Symbol
@@ -105,6 +105,9 @@ module Workbook
         rescue NoMethodError
         end
         return rv
+      elsif index_or_hash.is_a? String
+        symbolized = Workbook::Cell.new(index_or_hash).to_sym
+        self[symbolized]
       else
         if index_or_hash
           return to_a[index_or_hash]
@@ -114,17 +117,20 @@ module Workbook
 
     # Overrides normal Array's []=-function with support for symbols that identify a column based on the header-values
     #
-    # @example Lookup using fixnum or header value encoded as symbol
+    # @example Lookup using fixnum or header value encoded as symbol (strings are converted to symbols)
     #   row[1] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
-    # @param [Fixnum, Symbol] index_or_hash
+    # @param [Fixnum, Symbol, String] index_or_hash that identifies the column
     # @param [String, Fixnum, NilClass, Date, DateTime, Time, Float] value
     # @return [Workbook::Cell, nil]
     def []= (index_or_hash, value)
       index = index_or_hash
       if index_or_hash.is_a? Symbol
         index = table_header_keys.index(index_or_hash)
+      elsif index_or_hash.is_a? String
+        symbolized = Workbook::Cell.new(index_or_hash).to_sym
+        index = table_header_keys.index(symbolized)
       end
 
       value_celled = Workbook::Cell.new

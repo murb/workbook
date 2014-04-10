@@ -236,7 +236,18 @@ class TestRow < Test::Unit::TestCase
     assert_equal("#f00",row[0].format["background"])
   end
 
-  def test_row_hash_index_assignment
+  def test_find_by_string
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table << Workbook::Row.new(["a","b"])
+    row = Workbook::Row.new([],table)
+    row[1]= 12
+    assert_equal(12, table.last["b"])
+    assert_equal(nil, table.last["a"])
+
+  end
+
+  def test_row_hash_index_string_assignment
     b = Workbook::Book.new
     table = b.sheet.table
     table << Workbook::Row.new(["a","b"])
@@ -245,6 +256,8 @@ class TestRow < Test::Unit::TestCase
     assert_equal(12, table.last.last.value)
     row[:b]= 15
     assert_equal(15, table.last.last.value)
+    row["b"]= 18
+    assert_equal(18, table.last.last.value)
   end
 
   def test_trim!
