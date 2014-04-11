@@ -14,6 +14,16 @@ require_relative 'workbook/column'
 
 module Workbook
   class << self
-
+    def caching_enabled?
+      @@caching_enabled ||= true
+    end
+    # Disable caching globally (wherever applicable)
+    def disable_caching!
+      @@caching_enabled = false
+    end
+    # Enable caching globally (wherever applicable)
+    def enable_caching!
+      @@caching_enabled = true
+    end
   end
 end

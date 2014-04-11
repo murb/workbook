@@ -185,7 +185,9 @@ module Workbook
     # Converts a row to an array of symbol representations of the row content, see also: Workbook::Cell#to_sym
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
-      @to_symbols ||= collect{|c| c.to_sym}
+      fetch_cache(:to_symbols){
+        collect{|c| c.to_sym}
+      }
     end
 
     # Converts the row to an array of Workbook::Cell's
