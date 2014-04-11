@@ -10,6 +10,7 @@ require 'workbook/format'
 require 'workbook/template'
 require 'workbook/version'
 require 'workbook/column'
+require 'workbook/modules/cache'
 
 module Workbook
   class << self

@@ -1,6 +1,9 @@
 # -*- encoding : utf-8 -*-
+
 module Workbook
   class Row < Array
+    include Workbook::Modules::Cache
+
     alias_method :compare_without_header, :<=>
     attr_accessor :placeholder     # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
     attr_accessor :format
@@ -182,7 +185,7 @@ module Workbook
     # Converts a row to an array of symbol representations of the row content, see also: Workbook::Cell#to_sym
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
-      collect{|c| c.to_sym}
+      @to_symbols ||= collect{|c| c.to_sym}
     end
 
     # Converts the row to an array of Workbook::Cell's
