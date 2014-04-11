@@ -10,7 +10,7 @@ class TestCell < Test::Unit::TestCase
     w = Workbook::Cell.new "asdf"
     assert_equal("asdf",w.value)
 
-    assert_raise(ArgumentError) { w = Workbook::Cell.new :asdf }
+    assert_raise(ArgumentError) { w = Workbook::Cell.new Workbook::Row }
 
     t = Time.now
     w = Workbook::Cell.new t
