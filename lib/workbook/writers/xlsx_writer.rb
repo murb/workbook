@@ -18,19 +18,12 @@ module Workbook
           xls_sheet = xlsx_sheet(si)
           xls_sheet.sheet_name = s.name
 
-          # s.table.each_with_index do |r, ri|
-#             xls_sheet.row(ri).height= r.format[:height] if r.format
-#             r.each_with_index do |c, ci|
-#               if c
-#                 if r.first?
-#                   xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
-#                   xls_sheet.columns[ci].width= c.format[:width]
-#                 end
-#                 xls_sheet.row(ri)[ci] = c.value
-#                 xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
-#               end
-#             end
-#           end
+          s.table.each_with_index do |r, ri|
+            r.each_with_index do |c, ci|
+              xls_sheet.add_cell(ri, ci, c.value)
+
+            end
+          end
           (xls_sheet.count + 1 - s.table.count).times do |time|
             row_to_remove = s.table.count+time
 

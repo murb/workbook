@@ -29,7 +29,17 @@ module Writers
       filename = b.write_to_xlsx
       b = Workbook::Book.open filename
       assert_equal(14,b[0][0]["A2"])
+      # assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value) TODO: Dates don't work with RubyXL
+    end
+    def test_roundtrip_with_modification
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
+      b[0][0]["A2"]= 12
       assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value)
+      # puts b.sheet.table.to_csv
+      filename = b.write_to_xlsx
+      b = Workbook::Book.open filename
+      assert_equal(12,b[0][0]["A2"].value)
+      # assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value) TODO: Dates don't work with RubyXL
     end
     def test_delete_row
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
