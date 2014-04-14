@@ -2,6 +2,11 @@
 module Workbook
   module Readers
     module XlsShared
+
+      # Converts standard (ruby/C++/unix/...) strftime formatting to MS's formatting
+      #
+      # @param [String, nil] numberformat (nil returns nil)
+      # @return [String, nil]
       def ms_formatting_to_strftime ms_nr_format
         if ms_nr_format
           ms_nr_format = ms_nr_format.to_s.downcase

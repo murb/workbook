@@ -10,7 +10,6 @@ module Workbook
       # @param [Hash] options A hash with options
       # @return [String] A String containing the HTML code
       def to_html options={}
-        options = {:style_with_inline_css=>false}.merge(options)
         builder = Nokogiri::XML::Builder.new do |doc|
           doc.html {
             doc.body {
@@ -56,13 +55,9 @@ module Workbook
               if header
                 doc.tr do
                   header.each do |cell|
-                    classnames = cell.format.all_names.join(" ").strip
-                    td_options = classnames != "" ? {:class=>classnames} : {}
-                    td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
-                    td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
-                    td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
+                    th_options = build_cell_options cell, options
                     unless cell.value.class == Workbook::NilValue
-                      doc.th(td_options) do
+                      doc.th(th_options) do
                         doc.text cell.value
                       end
                     end
@@ -75,11 +70,7 @@ module Workbook
                 unless row.header?
                   doc.tr do
                     row.each do |cell|
-                      classnames = cell.format.all_names.join(" ").strip
-                      td_options = classnames != "" ? {:class=>classnames} : {}
-                      td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
-                      td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
-                      td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
+                      td_options = build_cell_options cell, options
                       unless cell.value.class == Workbook::NilValue
                         doc.td(td_options) do
                           doc.text cell.value
@@ -93,6 +84,15 @@ module Workbook
           end
         end
         return builder.doc.to_xhtml
+      end
+      private
+      def build_cell_options cell, options={}
+        classnames = cell.format.all_names.join(" ").strip
+        td_options = classnames != "" ? {:class=>classnames} : {}
+        td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
+        td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
+        td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
+        return td_options
       end
     end
   end
