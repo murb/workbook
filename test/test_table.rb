@@ -167,23 +167,23 @@ class TestTable< Test::Unit::TestCase
     t.trim!
     assert_equal("1,2,3\n,,\n1,2,\n",t.to_csv)
   end
-  def test_performance
-    table = Workbook::Table.new
-    headers = 1000.times.collect{|a| "header#{a}"}
-    first_row = 1000.times.collect{|a| Time.now}
-    table << headers.shuffle
-    table << first_row
-    100.times do |times|
-      row = table[1].clone
-      table << row
-      headers.each do |a|
-        row[a.to_sym]=Time.now
-      end
-    end
-    last_line = table.count-1
-    first_few_lines = table[12][0].value - table[2][0].value
-    last_few_lines = table[last_line][0].value - table[last_line-10][0].value
-    # puts [first_few_lines,last_few_lines].join(" vs ")
-    assert_equal(true, first_few_lines*1.10 > last_few_lines) # 10% slower is acceptable
-  end
+  # def test_performance
+  #   table = Workbook::Table.new
+  #   headers = 1000.times.collect{|a| "header#{a}"}
+  #   first_row = 1000.times.collect{|a| Time.now}
+  #   table << headers.shuffle
+  #   table << first_row
+  #   100.times do |times|
+  #     row = table[1].clone
+  #     table << row
+  #     headers.each do |a|
+  #       row[a.to_sym]=Time.now
+  #     end
+  #   end
+  #   last_line = table.count-1
+  #   first_few_lines = table[12][0].value - table[2][0].value
+  #   last_few_lines = table[last_line][0].value - table[last_line-10][0].value
+  #   # puts [first_few_lines,last_few_lines].join(" vs ")
+  #   assert_equal(true, first_few_lines*1.10 > last_few_lines) # 10% slower is acceptable
+  # end
 end
