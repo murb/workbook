@@ -36,7 +36,7 @@ module Workbook
           xls_sheet.dimensions
 
         end
-        # kind of a hack, delting by popping from xls worksheet results in Excel-errors (not LibreOffice)
+        # kind of a hack, deleting by popping from xls worksheet results in errors in MS Excel (not LibreOffice)
         # book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
         book.worksheets.each_with_index do |xls_sheet, si|
           if self[si]
@@ -54,13 +54,7 @@ module Workbook
         book
       end
 
-      def remove_row(xls_sheet,row_index)
-        xls_sheet.row(row_index).each_with_index do |c, ci|
-          xls_sheet.row(row_index)[ci]=nil
-        end
-        xls_sheet.delete_row(row_index)
-        xls_sheet.row_updated(row_index, xls_sheet.row(row_index))
-      end
+
 
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
       #
@@ -141,15 +135,6 @@ module Workbook
         end
       end
 
-      def xls_sheet a
-        if xls_template.worksheet(a)
-          return xls_template.worksheet(a)
-        else
-          xls_template.create_worksheet
-          self.xls_sheet a
-        end
-      end
-
       def xls_template
         return template.raws[Spreadsheet::Excel::Workbook] ? template.raws[Spreadsheet::Excel::Workbook] : template.raws[Spreadsheet::Workbook]
       end
@@ -161,6 +146,25 @@ module Workbook
           t = Spreadsheet::Workbook.new
           template.add_raw t
           return t
+        end
+      end
+
+      private
+
+      def remove_row(xls_sheet,row_index)
+        xls_sheet.row(row_index).each_with_index do |c, ci|
+          xls_sheet.row(row_index)[ci]=nil
+        end
+        xls_sheet.delete_row(row_index)
+        xls_sheet.row_updated(row_index, xls_sheet.row(row_index))
+      end
+
+      def xls_sheet a
+        if xls_template.worksheet(a)
+          return xls_template.worksheet(a)
+        else
+          xls_template.create_worksheet
+          self.xls_sheet a
         end
       end
     end
