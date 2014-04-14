@@ -15,15 +15,17 @@ module Workbook
 
     attr_accessor :sheet
     attr_accessor :name
+    attr_accessor :columns
 
     def initialize row_cel_values=[], sheet=nil, options={}
       row_cel_values = [] if row_cel_values == nil
-      row_cel_values.each do |r|
+      row_cel_values.each_with_index do |r,ri|
         if r.is_a? Workbook::Row
           r.table = self
         else
           r = Workbook::Row.new(r,self, options)
         end
+        define_columns_with_row(r) if ri == 0
       end
       self.sheet = sheet
       # Column data is considered as a 'row' with 'cells' that contain 'formatting'
@@ -52,6 +54,12 @@ module Workbook
 
     def header= h
       @header = h
+    end
+
+    def define_columns_with_row(r)
+      self.columns = r.collect do |column|
+        Workbook::Column.new self, {}
+      end
     end
 
     # Generates a new row, with optionally predefined cell-values, that is already connected to this table.
@@ -148,10 +156,10 @@ module Workbook
     # @return [Workbook::Row, Workbook::Cell, nil]
     def [](index_or_string)
       if index_or_string.is_a? String
-        match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
-        cell_index = alpha_index_to_number_index(match[1])
+        match = index_or_string.upcase.match(/([A-Z]+)([0-9]*)/)
+        col_index = alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
-        return self[row_index][cell_index]
+        return self[row_index][col_index]
       elsif index_or_string.is_a? Range
         collection = to_a[index_or_string].collect{|a| a.clone}
         return Workbook::Table.new collection
