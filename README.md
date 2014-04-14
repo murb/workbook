@@ -1,5 +1,5 @@
 # Workbook
-[![Code Climate](https://codeclimate.com/github/murb/workbook.png)](https://codeclimate.com/github/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.png?branch=master)](https://travis-ci.org/murb/workbook) [![Gem Version](https://badge.fury.io/rb/workbook.svg)](http://badge.fury.io/rb/workbook)
+[![Code Climate](https://codeclimate.com/github/murb/workbook.png)](https://codeclimate.com/github/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.svg?branch=master)](https://travis-ci.org/murb/workbook) [![Gem Version](https://badge.fury.io/rb/workbook.svg)](http://badge.fury.io/rb/workbook)
 
 Goal of this gem is to make working with workbooks (spreadsheets) as programmer friendly as possible. Not reinventing a totally new DSL or all kinds of new methodnames, but just borrowing from known concepts such as hashes and arrays (much like (Faster)CSV does)). Workbook is a gem that mimicks a typical spreadsheet, a bundle of sheets, bundled in a *workbook*. A sheet may contain one or more tables (which might the multi table sheets of Apple Numbers or Excel ranges). Basically:
 
@@ -130,7 +130,7 @@ In case you want to display a formatted table in HTML, some conversion is offere
 ## Compatibility
 
 Workbook is automatically tested for ruby 1.9, 2.0 and 2.1. Most of it works with 1.8.7 and jruby but not all tests give equal results.
-Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.png?branch=master)](https://travis-ci.org/murb/workbook).
+Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.svg?branch=master)](https://travis-ci.org/murb/workbook).
 
 ## Future
 
