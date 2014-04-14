@@ -183,6 +183,7 @@ class TestTable< Test::Unit::TestCase
     last_line = table.count-1
     first_few_lines = table[12][0].value - table[2][0].value
     last_few_lines = table[last_line][0].value - table[last_line-10][0].value
-    assert_equal(true, first_few_lines*1.05 > last_few_lines) # 5% slower is acceptable
+    # puts [first_few_lines,last_few_lines].join(" vs ")
+    assert_equal(true, first_few_lines*1.10 > last_few_lines) # 10% slower is acceptable
   end
 end
