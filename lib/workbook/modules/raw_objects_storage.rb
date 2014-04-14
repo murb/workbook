@@ -11,7 +11,7 @@ module Workbook
 
       # Returns true if there is a template for a certain class, otherwise false
       def has_raw_for? raw_object_class
-        raws.each { |tc,t| return true if tc == raw_object_class}
+        available_raws.include? raw_object_class
         return false
       end
 
@@ -25,6 +25,12 @@ module Workbook
       # Remove all raw data references
       def remove_all_raws!
         @raws = {}
+      end
+
+      # Lists the classes for which raws are available
+      # @return Array<Object> array with the classes available
+      def available_raws
+        raws.keys
       end
 
       # Return all raw data references
