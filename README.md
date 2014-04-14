@@ -90,18 +90,6 @@ Another typical use case is exporting a list of ActiveRecord-objects to xls (it 
                                     # in the endresult
     b.write("recent_orders.xls")    # write it!
 
-
-  <!-- Feature *to implement*:
-
-Feature *to implement*, get a single column:
-
-    t[:b]
-	# returns [<Workbook::Cel @value=2>,<Workbook::Cel @value=4>,<Workbook::Cel @value=6>]
-
-On my wishlist: In the future I hope to return the cell value directly, without the intermediate Workbook::Cell class in between.
-
-	-->
-
 ## Utilities
 
 ### Sorting
@@ -116,13 +104,15 @@ To some extent, sort_by works, it doesn't, however, adhere to the header setting
 
     t.sort_by {|r| r[:b]}
 
-### Comparing tables
+### Comparing tables or entire workbooks
 
 Simply call on a Workbook::Table
 
 	t1.diff t2
 
-And a new book with a new sheet/table will be returned containing the differences between the two tables.
+And a new book with a new table will be returned containing the differences between the two tables.
+
+Alternatively you can run the same command on workbooks, which will compare sheet by sheet and return a new Workbook
 
 ## Writing
 
@@ -133,6 +123,7 @@ Currently writing is limited to the following formats. Templating support is sti
     t.(write_)to_csv          # returns a csv-string (called on tables)
     b.(write_)to_html         # returns a clean html-page with all tables; unformatted, format-names are used in the classes
     t.(write_)to_json         # returns the values of a table in json
+    t.(write_)to_xlsx         # returns/writes using RubyXL to XLS (unstable, work in progress)
 
 In case you want to display a formatted table in HTML, some conversion is offered to convert text/background properties to css-entities. Internally the hash storing style elements tries to map to CSS where possible.
 
@@ -141,6 +132,11 @@ In case you want to display a formatted table in HTML, some conversion is offere
 Workbook is automatically tested for ruby 1.9, 2.0 and 2.1. Most of it works with 1.8.7 and jruby but not all tests give equal results.
 Check [Travis for Workbook's current build status](https://travis-ci.org/murb/workbook) [![Build Status](https://travis-ci.org/murb/workbook.png?branch=master)](https://travis-ci.org/murb/workbook).
 
+## Future
+
+* Column support, e.g. t[:b] could then return Workbook::Column<[<Workbook::Cel @value=2>,<Workbook::Cel @value=4>,<Workbook::Cel @value=6>]>
+* In the future I hope to return the cell value as inheriting from the original value's class, so you don't have to call #value as often.
+* xlsx support definitly needs to be improved. Especially template based support.
 
 ## Alternatives
 
