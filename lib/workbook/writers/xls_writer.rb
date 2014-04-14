@@ -135,6 +135,15 @@ module Workbook
         end
       end
 
+      def xls_sheet a
+        if xls_template.worksheet(a)
+          return xls_template.worksheet(a)
+        else
+          xls_template.create_worksheet
+          self.xls_sheet a
+        end
+      end
+
       def xls_template
         return template.raws[Spreadsheet::Excel::Workbook] ? template.raws[Spreadsheet::Excel::Workbook] : template.raws[Spreadsheet::Workbook]
       end
@@ -157,15 +166,6 @@ module Workbook
         end
         xls_sheet.delete_row(row_index)
         xls_sheet.row_updated(row_index, xls_sheet.row(row_index))
-      end
-
-      def xls_sheet a
-        if xls_template.worksheet(a)
-          return xls_template.worksheet(a)
-        else
-          xls_template.create_worksheet
-          self.xls_sheet a
-        end
       end
     end
   end
