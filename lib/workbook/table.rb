@@ -93,18 +93,6 @@ module Workbook
       row.set_table(self)
     end
 
-    # Overrides normal Row's []=-function; automatically converting to row and setting
-    # with the label correctly
-    #
-    # @param [Fixnum] index
-    # @param [Workbook::Table, Array] row to set
-    # @return [Workbook::Cell, nil]
-    def []= (index, row)
-      row = Workbook::Row.new(row) if row.class == Array
-      super(index,row)
-      row.set_table(self)
-    end
-
     def has_contents?
       self.clone.remove_empty_lines!.count != 0
     end
@@ -169,6 +157,30 @@ module Workbook
         return Workbook::Table.new collection
       elsif index_or_string.is_a? Integer
         return to_a[index_or_string]
+      end
+    end
+
+    # Overrides normal Row's []=-function; automatically converting to row and setting
+    # with the label correctly
+    #
+    # @example Lookup using fixnum or header value encoded as symbol
+    #   `table[0] = <Row [a,2,3,4]>` (set first row)
+    #   `table["A1"] = 2` (set first cell of first row to 2)
+    #
+    # @param [Fixnum, String] index_or_string to reference to either the row, or the cell
+    # @param [Workbook::Table, Array] new_value to set
+    # @return [Workbook::Cell, nil]
+    def []= (index_or_string, new_value)
+      if index_or_string.is_a? String
+        match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
+        cell_index = alpha_index_to_number_index(match[1])
+        row_index = match[2].to_i - 1
+        self[row_index][cell_index].value = new_value
+      else
+        row = new_value
+        row = Workbook::Row.new(row) unless row.is_a? Workbook::Row
+        super(index_or_string,row)
+        row.set_table(self)
       end
     end
 
