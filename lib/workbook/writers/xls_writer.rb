@@ -5,13 +5,12 @@ module Workbook
   module Writers
     module XlsWriter
 
-      # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
+      # Generates an Spreadsheet (from the spreadsheet gem) in order to build an xls
       #
       # @param [Hash] options A hash with options (unused so far)
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
       def to_xls options={}
         book = init_spreadsheet_template
-        book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
         self.each_with_index do |s,si|
           xls_sheet = xls_sheet(si)
           xls_sheet.name = s.name
@@ -41,6 +40,11 @@ module Workbook
           xls_sheet.updated_from(s.table.count)
           xls_sheet.dimensions
 
+        end
+        # kind of a hack, delting by popping from xls worksheet results in Excel-errors (not LibreOffice)
+        # book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
+        book.worksheets.each_with_index do |sheet, si|
+          sheet.visibility = self[si] ? :visible : :strong_hidden
         end
         book
       end
