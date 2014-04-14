@@ -42,7 +42,7 @@ module Workbook
           if self[si]
             xls_sheet.visibility = :visible
           else
-            xls_sheet.visibility = :strong_hidden
+            #xls_sheet.visibility = :strong_hidden
             #also make sure all data is removed, in case someone finds out about this 'trick'
             xls_sheet.name = "RemovedSheet#{si}"
             xls_sheet = xls_sheet(si)
