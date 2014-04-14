@@ -19,6 +19,14 @@ class TestFormat < Test::Unit::TestCase
 
   end
 
+  def test_available_raws
+    deet = Time.now
+    f = Workbook::Format.new {}
+    assert_equal([], f.available_raws)
+    f.add_raw deet
+    assert_equal([Time], f.available_raws)
+  end
+
   def test_merge
     a = Workbook::Format.new({:background=>:red})
     b = Workbook::Format.new({:background=>:yellow, :color=>:green})

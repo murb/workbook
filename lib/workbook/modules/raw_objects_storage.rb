@@ -12,7 +12,6 @@ module Workbook
       # Returns true if there is a template for a certain class, otherwise false
       def has_raw_for? raw_object_class
         available_raws.include? raw_object_class
-        return false
       end
 
       # Returns raw data stored for a type of raw object (if available)
