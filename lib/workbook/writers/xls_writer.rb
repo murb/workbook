@@ -30,12 +30,7 @@ module Workbook
           end
           (xls_sheet.last_row_index + 1 - s.table.count).times do |time|
             row_to_remove = s.table.count+time
-            xls_sheet.row(row_to_remove).each_with_index do |c, ci|
-              xls_sheet.row(row_to_remove)[ci]=nil
-            end
-
-            xls_sheet.delete_row(row_to_remove)
-            xls_sheet.row_updated(row_to_remove, xls_sheet.row(row_to_remove))
+            remove_row(xls_sheet,row_to_remove)
           end
           xls_sheet.updated_from(s.table.count)
           xls_sheet.dimensions
@@ -43,10 +38,28 @@ module Workbook
         end
         # kind of a hack, delting by popping from xls worksheet results in Excel-errors (not LibreOffice)
         # book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
-        book.worksheets.each_with_index do |sheet, si|
-          sheet.visibility = self[si] ? :visible : :strong_hidden
+        book.worksheets.each_with_index do |xls_sheet, si|
+          if self[si]
+            xls_sheet.visibility = :visible
+          else
+            xls_sheet.visibility = :strong_hidden
+            #also make sure all data is removed, in case someone finds out about this 'trick'
+            xls_sheet.name = "RemovedSheet#{si}"
+            xls_sheet = xls_sheet(si)
+            (xls_sheet.last_row_index + 1).times do |row_index|
+              remove_row(xls_sheet,row_index)
+            end
+          end
         end
         book
+      end
+
+      def remove_row(xls_sheet,row_index)
+        xls_sheet.row(row_index).each_with_index do |c, ci|
+          xls_sheet.row(row_index)[ci]=nil
+        end
+        xls_sheet.delete_row(row_index)
+        xls_sheet.row_updated(row_index, xls_sheet.row(row_index))
       end
 
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
