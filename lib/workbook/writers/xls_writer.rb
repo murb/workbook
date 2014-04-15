@@ -42,15 +42,16 @@ module Workbook
           if self[si]
             xls_sheet.visibility = :visible
           else
-            #xls_sheet.visibility = :strong_hidden
+            xls_sheet.visibility = :strong_hidden
             #also make sure all data is removed, in case someone finds out about this 'trick'
             xls_sheet.name = "RemovedSheet#{si}"
-            xls_sheet = xls_sheet(si)
             (xls_sheet.last_row_index + 1).times do |row_index|
               remove_row(xls_sheet,row_index)
             end
           end
         end
+        # even after removing the worksheet's content... which solved some incompatibilities, but not for popping worksheets
+        # book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
         book
       end
 
