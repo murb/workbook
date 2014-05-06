@@ -14,10 +14,11 @@ module Workbook
     # @param [Workbook::Table] table a row normally belongs to a table, reference it here
     # @param [Hash] options  Supprted options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
     def initialize cells=[], table=nil, options={}
-      options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{}}.merge(options) : {}
+      options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{},:clone_cells=>false}.merge(options) : {}
       cells = [] if cells==nil
       self.table= table
       cells.each do |c|
+        c = c.clone if options[:clone_cells]
         unless c.is_a? Workbook::Cell
           c = Workbook::Cell.new(c)
           c.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
@@ -256,7 +257,7 @@ module Workbook
     #
     # @return [Workbook::Row] a cloned copy of self with cells
     def clone
-      Workbook::Row.new(to_a.collect{|c| c.clone})
+      Workbook::Row.new(self, nil, {:clone_cells=>true})
     end
 
     # remove all the trailing nil-cells (returning a trimmed clone)
