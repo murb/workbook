@@ -156,7 +156,7 @@ module Workbook
     # @return [Workbook::Row, Workbook::Cell, nil]
     def [](index_or_string)
       if index_or_string.is_a? String
-        match = index_or_string.upcase.match(/([A-Z]+)([0-9]*)/)
+        match = index_or_string.match(/([A-Z]+)([0-9]*)/i)
         col_index = alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
         return self[row_index][col_index]
