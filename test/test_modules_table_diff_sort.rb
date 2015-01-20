@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Modules
-  class TestTableDiffSort < Test::Unit::TestCase
+  class TestTableDiffSort < Minitest::Test
     def test_sort
       time = Time.now
       b = Workbook::Book.new [[1,2,3],[2,2,3],[true,false,true],["asdf","sdf","as"],[time,2,3],[2,2,2],[22,2,3],[1,2,233]]
@@ -20,7 +20,7 @@ module Modules
 
       ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4]]
       sba = ba.sheet.table.sort
-      assert_not_equal(Workbook::Table.new([['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4]]),sba)
+      refute_equal(Workbook::Table.new([['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4]]),sba)
       assert_equal(Workbook::Table.new([['a','b','c','d'],[1,2,3,4],[3,2,3,4],[4,2,3,4]]),sba)
 
     end

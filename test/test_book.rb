@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestWorkbook < Test::Unit::TestCase
+class TestWorkbook < Minitest::Test
   def test_sheets
     w = Workbook::Book.new nil
     w.push
@@ -31,7 +31,7 @@ class TestWorkbook < Test::Unit::TestCase
     w = Workbook::Book.new nil
     s = Workbook::Sheet.new [Workbook::Row.new(Workbook::Table.new)]
     assert_equal(w.sheet.class,Workbook::Sheet)
-    assert_not_equal(w.sheet, s)
+    refute_equal(w.sheet, s)
     w = Workbook::Book.new s
     assert_equal(w.sheet, s)
   end
@@ -41,7 +41,7 @@ class TestWorkbook < Test::Unit::TestCase
   def test_template
     b = Workbook::Book.new
     raw = "asdf"
-    assert_raise(ArgumentError) { b.template = raw }
+    assert_raises(ArgumentError) { b.template = raw }
     raw = Workbook::Template.new
     b.template = raw
 

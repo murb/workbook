@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Modules
-  class TestTypeParser < Test::Unit::TestCase
+  class TestTypeParser < Minitest::Test
     def examples
       {"2312"=>2312,
         "12-12-2012"=>Date.new(2012,12,12),
@@ -35,7 +35,7 @@ module Modules
       examples.each do |k,v|
         c = Workbook::Cell.new(k)
         c.string_parsers = customparsers
-        assert_not_equal(v,c.parse)
+        refute_equal(v,c.parse)
       end
       c = Workbook::Cell.new("233")
       c.string_parsers = customparsers

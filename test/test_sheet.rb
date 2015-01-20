@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestWorkbook < Test::Unit::TestCase
+class TestWorkbook < Minitest::Test
   def test_init
     w = Workbook::Sheet.new nil
     assert_equal([[]],w)

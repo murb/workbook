@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestFunctional < Test::Unit::TestCase
+class TestFunctional < Minitest::Test
   def test_chapter_Initializing
     b = Workbook::Book.new
     assert_equal(Workbook::Book, b.class)

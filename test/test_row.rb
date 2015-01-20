@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestRow < Test::Unit::TestCase
+class TestRow < Minitest::Test
 
 
   def test_init
@@ -25,7 +25,7 @@ class TestRow < Test::Unit::TestCase
 
   def test_table=
     r = Workbook::Row.new
-    assert_raise(ArgumentError, 'table should be a Workbook::Table (you passed a String)') { r.table = "asdf" }
+    assert_raises(ArgumentError, 'table should be a Workbook::Table (you passed a String)') { r.table = "asdf" }
     r.table = nil
     assert_equal(r.table, nil)
     r = Workbook::Row.new
@@ -89,7 +89,7 @@ class TestRow < Test::Unit::TestCase
 
   def test_to_hash
     r1 = Workbook::Row.new ["test", "asdf-asd", "asdf - asdf", "asdf2"]
-    assert_raise(NoMethodError, 'undefined method `header\' for nil:NilClass') { r1.to_hash }
+    assert_raises(NoMethodError, 'undefined method `header\' for nil:NilClass') { r1.to_hash }
 
     t = Workbook::Table.new
     r1 = Workbook::Row.new  ["test", "asdf-asd"]

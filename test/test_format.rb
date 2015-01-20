@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestFormat < Test::Unit::TestCase
+class TestFormat < Minitest::Test
 
 
   def test_initialize

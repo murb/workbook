@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
-  class TestXlsxWriter < Test::Unit::TestCase
+  class TestXlsxWriter < Minitest::Test
     def test_xlsx_open
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')

@@ -2,7 +2,7 @@
 require File.join(File.dirname(__FILE__), 'helper')
 
 module Writers
-  class TestHtmlWriter < Test::Unit::TestCase
+  class TestHtmlWriter < Minitest::Test
     def test_to_html
       #jruby and ruby's output differ a bit... both produce valid results though
       # match = Workbook::Book.new.to_html.match(/<table \/>/) ? true : false #jruby

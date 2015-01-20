@@ -2,7 +2,7 @@
 require File.join(File.dirname(__FILE__), 'helper')
 
 module Writers
-  class TestJsonWriter < Test::Unit::TestCase
+  class TestJsonWriter < Minitest::Test
     def test_to_array_of_hashes_with_values
       assert_equal([],Workbook::Table.new.to_array_of_hashes_with_values)
       assert_equal([],Workbook::Table.new([["a","b"]]).to_array_of_hashes_with_values)

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
-  class TestOdsWriter < Test::Unit::TestCase
+  class TestOdsWriter < Minitest::Test
     def test_ods_open
 
       w = Workbook::Book.new

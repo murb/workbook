@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestTable< Test::Unit::TestCase
+class TestTable< Minitest::Test
   def test_initialize
     t = Workbook::Table.new
     assert_equal(t,[])
@@ -184,7 +184,7 @@ class TestTable< Test::Unit::TestCase
     first_few_lines = table[12][0].value - table[2][0].value
     last_few_lines = table[last_line][0].value - table[last_line-10][0].value
     # puts [first_few_lines,last_few_lines].join(" vs ")
-    assert_equal(true, first_few_lines*1.10 > last_few_lines) # 10% slower is acceptable
+    assert_equal(true, first_few_lines*1.20 > last_few_lines) # 10% slower is acceptable
   end
 
 

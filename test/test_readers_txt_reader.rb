@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
-  class TestTxtReader < Test::Unit::TestCase
+  class TestTxtReader < Minitest::Test
     # Should one day throw an error..
     # def test_failure_excel_as_txt_open
     #   w = Workbook::Book.new

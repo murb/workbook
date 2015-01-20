@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestTemplate < Test::Unit::TestCase
+class TestTemplate < Minitest::Test
 
   def test_initalize
     t = Workbook::Template.new

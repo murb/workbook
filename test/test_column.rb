@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestColumn < Test::Unit::TestCase
+class TestColumn < Minitest::Test
 
   def test_init
     c = Workbook::Column.new
@@ -11,14 +11,14 @@ class TestColumn < Test::Unit::TestCase
     assert_equal(20, c.limit)
     assert_equal(Workbook::Cell.new("asdf"), c.default)
     assert_equal(:boolean, c.column_type)
-    assert_raise(ArgumentError) { Workbook::Column.new(true) }
-    assert_raise(ArgumentError) { Workbook::Column.new(nil, {:limit=>20,:default=>"asdf", :column_type=>:bodfolean}) }
+    assert_raises(ArgumentError) { Workbook::Column.new(true) }
+    assert_raises(ArgumentError) { Workbook::Column.new(nil, {:limit=>20,:default=>"asdf", :column_type=>:bodfolean}) }
   end
 
   def test_table
     c = Workbook::Column.new
     c.table = Workbook::Table.new
     assert_equal(Workbook::Table.new, c.table)
-    assert_raise(ArgumentError) { c.table = false }
+    assert_raises(ArgumentError) { c.table = false }
   end
 end

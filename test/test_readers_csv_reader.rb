@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 module Readers
-  class TestCsvWriter < Test::Unit::TestCase
+  class TestCsvWriter < Minitest::Test
     def test_open
       w = Workbook::Book.new
       w.open File.join(File.dirname(__FILE__), 'artifacts/simple_csv.csv')

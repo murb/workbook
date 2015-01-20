@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestCell < Test::Unit::TestCase
+class TestCell < Minitest::Test
 
 
   def test_init
@@ -10,7 +10,7 @@ class TestCell < Test::Unit::TestCase
     w = Workbook::Cell.new "asdf"
     assert_equal("asdf",w.value)
 
-    assert_raise(ArgumentError) { w = Workbook::Cell.new Workbook::Row }
+    assert_raises(ArgumentError) { w = Workbook::Cell.new Workbook::Row }
 
     t = Time.now
     w = Workbook::Cell.new t

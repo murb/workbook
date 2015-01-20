@@ -18,7 +18,7 @@ class TestToCacheClass
 end
 
 module Modules
-  class TestTableDiffSort < Test::Unit::TestCase
+  class TestTableDiffSort < Minitest::Test
     def test_basic_fetch
       c = TestToCacheClass.new
       c.debug_cache = false
