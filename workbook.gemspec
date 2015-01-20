@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.authors     = ["Maarten Brouwers"]
   s.add_development_dependency 'ruby-prof', '~> 0.14'
   s.add_dependency('rubyzip', '~>1')
-  s.add_dependency('spreadsheet', '~> 0.7')
+  s.add_dependency('spreadsheet', '~> 1.0')
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake", '~> 10.0')
