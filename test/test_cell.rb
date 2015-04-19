@@ -115,4 +115,11 @@ class TestCell < Minitest::Test
     assert_equal(3,c.rowspan)
     assert_equal(nil,c.colspan)
   end
+
+  def cell_type
+    {1 => :integer, 3.2 => :float, true => :boolean, "asdf" => :string}.each do |k,v|
+      c = Workbook::Cel.new(k)
+      assert_equal(v,c.cell_type)
+    end
+  end
 end

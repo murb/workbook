@@ -169,8 +169,8 @@ class TestTable< Minitest::Test
   end
   def test_performance
     table = Workbook::Table.new
-    headers = 1000.times.collect{|a| "header#{a}"}
-    first_row = 1000.times.collect{|a| Time.now}
+    headers = 100.times.collect{|a| "header#{a}"}
+    first_row = 100.times.collect{|a| Time.now}
     table << headers.shuffle
     table << first_row
     100.times do |times|
@@ -186,6 +186,11 @@ class TestTable< Minitest::Test
     # puts [first_few_lines,last_few_lines].join(" vs ")
     assert_equal(true, first_few_lines*1.20 > last_few_lines) # 10% slower is acceptable
   end
-
+  def test_columns
+    table = Workbook::Table.new([[]])
+    assert_equal(table.columns,[])
+    table = Workbook::Table.new([[:a,:b],[1,2]])
+    assert_equal(table.columns.count,2)
+  end
 
 end

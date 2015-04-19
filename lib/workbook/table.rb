@@ -231,5 +231,11 @@ module Workbook
       self
     end
 
+    def columns
+      @columns ||= header.collect do |header_cell|
+        Column.new(self)
+      end
+    end
+
   end
 end

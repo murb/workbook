@@ -3,6 +3,16 @@ require File.join(File.dirname(__FILE__), 'helper')
 
 class TestColumn < Minitest::Test
 
+  def new_table
+    Workbook::Table.new([
+        ["a","b","c","d"],
+        [true,3.2,"asdf",1],
+        [true,3.2,"asdf",1],
+        [false,3.2,"asdf",1],
+        [true,3.2,"asdf",1]
+      ])
+  end
+
   def test_init
     c = Workbook::Column.new
     assert_equal(Workbook::Column, c.class)
@@ -20,5 +30,19 @@ class TestColumn < Minitest::Test
     c.table = Workbook::Table.new
     assert_equal(Workbook::Table.new, c.table)
     assert_raises(ArgumentError) { c.table = false }
+  end
+
+  def test_index
+    t = new_table
+    assert_equal(t.columns.first.index, 0)
+    assert_equal(t.columns.last.index, 3)
+  end
+
+  def test_column_type
+    t = new_table
+    assert_equal([:boolean, :float, :string, :integer], t.columns.collect{|a| a.column_type})
+    t = new_table
+    t.last.last.value = 1.1
+    assert_equal([:boolean, :float, :string, :string], t.columns.collect{|a| a.column_type})
   end
 end

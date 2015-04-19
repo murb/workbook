@@ -12,7 +12,23 @@ module Workbook
 
     # Returns column type, either :primary_key, :string, :text, :integer, :float, :decimal, :datetime, :date, :binary, :boolean
     def column_type
-      @column_type
+      return @column_type if @column_type
+      ind = self.index
+      table[1..100].each do |row|
+        cel_column_type = row[ind].cell_type
+        if cel_column_type == @column_type or @column_type.nil?
+          @column_type = cel_column_type
+        else
+          @column_type = :string
+        end
+      end
+      return @column_type
+    end
+
+    # Returns index of the column within the table's columns-set
+    # @return [Integer, NilClass]
+    def index
+      table.columns.index self
     end
 
     def table= t
@@ -27,6 +43,18 @@ module Workbook
         raise ArgumentError, "value should be a symbol indicating a primitive type, e.g. a string, or an integer (valid values are: :primary_key, :string, :text, :integer, :float, :decimal, :datetime, :date, :binary, :boolean)"
 
       end
+    end
+
+    def head_value
+      begin
+        table.header[index].value
+      rescue
+        return "!noheader!"
+      end
+    end
+
+    def inspect
+      "<Workbook::Column index=#{index}, header=#{head_value}>"
     end
 
     #default cell

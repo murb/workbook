@@ -41,6 +41,27 @@ module Workbook
       end
     end
 
+    # Returns column type, either :primary_key, :string, :text, :integer, :float, :decimal, :datetime, :date, :binary, :boolean
+    #
+    # @return [Symbol] the type of cell, compatible with Workbook::Column'types
+    def cell_type
+      tp = case value.class.to_s
+      when "String" then :string
+      when "FalseClass" then :boolean
+      when "TrueClass" then :boolean
+      when 'Time' then :time
+      when "Date" then :date
+      when "DateTime" then :datetime
+      when "Float" then :float
+      when "Integer" then :integer
+      when "Numeric" then :integer
+      when "Fixnum" then :integer
+      when "Symbol" then :string
+      end
+      return tp ? tp : :string
+    end
+
+
     # Returns the current value
     #
     # @return [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] a valid value
