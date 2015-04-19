@@ -14,7 +14,7 @@ module Workbook
     def column_type
       return @column_type if @column_type
       ind = self.index
-      table[1..100].each do |row|
+      table[1..500].each do |row|
         if row[ind] and row[ind].cell_type
           cel_column_type = row[ind].cell_type
           if cel_column_type == @column_type or @column_type.nil?
