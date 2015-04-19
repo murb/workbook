@@ -15,7 +15,7 @@ module Workbook
       return @column_type if @column_type
       ind = self.index
       table[1..100].each do |row|
-        cel_column_type = row[ind].cell_type
+        cel_column_type = row[ind] ? row[ind].cell_type : :string
         if cel_column_type == @column_type or @column_type.nil?
           @column_type = cel_column_type
         else
