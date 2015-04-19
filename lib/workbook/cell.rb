@@ -58,7 +58,6 @@ module Workbook
       when "Fixnum" then :integer
       when "Symbol" then :string
       end
-      return tp ? tp : :string
     end
 
 

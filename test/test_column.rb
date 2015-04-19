@@ -46,9 +46,9 @@ class TestColumn < Minitest::Test
     assert_equal([:boolean, :float, :string, :string], t.columns.collect{|a| a.column_type})
     t = new_table
     t[2][3] = nil
-    assert_equal([:boolean, :float, :string, :string], t.columns.collect{|a| a.column_type})
+    assert_equal([:boolean, :float, :string, :integer], t.columns.collect{|a| a.column_type})
     t = new_table
     t[2].delete_at(3)
-    assert_equal([:boolean, :float, :string, :string], t.columns.collect{|a| a.column_type})
+    assert_equal([:boolean, :float, :string, :integer], t.columns.collect{|a| a.column_type})
   end
 end
