@@ -7,6 +7,7 @@ module Workbook
     include Workbook::Modules::TypeParser
 
     attr_accessor :formula
+    attr_accessor :row
 
     # Note that these types are sorted by 'importance'
     VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Workbook::NilValue,Symbol]
@@ -24,7 +25,8 @@ module Workbook
     # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value
     # @param [Hash] options a reference to :format (Workbook::Format) can be specified
     def initialize value=nil, options={}
-      self.format = options[:format]
+      self.format = options[:format] if options[:format]
+      self.row = options[:row]
       self.value = value
       @to_sym = nil
     end
@@ -68,6 +70,20 @@ module Workbook
       @value
     end
 
+    # Returns the sheet its at.
+    #
+    # @return [Workbook::Table]
+    def table
+      row.table if row
+    end
+
+    # Quick assessor to the book's template, if it exists
+    #
+    # @return [Workbook::Template]
+    def template
+      row.template if row
+    end
+
     # Change the current format
     #
     # @param [Workbook::Format, Hash] f set the formatting properties of this Cell
@@ -85,7 +101,13 @@ module Workbook
     #
     # @returns [Workbook::Format] the current format
     def format
-      @format ||= Workbook::Format.new
+      # return @format if @format
+      if template and row.header? and !@format
+        @format = template.create_or_find_format_by(:header)
+      else
+        @format ||= Workbook::Format.new
+      end
+      @format
     end
 
     # Tests for equality based on its value (formatting is irrelevant)

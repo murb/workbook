@@ -50,5 +50,10 @@ module Workbook
       end
       return @formats[name][variant]
     end
+
+    def set_default_formats!
+      header_fmt = create_or_find_format_by :header
+      header_fmt[:font_weight] = 'bold'
+    end
   end
 end

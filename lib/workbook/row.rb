@@ -20,7 +20,7 @@ module Workbook
       cells.each do |c|
         c = c.clone if options[:clone_cells]
         unless c.is_a? Workbook::Cell
-          c = Workbook::Cell.new(c)
+          c = Workbook::Cell.new(c, {row:self})
           c.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
         end
         push c
@@ -62,14 +62,14 @@ module Workbook
     # Add cell
     # @param [Workbook::Cell, Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] cell or value to add
     def push(cell)
-      cell = Workbook::Cell.new(cell) unless cell.class == Workbook::Cell
+      cell = Workbook::Cell.new(cell, {row:self}) unless cell.class == Workbook::Cell
       super(cell)
     end
 
     # Add cell
     # @param [Workbook::Cell, Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] cell or value to add
     def <<(cell)
-      cell = Workbook::Cell.new(cell) unless cell.class == Workbook::Cell
+      cell = Workbook::Cell.new(cell,  {row:self}) unless cell.class == Workbook::Cell
       super(cell)
     end
 
@@ -108,7 +108,7 @@ module Workbook
         end
         return rv
       elsif index_or_hash.is_a? String
-        symbolized = Workbook::Cell.new(index_or_hash).to_sym
+        symbolized = Workbook::Cell.new(index_or_hash, {row:self}).to_sym
         self[symbolized]
       else
         if index_or_hash
@@ -131,7 +131,7 @@ module Workbook
       if index_or_hash.is_a? Symbol
         index = table_header_keys.index(index_or_hash)
       elsif index_or_hash.is_a? String
-        symbolized = Workbook::Cell.new(index_or_hash).to_sym
+        symbolized = Workbook::Cell.new(index_or_hash, {row:self}).to_sym
         index = table_header_keys.index(symbolized)
       end
 
@@ -145,6 +145,7 @@ module Workbook
         end
         value_celled.value=(value)
       end
+      value_celled.row = self
       super(index,value_celled)
     end
 
@@ -212,6 +213,13 @@ module Workbook
       hash = {}
       keys.each_with_index {|k,i| hash[k]=values[i]}
       return hash
+    end
+
+    # Quick assessor to the book's template, if it exists
+    #
+    # @return [Workbook::Template]
+    def template
+      table.template if table
     end
 
     # Returns a hash representation of this row

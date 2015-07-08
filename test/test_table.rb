@@ -192,5 +192,11 @@ class TestTable< Minitest::Test
     table = Workbook::Table.new([[:a,:b],[1,2]])
     assert_equal(table.columns.count,2)
   end
+  def test_dimensions
+    table = Workbook::Table.new([[]])
+    assert_equal([0,1],table.dimensions)
+    table = Workbook::Table.new([[:a,:b],[1,2,3,4]])
+    assert_equal([4,2],table.dimensions)
 
+  end
 end

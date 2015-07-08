@@ -5,8 +5,9 @@ module Workbook
     module RawObjectsStorage
 
       # A raw is a 'raw' object, representing a workbook, or cell, or whatever... in a particular format (defined by its class)
-      def add_raw raw_object
-        raws[raw_object.class]=raw_object
+      def add_raw raw_object, options={}
+        class_of_obj = options[:raw_object_class] ? options[:raw_object_class] : raw_object.class
+        raws[class_of_obj]=raw_object
       end
 
       # Returns true if there is a template for a certain class, otherwise false

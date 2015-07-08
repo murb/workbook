@@ -144,7 +144,7 @@ The [ruby toolbox lists plenty of alternatives](https://www.ruby-toolbox.com/sea
 
 ## License
 
-This code MIT (but see below) (c) murb / Maarten Brouwers, 2011-2013
+This code MIT (but see below) © murb / Maarten Brouwers, 2011-2015
 
 Workbook uses the following gems:
 
@@ -152,7 +152,6 @@ Workbook uses the following gems:
 * [ruby-ole](http://code.google.com/p/ruby-ole/) Used in the Spreadsheet Gem (Copyright © 2007-2010 Charles Lowe; MIT)
 * [FasterCSV](http://fastercsv.rubyforge.org/) Used for reading CSV (comma separated text) and TXT (tab separated text) files (Copyright © James Edward Gray II; GPL2 & Ruby License)
 * [rchardet](http://rubyforge.org/projects/rchardet) Used for detecting encoding in CSV and TXT importers (Copyright © JMHodges; LGPL)
-* [RubyXL](https://github.com/gilt/rubyXL) Used for reading the newer .xlsx files (Copyright © 2011 Vivek Bhagwat; MIT-Licensed)
+* [roo](https://github.com/roo-rb/roo) Temporarily used for reading the newer .xlsx files (without formatting) (Copyright © 2008-2014 Thomas Preymesser, Ben Woosley, MIT License)
+* [axslx](https://github.com/randym/axlsx) Used for writing the newer .xlsx files (with formatting) (Copyright © 2011, 2012 Randy Morgan, MIT License)
 * [Nokogiri](http://nokogiri.org/) Used for reading ODS documents (Copyright © 2008 - 2012 Aaron Patterson, Mike Dalessio, Charles Nutter, Sergio Arbeo, Patrick Mahoney, Yoko Harada; MIT Licensed)
-
-

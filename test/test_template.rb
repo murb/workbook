@@ -21,5 +21,10 @@ class TestTemplate < Minitest::Test
     t.add_raw "asdfsadf"
     assert_equal({String=>"asdfsadf"}, t.raws)
   end
+  def test_set_default_formats!
+    t = Workbook::Template.new
+    t.set_default_formats!
+    assert_equal({font_weight: "bold"},t.formats[:header][:default])
+  end
 
 end

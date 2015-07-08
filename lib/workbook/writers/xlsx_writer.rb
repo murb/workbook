@@ -1,81 +1,111 @@
 # -*- encoding : utf-8 -*-
-require 'rubyXL'
+require 'axlsx'
 require 'workbook/readers/xls_shared'
 
 module Workbook
   module Writers
     module XlsxWriter
 
-      # Generates an RubyXL doc, ready for export to XLSX
+      # Generates an axlsx doc, ready for export to XLSX
       #
       # @param [Hash] options A hash with options (unused so far)
-      # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
+      # @return [Axlsx::Package] An object, ready for writing or more lower level operations
       def to_xlsx options={}
-        book = init_xlsx_spreadsheet_template
-        book.theme = RubyXL::Theme.new unless book.theme #workaround bug in rubyxl
+        formats_to_xlsx_format
+        book = init_xlsx_spreadsheet_template.workbook
         book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
         self.each_with_index do |s,si|
-          xls_sheet = xlsx_sheet(si)
-          xls_sheet.sheet_name = s.name
-
+          xlsx_sheet = xlsx_sheet(si)
+          xlsx_sheet.name = s.name
           s.table.each_with_index do |r, ri|
+            xlsx_row = xlsx_sheet[ri] ? xlsx_sheet[ri] : xlsx_sheet.add_row
+            xlsx_row.height = 16
+            xlsx_row_a = xlsx_row.to_ary
             r.each_with_index do |c, ci|
-              xls_sheet.add_cell(ri, ci, c.value)
-
+              xlsx_row.add_cell(c.value) unless xlsx_row_a[ci]
+              xlsx_cell = xlsx_row_a[ci]
+              xlsx_cell.value = c.value
+              xlsx_cell.style = c.format.raws[Fixnum] if c.format.raws[Fixnum]
             end
+            xlsx_sheet.send(:update_column_info, xlsx_row.cells, [])
           end
-          (xls_sheet.count + 1 - s.table.count).times do |time|
-            row_to_remove = s.table.count+time
-
-            xls_sheet.delete_row(row_to_remove)
-            # xls_sheet.row_updated(row_to_remove, xls_sheet.row(row_to_remove))
+          (xlsx_sheet.rows.count - s.table.count).times do |time|
+            xlsx_sheet.rows.pop
           end
-          # xls_sheet.updated_from(s.table.count)
-          # xls_sheet.dimensions
-
         end
-        book
+        init_xlsx_spreadsheet_template
       end
 
-      # Generates an RubyXL doc, ready for export to XLSX
+      # Generates an string ready to be streamed as XLSX
       #
       # @param [Hash] options A hash with options (unused so far)
       # @return [String] A string, ready for streaming, e.g. `send_data workbook.stream_xlsx`
       def stream_xlsx options = {}
-        to_xlsx(options).stream.string
+        to_xlsx(options).to_stream.string
       end
 
-      # Write the current workbook to Microsoft Excel's new format (using the RubyXL gem)
+      # Write the current workbook to Microsoft Excel's XML format (using the Axlsx gem)
       #
       # @param [String] filename
       # @param [Hash] options   see #to_xlsx
       def write_to_xlsx filename="#{title}.xlsx", options={}
-        if to_xlsx(options).write(filename)
+        if to_xlsx(options).serialize(filename)
           return filename
         end
       end
 
       def xlsx_sheet a
-        if xlsx_template.worksheets[a]
-          return xlsx_template.worksheets[a]
+        if xlsx_template.workbook.worksheets[a]
+          return xlsx_template.workbook.worksheets[a]
         else
-          xlsx_template.create_worksheet
-          self.xls_sheet a
+          xlsx_template.workbook.add_worksheet
+          self.xlsx_sheet a
         end
       end
 
       def xlsx_template
-        return template.raws[RubyXL::Workbook]
+        return template.raws[Axlsx::Package]
       end
 
       def init_xlsx_spreadsheet_template
-        if self.xlsx_template.is_a? RubyXL::Workbook
+        if self.xlsx_template.is_a? Axlsx::Package
           return self.xlsx_template
         else
-          t = RubyXL::Workbook.new
+          t = Axlsx::Package.new
           template.add_raw t
+          template.set_default_formats!
           return t
         end
+      end
+
+      def formats_to_xlsx_format
+        template.formats.each do |n,v|
+          v.each do | t,s |
+            format_to_xlsx_format(s)
+          end
+        end
+      end
+
+      def format_to_xlsx_format f
+        xlsfmt = nil
+        unless f.is_a? Workbook::Format
+          f = Workbook::Format.new f
+        end
+
+        xlsfmt={}
+        xlsfmt[:fg_color] = "#{f[:color]}00" if f[:color]
+        xlsfmt[:b] = true if f[:font_weight] == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
+        xlsfmt[:i] = true if f[:font_style] == "italic"
+        xlsfmt[:u] = true if f[:text_decoration].to_s.match("underline")
+        xlsfmt[:bg_color] = f[:background_color] if f[:background_color]
+        xlsfmt[:format_code] = strftime_to_ms_format(f[:number_format]) if f[:number_format]
+        xlsfmt[:font_name] = f[:font_family].split.first if f[:font_family]
+        xlsfmt[:family] = parse_font_family(f) if f[:font_family]
+        f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
+        # wb.styles{|a| p a.add_style({}).class }
+
+        f.add_raw xlsfmt
+        return xlsfmt
       end
     end
   end

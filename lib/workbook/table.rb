@@ -231,6 +231,14 @@ module Workbook
       self
     end
 
+    # Returns The dimensions of this sheet based on longest row
+    # @return [Array] x-width, y-height
+    def dimensions
+      height = self.count
+      width = self.collect{|a| a.length}.max
+      [width,height]
+    end
+
     def columns
       @columns ||= header.collect do |header_cell|
         Column.new(self)

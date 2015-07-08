@@ -82,4 +82,5 @@ class TestWorkbook < Minitest::Test
     # puts b.index b.last
     assert_equal(["Sheet 1", "Sheet 2", "Sheet 3"], b.collect{|a| a.name})
   end
+
 end
