@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 require File.join(File.dirname(__FILE__), 'helper')
 
-class TestCell < Minitest::Test
+class TestModulesCell < Minitest::Test
 
 
   def test_init

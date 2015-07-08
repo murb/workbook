@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 $KCODE="u" if RUBY_VERSION < "1.9"
 require_relative 'workbook/modules/cache'
+require_relative 'workbook/modules/cell'
+require_relative 'workbook/types/date'
 require_relative 'workbook/book'
 require_relative 'workbook/sheet'
 require_relative 'workbook/table'
