@@ -254,6 +254,8 @@ module Workbook
       def to_s
         if (self.is_a? Date or self.is_a? Time) and format[:number_format]
           value.strftime(format[:number_format])
+        elsif (self.class == Workbook::Cell)
+          value.to_s
         else
           super
         end

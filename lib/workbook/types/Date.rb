@@ -1,4 +1,4 @@
-require 'workbook/modules/cell'
+# require 'workbook/modules/cell'
 
 module Workbook
   module Types
@@ -16,7 +16,6 @@ module Workbook
       def value= a
         throw "#value= is no longer available"
       end
-
     end
   end
 end

@@ -167,7 +167,7 @@ class TestRow < Minitest::Test
   end
 
   def test_to_s
-    r1 = Workbook::Row.new  ["test", "asdf-asd"]
+    r1 = Workbook::Row.new ["test", "asdf-asd"]
     assert_equal("test,asdf-asd\n",r1.to_csv)
   end
 

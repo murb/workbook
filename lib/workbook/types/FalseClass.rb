@@ -1,9 +1,7 @@
-require 'workbook/cell'
-
 module Workbook
   module Types
     class FalseClass < FalseClass
-      include Workbook::Cell
+      include Workbook::Modules::Cell
     end
   end
 end
