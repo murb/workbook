@@ -65,5 +65,15 @@ module Readers
       assert_equal(["Diff_10", "Diff_9", "Diff_8", "Diff_7", "Diff_6", "Diff_5", "Diff_4", "Diff_3", "Diff_2", "Diff_1"], b.collect{|a| a.name})
       assert_equal([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], b.collect{|a| a.table[1][0].value})
     end
+    def test_float_problem
+      w = Workbook::Book.new
+      w.open File.join(File.dirname(__FILE__), 'artifacts/floats_problem.xls')
+      puts w.first.first.to_csv
+      assert_equal(Date.new(2011,11,15), w.sheet.table[2][3].value)
+      assert_equal("http://murb.nl", w.sheet.table[3][2].value)
+      assert_equal("sadfasdfsd!", w.sheet.table[4][2].value)
+      assert_equal(1.2, w.sheet.table[2][1].value)
+      assert_equal(1, w.sheet.table[3][1].value)
+    end
   end
 end
