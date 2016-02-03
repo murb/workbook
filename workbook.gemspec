@@ -15,15 +15,12 @@ Gem::Specification.new do |s|
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excel, ods and csv and tab separated files, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
   s.add_development_dependency 'ruby-prof', '~> 0.14'
-  s.add_dependency('rubyzip', '~>1')
   s.add_dependency('spreadsheet', '~> 1.0')
   s.add_development_dependency('minitest', '~> 5.4')
   s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake", '~> 10.0')
   s.add_dependency("json", '~> 1.8')
-  s.add_dependency("zip-zip", '~> 0.2') #actually a hack...
-  #s.add_dependency('rubyXL', '~> 3.3')
   s.add_dependency('roo', '~> 1.13')
   s.add_dependency('axlsx', '~> 2.0.1')
   if RUBY_VERSION < "1.9"
