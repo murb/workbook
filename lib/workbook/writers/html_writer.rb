@@ -93,7 +93,7 @@ module Workbook
         td_options = classnames != "" ? {:class=>classnames} : {}
         if options[:data]
           options[:data].each do |key, value|
-            td_options.merge{"data-#{key}"=>value}
+            td_options.merge {"data-#{key}".to_sym => value}
           end
         end
         td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
