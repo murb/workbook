@@ -55,7 +55,7 @@ module Workbook
               if header
                 doc.tr do
                   header.each do |cell|
-                    th_options = build_cell_options cell, options.merge(classnames: [cell.to_sym])
+                    th_options = build_cell_options cell, options.merge(classnames: [cell.to_sym], data: {key: cell.to_sym})
                     unless cell.value.class == Workbook::NilValue
                       doc.th(th_options) do
                         doc.text cell.value
@@ -91,6 +91,11 @@ module Workbook
         classnames = classnames + options[:classnames] if options[:classnames]
         classnames = classnames.join(" ").strip
         td_options = classnames != "" ? {:class=>classnames} : {}
+        if options[:data]
+          options[:data].each do |key, value|
+            td_options.merge{"data-#{key}"=>value}
+          end
+        end
         td_options = td_options.merge({:style=>cell.format.to_css}) if options[:style_with_inline_css] and cell.format.to_css != ""
         td_options = td_options.merge({:colspan=>cell.colspan}) if cell.colspan
         td_options = td_options.merge({:rowspan=>cell.rowspan}) if cell.rowspan
