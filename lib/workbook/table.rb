@@ -55,10 +55,18 @@ module Workbook
     # Set the header of this table (typically the first row, but can be a different row).
     # The header row is also used for finding values in a aribrary row.
     #
-    # @param [Workbook::Row]
+    # @param [Workbook::Row, Integer]
     # @return [Workbook::Row] The header
     def header= h
-      @header = h
+      if h.is_a? Numeric
+        @header = self[h]
+      else
+        @header = h
+      end
+    end
+
+    def header_row_index(h=nil)
+      self.index(h ? h : self.header)
     end
 
     def define_columns_with_row(r)
@@ -144,7 +152,6 @@ module Workbook
     def clone
       t = self
       c = super
-      header_row_index = t.index(t.header)
       c.delete_all
       t.each{|r| c << r.clone}
       c.header = c[header_row_index] if header_row_index
