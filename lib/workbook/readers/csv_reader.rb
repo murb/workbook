@@ -3,9 +3,9 @@
 module Workbook
   module Readers
     module CsvReader
-      def load_csv text
+      def load_csv text, options={}
         csv = text
-        parse_csv csv
+        parse_csv csv, options
       end
 
       def csv_lib
@@ -17,19 +17,22 @@ module Workbook
         end
       end
 
-      def parse_csv csv_raw
+      def parse_csv csv_raw, options={}
         custom_date_converter = Workbook::Cell.new.string_optimistic_date_converter
-        converters = [:float,:integer,:date,:date_time,custom_date_converter]
+        options = {
+          converters: [:float,:integer,:date,:date_time,custom_date_converter]
+        }.merge(options)
+
         csv=nil
         #begin
-        csv = csv_lib.parse(csv_raw,{:converters=>converters})
+        csv = csv_lib.parse(csv_raw,options)
 
         #rescue
         # we're going to have another shot at it...
         #end
 
         if csv==nil or csv[0].count == 1
-          csv_excel = csv_lib.parse(csv_raw,{:converters=>converters,:col_sep=>';'})
+          csv_excel = csv_lib.parse(csv_raw,options.merge({:col_sep=>';'}))
           csv = csv_excel if csv_excel[0].count > 1
         end
 

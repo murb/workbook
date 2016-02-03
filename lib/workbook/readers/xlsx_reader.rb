@@ -11,10 +11,10 @@ module Workbook
       # Load method for .xlsm files, an office open file format, hence compatible with .xlsx (it emphasizes that it contains macros)
       #
       # @param [String, File] file_obj   a string with a reference to the file to be written to
-      def load_xlsm file_obj
-        self.load_xlsx file_obj
+      def load_xlsm file_obj, options={}
+        self.load_xlsx file_obj, options
       end
-      def load_xlsx file_obj
+      def load_xlsx file_obj, options={}
         file_obj = file_obj.path if file_obj.is_a? File
         # file_obj = file_obj.match(/^\/(.*)/) ? file_obj : "./#{file_obj}"
         # p "opening #{file_obj}"

@@ -8,11 +8,11 @@ module Workbook
     module XlsReader
       include Workbook::Readers::XlsShared
 
-      def load_xls file_obj
+      def load_xls file_obj, options
         begin
           sp = Spreadsheet.open(file_obj, 'rb')
           template.add_raw sp
-          parse_xls sp
+          parse_xls sp, options
         rescue Ole::Storage::FormatError => e
           begin
             # Assuming it is a tab separated txt inside .xls

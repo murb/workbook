@@ -95,5 +95,9 @@ module Readers
       assert_equal("asdf",w.sheet.table[3][:a].value)
       assert_equal(Date.new(2001,2,2),w.sheet.table[3][:d].value)
     end
+    def test_from_string
+      w = Workbook::Book.read("2013-03-19,JV,211,032,1,DBG A,,13,0147,\n", :csv, {converters: []})
+      assert_equal("2013-03-19,JV,211,032,1,DBG A,,13,0147,\n",w.sheet.table.to_csv)
+    end
   end
 end

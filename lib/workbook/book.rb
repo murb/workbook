@@ -115,12 +115,12 @@ module Workbook
     # @param [String] filename   a string with a reference to the file to be opened
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     # @return [Workbook::Book] A new instance, based on the filename
-    def open filename, extension=nil
+    def open filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
       if ['txt','csv','xml'].include?(extension)
-        open_text filename, extension
+        open_text filename, extension, options
       else
-        open_binary filename, extension
+        open_binary filename, extension, options
       end
     end
 
@@ -129,22 +129,22 @@ module Workbook
     # @param [String] filename a string with a reference to the file to be opened
     # @param [String] extension an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     # @return [Workbook::Book] A new instance, based on the filename
-    def open_binary filename, extension=nil
+    def open_binary filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
       f = File.open(filename,'rb')
-      send("load_#{extension}".to_sym,f)
+      send("load_#{extension}".to_sym, f, options)
     end
 
     # Open the file in non-binary, read-only mode, read it and parse it to UTF-8
     #
     # @param [String] filename   a string with a reference to the file to be opened
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
-    def open_text filename, extension=nil
+    def open_text filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
       f = File.open(filename,'r')
       t = f.read
       t = text_to_utf8(t)
-      send("load_#{extension}".to_sym,t)
+      send("load_#{extension}".to_sym, t, options)
     end
 
     # Writes the book to a file. Filetype is based on the extension, but can be overridden
@@ -190,11 +190,11 @@ module Workbook
     #
     # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV format
     # @param [Symbol] filetype (currently only :csv or :txt), indicating the format of the first parameter
-    def read(stringio_or_string, filetype)
+    def read(stringio_or_string, filetype, options={})
       raise ArgumentError.new("The filetype parameter should be either :csv or :txt") unless [:csv, :txt].include?(filetype)
       t = stringio_or_string.respond_to?(:read) ? stringio_or_string.read : stringio_or_string.to_s
       t = text_to_utf8(t)
-      send(:"parse_#{filetype}", t)
+      send(:"parse_#{filetype}", t, options)
     end
 
     # Create or open the existing sheet at an index value
@@ -224,9 +224,9 @@ module Workbook
       # @param [StringIO] stringio_or_string StringIO stream or String object, with data in CSV or TXT format
       # @param [Symbol] filetype (currently only :csv or :txt), indicating the format of the first parameter
       # @return [Workbook::Book] A new instance
-      def read(stringio_or_string, filetype)
+      def read stringio_or_string, filetype, options={}
         wb = self.new
-        wb.read(stringio_or_string, filetype)
+        wb.read(stringio_or_string, filetype, options)
         wb
       end
 

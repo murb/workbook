@@ -6,7 +6,7 @@ module Workbook
       # reads self with and ods-type content.xml
       # @param [String,File] file_obj a file or file reference
       # @return [Workbook::Book] self
-      def load_ods file_obj
+      def load_ods file_obj, options={}
         file_obj = file_obj.path if file_obj.is_a? File
         content = ""
         styles = ""
@@ -20,7 +20,7 @@ module Workbook
         styles = Nokogiri.XML(styles)
         template.add_raw content
         parse_ods_style styles
-        parse_ods content
+        parse_ods content, options
         return self
       end
 
