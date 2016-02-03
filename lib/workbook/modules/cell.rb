@@ -153,9 +153,12 @@ module Workbook
         return @to_sym if @to_sym
         v = nil
         if value
-          ends_with_exclamationmark = (value[-1] == '!')
-          ends_with_questionmark = (value[-1] == '?')
           v = value.to_s.downcase
+          if v.to_i != 0
+            v = "num#{v}"
+          end
+          ends_with_exclamationmark = (v[-1] == '!')
+          ends_with_questionmark = (v[-1] == '?')
 
           replacements = {
             [/[\(\)\.\?\,\!\=\$\:]/,] => '',

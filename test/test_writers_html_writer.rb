@@ -14,7 +14,7 @@ module Writers
       assert_equal(false, match)
       match = html.match(/<td>1<\/td>/) ? true : false
       assert_equal(true, match)
-      match = html.match(/<th>a<\/th>/) ? true : false
+      match = html.match(/<th class=\"a\">a<\/th>/) ? true : false
       assert_equal(true, match)
     end
     def test_to_html_format_names
@@ -24,7 +24,7 @@ module Writers
       c = b[0][0][1][0]
       c.format.name="testname"
       html = b.to_html
-      match = html.match(/<th class=\"testname\">a<\/th>/) ? true : false
+      match = html.match(/<th class=\"testname a\">a<\/th>/) ? true : false
       assert_equal(true, match)
       match = html.match(/<td class=\"testname\">1<\/td>/) ? true : false
       assert_equal(true, match)
@@ -36,7 +36,7 @@ module Writers
       c = b[0][0][1][0]
       c.format[:background]="#ff0"
       html = b.to_html
-      match = html.match(/<th>a<\/th>/) ? true : false
+      match = html.match(/<th class=\"a\">a<\/th>/) ? true : false
       match = html.match(/<td>1<\/td>/) ? true : false
       assert_equal(true, match)
       html = b.to_html({:style_with_inline_css=>true})

@@ -80,7 +80,9 @@ class TestModulesCell < Minitest::Test
       "A - c (B123)!" => :a_c_b123!,
       "A-B?" => :ab?,
       "A-B!" => :ab!,
-      "éåšžÌ?" => :easzi?
+      "éåšžÌ?" => :easzi?,
+      1 => :num1,
+      1.0 => :num10
     }
     examples.each do |k,v|
       assert_equal(v, Workbook::Cell.new(k).to_sym)
