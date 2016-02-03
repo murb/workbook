@@ -52,6 +52,11 @@ module Workbook
       end
     end
 
+    # Set the header of this table (typically the first row, but can be a different row).
+    # The header row is also used for finding values in a aribrary row.
+    #
+    # @param [Workbook::Row]
+    # @return [Workbook::Row] The header
     def header= h
       @header = h
     end
