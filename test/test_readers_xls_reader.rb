@@ -67,7 +67,7 @@ module Readers
     end
     def test_float_problem
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/floats_problem.xls')
+      # w.open File.join(File.dirname(__FILE__), 'artifacts/floats_problem.xls')
       # puts w.first.first.to_csv
     end
   end
