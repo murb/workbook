@@ -248,6 +248,20 @@ module Workbook
         return nil
       end
 
+      # Returns the index of the cell within the row, returns nil if no row is present
+      #
+      # @returns [Integer, NilClass] index of the cell
+      def index
+        row.index self if row
+      end
+
+      # Returns the key (a Symbol) of the cell, based on its table's header
+      #
+      # @returns [Symbol, NilClass] key of the cell, returns nil if the cell doesn't belong to a table
+      def key
+        table.header[index].to_sym if table
+      end
+
       def inspect
         "<Workbook::Cell @value=#{value}>"
       end
