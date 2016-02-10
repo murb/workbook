@@ -125,10 +125,18 @@ class TestModulesCell < Minitest::Test
     end
   end
 
-  def test_index_and_key
+  def test_index
     t = Workbook::Table.new [[:a,:b,:c],[1,2,3],[4,5,6]]
     assert_equal(2, t[2][2].index)
-    assert_equal(:c, t[2][2].key)
+  end
 
+  def test_key
+    t = Workbook::Table.new [[:a,:b,:c],[1,2,3],[4,5,6]]
+    assert_equal(:c, t[2][2].key)
+    t = Workbook::Table.new [[:d,nil,nil],[:a,:b,:c],[1,2,3],[4,5,6]]
+    assert_equal(nil, t[2][2].key)
+    assert_equal(:d, t[2][0].key)
+    t.header = t[1]
+    assert_equal(:a, t[2][0].key)
   end
 end
