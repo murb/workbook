@@ -25,7 +25,10 @@ module Workbook
               xlsx_row.add_cell(c.value) unless xlsx_row_a[ci]
               xlsx_cell = xlsx_row_a[ci]
               xlsx_cell.value = c.value
-              xlsx_cell.style = c.format.raws[Fixnum] if c.format.raws[Fixnum]
+              if c.format?
+                format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
+                xlsx_cell.style = c.format.raws[Fixnum]
+              end
             end
             xlsx_sheet.send(:update_column_info, xlsx_row.cells, [])
           end
@@ -93,7 +96,7 @@ module Workbook
         end
 
         xlsfmt={}
-        xlsfmt[:fg_color] = "#{f[:color]}00" if f[:color]
+        xlsfmt[:fg_color] = "FF#{f[:color].to_s.upcase}".gsub("#",'') if f[:color]
         xlsfmt[:b] = true if f[:font_weight].to_s == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
         xlsfmt[:i] = true if f[:font_style].to_s == "italic"
         xlsfmt[:u] = true if f[:text_decoration].to_s.match("underline")

@@ -248,8 +248,15 @@ module Workbook
         return nil
       end
 
+      def format?
+        format and format.keys.count > 0
+      end
+
       def inspect
-        "<Workbook::Cell @value=#{value}>"
+        txt = "<Workbook::Cell @value=#{value}"
+        txt += " @format=#{format}" if format?
+        txt += ">"
+        txt
       end
 
       # convert value to string, and in case of a Date or Time value, apply formatting
