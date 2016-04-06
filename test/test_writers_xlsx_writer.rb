@@ -108,7 +108,7 @@ module Writers
       b = Workbook::Book.new [[:a,:b],[1,2],[3,4]]
       c2 = b.sheet.table[2][1]
       c2.format = Workbook::Format.new({font_weight: "bold", color: "#CC5500", font_style: :italic, text_decoration: :underline})
-      # Can't test this for real yet... :/ but the examples here seem to work b.write_to_xlsx("untitled document.xlsx")
+      # Can't test this for real yet... :/ but the examples here seem to work     b.write_to_xlsx("untitled document.xlsx")
       # c = Workbook::Book.open("untitled document.xlsx")
       # p c.inspect
     end

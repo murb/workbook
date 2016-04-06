@@ -29,5 +29,10 @@ module Readers
       assert_equal(nil,w.ms_formatting_to_strftime(nil));
       assert_equal(nil,w.ms_formatting_to_strftime(""));
     end
+    def test_open_integer_xlsx
+      w = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/integer_test.xlsx')
+
+      assert_equal("2",w.sheet.table[1][1].value.to_s)
+    end
   end
 end
