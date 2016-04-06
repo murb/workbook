@@ -89,11 +89,12 @@ module Workbook
         end
       end
 
+      def make_sure_f_is_a_workbook_format f
+        f.is_a?(Workbook::Format) ? f : Workbook::Format.new(f)
+      end
+
       def format_to_xlsx_format f
-        xlsfmt = nil
-        unless f.is_a? Workbook::Format
-          f = Workbook::Format.new f
-        end
+        f = make_sure_f_is_a_workbook_format f
 
         xlsfmt={}
         xlsfmt[:fg_color] = "FF#{f[:color].to_s.upcase}".gsub("#",'') if f[:color]
@@ -104,10 +105,10 @@ module Workbook
         xlsfmt[:format_code] = strftime_to_ms_format(f[:number_format]) if f[:number_format]
         xlsfmt[:font_name] = f[:font_family].split.first if f[:font_family]
         xlsfmt[:family] = parse_font_family(f) if f[:font_family]
-        f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
-        # wb.styles{|a| p a.add_style({}).class }
 
+        f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
         f.add_raw xlsfmt
+
         return xlsfmt
       end
     end

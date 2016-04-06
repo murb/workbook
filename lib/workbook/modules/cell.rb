@@ -102,7 +102,7 @@ module Workbook
 
       # Change the current format
       #
-      # @param [Workbook::Format, Hash] f set the formatting properties of this Cell
+      # @param [Workbook::Format, Hash] f set the formatting properties of this Cell, see Workbook::Format#initialize
       def format= f
         if f.is_a? Workbook::Format
           @workbook_format = f
@@ -115,7 +115,7 @@ module Workbook
 
       # Returns current format
       #
-      # @returns [Workbook::Format] the current format
+      # @return [Workbook::Format] the current format
       def format
         # return @workbook_format if @workbook_format
         if row and template and row.header? and !@workbook_format
@@ -211,8 +211,9 @@ module Workbook
       end
 
       # Compare
+      #
       # @param [Workbook::Cell] other cell to compare against (based on value), can compare different value-types using #compare_on_class
-      # @returns [Fixnum] -1, 0, 1
+      # @return [Fixnum] -1, 0, 1
       def <=> other
         rv = nil
         begin
@@ -224,7 +225,6 @@ module Workbook
           rv = compare_on_class other
         end
         return rv
-
       end
 
       # Compare on class level
@@ -248,20 +248,23 @@ module Workbook
         return nil
       end
 
+      # Returns whether special formatting is present on this cell
+      #
+      # @return [Boolean] index of the cell
       def format?
         format and format.keys.count > 0
       end
 
       # Returns the index of the cell within the row, returns nil if no row is present
       #
-      # @returns [Integer, NilClass] index of the cell
+      # @return [Integer, NilClass] index of the cell
       def index
         row.index self if row
       end
 
       # Returns the key (a Symbol) of the cell, based on its table's header
       #
-      # @returns [Symbol, NilClass] key of the cell, returns nil if the cell doesn't belong to a table
+      # @return [Symbol, NilClass] key of the cell, returns nil if the cell doesn't belong to a table
       def key
         table.header[index].to_sym if table
       end

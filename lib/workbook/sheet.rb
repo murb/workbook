@@ -36,7 +36,7 @@ module Workbook
 
     # Returns the name of this sheet
     #
-    # @return [String] the name, defaulting to "Sheet {index}" when none is set
+    # @return [String] the name, defaulting to sheet#index when none is set
     def name
       @name ||= "Sheet #{book.index(self)+1}"
     end

@@ -4,7 +4,7 @@ module Workbook
   class NilValue
 
     # initialize this special nilvalue with a reason
-    # @params [String] reason (currently only :covered, in case this cell is coverd because an adjecant cell spans over it)
+    # @param [String] reason (currently only :covered, in case this cell is coverd because an adjecant cell spans over it)
     def initialize reason
       self.reason= reason
     end

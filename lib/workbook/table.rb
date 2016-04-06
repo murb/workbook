@@ -55,7 +55,7 @@ module Workbook
     # Set the header of this table (typically the first row, but can be a different row).
     # The header row is also used for finding values in a aribrary row.
     #
-    # @param [Workbook::Row, Integer]
+    # @param [Workbook::Row, Integer] h should be the row or the index of this table's row
     # @return [Workbook::Row] The header
     def header= h
       if h.is_a? Numeric
@@ -65,8 +65,11 @@ module Workbook
       end
     end
 
-    def header_row_index(h=nil)
-      self.index(h ? h : self.header)
+    # Returns the index of the header row
+    #
+    # @return [Integer] The index of the header row (typically 0)
+    def header_row_index
+      self.index(self.header)
     end
 
     def define_columns_with_row(r)
@@ -76,6 +79,9 @@ module Workbook
     end
 
     # Generates a new row, with optionally predefined cell-values, that is already connected to this table.
+    #
+    # @param [Array, Workbook::Row] cell_values is an array or row of cell values
+    # @return [Workbook::Row] the newly created row
     def new_row cell_values=[]
       r = Workbook::Row.new(cell_values,self)
       return r

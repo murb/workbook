@@ -6,7 +6,6 @@ module Workbook
     module CsvTableWriter
       # Output the current workbook to CSV format
       #
-      # @param [String] filename
       # @param [Hash] options (not used)
       # @return [String] csv (comma separated values in a string)
       def to_csv options={}
@@ -23,7 +22,7 @@ module Workbook
         end
         csv
       end
-      
+
       # Write the current workbook to CSV format
       #
       # @param [String] filename
