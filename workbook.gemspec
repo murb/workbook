@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("rake", '~> 10.0')
   s.add_dependency("json", '~> 1.8')
-  s.add_dependency('roo', '~> 2.3.2')
+  s.add_dependency('roo', '~> 2.3')
   s.add_dependency('axlsx', '~> 2.1.0.pre')
   if RUBY_VERSION < "1.9"
     s.add_dependency('nokogiri', "~> 1.5.10")
