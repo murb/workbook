@@ -94,7 +94,7 @@ module Writers
       b = Workbook::Book.new
       xlsx_format = b.format_to_xlsx_format(Workbook::Format.new({font_weight: "bold", color: "#FF0000"}))
       assert_equal(true,xlsx_format[:b])
-      assert_equal("#FF000000",xlsx_format[:fg_color])
+      assert_equal("FFFF0000",xlsx_format[:fg_color])
     end
 
     def test_formats_to_xlsx_format
