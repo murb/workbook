@@ -118,10 +118,17 @@ class TestModulesCell < Minitest::Test
     assert_equal(nil,c.colspan)
   end
 
-  def cell_type
+  def test_cell_type
     {1 => :integer, 3.2 => :float, true => :boolean, "asdf" => :string}.each do |k,v|
-      c = Workbook::Cel.new(k)
+      c = Workbook::Cell.new(k)
       assert_equal(v,c.cell_type)
     end
+  end
+
+  def test_index_and_key
+    t = Workbook::Table.new [[:a,:b,:c],[1,2,3],[4,5,6]]
+    assert_equal(2, t[2][2].index)
+    assert_equal(:c, t[2][2].key)
+
   end
 end
