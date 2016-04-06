@@ -94,8 +94,8 @@ module Workbook
 
         xlsfmt={}
         xlsfmt[:fg_color] = "#{f[:color]}00" if f[:color]
-        xlsfmt[:b] = true if f[:font_weight] == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
-        xlsfmt[:i] = true if f[:font_style] == "italic"
+        xlsfmt[:b] = true if f[:font_weight].to_s == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
+        xlsfmt[:i] = true if f[:font_style].to_s == "italic"
         xlsfmt[:u] = true if f[:text_decoration].to_s.match("underline")
         xlsfmt[:bg_color] = f[:background_color] if f[:background_color]
         xlsfmt[:format_code] = strftime_to_ms_format(f[:number_format]) if f[:number_format]

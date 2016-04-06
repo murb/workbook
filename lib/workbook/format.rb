@@ -10,7 +10,7 @@ module Workbook
     attr_accessor :name, :parent
 
     # Initialize
-    # @param [Workbook::Format, Hash] options (e.g. :background, :color
+    # @param [Workbook::Format, Hash] options (e.g. :background, :color, :background_color, :font_weight (integer or css-type labels)
     def initialize options={}, name=nil
       options.each {|k,v| self[k]=v}
       self.name = name
