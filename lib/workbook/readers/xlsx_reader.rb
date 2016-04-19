@@ -15,7 +15,6 @@ module Workbook
         self.load_xlsx file_obj, options
       end
       def load_xlsx file_obj, options={}
-        file_obj = file_obj.path if file_obj.is_a? File
         # file_obj = file_obj.match(/^\/(.*)/) ? file_obj : "./#{file_obj}"
         # p "opening #{file_obj}"
         sp = Roo::Excelx.new(file_obj)
