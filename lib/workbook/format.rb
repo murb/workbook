@@ -3,14 +3,26 @@ require 'workbook/modules/raw_objects_storage'
 
 module Workbook
   # Format is an object used for maintinaing a cell's formatting. It can belong to many cells. It maintains a relation to the raw template's equivalent, to preserve attributes Workbook cannot modify/access.
+  # The keys in the Hash are intended to closely mimick the CSS-style options:
+  #
+  #     {
+  #       background_color: '#ff000',
+  #       color: '#ffff00',
+  #       font_weight: :bold,
+  #       text_decoration: :underline,
+  #     }
+  #
+  # Note that as we speak, not all exporters support all properties properly. Consider it WIP.
   class Format < Hash
     include Workbook::Modules::RawObjectsStorage
     alias_method :merge_hash, :merge
     alias_method :merge_hash!, :merge!
     attr_accessor :name, :parent
 
-    # Initialize
-    # @param [Workbook::Format, Hash] options (e.g. :background, :color
+    # Initializes Workbook::Format with a hash. The keys in the Hash are intended to closely mimick the CSS-style options (see above)
+    #
+    # @param [Workbook::Format, Hash] options (e.g. :background, :color, :background_color, :font_weight (integer or css-type labels)
+    # @return [String] the name of the format, default: nil
     def initialize options={}, name=nil
       options.each {|k,v| self[k]=v}
       self.name = name

@@ -25,7 +25,10 @@ module Workbook
               xlsx_row.add_cell(c.value) unless xlsx_row_a[ci]
               xlsx_cell = xlsx_row_a[ci]
               xlsx_cell.value = c.value
-              xlsx_cell.style = c.format.raws[Fixnum] if c.format.raws[Fixnum]
+              if c.format?
+                format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
+                xlsx_cell.style = c.format.raws[Fixnum]
+              end
             end
             xlsx_sheet.send(:update_column_info, xlsx_row.cells, [])
           end
@@ -86,25 +89,26 @@ module Workbook
         end
       end
 
+      def make_sure_f_is_a_workbook_format f
+        f.is_a?(Workbook::Format) ? f : Workbook::Format.new(f)
+      end
+
       def format_to_xlsx_format f
-        xlsfmt = nil
-        unless f.is_a? Workbook::Format
-          f = Workbook::Format.new f
-        end
+        f = make_sure_f_is_a_workbook_format f
 
         xlsfmt={}
-        xlsfmt[:fg_color] = "#{f[:color]}00" if f[:color]
-        xlsfmt[:b] = true if f[:font_weight] == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
-        xlsfmt[:i] = true if f[:font_style] == "italic"
+        xlsfmt[:fg_color] = "FF#{f[:color].to_s.upcase}".gsub("#",'') if f[:color]
+        xlsfmt[:b] = true if f[:font_weight].to_s == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
+        xlsfmt[:i] = true if f[:font_style].to_s == "italic"
         xlsfmt[:u] = true if f[:text_decoration].to_s.match("underline")
         xlsfmt[:bg_color] = f[:background_color] if f[:background_color]
         xlsfmt[:format_code] = strftime_to_ms_format(f[:number_format]) if f[:number_format]
         xlsfmt[:font_name] = f[:font_family].split.first if f[:font_family]
         xlsfmt[:family] = parse_font_family(f) if f[:font_family]
-        f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
-        # wb.styles{|a| p a.add_style({}).class }
 
+        f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
         f.add_raw xlsfmt
+
         return xlsfmt
       end
     end

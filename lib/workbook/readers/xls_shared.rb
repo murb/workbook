@@ -5,7 +5,7 @@ module Workbook
 
       # Converts standard (ruby/C++/unix/...) strftime formatting to MS's formatting
       #
-      # @param [String, nil] numberformat (nil returns nil)
+      # @param [String, nil] ms_nr_format (nil returns nil)
       # @return [String, nil]
       def ms_formatting_to_strftime ms_nr_format
         if ms_nr_format

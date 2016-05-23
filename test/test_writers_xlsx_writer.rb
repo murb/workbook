@@ -94,7 +94,7 @@ module Writers
       b = Workbook::Book.new
       xlsx_format = b.format_to_xlsx_format(Workbook::Format.new({font_weight: "bold", color: "#FF0000"}))
       assert_equal(true,xlsx_format[:b])
-      assert_equal("#FF000000",xlsx_format[:fg_color])
+      assert_equal("FFFF0000",xlsx_format[:fg_color])
     end
 
     def test_formats_to_xlsx_format
@@ -102,6 +102,15 @@ module Writers
       b.template.set_default_formats!
       b.formats_to_xlsx_format
       assert_equal(false,b.template.create_or_find_format_by(:header).raws[Fixnum].nil?)
+    end
+
+    def test_format_to_xlsx_integrated
+      b = Workbook::Book.new [[:a,:b],[1,2],[3,4]]
+      c2 = b.sheet.table[2][1]
+      c2.format = Workbook::Format.new({font_weight: "bold", color: "#CC5500", font_style: :italic, text_decoration: :underline})
+      # Can't test this for real yet... :/ but the examples here seem to work     b.write_to_xlsx("untitled document.xlsx")
+      # c = Workbook::Book.open("untitled document.xlsx")
+      # p c.inspect
     end
 
   end

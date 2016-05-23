@@ -1,4 +1,4 @@
 # -*- encoding : utf-8 -*-
 module Workbook
-  VERSION = '0.4.14'
+  VERSION = '0.5'
 end

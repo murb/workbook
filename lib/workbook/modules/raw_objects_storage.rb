@@ -28,7 +28,7 @@ module Workbook
       end
 
       # Lists the classes for which raws are available
-      # @return Array<Object> array with the classes available
+      # @return [Array<Object>] array with the classes available
       def available_raws
         raws.keys
       end
