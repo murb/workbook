@@ -22,9 +22,9 @@ class TestFunctional < Minitest::Test
   end
 
   def test_chapter_Sorting
-    b = Workbook::Book.new
-    s = b.sheet[0] = Workbook::Sheet.new([['a','b'],[1,2],[3,4],[5,6]])
-    t = s.table
+    # b = Workbook::Book.new
+    # s = b.sheet[0] = Workbook::Sheet.new([['a','b'],[1,2],[3,4],[5,6]])
+    # t = s.table
     #t.sort_by {|r| r[:b]}
     #p t.inspect
   end

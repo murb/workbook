@@ -56,6 +56,7 @@ module Modules
 
     def test_once_failing_files
       w = Workbook::Book.open(File.join(File.dirname(__FILE__), 'artifacts/failing_import1.xls')) # TRUE wasn't parsed properly
+      assert_equal(Workbook::Book, w.class)
     end
   end
 end

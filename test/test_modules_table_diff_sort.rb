@@ -31,8 +31,6 @@ module Modules
       tself = ba.sheet.table
       tother = bb.sheet.table
 
-      placeholder_row = tother.placeholder_row
-
       ba = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[4,2,3,4],[3,2,3,4]]
       bb = Workbook::Book.new [['a','b','c','d'],[1,2,3,4],[3,2,3,4],[5,2,3,4]]
       tself = ba.sheet.table
