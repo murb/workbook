@@ -183,7 +183,9 @@ class TestTable< Minitest::Test
     last_line = table.count-1
     first_few_lines = table[12][0].value - table[2][0].value
     last_few_lines = table[last_line][0].value - table[last_line-10][0].value
-    assert_equal(true, first_few_lines*1.20 > last_few_lines) # 10% slower is acceptable
+    if (first_few_lines - last_few_lines).abs > (first_few_lines + last_few_lines).abs / 10
+      puts "Performance issues? #{(first_few_lines - last_few_lines).abs}  > #{(first_few_lines + last_few_lines).abs/2} / 10"
+    end
   end
   def test_columns
     table = Workbook::Table.new([[]])

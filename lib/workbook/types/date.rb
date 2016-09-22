@@ -12,7 +12,7 @@ module Workbook
       end
 
       def value= a
-        throw "#value= is no longer available"
+        puts "#value= is deprecated"
       end
     end
   end
