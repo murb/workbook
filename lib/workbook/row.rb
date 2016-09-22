@@ -38,7 +38,7 @@ module Workbook
     #
     # @return [Workbook::Table] the table this row belongs to
     def table
-      @table
+      @table if defined?(@table)
     end
 
     # Set reference to the table this row belongs to without adding the row to the table

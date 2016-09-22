@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
 module Workbook
+  # A Sheet is a container of tables
   class Sheet < Array
-    # A Sheet is a container of tables
-    attr_accessor :name
 
     # Initialize a new sheet
     #
@@ -39,6 +38,14 @@ module Workbook
     # @return [String] the name, defaulting to sheet#index when none is set
     def name
       @name ||= "Sheet #{book.index(self)+1}"
+    end
+
+    # Set the name of this sheet
+    #
+    # @param [String] the new name of the sheet
+    # @return [String] the given name
+    def name= name
+      @name = name
     end
 
     # Set the first table of this sheet with a table or array of cells/values

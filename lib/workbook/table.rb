@@ -13,9 +13,7 @@ module Workbook
     include Workbook::Writers::JsonTableWriter
     include Workbook::Writers::HtmlTableWriter
 
-    attr_accessor :sheet
     attr_accessor :name
-    attr_accessor :columns
 
     def initialize row_cel_values=[], sheet=nil, options={}
       row_cel_values = [] if row_cel_values == nil
@@ -137,12 +135,16 @@ module Workbook
     #
     # @return [Workbook::Sheet] The sheet this table belongs to
     def sheet
-      if @sheet
-        return @sheet
-      else
-        self.sheet = Workbook::Sheet.new(self)
-        return @sheet
-      end
+      return @sheet if defined?(@sheet) and !@sheet.nil?
+      self.sheet= Workbook::Sheet.new(self)
+    end
+
+    # Returns the sheet this table belongs to, creates a new sheet if none exists
+    #
+    # @param [Workbook::Sheet] sheet this table belongs to
+    # @return [Workbook::Sheet] The sheet this table belongs to
+    def sheet= sheet
+      @sheet = sheet
     end
 
     # Removes all lines from this table
@@ -257,10 +259,19 @@ module Workbook
       [width,height]
     end
 
+    # Returns an array of Column-classes describing the columns of this table
+    # @return [Array<Column>] columns
     def columns
       @columns ||= header.collect do |header_cell|
         Column.new(self)
       end
+    end
+
+    # Returns an array of Column-classes describing the columns of this table
+    # @param [Array<Column>] columns
+    # @return [Array<Column>] columns
+    def columns= columns
+      @columns = columns
     end
 
   end

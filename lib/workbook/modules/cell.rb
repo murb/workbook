@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 require 'workbook/modules/type_parser'
 require 'workbook/nil_value'
+require 'date'
 
 module Workbook
   module Modules
@@ -63,7 +64,7 @@ module Workbook
       #
       # @return [Symbol] the type of cell, compatible with Workbook::Column'types
       def cell_type
-        tp = case value.class.to_s
+        case value.class.to_s
         when "String" then :string
         when "FalseClass" then :boolean
         when "TrueClass" then :boolean
@@ -118,7 +119,7 @@ module Workbook
       # @return [Workbook::Format] the current format
       def format
         # return @workbook_format if @workbook_format
-        if row and template and row.header? and !@workbook_format
+        if row and template and row.header? and !defined?(@workbook_format)
           @workbook_format = template.create_or_find_format_by(:header)
         else
           @workbook_format ||= Workbook::Format.new

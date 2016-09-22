@@ -70,7 +70,7 @@ module Workbook
     #
     # @return [String] the title of the workbook
     def title
-      @title ? @title : "untitled document"
+      (defined?(@title) and !@title.nil?) ? @title : "untitled document"
     end
 
     def title= t

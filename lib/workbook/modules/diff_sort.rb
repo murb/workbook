@@ -105,7 +105,7 @@ module Workbook
       #
       # @return [Workbook::Table] the empty table, linked to a book
       def diff_template
-        return @diff_template if @diff_template
+        return @diff_template if defined?(@diff_template)
         diffbook = Workbook::Book.new_diff_template
         difftable = diffbook.sheet.table
         @diff_template ||= difftable
@@ -175,7 +175,7 @@ module Workbook
 
       # returns a placeholder row, for internal use only
       def placeholder_row
-        if @placeholder_row != nil
+        if defined?(@placeholder_row) and !@placeholder_row.nil?
           return @placeholder_row
         else
           @placeholder_row = Workbook::Row.new [nil]

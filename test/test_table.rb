@@ -173,7 +173,7 @@ class TestTable< Minitest::Test
     first_row = 100.times.collect{|a| Time.now}
     table << headers.shuffle
     table << first_row
-    100.times do |times|
+    1000.times do |times|
       row = table[1].clone
       table << row
       headers.each do |a|
