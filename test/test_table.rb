@@ -181,10 +181,11 @@ class TestTable< Minitest::Test
       end
     end
     last_line = table.count-1
-    first_few_lines = table[12][0].value - table[2][0].value
-    last_few_lines = table[last_line][0].value - table[last_line-10][0].value
-    if (first_few_lines - last_few_lines).abs > (first_few_lines + last_few_lines).abs / 10
-      puts "Performance issues? #{(first_few_lines - last_few_lines).abs}  > #{(first_few_lines + last_few_lines).abs/2} / 10"
+    delta_start = table[12][0].value - table[2][0].value
+    delta_end = table[last_line][0].value - table[last_line-10][0].value
+    average_run_time = (delta_start+delta_end / 20)
+    if (delta_end - delta_start) > average_run_time
+      puts "Performance issue"
     end
   end
   def test_columns
