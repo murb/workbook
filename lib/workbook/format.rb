@@ -89,5 +89,16 @@ module Workbook
       formats.each{|a| ff.merge!(a) }
       return ff
     end
+
+    # Formatting is sometimes the only way to detect the cells' type.
+    def derived_type
+      if self[:numberformat]
+        if self[:numberformat].to_s.match("h")
+          :time
+        elsif self[:numberformat].to_s.match("y")
+          :date
+        end
+      end
+    end
   end
 end

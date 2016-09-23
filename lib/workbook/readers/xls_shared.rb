@@ -1,4 +1,7 @@
 # -*- encoding : utf-8 -*-
+
+require 'date'
+
 module Workbook
   module Readers
     module XlsShared
@@ -8,6 +11,7 @@ module Workbook
       # @param [String, nil] ms_nr_format (nil returns nil)
       # @return [String, nil]
       def ms_formatting_to_strftime ms_nr_format
+        ms_nr_format = num_fmt_id_to_ms_formatting(ms_nr_format) if ms_nr_format.is_a? Integer
         if ms_nr_format
           ms_nr_format = ms_nr_format.to_s.downcase
           return nil if ms_nr_format == 'general' or ms_nr_format == ""
@@ -34,6 +38,33 @@ module Workbook
         end
       end
 
+      # Convert numFmtId to msmarkup
+      # @param [String, Integer] num_fmt_id numFmtId
+      # @return [String] number format (excel markup)
+      def num_fmt_id_to_ms_formatting num_fmt_id
+        # from: https://stackoverflow.com/questions/4730152/what-indicates-an-office-open-xml-cell-contains-a-date-time-value
+        {'0'=>nil, '1'=>'0', '2'=>'0.00', '3'=>'#,##0', '4'=>'#,##0.00',
+          '9'=>'0%', '10'=>'0.00%', '11'=>'0.00E+00', '12'=>'# ?/?',
+          '13'=>'# ??/??', '14'=>'mm-dd-yy', '15'=>'d-mmm-yy', '16'=>'d-mmm',
+          '17'=>'mmm-yy', '18'=>'h:mm AM/PM', '19'=>'h:mm:ss AM/PM',
+          '20'=>'h:mm', '21'=>'h:mm:ss', '22'=>'m/d/yy h:mm',
+          '37'=>'#,##0 ;(#,##0)', '38'=>'#,##0 ;[Red](#,##0)',
+          '39'=>'#,##0.00;(#,##0.00)', '40'=>'#,##0.00;[Red](#,##0.00)',
+          '44'=>'_("$"* #,##0.00_);_("$"* \(#,##0.00\);_("$"* "-"??_);_(@_)',
+          '45'=>'mm:ss', '46'=>'[h]:mm:ss', '47'=>'mmss.0', '48'=>'##0.0E+0',
+          '49'=>'@', '27'=>'[$-404]e/m/d', '30'=>'m/d/yy', '36'=>'[$-404]e/m/d',
+          '50'=>'[$-404]e/m/d', '57'=>'[$-404]e/m/d', '59'=>'t0', '60'=>'t0.00',
+          '61'=>'t#,##0', '62'=>'t#,##0.00', '67'=>'t0%', '68'=>'t0.00%',
+          '69'=>'t# ?/?', '70' => 't# ??/??'}[num_fmt_id.to_s]
+      end
+
+
+
+
+
+
+
+
       # Attempt to convert html-hex color value to xls color number
       #
       # @param [String] hex color
@@ -52,6 +83,14 @@ module Workbook
       def strftime_to_ms_format numberformat
         return nil if numberformat.nil?
         return numberformat.gsub('%Y','yyyy').gsub('%A','dddd').gsub('%B','mmmm').gsub('%a','ddd').gsub('%b','mmm').gsub('%y','yy').gsub('%d','dd').gsub('%m','mm').gsub('%y','y').gsub('%y','%%y').gsub('%e','d')
+      end
+
+      def xls_number_to_time number, base_date = DateTime.new(1899,12,30)
+        base_date + number.to_f
+      end
+
+      def xls_number_to_date number, base_date = Date.new(1899,12,30)
+        base_date + number.to_i
       end
 
       XLS_COLORS = {:xls_color_1=>'#000000',
