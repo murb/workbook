@@ -271,6 +271,7 @@ module Workbook
     # @param [Array<Column>] columns
     # @return [Array<Column>] columns
     def columns= columns
+      columns.each{|c| c.table=self}
       @columns = columns
     end
 

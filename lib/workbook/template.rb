@@ -21,7 +21,11 @@ module Workbook
     # @param [Workbook::Format] format (of a cell) to add to the template
     def add_format format
       if format.is_a? Workbook::Format
-        @formats[format.name]=format
+        if format.name
+          @formats[format.name]=format
+        else
+          @formats[@formats.keys.count]=format
+        end
       else
         raise ArgumentError, "format should be a Workboot::Format"
       end

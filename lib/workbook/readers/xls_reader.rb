@@ -2,7 +2,6 @@
 require 'spreadsheet'
 require 'workbook/readers/xls_shared'
 
-
 module Workbook
   module Readers
     module XlsReader

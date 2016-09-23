@@ -26,5 +26,14 @@ class TestTemplate < Minitest::Test
     t.set_default_formats!
     assert_equal({font_weight: "bold"},t.formats[:header][:default])
   end
-
+  def test_add_formats
+    t = Workbook::Template.new
+    t.add_format Workbook::Format.new({font:"Arial"})
+    t.add_format Workbook::Format.new({font:"Times"})
+    assert_equal(2,t.formats.keys.count)
+    named_format = Workbook::Format.new({font:"Times"})
+    named_format.name = 1
+    t.add_format named_format
+    assert_equal(2,t.formats.keys.count)
+  end
 end
