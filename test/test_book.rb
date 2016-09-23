@@ -5,19 +5,19 @@ class TestWorkbook < Minitest::Test
   def test_sheets
     w = Workbook::Book.new nil
     w.push
-    assert_equal(2, w.count)
+    assert_equal(1, w.count)
   end
 
   def test_push
     w = Workbook::Book.new nil
-    assert_equal(w.count,1)
-    assert_equal([[[]]],w)
+    assert_equal(0, w.count)
+    assert_equal([],w)
     w = Workbook::Book.new
     w.push
     assert_equal(w.first.class,Workbook::Sheet)
     w.push
     assert_equal(w,w.last.book)
-    assert_equal(w.count,3)
+    assert_equal(2, w.count)
     s = Workbook::Sheet.new
     w.push s
     assert_equal(w,w.last.book)
@@ -34,6 +34,9 @@ class TestWorkbook < Minitest::Test
     refute_equal(w.sheet, s)
     w = Workbook::Book.new s
     assert_equal(w.sheet, s)
+    w = Workbook::Book.new
+    s = w.sheet
+    assert_equal([[]], s)
   end
 
 

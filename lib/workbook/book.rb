@@ -47,15 +47,15 @@ module Workbook
 
     # @param [Workbook::Sheet, Array] sheet    create a new workbook based on an existing sheet, or initialize a sheet based on the array
     # @return [Workbook::Book]
-    def initialize sheet=Workbook::Sheet.new([], self, options={})
+    def initialize sheet=nil
       if sheet.is_a? Workbook::Sheet
         self.push sheet
-      else
-        self.push Workbook::Sheet.new(sheet, self, options)
+      elsif sheet
+        self.push Workbook::Sheet.new(sheet, self, options={})
       end
     end
 
-    # @return [Workbook::Format] returns the template describing how the document should be/is formatted
+    # @return [Workbook::Template] returns the template describing how the document should be/is formatted
     def template
       @template ||= Workbook::Template.new
     end
