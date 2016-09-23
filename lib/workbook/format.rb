@@ -24,7 +24,11 @@ module Workbook
     # @param [Workbook::Format, Hash] options (e.g. :background, :color, :background_color, :font_weight (integer or css-type labels)
     # @return [String] the name of the format, default: nil
     def initialize options={}, name=nil
-      options.each {|k,v| self[k]=v}
+      if options.is_a? String
+        name = options
+      else
+        options.each {|k,v| self[k]=v}
+      end
       self.name = name
     end
 

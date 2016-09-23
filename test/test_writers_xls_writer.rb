@@ -120,11 +120,10 @@ module Writers
       b << Workbook::Sheet.new
       b[0].name = "A"
       b[1].name = "B"
-      b[2].name = "C"
-      assert_equal(["A","B","C"], b.collect{|a| a.name})
+      assert_equal(["A","B"], b.collect{|a| a.name})
       filename = b.write_to_xls
       b = Workbook::Book.open filename
-      assert_equal(["A","B","C"], b.collect{|a| a.name})
+      assert_equal(["A","B"], b.collect{|a| a.name})
     end
     def test_removal_of_sheets_in_excel_when_using_template
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet_many_sheets.xls')

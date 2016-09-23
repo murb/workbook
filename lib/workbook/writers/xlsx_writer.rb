@@ -25,10 +25,10 @@ module Workbook
               xlsx_row.add_cell(c.value) unless xlsx_row_a[ci]
               xlsx_cell = xlsx_row_a[ci]
               xlsx_cell.value = c.value
-              if c.format?
-                format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
-                xlsx_cell.style = c.format.raws[Fixnum]
-              end
+              # if c.format?
+                # format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
+                # xlsx_cell.style = c.format.raws[Fixnum]
+              # end
             end
             xlsx_sheet.send(:update_column_info, xlsx_row.cells, [])
           end
@@ -76,7 +76,7 @@ module Workbook
         else
           t = Axlsx::Package.new
           template.add_raw t
-          template.set_default_formats!
+          # template.set_default_formats!
           return t
         end
       end
@@ -90,7 +90,7 @@ module Workbook
       end
 
       def make_sure_f_is_a_workbook_format f
-        f.is_a?(Workbook::Format) ? f : Workbook::Format.new(f)
+        f.is_a?(Workbook::Format) ? f : Workbook::Format.new({}, f)
       end
 
       def format_to_xlsx_format f
@@ -104,7 +104,7 @@ module Workbook
         xlsfmt[:bg_color] = f[:background_color] if f[:background_color]
         xlsfmt[:format_code] = strftime_to_ms_format(f[:number_format]) if f[:number_format]
         xlsfmt[:font_name] = f[:font_family].split.first if f[:font_family]
-        xlsfmt[:family] = parse_font_family(f) if f[:font_family]
+        # xlsfmt[:family] = parse_font_family(f) if f[:font_family]
 
         f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
         f.add_raw xlsfmt

@@ -39,8 +39,6 @@ class TestWorkbook < Minitest::Test
     assert_equal([[]], s)
   end
 
-
-
   def test_template
     b = Workbook::Book.new
     raw = "asdf"
