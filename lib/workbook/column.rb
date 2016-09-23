@@ -3,7 +3,7 @@ module Workbook
 
   # Column helps us to store general properties of a column, and lets us easily perform operations on values within a column
   class Column
-    attr_accessor :limit #character limit
+    attr_accessor :limit, :width #character limit
 
     def initialize(table=nil, options={})
       self.table = table
