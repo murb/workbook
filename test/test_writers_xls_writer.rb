@@ -37,8 +37,8 @@ module Writers
       # puts t.to_csv
       #TODO: NOT true delete... need to work on this...
       assert_equal(25, t[3].first.value)
-      assert_equal(nil, t[4].first.value)
-      assert_equal(nil, t[4].last.value)
+      assert_nil(t[4].first.value)
+      assert_nil(t[4].last.value)
     end
     def test_pop_row
       b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
@@ -56,11 +56,11 @@ module Writers
       t = b.sheet.table
       # puts t.to_csv
       #TODO: NOT true delete... need to work on this...
-      assert_equal(nil, t[3].first.value)
-      assert_equal(nil, t[4].first.value)
-      assert_equal(nil, t[4].last.value)
+      assert_nil(t[3].first.value)
+      assert_nil(t[4].first.value)
+      assert_nil(t[4].last.value)
       assert_equal(15, t[2].first.value)
-      assert_equal(nil, t.last.first.value)
+      assert_nil(t.last.first.value)
 
     end
     def test_pop_bigtable

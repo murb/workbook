@@ -12,7 +12,7 @@ class TestTable< Minitest::Test
   end
   def test_header
     t = Workbook::Table.new
-    assert_equal(t.header,nil)
+    assert_nil(t.header)
     t = Workbook::Table.new [[1]]
     assert_equal(t.header,[1])
     assert_equal(t.header.class,Workbook::Row)
@@ -44,11 +44,11 @@ class TestTable< Minitest::Test
     row = t.new_row(["a","b"])
     assert_equal(row, t.header)
     row = Workbook::Row.new([1,2])
-    assert_equal(nil, row.table)
+    assert_nil(row.table)
     t.push(row)
     assert_equal(t, row.table)
     row = Workbook::Row.new([3,4])
-    assert_equal(nil, row.table)
+    assert_nil(row.table)
     t << row
     assert_equal(t, row.table)
     t = Workbook::Table.new
@@ -101,8 +101,8 @@ class TestTable< Minitest::Test
   def test_spreadsheet_style_cell_addressing
     w = Workbook::Book.new [[nil, nil],["a","b"],[1,2],[3,4]]
     t = w.sheet.table
-    assert_equal(nil,t["A1"].value)
-    assert_equal(nil,t["B1"].value)
+    assert_nil(t["A1"].value)
+    assert_nil(t["B1"].value)
     assert_equal("a",t["A2"].value)
     assert_equal("b",t["B2"].value)
     assert_equal(1,t["A3"].value)
@@ -142,7 +142,7 @@ class TestTable< Minitest::Test
     w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
     t = w.sheet.table
     r = t[1].clone
-    assert_equal(nil, r.table)
+    assert_nil(r.table)
     t[2] = r
     assert_equal(t, r.table)
   end
@@ -199,6 +199,5 @@ class TestTable< Minitest::Test
     assert_equal([0,1],table.dimensions)
     table = Workbook::Table.new([[:a,:b],[1,2,3,4]])
     assert_equal([4,2],table.dimensions)
-
   end
 end

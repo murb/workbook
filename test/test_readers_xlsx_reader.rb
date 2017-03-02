@@ -25,8 +25,8 @@ module Readers
     end
     def test_ms_formatting_to_strftime
       w = Workbook::Book.new
-      assert_equal(nil,w.ms_formatting_to_strftime(nil));
-      assert_equal(nil,w.ms_formatting_to_strftime(""));
+      assert_nil(w.ms_formatting_to_strftime(nil));
+      assert_nil(w.ms_formatting_to_strftime(""));
     end
     def test_open_integer_xlsx
       w = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/integer_test.xlsx')

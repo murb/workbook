@@ -27,7 +27,7 @@ class TestRow < Minitest::Test
     r = Workbook::Row.new
     assert_raises(ArgumentError, 'table should be a Workbook::Table (you passed a String)') { r.table = "asdf" }
     r.table = nil
-    assert_equal(r.table, nil)
+    assert_nil(r.table)
     r = Workbook::Row.new
 
     t = Workbook::Table.new
@@ -190,8 +190,8 @@ class TestRow < Minitest::Test
     table << Workbook::Row.new(["a","b"])
     table << Workbook::Row.new([1,2])
     row = table[1].clone
-    assert_equal(nil,row[:a])
-    assert_equal(nil,row[:b])
+    assert_nil(row[:a])
+    assert_nil(row[:b])
     assert_equal(1,row[0].value)
     assert_equal(2,row[1].value)
   end

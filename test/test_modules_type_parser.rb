@@ -51,7 +51,7 @@ module Modules
       assert_equal("xls_cell",r[0].value)
       r[1] = Workbook::Cell.new ""
       r[1].parse!
-      assert_equal(nil,r[1].value)
+      assert_nil(r[1].value)
     end
 
     def test_once_failing_files

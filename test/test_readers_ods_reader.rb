@@ -39,7 +39,7 @@ module Readers
       assert_equal("c",w.sheet.table[2][:a].value)
       assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
       assert_equal("42000",w.sheet.table[3][:b].value.to_s)
-      assert_equal(nil,w.sheet.table[2][:c].value)
+      assert_nil(w.sheet.table[2][:c].value)
     end
 
     def test_sheet_with_combined_cells
@@ -62,7 +62,7 @@ module Readers
       t = w.sheet.table
       assert_equal(2,t["B1"].colspan)
       assert_equal(2,t["D1"].colspan)
-      assert_equal(nil,t["D3"].value)
+      assert_nil(t["D3"].value)
       assert_equal("g",t["A19"].value)
       assert_equal(0.03,t["D17"].value)
     end
