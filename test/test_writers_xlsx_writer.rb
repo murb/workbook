@@ -46,7 +46,7 @@ module Writers
       t = b.sheet.table
       #TODO: NOT true delete... need to work on this...
       assert_equal(25, t[3].first.value)
-      assert_equal(nil, t[4])
+      assert_nil(t[4])
     end
     def test_pop_row
       b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
@@ -62,7 +62,7 @@ module Writers
       b = Workbook::Book.import filename
       t = b.sheet.table
       assert_equal(25, t[3].first.value)
-      assert_equal(nil, t[4])
+      assert_nil(t[4])
       assert_equal(15, t[2].first.value)
     end
     def test_pop_bigtable

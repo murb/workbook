@@ -6,7 +6,7 @@ class TestModulesCell < Minitest::Test
 
   def test_init
     w = Workbook::Cell.new nil
-    assert_equal(nil,w.value)
+    assert_nil(w.value)
     w = Workbook::Cell.new "asdf"
     assert_equal("asdf",w.value)
 
@@ -20,7 +20,7 @@ class TestModulesCell < Minitest::Test
 
   def test_value
     w = Workbook::Cell.new nil
-    assert_equal(nil,w.value)
+    assert_nil(w.value)
     w.value = "asdf"
     assert_equal("asdf",w.value)
     w.value = Date.new
@@ -93,7 +93,7 @@ class TestModulesCell < Minitest::Test
 
   def test_nil
     c = Workbook::Cell.new nil
-    assert_equal(true,c.nil?)
+    assert_nil(c.nil?)
   end
 
   def test_colspan_rowspan

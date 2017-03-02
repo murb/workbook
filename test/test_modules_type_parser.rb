@@ -26,7 +26,7 @@ module Modules
 
     def test_parse
       examples.each do |k,v|
-        assert_equal(v,Workbook::Cell.new(k).parse({:detect_date=>true}))
+        assert_equal(v, Workbook::Cell.new(k).parse({:detect_date=>true}))
       end
     end
 

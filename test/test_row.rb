@@ -129,7 +129,7 @@ class TestRow < Minitest::Test
     assert_equal(3, r[:test].value)
     assert_equal(3, r[:test].value)
     t.last[:test] = nil
-    assert_equal(nil, r[:test].value)
+    assert_nil(r[:test].value)
     r[:test] = 5
     assert_equal(5, r[:test].value)
   end
@@ -243,7 +243,7 @@ class TestRow < Minitest::Test
     row = Workbook::Row.new([],table)
     row[1]= 12
     assert_equal(12, table.last["b"])
-    assert_equal(nil, table.last["a"])
+    assert_nil(table.last["a"])
 
   end
 
@@ -357,7 +357,7 @@ class TestRow < Minitest::Test
     a += [1,1]
     assert_equal([1,1],a.to_a )
     assert_equal(Workbook::Row, a.class )
-    assert_equal(nil, a.table)
+    assert_nil(a.table)
     assert_equal(Workbook::Cell,a[0].class)
   end
 

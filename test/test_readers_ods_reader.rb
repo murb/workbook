@@ -50,7 +50,7 @@ module Readers
       assert_equal(Workbook::NilValue,t[1][:b].value.class)
       assert_equal(:covered,t[1][:b].value.reason)
       assert_equal(2,t[1][:a].colspan)
-      assert_equal(nil,t[1][:c].colspan)
+      assert_nil(t[1][:c].colspan)
       assert_equal(2,t["D3"].rowspan)
       assert_equal(2,t["D5"].rowspan)
       assert_equal(2,t["D5"].colspan)

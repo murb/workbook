@@ -21,7 +21,7 @@ class TestFormat < Minitest::Test
 
   def test_derived_type
     f = Workbook::Format.new {}
-    assert_equal(nil,f.derived_type)
+    assert_nil(f.derived_type)
     f = Workbook::Format.new numberformat: "%m/%e/%y h:%m"
     assert_equal(:time,f.derived_type)
     f = Workbook::Format.new numberformat: "%m/%e/%y"
