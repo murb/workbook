@@ -25,7 +25,7 @@ Simply initialize a simple spreadsheet using:
 
 or
 
-    b = Workbook::Book.open filename
+    b = Workbook::Book.import filename
 
 Calling
 
@@ -59,7 +59,7 @@ Alternatively (more spreadsheet like) you can read cells like this (writing to b
 If you want to use an existing file as a template (which you can create in Excel to create nice looking templates),
 simply clone the row, and add it back:
 
-    b = Workbook::Book.open("template.xls")
+    b = Workbook::Book.import("template.xls")
     table = b.sheet.table
     template_row = table[1]            # can be any, but I typically have a well
                                     # formatted header row + an example template
@@ -78,7 +78,7 @@ simply clone the row, and add it back:
 Another typical use case is exporting a list of ActiveRecord-objects to xls (it is assumed that the headers of the excel-table correspond
 (like "Total order price" and `total_order_price` match) to the headers of the database-table ):
 
-    b = Workbook::Book.open("template.xls")
+    b = Workbook::Book.import("template.xls")
     table = b.sheet.table
     template_row = table[1]         # see above
     Order.where("created_at > ?", Time.now - 1.week).each do |order|

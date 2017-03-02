@@ -61,7 +61,7 @@ module Writers
     end
     def test_col_and_rowspans
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/sheet_with_combined_cells.ods')
+      w.import File.join(File.dirname(__FILE__), 'artifacts/sheet_with_combined_cells.ods')
       html = w.to_html
       assert_equal(true, (html.match(/rowspan="2">15 nov 11 15 nov 11/) ? true : false) )
       if RUBY_VERSION >= "1.9"
