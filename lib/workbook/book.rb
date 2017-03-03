@@ -142,7 +142,7 @@ module Workbook
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
-      t = text_to_utf8(open(filename))
+      t = text_to_utf8(open(filename).read)
       send("load_#{extension}".to_sym, t, options)
     end
 

@@ -3,7 +3,8 @@ require File.join(File.dirname(__FILE__), 'helper')
 module Modules
   class TestTypeParser < Minitest::Test
     def examples
-      {"2312"=>2312,
+      { 
+        "2312"=>2312,
         "12-12-2012"=>Date.new(2012,12,12),
         "12-12-2012 12:24"=>DateTime.new(2012,12,12,12,24),
         "2012-12-12 12:24"=>DateTime.new(2012,12,12,12,24),
@@ -16,8 +17,6 @@ module Modules
         "n"=>"n",
         "12 bomen"=>"12 bomen",
         "12 bomenasdfasdfsadf"=>"12 bomenasdfasdfsadf",
-        ""=>nil,
-        " "=>nil,
         "mailto:sadf@asdf.as"=>"sadf@asdf.as",
         "012-3456789"=>"012-3456789",
         "TRUE"=>true
@@ -26,7 +25,7 @@ module Modules
 
     def test_parse
       examples.each do |k,v|
-        assert_equal(v, Workbook::Cell.new(k).parse({:detect_date=>true}))
+        assert_equal(v, Workbook::Cell.new(k).parse({:detect_date => true}))
       end
     end
 

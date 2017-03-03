@@ -49,7 +49,7 @@ module Readers
       assert_equal("c",w.sheet.table[2][:a].value)
       assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
       assert_equal(42000,w.sheet.table[3][:b].value)
-      assert_equal(nil,w.sheet.table[2][:c].value)
+      assert_nil(w.sheet.table[2][:c].value)
     end
     def test_class_read_string
       s = File.read File.join(File.dirname(__FILE__), 'artifacts/simple_csv.csv')
