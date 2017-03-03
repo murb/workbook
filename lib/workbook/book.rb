@@ -182,7 +182,9 @@ module Workbook
     #
     # @return [String] The file extension
     def file_extension(filename)
-      File.extname(filename).gsub('.','').downcase if filename
+      ext = File.extname(filename).gsub('.','').downcase if filename
+      # for remote files which has asset id after extension
+      ext.split('?')[0] 
     end
 
     # Load the CSV data contained in the given StringIO or String object
