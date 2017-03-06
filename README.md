@@ -25,7 +25,7 @@ Simply initialize a simple spreadsheet using:
 
 or
 
-    b = Workbook::Book.import filename
+    b = Workbook::Book.open filename
 
 Calling
 
