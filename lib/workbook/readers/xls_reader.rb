@@ -15,9 +15,10 @@ module Workbook
         rescue Ole::Storage::FormatError => e
           begin
             # Assuming it is a tab separated txt inside .xls
-            open(file_obj.path, 'txt')
-          rescue
-            raise e
+            import(file_obj.path, 'txt')
+          rescue Exception => ef
+
+            raise ef
           end
         end
 

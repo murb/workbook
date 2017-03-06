@@ -46,7 +46,7 @@ module Readers
       w = Workbook::Book.new
       w.import(File.join(File.dirname(__FILE__), "artifacts/txt_in_xls.xls"))
       assert_equal([:naam, :nummer, :ilt, :corporate_key, :naam_medewerker, nil, nil, :telefoon, :openingsdatum], w.sheet.table.header.to_symbols)
-      assert_equal(["dddd", 2222, "i9000", "asd", "Anita", nil, "Betera", "012-3456789", '5-10-2011'], w.sheet.table[1].collect{|a| a.value})
+      assert_equal(["dddd", 2222, "i9000", "asd", "Anita", nil, "Betera", "012-3456789", Date.new(2011,10,5)], w.sheet.table[1].collect{|a| a.value})
     end
 
     def test_zip_in_xls_open
@@ -55,7 +55,7 @@ module Readers
       begin
         w.import(File.join(File.dirname(__FILE__), "artifacts/zip_in_xls.xls"))
         w.sheet.table.to_csv
-      rescue Ole::Storage::FormatError
+      rescue CSV::MalformedCSVError
         failed_properly = true
       end
       assert_equal(true,failed_properly)
