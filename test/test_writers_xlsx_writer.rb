@@ -8,31 +8,31 @@ module Writers
       assert_equal(true, b.to_xlsx.is_a?(Axlsx::Package))
       dimensions = b.sheet.table.dimensions
       assert_equal('untitled document.xlsx', b.write_to_xlsx)
-      b = Workbook::Book.open 'untitled document.xlsx'
+      b = Workbook::Book.import 'untitled document.xlsx'
       assert_equal(dimensions, b.sheet.table.dimensions)
     end
 
     def test_roundtrip
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
       assert_equal(14,b[0][0]["A2"])
       assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value)
       # puts b.sheet.table.to_csv
       filename = b.write_to_xlsx
-      b = Workbook::Book.open filename
+      b = Workbook::Book.import filename
       assert_equal(14,b[0][0]["A2"].value)
       assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value)
     end
     def test_roundtrip_with_modification
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
       b[0][0]["A2"]= 12
       assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value)
       filename = b.write_to_xlsx
-      b = Workbook::Book.open filename
+      b = Workbook::Book.import filename
       assert_equal(12,b[0][0]["A2"].value)
       assert_equal(DateTime.new(2011,11,15),b[0][0]["D3"].value)
     end
     def test_delete_row
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
       # a  b  c  d  e
       # 14  90589  a  19 apr 12  23 apr 12
       # 15  90588  b  15 nov 11  16 jul 12
@@ -42,14 +42,14 @@ module Writers
       assert_equal(33, t.last.first.value)
       t.delete_at(4) #delete last row
       filename = b.write_to_xlsx
-      b = Workbook::Book.open filename
+      b = Workbook::Book.import filename
       t = b.sheet.table
       #TODO: NOT true delete... need to work on this...
       assert_equal(25, t[3].first.value)
-      assert_equal(nil, t[4])
+      assert_nil(t[4])
     end
     def test_pop_row
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xlsx')
       # a  b  c  d  e
       # 14  90589  a  19 apr 12  23 apr 12
       # 15  90588  b  15 nov 11  16 jul 12
@@ -59,33 +59,33 @@ module Writers
       assert_equal(33, t.last.first.value)
       t.pop(1)
       filename = b.write_to_xlsx
-      b = Workbook::Book.open filename
+      b = Workbook::Book.import filename
       t = b.sheet.table
       assert_equal(25, t[3].first.value)
-      assert_equal(nil, t[4])
+      assert_nil(t[4])
       assert_equal(15, t[2].first.value)
     end
     def test_pop_bigtable
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
       t = b.sheet.table
       assert_equal(553, t.count)
       t.pop(300)
       assert_equal(253, t.trim.count)
       filename = b.write_to_xlsx
-      b = Workbook::Book.open filename
+      b = Workbook::Book.import filename
       t = b.sheet.table
       assert_equal(253, t.trim.count)
     end
 
     # Uncommented colour testing, this is broken since the switch to roo/axlsx
     def test_cloning_roundtrip
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')
       b.sheet.table << b.sheet.table[2]
       assert_equal(90588,b.sheet.table[5][:b].value)
       # assert_equal("#FFFF00",b.sheet.table[2][:c].format[:background_color])
       # assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
       filename = b.write_to_xls
-      b = Workbook::Book.open filename
+      b = Workbook::Book.import filename
       assert_equal(90588,b.sheet.table[5][:b].value)
       # assert_equal("#FF00FF",b.sheet.table[5][:c].format[:background_color])
     end

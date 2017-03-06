@@ -4,7 +4,7 @@ module Readers
   class TestXlsxReader < Minitest::Test
     def test_xlsx_open
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')
+      w.import File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xlsx')
       assert_equal([:a, :b, :c, :d, :e],w.sheet.table.header.to_symbols)
       assert_equal([:anders,:dit],w[1].table.header.to_symbols)
       assert_equal(90588,w.sheet.table[2][:b].value)
@@ -16,7 +16,7 @@ module Readers
     end
     def test_open_native_xlsx
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/native_xlsx.xlsx')
+      w.import File.join(File.dirname(__FILE__), 'artifacts/native_xlsx.xlsx')
       assert_equal([:datum_gemeld, :adm_gereed, :callnr],w.last.table.header.to_symbols)
       assert_equal("Callnr.",w.sheet.table[0][:callnr].value)
       assert_equal("2475617.00",w.sheet.table[3][:callnr].value)
@@ -25,16 +25,16 @@ module Readers
     end
     def test_ms_formatting_to_strftime
       w = Workbook::Book.new
-      assert_equal(nil,w.ms_formatting_to_strftime(nil));
-      assert_equal(nil,w.ms_formatting_to_strftime(""));
+      assert_nil(w.ms_formatting_to_strftime(nil));
+      assert_nil(w.ms_formatting_to_strftime(""));
     end
     def test_open_integer_xlsx
-      w = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/integer_test.xlsx')
+      w = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/integer_test.xlsx')
       assert_equal("2",w.sheet.table[1][1].value.to_s)
       assert_equal(2,w.sheet.table[1][1].value)
     end
     def test_bit_table_xlsx
-      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
+      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
       assert_equal(553, b.sheet.table.count)
     end
   end

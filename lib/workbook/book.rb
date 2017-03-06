@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'open-uri'
 require 'workbook/writers/xls_writer'
 require 'workbook/writers/xlsx_writer'
 require 'workbook/writers/html_writer'
@@ -51,7 +52,7 @@ module Workbook
       if sheet.is_a? Workbook::Sheet
         self.push sheet
       elsif sheet
-        self.push Workbook::Sheet.new(sheet, self, options={})
+        self.push Workbook::Sheet.new(sheet, self, {})
       end
     end
 
@@ -115,7 +116,7 @@ module Workbook
     # @param [String] filename   a string with a reference to the file to be opened
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     # @return [Workbook::Book] A new instance, based on the filename
-    def open filename, extension=nil, options={}
+    def import filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
       if ['txt','csv','xml'].include?(extension)
         open_text filename, extension, options
@@ -131,7 +132,7 @@ module Workbook
     # @return [Workbook::Book] A new instance, based on the filename
     def open_binary filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
-      f = File.open(filename,'rb')
+      f = open(filename)
       send("load_#{extension}".to_sym, f, options)
     end
 
@@ -141,9 +142,7 @@ module Workbook
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, extension=nil, options={}
       extension = file_extension(filename) unless extension
-      f = File.open(filename,'r')
-      t = f.read
-      t = text_to_utf8(t)
+      t = text_to_utf8(open(filename).read)
       send("load_#{extension}".to_sym, t, options)
     end
 
@@ -183,7 +182,9 @@ module Workbook
     #
     # @return [String] The file extension
     def file_extension(filename)
-      File.extname(filename).gsub('.','').downcase if filename
+      ext = File.extname(filename).gsub('.','').downcase if filename
+      # for remote files which has asset id after extension
+      ext.split('?')[0] 
     end
 
     # Load the CSV data contained in the given StringIO or String object
@@ -213,9 +214,9 @@ module Workbook
       # @param [String] filename of the document
       # @param [String] extension of the document (not required). The parser used is based on the extension of the file, this option allows you to override the default.
       # @return [Workbook::Book] A new instance, based on the filename
-      def open filename, extension=nil
+      def import filename, extension=nil
         wb = self.new
-        wb.open filename, extension
+        wb.import filename, extension
         return wb
       end
 

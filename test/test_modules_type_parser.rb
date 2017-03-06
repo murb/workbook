@@ -3,7 +3,8 @@ require File.join(File.dirname(__FILE__), 'helper')
 module Modules
   class TestTypeParser < Minitest::Test
     def examples
-      {"2312"=>2312,
+      { 
+        "2312"=>2312,
         "12-12-2012"=>Date.new(2012,12,12),
         "12-12-2012 12:24"=>DateTime.new(2012,12,12,12,24),
         "2012-12-12 12:24"=>DateTime.new(2012,12,12,12,24),
@@ -14,10 +15,10 @@ module Modules
         "12/23/1980"=>Date.new(1980,12,23), #TODO: should probably depend on locale, see: http://bugs.ruby-lang.org/issues/634#note-10
         "jA"=>"jA",
         "n"=>"n",
+        ""=>nil,
+        " "=> nil, 
         "12 bomen"=>"12 bomen",
         "12 bomenasdfasdfsadf"=>"12 bomenasdfasdfsadf",
-        ""=>nil,
-        " "=>nil,
         "mailto:sadf@asdf.as"=>"sadf@asdf.as",
         "012-3456789"=>"012-3456789",
         "TRUE"=>true
@@ -26,7 +27,7 @@ module Modules
 
     def test_parse
       examples.each do |k,v|
-        assert_equal(v,Workbook::Cell.new(k).parse({:detect_date=>true}))
+        assert(v == Workbook::Cell.new(k).parse({:detect_date => true}))
       end
     end
 
@@ -51,11 +52,11 @@ module Modules
       assert_equal("xls_cell",r[0].value)
       r[1] = Workbook::Cell.new ""
       r[1].parse!
-      assert_equal(nil,r[1].value)
+      assert_nil(r[1].value)
     end
 
     def test_once_failing_files
-      w = Workbook::Book.open(File.join(File.dirname(__FILE__), 'artifacts/failing_import1.xls')) # TRUE wasn't parsed properly
+      w = Workbook::Book.import(File.join(File.dirname(__FILE__), 'artifacts/failing_import1.xls')) # TRUE wasn't parsed properly
       assert_equal(Workbook::Book, w.class)
     end
   end

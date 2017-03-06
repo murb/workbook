@@ -4,7 +4,7 @@ module Readers
   class TestCsvWriter < Minitest::Test
     def test_open
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/simple_csv.csv')
+      w.import File.join(File.dirname(__FILE__), 'artifacts/simple_csv.csv')
       # reads
       #       a,b,c,d
       #       1,2,3,4
@@ -18,7 +18,7 @@ module Readers
     end
     def test_excel_csv_open
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/simple_excel_csv.csv')
+      w.import File.join(File.dirname(__FILE__), 'artifacts/simple_excel_csv.csv')
       # reads
       #   a;b;c
       #   1-1-2001;23;1
@@ -37,7 +37,7 @@ module Readers
     end
     def test_excel_standardized_open
       w = Workbook::Book.new
-      w.open File.join(File.dirname(__FILE__), 'artifacts/excel_different_types.csv')
+      w.import File.join(File.dirname(__FILE__), 'artifacts/excel_different_types.csv')
       # reads
       #   a,b,c,d
       # 2012-02-22,2014-12-27,2012-11-23,2012-11-12T04:20:00+00:00
@@ -49,7 +49,7 @@ module Readers
       assert_equal("c",w.sheet.table[2][:a].value)
       assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
       assert_equal(42000,w.sheet.table[3][:b].value)
-      assert_equal(nil,w.sheet.table[2][:c].value)
+      assert_nil(w.sheet.table[2][:c].value)
     end
     def test_class_read_string
       s = File.read File.join(File.dirname(__FILE__), 'artifacts/simple_csv.csv')

@@ -12,7 +12,7 @@ module Workbook
     #
     # @param [Workbook::Row, Array<Workbook::Cell>, Array] cells list of cells to initialize the row with, default is empty
     # @param [Workbook::Table] table a row normally belongs to a table, reference it here
-    # @param [Hash] options  Supprted options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
+    # @param [Hash] options  Supported options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
     def initialize cells=[], table=nil, options={}
       options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{},:clone_cells=>false}.merge(options) : {}
       cells = [] if cells==nil

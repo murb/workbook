@@ -6,7 +6,7 @@ class TestModulesCell < Minitest::Test
 
   def test_init
     w = Workbook::Cell.new nil
-    assert_equal(nil,w.value)
+    assert_nil(w.value)
     w = Workbook::Cell.new "asdf"
     assert_equal("asdf",w.value)
 
@@ -20,7 +20,7 @@ class TestModulesCell < Minitest::Test
 
   def test_value
     w = Workbook::Cell.new nil
-    assert_equal(nil,w.value)
+    assert_nil(w.value)
     w.value = "asdf"
     assert_equal("asdf",w.value)
     w.value = Date.new
@@ -93,29 +93,29 @@ class TestModulesCell < Minitest::Test
 
   def test_nil
     c = Workbook::Cell.new nil
-    assert_equal(true,c.nil?)
+    assert_nil(c)
   end
 
   def test_colspan_rowspan
     c = Workbook::Cell.new
     c.colspan = 1
     c.rowspan = 1
-    assert_equal(nil,c.colspan)
-    assert_equal(nil,c.rowspan)
+    assert_nil(c.colspan)
+    assert_nil(c.rowspan)
     c.colspan = nil
     c.rowspan = ""
-    assert_equal(nil,c.colspan)
-    assert_equal(nil,c.rowspan)
+    assert_nil(c.colspan)
+    assert_nil(c.rowspan)
     c.colspan = 3
     c.rowspan = "4"
     assert_equal(3,c.colspan)
     c.rowspan = 0
-    assert_equal(nil,c.rowspan)
+    assert_nil(c.rowspan)
     assert_equal(3,c.colspan)
     c.colspan = 0
     c.rowspan = 3
     assert_equal(3,c.rowspan)
-    assert_equal(nil,c.colspan)
+    assert_nil(c.colspan)
   end
 
   def test_cell_type
@@ -134,7 +134,7 @@ class TestModulesCell < Minitest::Test
     t = Workbook::Table.new [[:a,:b,:c],[1,2,3],[4,5,6]]
     assert_equal(:c, t[2][2].key)
     t = Workbook::Table.new [[:d,nil,nil],[:a,:b,:c],[1,2,3],[4,5,6]]
-    assert_equal(nil, t[2][2].key)
+    assert_nil(t[2][2].key)
     assert_equal(:d, t[2][0].key)
     t.header = t[1]
     assert_equal(:a, t[2][0].key)
