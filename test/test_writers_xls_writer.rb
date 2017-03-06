@@ -15,14 +15,14 @@ module Writers
     end
 
     def test_roundtrip
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
       assert_equal(3.85546875,b.sheet.table.first[:a].format[:width])
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       assert_equal(3.85546875,b.sheet.table.first[:a].format[:width])
     end
     def test_delete_row
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
       # a  b  c  d  e
       # 14  90589  a  19 apr 12  23 apr 12
       # 15  90588  b  15 nov 11  16 jul 12
@@ -32,7 +32,7 @@ module Writers
       assert_equal(33, t.last.first.value)
       t.delete_at(4) #delete last row
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       t = b.sheet.table
       # puts t.to_csv
       #TODO: NOT true delete... need to work on this...
@@ -41,7 +41,7 @@ module Writers
       assert_nil(t[4].last.value)
     end
     def test_pop_row
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet.xls')
       # a  b  c  d  e
       # 14  90589  a  19 apr 12  23 apr 12
       # 15  90588  b  15 nov 11  16 jul 12
@@ -52,7 +52,7 @@ module Writers
       t.pop(2) #delete last two row
       # puts t.to_csv
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       t = b.sheet.table
       # puts t.to_csv
       #TODO: NOT true delete... need to work on this...
@@ -64,7 +64,7 @@ module Writers
 
     end
     def test_pop_bigtable
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/bigtable.xls')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xls')
       # a  b  c  d  e
       # 14  90589  a  19 apr 12  23 apr 12
       # 15  90588  b  15 nov 11  16 jul 12
@@ -75,19 +75,19 @@ module Writers
       t.pop(300) #delete last two row
       assert_equal(274, t.trim.count)
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       t = b.sheet.table
       assert_equal(274, t.trim.count)
 
 
     end
     def test_cloning_roundtrip
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xls')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/book_with_tabs_and_colours.xls')
       b.sheet.table << b.sheet.table[2]
       assert_equal(90588,b.sheet.table[5][:b].value)
       assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       assert_equal(90588,b.sheet.table[5][:b].value)
       assert_equal("#FFFF00",b.sheet.table[5][:c].format[:background_color])
     end
@@ -122,16 +122,16 @@ module Writers
       b[1].name = "B"
       assert_equal(["A","B"], b.collect{|a| a.name})
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       assert_equal(["A","B"], b.collect{|a| a.name})
     end
     def test_removal_of_sheets_in_excel_when_using_template
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/simple_sheet_many_sheets.xls')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/simple_sheet_many_sheets.xls')
       assert_equal(10, b.count)
       b.pop(4)
       assert_equal(6, b.count)
       filename = b.write_to_xls
-      b = Workbook::Book.import filename
+      b = Workbook::Book.open filename
       assert_equal(6, b.count)
 
     end

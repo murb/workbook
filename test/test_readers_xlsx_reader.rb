@@ -29,12 +29,12 @@ module Readers
       assert_nil(w.ms_formatting_to_strftime(""));
     end
     def test_open_integer_xlsx
-      w = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/integer_test.xlsx')
+      w = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/integer_test.xlsx')
       assert_equal("2",w.sheet.table[1][1].value.to_s)
       assert_equal(2,w.sheet.table[1][1].value)
     end
     def test_bit_table_xlsx
-      b = Workbook::Book.import File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
       assert_equal(553, b.sheet.table.count)
     end
   end

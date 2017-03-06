@@ -184,7 +184,7 @@ module Workbook
     def file_extension(filename)
       ext = File.extname(filename).gsub('.','').downcase if filename
       # for remote files which has asset id after extension
-      ext.split('?')[0] 
+      ext.split('?')[0]
     end
 
     # Load the CSV data contained in the given StringIO or String object
@@ -214,7 +214,7 @@ module Workbook
       # @param [String] filename of the document
       # @param [String] extension of the document (not required). The parser used is based on the extension of the file, this option allows you to override the default.
       # @return [Workbook::Book] A new instance, based on the filename
-      def import filename, extension=nil
+      def open filename, extension=nil
         wb = self.new
         wb.import filename, extension
         return wb
