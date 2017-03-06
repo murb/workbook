@@ -15,6 +15,8 @@ module Modules
         "12/23/1980"=>Date.new(1980,12,23), #TODO: should probably depend on locale, see: http://bugs.ruby-lang.org/issues/634#note-10
         "jA"=>"jA",
         "n"=>"n",
+        ""=>nil,
+        " "=> nil, 
         "12 bomen"=>"12 bomen",
         "12 bomenasdfasdfsadf"=>"12 bomenasdfasdfsadf",
         "mailto:sadf@asdf.as"=>"sadf@asdf.as",
@@ -25,7 +27,7 @@ module Modules
 
     def test_parse
       examples.each do |k,v|
-        assert_equal(v, Workbook::Cell.new(k).parse({:detect_date => true}))
+        assert(v == Workbook::Cell.new(k).parse({:detect_date => true}))
       end
     end
 

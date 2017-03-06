@@ -13,7 +13,7 @@ module Workbook
       # Return the different active string parsers
       # @return [Array<Symbol>] A list of parsers
       def string_parsers
-        @string_parsers ||= [:string_cleaner,:string_nil_converter,:string_integer_converter,:string_boolean_converter]
+        @string_parsers ||= [:string_cleaner,:string_integer_converter,:string_boolean_converter]
       end
 
       # Set the list of string parsers
@@ -32,8 +32,9 @@ module Workbook
       # Returns the parsed value (retrieved by calling #value)
       # @return [Object] The parsed object, ideally a date or integer when found to be a such...
       def parse options={}
-        options = {:detect_date=>false}.merge(options)
+        options = {:detect_date=>false, :convert_empty_to_nil=>true}.merge(options)
         string_parsers.push :string_optimistic_date_converter if options[:detect_date]
+        string_parsers.push :string_nil_converter if options[:convert_empty_to_nil]
         v = value
         string_parsers_as_procs.each do |p|
           if v.is_a? String
