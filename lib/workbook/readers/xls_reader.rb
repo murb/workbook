@@ -12,7 +12,7 @@ module Workbook
           sp = Spreadsheet.open(file_obj, 'rb')
           template.add_raw sp
           parse_xls sp, options
-        rescue Ole::Storage::FormatError => e
+        rescue Ole::Storage::FormatError
           begin
             # Assuming it is a tab separated txt inside .xls
             import(file_obj.path, 'txt')

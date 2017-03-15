@@ -20,7 +20,7 @@ module Workbook
       def parse_csv csv_raw, options={}
         custom_date_converter = Workbook::Cell.new.string_optimistic_date_converter
         options = {
-          converters: [:float,:integer,:date,:date_time,custom_date_converter]
+          converters: [:all,custom_date_converter]
         }.merge(options)
 
         csv=nil
