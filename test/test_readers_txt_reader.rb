@@ -39,7 +39,7 @@ module Readers
       assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
       assert_equal("c",w.sheet.table[2][:a].value)
       assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
-      assert_equal(42000,w.sheet.table[3][:b].value)
+      assert_equal("42000",w.sheet.table[3][:b].value.to_s)
       assert_nil(w.sheet.table[2][:c].value)
     end
 
