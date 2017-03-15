@@ -1,0 +1,3 @@
+﻿artikel;aantal;bedrag;reservering;aanmaaktijd_reservering;gastnummer;titel;voorletters;tussenvoegsels;naam;straat;huisnummer;postcode;woonplaats;email;tel_land;tel_net;tel_abon
+"Vriend - € 50";1;50.00;123;2016-10-27;7891;asdf;A.;;asdf;"asdf ";55;"1234 LM";AMSTERDAM;a@example.com;053;;123123
+"Vriend - € 35";1;35.00;123;2016-11-02;5676;"Dasdfr";B.;;asdf;"asdf asdf";12;"1234 NN";UTRECHT;b@example.com;+31;074;123123

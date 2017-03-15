@@ -99,5 +99,8 @@ module Readers
       w = Workbook::Book.read("2013-03-19,JV,211,032,1,DBG A,,13,0147,\n", :csv, {converters: []})
       assert_equal("2013-03-19,JV,211,032,1,DBG A,,13,0147,\n",w.sheet.table.to_csv)
     end
+    def test_semi_colon_separated_csv
+      w = Workbook::Book.open(File.join(File.dirname(__FILE__), 'artifacts/semicolonseparated_in_csv.csv'))
+    end
   end
 end

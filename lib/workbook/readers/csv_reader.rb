@@ -24,12 +24,14 @@ module Workbook
         }.merge(options)
 
         csv=nil
-        #begin
-        csv = csv_lib.parse(csv_raw,options)
+        begin
+          csv = csv_lib.parse(csv_raw,options)
 
-        #rescue
-        # we're going to have another shot at it...
-        #end
+        rescue CSV::MalformedCSVError
+          csv_excel = csv_lib.parse(csv_raw,options.merge({:col_sep=>';'}))
+          csv = csv_excel if csv_excel[0].count > 1
+
+        end
 
         if csv==nil or csv[0].count == 1
           csv_excel = csv_lib.parse(csv_raw,options.merge({:col_sep=>';'}))
