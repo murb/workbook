@@ -35,8 +35,19 @@ module Readers
     end
     def test_different_types_xlsx
       w = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/excel_different_types.xlsx')
-      assert_equal("ls",w.sheet.table[3][3].value)
-      assert_equal(true,w.sheet.table[2][2].value)
+      t = w.sheet.table
+      assert_equal("ls",t["D4"].value)
+      assert_equal(true,t["C3"].value)
+      assert_equal("c",t["C1"].value)
+      assert_equal(222,t["B3"].value)
+      assert_equal(4.23,t["C2"].value)
+      assert(t["A4"].value.is_a?(Date))
+      assert((DateTime.new(2012,1,22,11)-t["A4"].value) < 0.00001)
+      assert_equal(42000,t["B4"].value)
+      assert_equal(42000.22323,t["D2"].value)
+      assert(t["A2"].value.is_a?(Date))
+      assert((Date.new(2012,2,22)-t["A2"].value) < 0.00001)
+      assert((Date.new(2014,12,27)-t["B2"].value) < 0.00001)
     end
     def test_bit_table_xlsx
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')

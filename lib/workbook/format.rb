@@ -99,7 +99,7 @@ module Workbook
       if self[:numberformat]
         if self[:numberformat].to_s.match("h")
           :time
-        elsif self[:numberformat].to_s.match("y")
+        elsif self[:numberformat].to_s.match(/y/i)
           :date
         end
       end

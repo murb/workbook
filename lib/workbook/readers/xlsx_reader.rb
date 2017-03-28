@@ -173,6 +173,7 @@ module Workbook
         formula = cell.css('f').text()
         value = cell.text
         fmt = template.formats[formatIndex]
+
         # puts type
         if type == "n" or type == nil
           if fmt.derived_type == :date
