@@ -52,21 +52,24 @@ module Workbook
       # create an overview of the differences between itself with another 'previous' table, returns a book with a single sheet and table (containing the diffs)
       #
       # @return [Workbook::Table] the return result
-      def diff other, options={:sort=>true,:ignore_headers=>false}
+      def diff other, options={}
+        options = {:sort=>true,:ignore_headers=>false}.merge(options)
 
         aligned = align(other, options)
         aself = aligned[:self]
         aother = aligned[:other]
+
         iteration_cols = []
         if options[:ignore_headers]
           iteration_cols = [aother.first.count,aself.first.count].max.times.collect
         else
           iteration_cols = (aother.header.to_symbols+aother.header.to_symbols).uniq
         end
+
         diff_table = diff_template
         maxri = (aself.count-1)
+
         for ri in 0..maxri do
-          row = diff_table[ri]
           row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
           srow = aself[ri]
           orow = aother[ri]
@@ -74,24 +77,7 @@ module Workbook
           iteration_cols.each_with_index do |ch, ci|
             scell = srow[ch]
             ocell = orow[ch]
-            dcell = scell.nil? ? Workbook::Cell.new(nil) : scell
-            if (scell == ocell)
-              dcell.format = scell.format if scell
-            elsif scell.nil?
-              dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
-              dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
-            elsif ocell.nil?
-              dcell = scell.clone
-              fmt = scell.nil? ? :default : scell.format[:number_format]
-              f = diff_template.template.create_or_find_format_by 'created', fmt
-              f[:number_format] = scell.format[:number_format]
-              dcell.format = f
-            elsif scell != ocell
-              dcell = Workbook::Cell.new "#{scell.to_s} (was: #{ocell.to_s})"
-              f = diff_template.template.create_or_find_format_by 'updated'
-              dcell.format = f
-            end
-            row[ci]=dcell
+            row[ci] = create_diff_cell(scell, ocell)
           end
         end
         if !options[:ignore_headers]
@@ -99,6 +85,31 @@ module Workbook
         end
 
         diff_table
+      end
+
+      # creates a new cell describing the difference between two cells
+      #
+      # @return [Workbook::Cell] the diff cell
+      def create_diff_cell(scell, ocell)
+        dcell = scell.nil? ? Workbook::Cell.new(nil) : scell
+        if (scell == ocell)
+          dcell.format = scell.format if scell
+        elsif scell.nil?
+          dcell = Workbook::Cell.new "(was: #{ocell.to_s})"
+          dcell.format = diff_template.template.create_or_find_format_by 'destroyed'
+        elsif ocell.nil?
+          dcell = scell.clone
+          fmt = scell.nil? ? :default : scell.format[:number_format]
+          f = diff_template.template.create_or_find_format_by 'created', fmt
+          f[:number_format] = scell.format[:number_format]
+          dcell.format = f
+        elsif scell != ocell
+          dcell = Workbook::Cell.new "#{scell.to_s} (was: #{ocell.to_s})"
+          f = diff_template.template.create_or_find_format_by 'updated'
+          dcell.format = f
+        end
+
+        dcell
       end
 
       # Return template table to write the diff result in; in case non exists a default is generated.
