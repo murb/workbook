@@ -146,14 +146,31 @@ module Workbook
         col
       end
       def parse_xlsx_row row
-        cells = row.css('c').collect{|a| parse_xlsx_cell(a)}
-        row = Workbook::Row.new(cells)
+        cells_with_pos = row.css('c').collect{|a| parse_xlsx_cell(a)}
+        row = Workbook::Row.new
+        cells_with_pos.each do |cell_with_pos|
+          position = cell_with_pos[:position]
+          col = position.match(/^[A-Z]*/).to_s
+          row[col] = cell_with_pos[:cell]
+        end
+        row = pad_xlsx_row(row)
+        row
       end
+
+      def pad_xlsx_row(row)
+        row.each_with_index do |cell, index|
+          row[index]=Workbook::Cell.new(nil) if cell.nil? and !cell.is_a?(Workbook::Cell)
+        end
+        row
+      end
+
       def parse_xlsx_cell cell
         # style_id = cell.attr('s')
         # p cell
         type = cell.attr('t')
         formatIndex = cell.attr('s').to_i
+        position = cell.attr('r')
+        formula = cell.css('f').text()
         value = cell.text
         fmt = template.formats[formatIndex]
         # puts type
@@ -162,13 +179,19 @@ module Workbook
             value = xls_number_to_date(value)
           elsif fmt.derived_type == :time
             value = xls_number_to_time(value)
+          elsif formula == "TRUE()"
+            value = true
+          elsif formula == "FALSE()"
+            value = false
           elsif type == "n"
             value = value.match(/\./) ? value.to_f : value.to_i
           end
         elsif type == "s"
           value = @shared_strings[value.to_i]
         end
-        Workbook::Cell.new(value, format: fmt)
+        cell = Workbook::Cell.new(value, format: fmt)
+        cell.formula = formula
+        {cell: cell, position: position}
       end
       def parse_xlsx
       end

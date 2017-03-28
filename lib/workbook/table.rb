@@ -177,7 +177,7 @@ module Workbook
     def [](index_or_string)
       if index_or_string.is_a? String
         match = index_or_string.match(/([A-Z]+)([0-9]*)/i)
-        col_index = alpha_index_to_number_index(match[1])
+        col_index = Workbook::Column.alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
         return self[row_index][col_index]
       elsif index_or_string.is_a? Range
@@ -201,7 +201,7 @@ module Workbook
     def []= (index_or_string, new_value)
       if index_or_string.is_a? String
         match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
-        cell_index = alpha_index_to_number_index(match[1])
+        cell_index = Workbook::Column.alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
         self[row_index][cell_index].value = new_value
       else
@@ -210,18 +210,6 @@ module Workbook
         super(index_or_string,row)
         row.set_table(self)
       end
-    end
-
-    # Helps to convert from e.g. "AA" to 26
-    # @param [String] string that typically identifies a column
-    # @return [Integer]
-    def alpha_index_to_number_index string
-      string.upcase!
-      sum = 0
-      string.chars.each_with_index do | char, char_index|
-        sum = sum * 26 + char.unpack('U')[0]-64
-      end
-      return sum-1
     end
 
     # remove all the trailing empty-rows (returning a trimmed clone)

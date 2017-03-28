@@ -33,9 +33,19 @@ module Readers
       assert_equal("2",w.sheet.table[1][1].value.to_s)
       assert_equal(2,w.sheet.table[1][1].value)
     end
+    def test_different_types_xlsx
+      w = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/excel_different_types.xlsx')
+      assert_equal("ls",w.sheet.table[3][3].value)
+      assert_equal(true,w.sheet.table[2][2].value)
+    end
     def test_bit_table_xlsx
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
       assert_equal(553, b.sheet.table.count)
+    end
+    def test_xlsx_with_empty_start
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/xlsx_with_empty_start.xlsx')
+      t = b.sheet.table
+      assert_nil(t["A3"].value)
     end
   end
 end

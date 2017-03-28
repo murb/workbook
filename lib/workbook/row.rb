@@ -18,8 +18,9 @@ module Workbook
       cells = [] if cells==nil
       self.table= table
       cells.each do |c|
-        c = c.clone if options[:clone_cells]
-        unless c.is_a? Workbook::Cell
+        if c.is_a? Workbook::Cell
+          c = c.clone if options[:clone_cells]
+        else
           c = Workbook::Cell.new(c, {row:self})
           c.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
         end
@@ -91,10 +92,11 @@ module Workbook
     end
 
 
-    # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
+    # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values and / or
     #
     # @example Lookup using fixnum or header value encoded as symbol
     #   row[1] #=> <Cell value="a">
+    #   row["A"] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
     # @param [Fixnum, Symbol, String] index_or_hash that identifies the column (strings are converted to symbols)
@@ -107,6 +109,9 @@ module Workbook
         rescue NoMethodError
         end
         return rv
+      elsif index_or_hash.is_a? String and index_or_hash.match(/^[A-Z]*$/)
+        # it looks like a column indicator
+        return to_a[Workbook::Column.alpha_index_to_number_index(index_or_hash)]
       elsif index_or_hash.is_a? String
         symbolized = Workbook::Cell.new(index_or_hash, {row:self}).to_sym
         self[symbolized]
@@ -130,6 +135,9 @@ module Workbook
       index = index_or_hash
       if index_or_hash.is_a? Symbol
         index = table_header_keys.index(index_or_hash)
+      elsif index_or_hash.is_a? String and index_or_hash.match(/^[A-Z]*$/)
+        # it looks like a column indicator
+        index = Workbook::Column.alpha_index_to_number_index(index_or_hash)
       elsif index_or_hash.is_a? String
         symbolized = Workbook::Cell.new(index_or_hash, {row:self}).to_sym
         index = table_header_keys.index(symbolized)

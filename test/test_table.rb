@@ -111,19 +111,6 @@ class TestTable< Minitest::Test
     assert_equal(4,t["B4"].value)
   end
 
-  def test_alpha_index_to_number_index
-    w = Workbook::Book.new
-    t = w.sheet.table
-    assert_equal(0,t.alpha_index_to_number_index("A"))
-    assert_equal(2,t.alpha_index_to_number_index("C"))
-    assert_equal(25,t.alpha_index_to_number_index("Z"))
-    assert_equal(26,t.alpha_index_to_number_index("AA"))
-    assert_equal(27,t.alpha_index_to_number_index("AB"))
-    assert_equal(51,t.alpha_index_to_number_index("AZ"))
-    assert_equal(52,t.alpha_index_to_number_index("BA"))
-    assert_equal((27*26)-1,t.alpha_index_to_number_index("ZZ"))
-  end
-
   def test_multirowselect_through_collections
     w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
     t = w.sheet.table

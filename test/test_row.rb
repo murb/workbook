@@ -244,13 +244,22 @@ class TestRow < Minitest::Test
     row[1]= 12
     assert_equal(12, table.last["b"])
     assert_nil(table.last["a"])
+  end
 
+  def test_find_by_column_string
+    b = Workbook::Book.new
+    table = b.sheet.table
+    table << Workbook::Row.new(["b","a"])
+    row = Workbook::Row.new([],table)
+    row[1]= 12
+    assert_equal(12, table.last["B"])
+    assert_nil(table.last["A"])
   end
 
   def test_row_hash_index_string_assignment
     b = Workbook::Book.new
     table = b.sheet.table
-    table << Workbook::Row.new(["a","b"])
+    table << Workbook::Row.new(["a","b","d"])
     row = Workbook::Row.new([],table)
     row[1]= 12
     assert_equal(12, table.last.last.value)
@@ -258,6 +267,8 @@ class TestRow < Minitest::Test
     assert_equal(15, table.last.last.value)
     row["b"]= 18
     assert_equal(18, table.last.last.value)
+    row["C"]= 2
+    assert_equal(2, table.last[2].value)
   end
 
   def test_trim!

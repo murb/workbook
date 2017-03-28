@@ -76,6 +76,18 @@ module Workbook
       @default = Cell.new(value)
     end
 
-
+    class << self
+      # Helps to convert from e.g. "AA" to 26
+      # @param [String] string that typically identifies a column
+      # @return [Integer]
+      def alpha_index_to_number_index string
+        string.upcase!
+        sum = 0
+        string.chars.each_with_index do | char, char_index|
+          sum = sum * 26 + char.unpack('U')[0]-64
+        end
+        return sum-1
+      end
+    end
   end
 end
