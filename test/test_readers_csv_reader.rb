@@ -103,5 +103,34 @@ module Readers
       w = Workbook::Book.open(File.join(File.dirname(__FILE__), 'artifacts/semicolonseparated_in_csv.csv'))
       assert_equal("﻿artikel,aantal,bedrag,reservering,aanmaaktijd_reservering,gastnummer,titel,voorletters,tussenvoegsels,naam,straat,huisnummer,postcode,woonplaats,email,tel_land,tel_net,tel_abon\nVriend - € 50,1,50.0,123,2016-10-27,7891,asdf,A.,,asdf,asdf ,55,1234 LM,AMSTERDAM,a@example.com,43,,123123\nVriend - € 35,1,35.0,123,2016-11-02,5676,Dasdfr,B.,,asdf,asdf asdf,12,1234 NN,UTRECHT,b@example.com,31,60,123123\n", w.sheet.table.to_csv)
     end
+    def test_from_stream
+      s = File.read 'test/artifacts/simple_csv.csv'
+      w = Workbook::Book.from_stream( s )
+      # reads
+      #       a,b,c,d
+      #       1,2,3,4
+      #       5,3,2,1
+      #       "asdf",123,12,2001-02-02
+      #       
+      assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
+      assert_equal(3,w.sheet.table[2][:b].value)
+      assert_equal("asdf",w.sheet.table[3][:a].value)
+      assert_equal(Date.new(2001,2,2),w.sheet.table[3][:d].value)
+    end
+    def test_load_stream
+      w = Workbook::Book.new
+      s = File.read 'test/artifacts/simple_csv.csv'
+      w.load_stream( s )
+      # reads
+      #       a,b,c,d
+      #       1,2,3,4
+      #       5,3,2,1
+      #       "asdf",123,12,2001-02-02
+      #       
+      assert_equal([:a,:b,:c,:d],w.sheet.table.header.to_symbols)
+      assert_equal(3,w.sheet.table[2][:b].value)
+      assert_equal("asdf",w.sheet.table[3][:a].value)
+      assert_equal(Date.new(2001,2,2),w.sheet.table[3][:d].value)
+    end
   end
 end
