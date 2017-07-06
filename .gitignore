@@ -13,3 +13,5 @@ profile.*
 untitled document.xlsx*
 .DS_Store
 doc
+private_*
+test_private_*

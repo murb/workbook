@@ -121,7 +121,7 @@ module Workbook
       end
 
       def parse_shared_string_file file
-        Nokogiri::XML(file).css("sst si t").collect{|a| a.text}
+        Nokogiri::XML(file).css("sst si").collect{|a| a.text}
       end
       def parse_xlsx_sheet sheet_xml
         sheet = Workbook::Sheet.new

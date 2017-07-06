@@ -58,5 +58,10 @@ module Readers
       t = b.sheet.table
       assert_nil(t["A3"].value)
     end
+    def test_parse_shared_string_file
+      file_contents = "<sst xmlns=\"http://schemas.openxmlformats.org/spreadsheetml/2006/main\" count=\"3095\" uniqueCount=\"1241\"><si><t>Nummer</t></si><si><t>Locatie</t></si><si><r><t>ZR 1</t></r><r><rPr><vertAlign val=\"superscript\"/><sz val=\"11\"/><rFont val=\"Calibri\"/><scheme val=\"minor\"/></rPr><t>e</t></r><r><rPr><sz val=\"11\"/><rFont val=\"Calibri\"/><family val=\"2\"/><scheme val=\"minor\"/></rPr><t xml:space=\"preserve\"> etage</t></r></si><si><t>Kaas</t></si></sst>"
+      result = Workbook::Book.new.parse_shared_string_file(file_contents)
+      assert_equal(["Nummer", "Locatie", "ZR 1e etage", "Kaas"],result)
+    end
   end
 end
