@@ -101,7 +101,7 @@ module Writers
       b = Workbook::Book.new
       b.template.set_default_formats!
       b.formats_to_xlsx_format
-      assert_equal(false,b.template.create_or_find_format_by(:header).raws[Fixnum].nil?)
+      assert_equal(false,b.template.create_or_find_format_by(:header).raws[Integer].nil?)
     end
 
     def test_format_to_xlsx_integrated
