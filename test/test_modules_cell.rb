@@ -27,7 +27,7 @@ class TestModulesCell < Minitest::Test
     assert_equal(Date.new,w.value)
     w.value = 1
     assert_equal(1,w.value)
-    assert_equal(Integer,w.value.class)
+    assert(["Integer", "Fixnum"].include?(w.value.class.to_s))
     w.value = 1.0
     assert_equal(1.0,w.value)
     assert_equal(Float,w.value.class)
