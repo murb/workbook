@@ -131,7 +131,7 @@ module Workbook
     # @param [Fixnum, Symbol, String] index_or_hash that identifies the column
     # @param [String, Fixnum, NilClass, Date, DateTime, Time, Float] value
     # @return [Workbook::Cell, nil]
-    def []= (index_or_hash, value)
+    def []= index_or_hash, value
       index = index_or_hash
       if index_or_hash.is_a? Symbol
         index = table_header_keys.index(index_or_hash)

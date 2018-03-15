@@ -174,7 +174,7 @@ module Workbook
     #
     # @param [Fixnum, String] index_or_string to reference to either the row, or the cell
     # @return [Workbook::Row, Workbook::Cell, nil]
-    def [](index_or_string)
+    def [] index_or_string
       if index_or_string.is_a? String
         match = index_or_string.match(/([A-Z]+)([0-9]*)/i)
         col_index = Workbook::Column.alpha_index_to_number_index(match[1])
@@ -198,7 +198,7 @@ module Workbook
     # @param [Fixnum, String] index_or_string to reference to either the row, or the cell
     # @param [Workbook::Table, Array] new_value to set
     # @return [Workbook::Cell, nil]
-    def []= (index_or_string, new_value)
+    def []= index_or_string, new_value
       if index_or_string.is_a? String
         match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
         cell_index = Workbook::Column.alpha_index_to_number_index(match[1])
@@ -216,7 +216,7 @@ module Workbook
     #
     # @param [Integer] desired_row_length of the rows
     # @return [Workbook::Row] a trimmed clone of the array
-    def trim(desired_row_length=nil)
+    def trim desired_row_length=nil
       self.clone.trim!(desired_row_length)
     end
 
@@ -224,7 +224,7 @@ module Workbook
     #
     # @param [Integer] desired_row_length of the new row
     # @return [Workbook::Row] self
-    def trim!(desired_row_length=nil)
+    def trim! desired_row_length=nil
       max_length = self.collect{|a| a.trim.length }.max
       self_count = self.count-1
       self.count.times do |index|
