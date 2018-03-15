@@ -35,8 +35,12 @@ module Workbook
 
     # Does the current format feature a background *color*? (not black or white or transparant).
     def has_background_color? color=:any
-      if flattened[:background_color]
-        return (flattened[:background_color].downcase==color.to_s.downcase or (!(flattened[:background_color]==nil or (flattened[:background_color].is_a? String and (flattened[:background_color].downcase=='#ffffff' or flattened[:background_color]=='#000000'))) and color==:any))
+      bg_color = flattened[:background_color] ? flattened[:background_color].to_s.downcase : nil
+
+      if color != :any and bg_color
+        return bg_color == color.to_s.downcase
+      elsif bg_color
+        return !(flattened[:background_color].downcase=='#ffffff' or flattened[:background_color]=='#000000')
       else
         return false
       end
