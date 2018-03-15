@@ -24,9 +24,9 @@ Gem::Specification.new do |s|
   # s.add_dependency("rubyzip", '~> 1.2', '>= 1.2.1')
   s.add_dependency('axlsx', '~> 3.0.0.pre')
   if RUBY_VERSION < "1.9"
-    s.add_dependency('nokogiri', "~> 1.5.10")
+    s.add_dependency('nokogiri', "~> 1.5")
   else
-    s.add_dependency('nokogiri', '~> 1.6')
+    s.add_dependency('nokogiri', '~> 1.8')
   end
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split($/)
