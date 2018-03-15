@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
 module Workbook
 
   # Column helps us to store general properties of a column, and lets us easily perform operations on values within a column
@@ -17,10 +18,12 @@ module Workbook
       table[1..500].each do |row|
         if row[ind] and row[ind].cell_type
           cel_column_type = row[ind].cell_type
-          if !defined?(@column_type) or @column_type.nil? or cel_column_type == @column_type
+          if !defined?(@column_type) or @column_type.nil?
             @column_type = cel_column_type
+          elsif cel_column_type == @column_type or cel_column_type == :nil
           else
             @column_type = :string
+            break
           end
         end
       end

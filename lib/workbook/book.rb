@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
 require 'open-uri'
 require 'workbook/writers/xls_writer'
 require 'workbook/writers/xlsx_writer'
@@ -160,22 +161,13 @@ module Workbook
     #
     # @param [String] text a string to convert
     def text_to_utf8 text
-      if RUBY_VERSION < '1.9'
-        require 'rchardet'
-        require 'iconv'
-        detected_encoding = CharDet.detect(text)
-        detected_encoding = detected_encoding['encoding']
-        text = Iconv.conv("UTF-8//TRANSLIT//IGNORE",detected_encoding,text)
-        text = text.gsub("\xEF\xBB\xBF", '') # removing the BOM...
-      else
-        unless text.valid_encoding? and text.encoding == "UTF-8"
-          # TODO: had some ruby 1.9 problems with rchardet ... but ideally it or a similar functionality will be reintroduced
-          source_encoding = text.valid_encoding? ? text.encoding : "US-ASCII"
-          text = text.encode('UTF-8', source_encoding, {:invalid=>:replace, :undef=>:replace, :replace=>""})
-          text = text.gsub("\u0000","") # TODO: this cleanup of nil values isn't supposed to be needed...
-        end
+      unless text.valid_encoding? and text.encoding == "UTF-8"
+        # TODO: had some ruby 1.9 problems with rchardet ... but ideally it or a similar functionality will be reintroduced
+        source_encoding = text.valid_encoding? ? text.encoding : "US-ASCII"
+        text = text.encode('UTF-8', source_encoding, {:invalid=>:replace, :undef=>:replace, :replace=>""})
+        text = text.gsub("\u0000","") # TODO: this cleanup of nil values isn't supposed to be needed...
       end
-      return text
+      text
     end
 
     # @param [String, File] filename   The full filename, or path

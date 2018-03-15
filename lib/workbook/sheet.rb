@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
 module Workbook
   # A Sheet is a container of tables
   class Sheet < Array

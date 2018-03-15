@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-$KCODE="u" if RUBY_VERSION < "1.9"
+# frozen_string_literal: true
 require_relative 'workbook/modules/cache'
 require_relative 'workbook/modules/cell'
 require_relative 'workbook/types/date'

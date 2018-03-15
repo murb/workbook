@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
 require 'workbook/modules/type_parser'
 require 'workbook/nil_value'
 require 'date'
@@ -8,19 +9,59 @@ module Workbook
     module Cell
       include Workbook::Modules::TypeParser
 
-
-
+      CHARACTER_REPACEMENTS = {
+        [/[\(\)\.\?\,\!\=\$\:]/,] => '',
+        [/\&/] => 'amp',
+        [/\+/] => '_plus_',
+        [/\s/,'/_','/',"\\"] => '_',
+        ['–_','-_','+_','-'] => '',
+        ['__']=>'_',
+        ['>']=>'gt',
+        ['<']=>'lt',
+        ['á','à','â','ä','ã','å'] => 'a',
+        ['Ã','Ä','Â','À','�?','Å'] => 'A',
+        ['é','è','ê','ë'] => 'e',
+        ['Ë','É','È','Ê'] => 'E',
+        ['í','ì','î','ï'] => 'i',
+        ['�?','Î','Ì','�?'] => 'I',
+        ['ó','ò','ô','ö','õ'] => 'o',
+        ['Õ','Ö','Ô','Ò','Ó'] => 'O',
+        ['ú','ù','û','ü'] => 'u',
+        ['Ú','Û','Ù','Ü'] => 'U',
+        ['ç'] => 'c',
+        ['Ç'] => 'C',
+        ['š', 'ś'] => 's',
+        ['Š', 'Ś'] => 'S',
+        ['ž','ź'] => 'z',
+        ['Ž','Ź'] => 'Z',
+        ['ñ'] => 'n',
+        ['Ñ'] => 'N',
+        ['#'] => 'hash',
+        ['*'] => 'asterisk'
+      }
+      CLASS_CELLTYPE_MAPPING = {
+       'Numeric' => :integer,
+       'Integer' => :integer,
+       'Fixnum' => :integer,
+       'Float' => :float,
+       'String' => :string,
+       'Symbol' => :string,
+       'Time' => :time,
+       'Date' => :date,
+       'DateTime' => :datetime,
+       'TrueClass' => :boolean,
+       'FalseClass' => :boolean,
+       'NilClass' => :nil,
+       'Workbook::NilValue' => :nil
+      }
       # Note that these types are sorted by 'importance'
-      VALID_TYPES = [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Workbook::NilValue,Symbol]
 
       # Evaluates a value for class-validity
       #
       # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass,Object] value the value to evaluate
       # @return [Boolean] returns true when the value is a valid cell value
       def valid_value? value
-        valid_type = false
-        VALID_TYPES.each {|t| return true if value.is_a? t}
-        valid_type
+        !CLASS_CELLTYPE_MAPPING[value.class.to_s].nil?
       end
 
       def formula
@@ -64,21 +105,8 @@ module Workbook
       #
       # @return [Symbol] the type of cell, compatible with Workbook::Column'types
       def cell_type
-        case value.class.to_s
-        when "String" then :string
-        when "FalseClass" then :boolean
-        when "TrueClass" then :boolean
-        when 'Time' then :time
-        when "Date" then :date
-        when "DateTime" then :datetime
-        when "Float" then :float
-        when "Integer" then :integer
-        when "Numeric" then :integer
-        when "Fixnum" then :integer
-        when "Symbol" then :string
-        end
+        CLASS_CELLTYPE_MAPPING[value.class.to_s]
       end
-
 
       # Returns the current value
       #
@@ -142,7 +170,15 @@ module Workbook
       # returns true when the value of the cell is nil.
       # @return [Boolean]
       def nil?
-        return value.nil?
+        value.nil?
+      end
+
+      def nil_or_empty?
+        value.nil? || value.to_s == ""
+      end
+
+      def value_to_s
+        value.to_s.downcase
       end
 
       # returns a symbol representation of the cell's value
@@ -153,59 +189,25 @@ module Workbook
       def to_sym
         return @to_sym if @to_sym
         v = nil
-        if value
-          v = value.to_s.downcase
-          if v.to_i != 0
-            v = "num#{v}"
-          end
-          ends_with_exclamationmark = (v[-1] == '!')
-          ends_with_questionmark = (v[-1] == '?')
-
-          replacements = {
-            [/[\(\)\.\?\,\!\=\$\:]/,] => '',
-            [/\&/] => 'amp',
-            [/\+/] => '_plus_',
-            [/\s/,'/_','/',"\\"] => '_',
-            ['–_','-_','+_','-'] => '',
-            ['__']=>'_',
-            ['>']=>'gt',
-            ['<']=>'lt',
-            ['á','à','â','ä','ã','å'] => 'a',
-            ['Ã','Ä','Â','À','�?','Å'] => 'A',
-            ['é','è','ê','ë'] => 'e',
-            ['Ë','É','È','Ê'] => 'E',
-            ['í','ì','î','ï'] => 'i',
-            ['�?','Î','Ì','�?'] => 'I',
-            ['ó','ò','ô','ö','õ'] => 'o',
-            ['Õ','Ö','Ô','Ò','Ó'] => 'O',
-            ['ú','ù','û','ü'] => 'u',
-            ['Ú','Û','Ù','Ü'] => 'U',
-            ['ç'] => 'c',
-            ['Ç'] => 'C',
-            ['š', 'ś'] => 's',
-            ['Š', 'Ś'] => 'S',
-            ['ž','ź'] => 'z',
-            ['Ž','Ź'] => 'Z',
-            ['ñ'] => 'n',
-            ['Ñ'] => 'N',
-            ['#'] => 'hash',
-            ['*'] => 'asterisk'
-          }
-          replacements.each do |ac,rep|
-            ac.each do |s|
-              v = v.gsub(s, rep)
-            end
-          end
-          if RUBY_VERSION < '1.9'
-            v = v.gsub(/[^\x00-\x7F]/n,'')
+        unless nil_or_empty?
+          if cell_type == :integer
+            v = "num#{value}".to_sym
+          elsif cell_type == :float
+            v = "num#{value}".sub(".","_").to_sym
           else
-            # See String#encode
-            encoding_options = {:invalid => :replace, :undef => :replace, :replace => ''}
-            v = v.encode(Encoding.find('ASCII'), encoding_options)
+            v = value_to_s
+
+            ends_with_exclamationmark = (v[-1] == '!')
+            ends_with_questionmark = (v[-1] == '?')
+
+            v = _replace_possibly_problematic_characters_from_string(v)
+
+            v = v.encode(Encoding.find('ASCII'), {:invalid => :replace, :undef => :replace, :replace => ''})
+
+            v = "#{v}!" if ends_with_exclamationmark
+            v = "#{v}?" if ends_with_questionmark
+            v = v.downcase.to_sym
           end
-          v = "#{v}!" if ends_with_exclamationmark
-          v = "#{v}?" if ends_with_questionmark
-          v = v.downcase.to_sym
         end
         @to_sym = v
         return @to_sym
@@ -243,10 +245,7 @@ module Workbook
       #
       # @param value a potential value for a cell
       def importance_of_class value
-        VALID_TYPES.each_with_index do |c,i|
-          return i if value.is_a? c
-        end
-        return nil
+        CLASS_CELLTYPE_MAPPING.keys.index value.class.to_s
       end
 
       # Returns whether special formatting is present on this cell
@@ -301,6 +300,17 @@ module Workbook
       end
       def rowspan
         @rowspan.to_i if defined?(@rowspan) and @rowspan.to_i > 1
+      end
+
+      private
+
+      def _replace_possibly_problematic_characters_from_string(string)
+        Workbook::Modules::Cell::CHARACTER_REPACEMENTS.each do |ac,rep|
+          ac.each do |s|
+            string = string.gsub(s, rep)
+          end
+        end
+        string
       end
     end
   end

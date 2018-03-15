@@ -33,6 +33,12 @@ class TestModulesCell < Minitest::Test
     assert_equal(Float,w.value.class)
   end
 
+  def test_importance_of_class
+    a = Workbook::Cell.new
+    assert_equal(4, a.importance_of_class("a"))
+    assert_equal(5, a.importance_of_class(:a))
+  end
+
   def test_comp
     a = Workbook::Cell.new 1
     b = Workbook::Cell.new 2
@@ -82,7 +88,7 @@ class TestModulesCell < Minitest::Test
       "A-B!" => :ab!,
       "éåšžÌ?" => :easzi?,
       1 => :num1,
-      1.0 => :num10
+      1.0 => :num1_0
     }
     examples.each do |k,v|
       assert_equal(v, Workbook::Cell.new(k).to_sym)

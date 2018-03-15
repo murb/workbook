@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Workbook
 
   # Used in cases col or rowspans are used

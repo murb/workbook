@@ -18,16 +18,12 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rake", '~> 10.0')
   s.add_development_dependency('minitest', '~> 5.4')
   s.add_dependency('spreadsheet', '~> 1.1')
-  s.add_dependency('fastercsv') if RUBY_VERSION < "1.9"
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("json", '~> 2.1')
   # s.add_dependency("rubyzip", '~> 1.2', '>= 1.2.1')
   s.add_dependency('axlsx', '~> 3.0.0.pre')
-  if RUBY_VERSION < "1.9"
-    s.add_dependency('nokogiri', "~> 1.5")
-  else
-    s.add_dependency('nokogiri', '~> 1.8')
-  end
+  s.add_dependency('nokogiri', '~> 1.8')
+
   s.platform    = Gem::Platform::RUBY
   s.files         = `git ls-files`.split($/)
   s.test_files    = s.files.grep(%r{^(test|spec|features)/})

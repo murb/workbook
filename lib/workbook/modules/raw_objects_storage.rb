@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+# frozen_string_literal: true
 module Workbook
   module Modules
     # Adds support for storing raw objects, used in e.g. Format and Template
