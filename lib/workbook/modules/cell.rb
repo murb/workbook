@@ -49,6 +49,7 @@ module Workbook
        'Time' => :time,
        'Date' => :date,
        'DateTime' => :datetime,
+       'ActiveSupport::TimeWithZone' => :datetime,
        'TrueClass' => :boolean,
        'FalseClass' => :boolean,
        'NilClass' => :nil,
