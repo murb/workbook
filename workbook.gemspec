@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.description = "Workbook contains workbooks, as in a table, contains rows, contains cells, reads/writes excel, ods and csv and tab separated files, and offers basic diffing and sorting capabilities."
   s.authors     = ["Maarten Brouwers"]
   s.add_development_dependency 'ruby-prof', '~> 0.14'
-  s.add_development_dependency("rake", '~> 10.0')
+  s.add_development_dependency("rake", '~> 12.0')
   s.add_development_dependency('minitest', '~> 5.4')
   s.add_dependency('spreadsheet', '~> 1.1')
   s.add_dependency("rchardet", "~> 1.3")
