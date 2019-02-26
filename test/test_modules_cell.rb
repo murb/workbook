@@ -88,7 +88,10 @@ class TestModulesCell < Minitest::Test
       "A-B!" => :ab!,
       "éåšžÌ?" => :easzi?,
       1 => :num1,
-      1.0 => :num1_0
+      1.0 => :num1_0,
+      'test   ' => :test,
+      'test ' => :test
+
     }
     examples.each do |k,v|
       assert_equal(v, Workbook::Cell.new(k).to_sym)

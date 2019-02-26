@@ -196,8 +196,7 @@ module Workbook
           elsif cell_type == :float
             v = "num#{value}".sub(".","_").to_sym
           else
-            v = value_to_s
-
+            v = value_to_s.strip
             ends_with_exclamationmark = (v[-1] == '!')
             ends_with_questionmark = (v[-1] == '?')
 
