@@ -125,6 +125,7 @@ class TestTable< Minitest::Test
     w2.sheet.table = t[2..3]
     assert_equal("1,2\n3,4\n", w2.sheet.table.to_csv)
   end
+
   def test_array_style_assignment
     w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
     t = w.sheet.table
@@ -133,12 +134,14 @@ class TestTable< Minitest::Test
     t[2] = r
     assert_equal(t, r.table)
   end
+
   def test_delete_at
     w = Workbook::Book.new [["a","b"],[1,2],[3,4]]
     t = w.sheet.table
     t.delete_at 2
     assert_equal(1, t.last.first.value)
   end
+
   def test_trim!
     t = Workbook::Table.new
     t << [1,2,3]
