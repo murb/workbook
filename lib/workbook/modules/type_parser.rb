@@ -78,29 +78,54 @@ module Workbook
 
       def string_optimistic_date_converter
         proc do |v|
-          rv = v
-          starts_with_nr = v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
-          no_spaced_dash = v.to_s.match(" - ") ? false : true
-          min_two_dashes = v.to_s.scan("-").count > 1 ? true : false
-          min_two_dashes = v.to_s.scan("/").count > 1 ? true : false if min_two_dashes == false
+          if v
+            rv = v
+            starts_with_nr = v.chars.first.to_i.to_s == v.chars.first #it should at least start with a number...
+            no_spaced_dash = v.to_s.match(" - ") ? false : true
+            min_two_dashes = v.to_s.scan("-").count > 1 ? true : false
+            min_two_dashes = v.to_s.scan("/").count > 1 ? true : false if min_two_dashes == false
 
-          normal_date_length = v.to_s.length <= 25
-          if no_spaced_dash and starts_with_nr and normal_date_length and min_two_dashes
-            begin
-              rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v)
-            rescue ArgumentError
-              rv = v
+            normal_date_length = v.to_s.length <= 25
+            if no_spaced_dash and starts_with_nr and normal_date_length and min_two_dashes
+              begin
+                rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v)
+              rescue ArgumentError
+                rv = v
+              end
+              begin
+                rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify if it is only based on the first number
+              rescue ArgumentError
+              end
             end
-            begin
-              rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify if it is only based on the first number
-            rescue ArgumentError
-            end
+            rv
+          end
+        end
+      end
+
+      def string_american_date_converter
+        proc do |v|
+          if v
+            rv = v
             # try strptime with format 'mm/dd/yyyy'
-            if rv == v && /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}/ =~ v
+            if rv.is_a?(String) && /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}/ =~ v
               begin
                 rv = Date.strptime(v, "%m/%d/%Y")
               rescue ArgumentError
               end
+            end
+            rv
+          end
+        end
+      end
+
+      def string_non_american_date_converter
+        proc do |v|
+          rv = v
+          # try strptime with format 'mm/dd/yyyy'
+          if rv.is_a?(String) && /^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{4}/ =~ v
+            begin
+              rv = Date.strptime(v, "%m/%d/%Y")
+            rescue ArgumentError
             end
           end
           rv
