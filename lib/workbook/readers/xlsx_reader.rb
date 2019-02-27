@@ -188,6 +188,12 @@ module Workbook
           elsif type == "n"
             value = value.match(/\./) ? value.to_f : value.to_i
           end
+        elsif type == "b"
+          if value.to_s == "0"
+            value = false
+          elsif value.to_s == "1"
+            value = true
+          end
         elsif type == "s"
           value = @shared_strings[value.to_i]
         end

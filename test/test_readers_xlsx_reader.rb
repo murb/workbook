@@ -48,6 +48,9 @@ module Readers
       assert(t["A2"].value.is_a?(Date))
       assert((Date.new(2012,2,22)-t["A2"].value) < 0.00001)
       assert((Date.new(2014,12,27)-t["B2"].value) < 0.00001)
+      assert_equal(false,t["E2"].value)
+      assert_equal(true,t["E3"].value)
+      assert_equal(true,t["E4"].value)
     end
     def test_bit_table_xlsx
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
