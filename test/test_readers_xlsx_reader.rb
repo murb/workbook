@@ -52,6 +52,11 @@ module Readers
       assert_equal(true,t["E3"].value)
       assert_equal(true,t["E4"].value)
     end
+    def test_skipping_cells
+      w = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/skippingcells.xlsx')
+      t = w.sheet.table
+      assert_equal("a,b,c,d,e,f,g,h,i,j,k,l,m,n\n1,,,,,,,,,,,,,\n,2,,,,,,,,,,,,\n,,3,,,,,,,,,,,\n,,,4,,,,,,,,,,\n,,,,5,,,,,,,,,\n,,,,,6,,,,,,,,\n,,,,,,7,,,,,,,\n,,,,,,,8,,,,,,\n,,,,,,,,9,,,,,\n,,,,,,,,,10,,,,\n,,,,,,,,,,11,,,\n,,,,,,,,,,,12,,\n,,,,,,,,,,,,13,\n,,,,,,,,,,,,,14\na,,,,,,,,,,,,,\n,b,,,,,,,,,,,,\n,,c,,,,,,,,,,,\n,,,d,,,,,,,,,,\n,,,,e,,,,,,,,,\n,,,,,f,,,,,,,,\n,,,,,,g,,,,,,,\n,,,,,,,h,,,,,,\n,,,,,,,,i,,,,,\n,,,,,,,,,j,,,,\n,,,,,,,,,,k,,,\n,,,,,,,,,,,l,,\n,,,,,,,,,,,,m,\n,,,,,,,,,,,,,n\n", t.to_csv)
+    end
     def test_bit_table_xlsx
       b = Workbook::Book.open File.join(File.dirname(__FILE__), 'artifacts/bigtable.xlsx')
       assert_equal(553, b.sheet.table.count)
