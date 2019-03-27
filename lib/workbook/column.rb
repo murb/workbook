@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # -*- encoding : utf-8 -*-
 # frozen_string_literal: true
 module Workbook
@@ -84,9 +86,8 @@ module Workbook
       # @param [String] string that typically identifies a column
       # @return [Integer]
       def alpha_index_to_number_index string
-        string.upcase!
         sum = 0
-        string.chars.each_with_index do | char, char_index|
+        string.upcase.chars.each_with_index do | char, char_index|
           sum = sum * 26 + char.unpack('U')[0]-64
         end
         return sum-1
