@@ -4,10 +4,9 @@ env:
 sudo: false
 language: ruby
 rvm:
-  - 2.3.0
-  - 2.4.0
-  - 2.5.0
-  - 2.6.0
+  - 2.4.6
+  - 2.5.3
+  - 2.6.3
 before_install:
   - gem install bundler
 before_script:
