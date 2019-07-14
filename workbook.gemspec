@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rake", "~> 12.0")
   s.add_development_dependency("minitest", "~> 5.4")
   s.add_development_dependency("standard", "~> 0.1.0")
+  s.add_development_dependency("simplecov", "~> 0.17.0")
   s.add_dependency("spreadsheet", "~> 1.1")
   s.add_dependency("rchardet", "~> 1.3")
   s.add_dependency("json", "~> 2.1")
