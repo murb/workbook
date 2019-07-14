@@ -1,27 +1,25 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'axlsx'
-require 'workbook/readers/xls_shared'
+
+require "axlsx"
+require "workbook/readers/xls_shared"
 
 module Workbook
   module Writers
     module XlsxWriter
-
       # Generates an axlsx doc, ready for export to XLSX
       #
       # @param [Hash] options A hash with options (unused so far)
       # @return [Axlsx::Package] An object, ready for writing or more lower level operations
-      def to_xlsx options={}
+      def to_xlsx options = {}
         formats_to_xlsx_format
         book = init_xlsx_spreadsheet_template.workbook
-        book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
-        self.each_with_index do |s,si|
+        book.worksheets.pop(book.worksheets.count - count) if book.worksheets && (book.worksheets.count > count)
+        each_with_index do |s, si|
           xlsx_sheet = xlsx_sheet(si)
           xlsx_sheet.name = s.name
           s.table.each_with_index do |r, ri|
-            xlsx_row = xlsx_sheet[ri] ? xlsx_sheet[ri] : xlsx_sheet.add_row
+            xlsx_row = xlsx_sheet[ri] || xlsx_sheet.add_row
             xlsx_row.height = 16
             xlsx_row_a = xlsx_row.to_ary
             r.each_with_index do |c, ci|
@@ -29,8 +27,8 @@ module Workbook
               xlsx_cell = xlsx_row_a[ci]
               xlsx_cell.value = c.value
               # if c.format?
-                # format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
-                # xlsx_cell.style = c.format.raws[Fixnum]
+              # format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
+              # xlsx_cell.style = c.format.raws[Fixnum]
               # end
             end
             xlsx_sheet.send(:update_column_info, xlsx_row.cells, [])
@@ -54,39 +52,39 @@ module Workbook
       #
       # @param [String] filename
       # @param [Hash] options   see #to_xlsx
-      def write_to_xlsx filename="#{title}.xlsx", options={}
+      def write_to_xlsx filename = "#{title}.xlsx", options = {}
         if to_xlsx(options).serialize(filename)
-          return filename
+          filename
         end
       end
 
       def xlsx_sheet a
         if xlsx_template.workbook.worksheets[a]
-          return xlsx_template.workbook.worksheets[a]
+          xlsx_template.workbook.worksheets[a]
         else
           xlsx_template.workbook.add_worksheet
-          self.xlsx_sheet a
+          xlsx_sheet a
         end
       end
 
       def xlsx_template
-        return template.raws[Axlsx::Package]
+        template.raws[Axlsx::Package]
       end
 
       def init_xlsx_spreadsheet_template
-        if self.xlsx_template.is_a? Axlsx::Package
-          return self.xlsx_template
+        if xlsx_template.is_a? Axlsx::Package
+          xlsx_template
         else
           t = Axlsx::Package.new
           template.add_raw t
           # template.set_default_formats!
-          return t
+          t
         end
       end
 
       def formats_to_xlsx_format
-        template.formats.each do |n,v|
-          v.each do | t,s |
+        template.formats.each do |n, v|
+          v.each do |t, s|
             format_to_xlsx_format(s)
           end
         end
@@ -99,9 +97,9 @@ module Workbook
       def format_to_xlsx_format f
         f = make_sure_f_is_a_workbook_format f
 
-        xlsfmt={}
-        xlsfmt[:fg_color] = "FF#{f[:color].to_s.upcase}".gsub("#",'') if f[:color]
-        xlsfmt[:b] = true if f[:font_weight].to_s == "bold" or f[:font_weight].to_i >= 600 or f[:"font_style"].to_s.match "oblique"
+        xlsfmt = {}
+        xlsfmt[:fg_color] = "FF#{f[:color].to_s.upcase}".delete("#") if f[:color]
+        xlsfmt[:b] = true if (f[:font_weight].to_s == "bold") || (f[:font_weight].to_i >= 600) || f[:font_style].to_s.match("oblique")
         xlsfmt[:i] = true if f[:font_style].to_s == "italic"
         xlsfmt[:u] = true if f[:text_decoration].to_s.match("underline")
         xlsfmt[:bg_color] = f[:background_color] if f[:background_color]
@@ -112,7 +110,7 @@ module Workbook
         f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
         f.add_raw xlsfmt
 
-        return xlsfmt
+        xlsfmt
       end
     end
   end

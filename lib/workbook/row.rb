@@ -1,13 +1,12 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
+
 module Workbook
   class Row < Array
     include Workbook::Modules::Cache
 
-    alias_method :compare_without_header, :<=>
-    attr_accessor :placeholder     # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
+    alias compare_without_header <=>
+    attr_accessor :placeholder # The placeholder attribute is used in compares (corresponds to newly created or removed lines (depending which side you're on)
     attr_accessor :format
 
     # Initialize a new row
@@ -15,15 +14,15 @@ module Workbook
     # @param [Workbook::Row, Array<Workbook::Cell>, Array] cells list of cells to initialize the row with, default is empty
     # @param [Workbook::Table] table a row normally belongs to a table, reference it here
     # @param [Hash] options  Supported options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
-    def initialize cells=[], table=nil, options={}
-      options=options ? {:parse_cells_on_batch_creation=>false,:cell_parse_options=>{},:clone_cells=>false}.merge(options) : {}
-      cells = [] if cells==nil
-      self.table= table
+    def initialize cells = [], table = nil, options = {}
+      options = options ? {parse_cells_on_batch_creation: false, cell_parse_options: {}, clone_cells: false}.merge(options) : {}
+      cells = [] if cells.nil?
+      self.table = table
       cells.each do |c|
         if c.is_a? Workbook::Cell
           c = c.clone if options[:clone_cells]
         else
-          c = Workbook::Cell.new(c, {row:self})
+          c = Workbook::Cell.new(c, {row: self})
           c.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
         end
         push c
@@ -55,24 +54,24 @@ module Workbook
     #
     # @param [Workbook::Table] t the table this row belongs to
     def table= t
-      raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) or t == nil
+      raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) || t.nil?
       if t
         @table = t
-        table.push(self) #unless table.index(self) and self.placeholder?
+        table.push(self) # unless table.index(self) and self.placeholder?
       end
     end
 
     # Add cell
     # @param [Workbook::Cell, Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] cell or value to add
     def push(cell)
-      cell = Workbook::Cell.new(cell, {row:self}) unless cell.class == Workbook::Cell
+      cell = Workbook::Cell.new(cell, {row: self}) unless cell.class == Workbook::Cell
       super(cell)
     end
 
     # Add cell
     # @param [Workbook::Cell, Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] cell or value to add
     def <<(cell)
-      cell = Workbook::Cell.new(cell,  {row:self}) unless cell.class == Workbook::Cell
+      cell = Workbook::Cell.new(cell, {row: self}) unless cell.class == Workbook::Cell
       super(cell)
     end
 
@@ -82,7 +81,7 @@ module Workbook
     def +(row)
       rv = super(row)
       rv = Workbook::Row.new(rv) unless rv.class == Workbook::Row
-      return rv
+      rv
     end
 
     # concat
@@ -92,7 +91,6 @@ module Workbook
       row = Workbook::Row.new(row) unless row.class == Workbook::Row
       super(row)
     end
-
 
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values and / or
     #
@@ -110,16 +108,16 @@ module Workbook
           rv = to_hash[index_or_hash]
         rescue NoMethodError
         end
-        return rv
-      elsif index_or_hash.is_a? String and index_or_hash.match(/^[A-Z]*$/)
+        rv
+      elsif index_or_hash.is_a?(String) && index_or_hash.match(/^[A-Z]*$/)
         # it looks like a column indicator
-        return to_a[Workbook::Column.alpha_index_to_number_index(index_or_hash)]
+        to_a[Workbook::Column.alpha_index_to_number_index(index_or_hash)]
       elsif index_or_hash.is_a? String
-        symbolized = Workbook::Cell.new(index_or_hash, {row:self}).to_sym
+        symbolized = Workbook::Cell.new(index_or_hash, {row: self}).to_sym
         self[symbolized]
       else
         if index_or_hash
-          return to_a[index_or_hash]
+          to_a[index_or_hash]
         end
       end
     end
@@ -137,11 +135,11 @@ module Workbook
       index = index_or_hash
       if index_or_hash.is_a? Symbol
         index = table_header_keys.index(index_or_hash)
-      elsif index_or_hash.is_a? String and index_or_hash.match(/^[A-Z]*$/)
+      elsif index_or_hash.is_a?(String) && index_or_hash.match(/^[A-Z]*$/)
         # it looks like a column indicator
         index = Workbook::Column.alpha_index_to_number_index(index_or_hash)
       elsif index_or_hash.is_a? String
-        symbolized = Workbook::Cell.new(index_or_hash, {row:self}).to_sym
+        symbolized = Workbook::Cell.new(index_or_hash, {row: self}).to_sym
         index = table_header_keys.index(symbolized)
       end
 
@@ -153,10 +151,10 @@ module Workbook
         if current_cell.is_a? Workbook::Cell
           value_celled = current_cell
         end
-        value_celled.value=(value)
+        value_celled.value = value
       end
       value_celled.row = self
-      super(index,value_celled)
+      super(index, value_celled)
     end
 
     # Returns an array of cells allows you to find cells by a given color, normally a string containing a hex
@@ -164,9 +162,9 @@ module Workbook
     # @param [String] color  a CSS-style hex-string
     # @param [Hash] options Option :hash_keys (default true) returns row as an array of symbols
     # @return [Array<Symbol>, Workbook::Row<Workbook::Cell>]
-    def find_cells_by_background_color color=:any, options={}
-      options = {:hash_keys=>true}.merge(options)
-      cells = self.collect {|c| c if c.format.has_background_color?(color) }.compact
+    def find_cells_by_background_color color = :any, options = {}
+      options = {hash_keys: true}.merge(options)
+      cells = collect { |c| c if c.format.has_background_color?(color) }.compact
       r = Row.new cells
       options[:hash_keys] ? r.to_symbols : r
     end
@@ -175,35 +173,35 @@ module Workbook
     #
     # @return [Boolean]
     def header?
-      table != nil and self.object_id == table_header.object_id
+      !table.nil? && (object_id == table_header.object_id)
     end
 
     # Is this the first row in the table
     #
     # @return [Boolean, NilClass] returns nil if it doesn't belong to a table, false when it isn't the first row of a table and true when it is.
     def first?
-      table != nil and self.object_id == table.first.object_id
+      !table.nil? && (object_id == table.first.object_id)
     end
 
     # Returns true when all the cells in the row have values whose to_s value equals an empty string
     #
     # @return [Boolean]
     def no_values?
-      all? {|c| c.value.to_s == ''}
+      all? { |c| c.value.to_s == "" }
     end
 
     # Converts a row to an array of symbol representations of the row content, see also: Workbook::Cell#to_sym
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
-      fetch_cache(:to_symbols){
-        collect{|c| c.to_sym}
+      fetch_cache(:to_symbols) {
+        collect { |c| c.to_sym }
       }
     end
 
     # Converts the row to an array of Workbook::Cell's
     # @return [Array<Workbook::Cell>] returns row as an array of symbols
     def to_a
-      self.collect{|c| c}
+      collect { |c| c }
     end
 
     def table_header
@@ -221,15 +219,15 @@ module Workbook
       keys = table_header_keys
       values = self
       hash = {}
-      keys.each_with_index {|k,i| hash[k]=values[i]}
-      return hash
+      keys.each_with_index { |k, i| hash[k] = values[i] }
+      hash
     end
 
     # Quick assessor to the book's template, if it exists
     #
     # @return [Workbook::Template]
     def template
-      table.template if table
+      table&.template
     end
 
     # Returns a hash representation of this row
@@ -243,8 +241,8 @@ module Workbook
       keys = table_header_keys
       values = self
       @hash_with_values = {}
-      keys.each_with_index {|k,i| v=values[i]; v=v.value if v; @hash_with_values[k]=v}
-      return @hash_with_values
+      keys.each_with_index { |k, i| v = values[i]; v = v.value if v; @hash_with_values[k] = v }
+      @hash_with_values
     end
 
     # Compares one row wiht another
@@ -252,9 +250,9 @@ module Workbook
     # @param [Workbook::Row] other row to compare against
     # @return [Workbook::Row] a row with the diff result.
     def <=> other
-      a = self.header? ? 0 : 1
+      a = header? ? 0 : 1
       b = other.header? ? 0 : 1
-      return (a <=> b) if (a==0 or b==0)
+      return (a <=> b) if (a == 0) || (b == 0)
       compare_without_header other
     end
 
@@ -267,44 +265,44 @@ module Workbook
 
     # Compact detaches the row from the table
     def compact
-      r = self.clone
-      r = r.collect{|c| c unless c.nil?}.compact
+      r = clone
+      r = r.collect { |c| c unless c.nil? }.compact
     end
 
     # clone the row with together with the cells
     #
     # @return [Workbook::Row] a cloned copy of self with cells
     def clone
-      Workbook::Row.new(self, nil, {:clone_cells=>true})
+      Workbook::Row.new(self, nil, {clone_cells: true})
     end
 
     # remove all the trailing nil-cells (returning a trimmed clone)
     #
     # @param [Integer] desired_length of the new row
     # @return [Workbook::Row] a trimmed clone of the array
-    def trim(desired_length=nil)
-      self.clone.trim!(desired_length)
+    def trim(desired_length = nil)
+      clone.trim!(desired_length)
     end
 
     # remove all the trailing nil-cells (returning a trimmed self)
     #
     # @param [Integer] desired_length of the new row
     # @return [Workbook::Row] self
-    def trim!(desired_length=nil)
-      self_count = self.count-1
-      self.count.times do |index|
+    def trim!(desired_length = nil)
+      self_count = count - 1
+      count.times do |index|
         index = self_count - index
-        if desired_length and index < desired_length
+        if desired_length && (index < desired_length)
           break
-        elsif desired_length and index >= desired_length
-          self.delete_at(index)
+        elsif desired_length && (index >= desired_length)
+          delete_at(index)
         elsif self[index].nil?
-          self.delete_at(index)
+          delete_at(index)
         else
           break
         end
       end
-      (desired_length - self.count).times{|a| self << (Workbook::Cell.new(nil))} if desired_length and (desired_length - self.count) > 0
+      (desired_length - count).times { |a| self << Workbook::Cell.new(nil) } if desired_length && ((desired_length - count) > 0)
       self
     end
   end

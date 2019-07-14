@@ -1,8 +1,7 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'csv'
+
+require "csv"
 
 module Workbook
   module Writers
@@ -11,15 +10,15 @@ module Workbook
       #
       # @param [Hash] options (not used)
       # @return [String] csv (comma separated values in a string)
-      def to_csv options={}
+      def to_csv options = {}
         csv = ""
         options = {}.merge options
-        self.each_with_index do |r, ri|
-          line=nil
+        each_with_index do |r, ri|
+          line = nil
           begin
-            line = CSV::generate_line(r.collect{|c| c.value if c},{:row_sep=>""})
+            line = CSV.generate_line(r.collect { |c| c&.value }, {row_sep: ""})
           rescue TypeError
-            line = CSV::generate_line(r.collect{|c| c.value if c})
+            line = CSV.generate_line(r.collect { |c| c&.value })
           end
           csv += "#{line}\n"
         end
@@ -31,11 +30,10 @@ module Workbook
       # @param [String] filename
       # @param [Hash] options   see #to_csv
       # @return [String] filename
-      def write_to_csv filename="#{title}.csv", options={}
-        File.open(filename, 'w') {|f| f.write(to_csv(options)) }
-        return filename
+      def write_to_csv filename = "#{title}.csv", options = {}
+        File.open(filename, "w") { |f| f.write(to_csv(options)) }
+        filename
       end
-
     end
   end
 end

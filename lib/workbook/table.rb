@@ -1,12 +1,10 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'workbook/modules/diff_sort'
-require 'workbook/writers/csv_table_writer'
-require 'workbook/writers/json_table_writer'
-require 'workbook/writers/html_writer'
 
+require "workbook/modules/diff_sort"
+require "workbook/writers/csv_table_writer"
+require "workbook/writers/json_table_writer"
+require "workbook/writers/html_writer"
 
 module Workbook
   # A table is a container of rows and keeps track of the sheet it belongs to and which row is its header. Additionally suport for CSV writing and diffing with another table is included.
@@ -18,13 +16,13 @@ module Workbook
 
     attr_accessor :name
 
-    def initialize row_cel_values=[], sheet=nil, options={}
-      row_cel_values = [] if row_cel_values == nil
-      row_cel_values.each_with_index do |r,ri|
+    def initialize row_cel_values = [], sheet = nil, options = {}
+      row_cel_values = [] if row_cel_values.nil?
+      row_cel_values.each_with_index do |r, ri|
         if r.is_a? Workbook::Row
           r.table = self
         else
-          r = Workbook::Row.new(r,self, options)
+          r = Workbook::Row.new(r, self, options)
         end
         define_columns_with_row(r) if ri == 0
       end
@@ -44,9 +42,9 @@ module Workbook
     #
     # @return [Workbook::Row] The header
     def header
-      if defined?(@header) and @header == false
+      if defined?(@header) && (@header == false)
         false
-      elsif defined?(@header) and @header
+      elsif defined?(@header) && @header
         @header
       else
         first
@@ -59,10 +57,10 @@ module Workbook
     # @param [Workbook::Row, Integer] h should be the row or the index of this table's row
     # @return [Workbook::Row] The header
     def header= h
-      if h.is_a? Numeric
-        @header = self[h]
+      @header = if h.is_a? Numeric
+        self[h]
       else
-        @header = h
+        h
       end
     end
 
@@ -70,7 +68,7 @@ module Workbook
     #
     # @return [Integer] The index of the header row (typically 0)
     def header_row_index
-      self.index(self.header)
+      index(header)
     end
 
     def define_columns_with_row(r)
@@ -83,16 +81,16 @@ module Workbook
     #
     # @param [Array, Workbook::Row] cell_values is an array or row of cell values
     # @return [Workbook::Row] the newly created row
-    def new_row cell_values=[]
-      r = Workbook::Row.new(cell_values,self)
-      return r
+    def new_row cell_values = []
+      r = Workbook::Row.new(cell_values, self)
+      r
     end
 
     def create_or_open_row_at index
       r = self[index]
-      if r == nil
+      if r.nil?
         r = Workbook::Row.new
-        r.table=(self)
+        r.table = self
       end
       r
     end
@@ -101,7 +99,7 @@ module Workbook
     #
     # @return [Workbook::Table] self
     def remove_empty_lines!
-      self.delete_if{|r| r.nil? or r.compact.empty?}
+      delete_if { |r| r.nil? || r.compact.empty? }
       self
     end
 
@@ -122,7 +120,7 @@ module Workbook
     end
 
     def has_contents?
-      self.clone.remove_empty_lines!.count != 0
+      clone.remove_empty_lines!.count != 0
     end
 
     # Returns true if the row exists in this table
@@ -131,30 +129,28 @@ module Workbook
     # @return [Boolean] whether the row exist in this table
     def contains_row? row
       raise ArgumentError, "table should be a Workbook::Row (you passed a #{t.class})" unless row.is_a?(Workbook::Row)
-      self.collect{|r| r.object_id}.include? row.object_id
+      collect { |r| r.object_id }.include? row.object_id
     end
 
     # Returns the sheet this table belongs to, creates a new sheet if none exists
     #
     # @return [Workbook::Sheet] The sheet this table belongs to
     def sheet
-      return @sheet if defined?(@sheet) and !@sheet.nil?
-      self.sheet= Workbook::Sheet.new(self)
+      return @sheet if defined?(@sheet) && !@sheet.nil?
+      self.sheet = Workbook::Sheet.new(self)
     end
 
     # Returns the sheet this table belongs to, creates a new sheet if none exists
     #
     # @param [Workbook::Sheet] sheet this table belongs to
     # @return [Workbook::Sheet] The sheet this table belongs to
-    def sheet= sheet
-      @sheet = sheet
-    end
+    attr_writer :sheet
 
     # Removes all lines from this table
     #
     # @return [Workbook::Table] (self)
     def delete_all
-      self.delete_if{|b| true}
+      delete_if { |b| true }
     end
 
     # clones itself *and* the rows it contains
@@ -164,9 +160,9 @@ module Workbook
       t = self
       c = super
       c.delete_all
-      t.each{|r| c << r.clone}
+      t.each { |r| c << r.clone }
       c.header = c[header_row_index] if header_row_index
-      return c
+      c
     end
 
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
@@ -182,12 +178,12 @@ module Workbook
         match = index_or_string.match(/([A-Z]+)([0-9]*)/i)
         col_index = Workbook::Column.alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
-        return self[row_index][col_index]
+        self[row_index][col_index]
       elsif index_or_string.is_a? Range
-        collection = to_a[index_or_string].collect{|a| a.clone}
-        return Workbook::Table.new collection
+        collection = to_a[index_or_string].collect { |a| a.clone }
+        Workbook::Table.new collection
       elsif index_or_string.is_a? Integer
-        return to_a[index_or_string]
+        to_a[index_or_string]
       end
     end
 
@@ -210,7 +206,7 @@ module Workbook
       else
         row = new_value
         row = Workbook::Row.new(row) unless row.is_a? Workbook::Row
-        super(index_or_string,row)
+        super(index_or_string, row)
         row.set_table(self)
       end
     end
@@ -219,52 +215,51 @@ module Workbook
     #
     # @param [Integer] desired_row_length of the rows
     # @return [Workbook::Row] a trimmed clone of the array
-    def trim desired_row_length=nil
-      self.clone.trim!(desired_row_length)
+    def trim desired_row_length = nil
+      clone.trim!(desired_row_length)
     end
 
     # remove all the trailing empty-rows (returning a trimmed self)
     #
     # @param [Integer] desired_row_length of the new row
     # @return [Workbook::Row] self
-    def trim! desired_row_length=nil
-      max_length = self.collect{|a| a.trim.length }.max
-      self_count = self.count-1
-      self.count.times do |index|
+    def trim! desired_row_length = nil
+      max_length = collect { |a| a.trim.length }.max
+      self_count = count - 1
+      count.times do |index|
         index = self_count - index
         if self[index].trim.empty?
-          self.delete_at(index)
+          delete_at(index)
         else
           break
         end
       end
-      self.each{|a| a.trim!(max_length)}
+      each { |a| a.trim!(max_length) }
       self
     end
 
     # Returns The dimensions of this sheet based on longest row
     # @return [Array] x-width, y-height
     def dimensions
-      height = self.count
-      width = self.collect{|a| a.length}.max
-      [width,height]
+      height = count
+      width = collect { |a| a.length }.max
+      [width, height]
     end
 
     # Returns an array of Column-classes describing the columns of this table
     # @return [Array<Column>] columns
     def columns
-      @columns ||= header.collect do |header_cell|
+      @columns ||= header.collect { |header_cell|
         Column.new(self)
-      end
+      }
     end
 
     # Returns an array of Column-classes describing the columns of this table
     # @param [Array<Column>] columns
     # @return [Array<Column>] columns
     def columns= columns
-      columns.each{|c| c.table=self}
+      columns.each { |c| c.table = self }
       @columns = columns
     end
-
   end
 end

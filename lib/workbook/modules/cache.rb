@@ -1,7 +1,6 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
+
 module Workbook
   module Modules
     # Adds simple caching
@@ -33,22 +32,23 @@ module Workbook
 
       # Check if currently stored key is available and still valid
       # @return [Boolean]
-      def valid_cache_key?(key, expires=nil)
+      def valid_cache_key?(key, expires = nil)
         cache_valid_from
-        rv = (@cache[key] and (@cache[key][:inserted_at] > cache_valid_from) and (expires.nil? or @cache[key][:inserted_at] < expires)) ? true : false
+        rv = @cache[key] && (@cache[key][:inserted_at] > cache_valid_from) && (expires.nil? || (@cache[key][:inserted_at] < expires)) ? true : false
         rv
       end
-      def fetch_cache(key, expires=nil)
+
+      def fetch_cache(key, expires = nil)
         @cache ||= {}
         if valid_cache_key?(key, expires)
           return @cache[key][:value]
         else
           @cache[key] = {
             value: yield,
-            inserted_at: Time.now
+            inserted_at: Time.now,
           }
         end
-        return @cache[key][:value]
+        @cache[key][:value]
       end
     end
   end

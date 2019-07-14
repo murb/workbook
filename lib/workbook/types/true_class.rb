@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'workbook/cell'
+require "workbook/cell"
 
 module Workbook
   module Types

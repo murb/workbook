@@ -1,8 +1,7 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'json'
+
+require "json"
 
 module Workbook
   module Writers
@@ -11,7 +10,7 @@ module Workbook
       #
       # @param [Hash] options
       # @return [String] json string
-      def to_json options={}
+      def to_json options = {}
         JSON.generate(to_array_of_hashes_with_values(options))
       end
 
@@ -19,9 +18,9 @@ module Workbook
       #
       # @param [Hash] options
       # @return [Array<Hash>] array with hashes (comma separated values in a string)
-      def to_array_of_hashes_with_values options={}
-        array_of_hashes = self.collect{|a| a.to_hash_with_values unless a.header?}.compact
-        return array_of_hashes
+      def to_array_of_hashes_with_values options = {}
+        array_of_hashes = collect { |a| a.to_hash_with_values unless a.header? }.compact
+        array_of_hashes
       end
 
       # Write the current workbook to JSON format
@@ -29,11 +28,10 @@ module Workbook
       # @param [String] filename
       # @param [Hash] options   see #to_json
       # @return [String] filename
-      def write_to_json filename="#{title}.json", options={}
-        File.open(filename, 'w') {|f| f.write(to_json(options)) }
-        return filename
+      def write_to_json filename = "#{title}.json", options = {}
+        File.open(filename, "w") { |f| f.write(to_json(options)) }
+        filename
       end
-
     end
   end
 end

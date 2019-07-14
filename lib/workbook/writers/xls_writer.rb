@@ -1,30 +1,28 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'spreadsheet'
+
+require "spreadsheet"
 
 module Workbook
   module Writers
     module XlsWriter
-
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an xls
       #
       # @param [Hash] options A hash with options (unused so far)
       # @return [Spreadsheet] A Spreadsheet object, ready for writing or more lower level operations
-      def to_xls options={}
+      def to_xls options = {}
         book = init_spreadsheet_template
-        self.each_with_index do |s,si|
+        each_with_index do |s, si|
           xls_sheet = xls_sheet(si)
           xls_sheet.name = s.name
 
           s.table.each_with_index do |r, ri|
-            xls_sheet.row(ri).height= r.format[:height] if r.format
+            xls_sheet.row(ri).height = r.format[:height] if r.format
             r.each_with_index do |c, ci|
               if c
                 if r.first?
-                  xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci,nil)
-                  xls_sheet.columns[ci].width= c.format[:width]
+                  xls_sheet.columns[ci] ||= Spreadsheet::Column.new(ci, nil)
+                  xls_sheet.columns[ci].width = c.format[:width]
                 end
                 xls_sheet.row(ri)[ci] = c.value
                 xls_sheet.row(ri).set_format(ci, format_to_xls_format(c.format))
@@ -32,12 +30,11 @@ module Workbook
             end
           end
           (xls_sheet.last_row_index + 1 - s.table.count).times do |time|
-            row_to_remove = s.table.count+time
-            remove_row(xls_sheet,row_to_remove)
+            row_to_remove = s.table.count + time
+            remove_row(xls_sheet, row_to_remove)
           end
           xls_sheet.updated_from(s.table.count)
           xls_sheet.dimensions
-
         end
         # kind of a hack, deleting by popping from xls worksheet results in errors in MS Excel (not LibreOffice)
         # book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
@@ -46,10 +43,10 @@ module Workbook
             xls_sheet.visibility = :visible
           else
             xls_sheet.visibility = :strong_hidden
-            #also make sure all data is removed, in case someone finds out about this 'trick'
+            # also make sure all data is removed, in case someone finds out about this 'trick'
             xls_sheet.name = "RemovedSheet#{si}"
             (xls_sheet.last_row_index + 1).times do |row_index|
-              remove_row(xls_sheet,row_index)
+              remove_row(xls_sheet, row_index)
             end
           end
         end
@@ -57,8 +54,6 @@ module Workbook
         # book.worksheets.pop(book.worksheets.count - self.count) if book.worksheets and book.worksheets.count > self.count
         book
       end
-
-
 
       # Generates an Spreadsheet (from the spreadsheet gem) in order to build an XlS
       #
@@ -71,7 +66,7 @@ module Workbook
         end
         xlsfmt = f.return_raw_for Spreadsheet::Format
         unless xlsfmt
-          xlsfmt=Spreadsheet::Format.new :weight=>f[:font_weight]
+          xlsfmt = Spreadsheet::Format.new weight: f[:font_weight]
           xlsfmt.rotation = f[:rotation] if f[:rotation]
           xlsfmt.pattern_fg_color = html_color_to_xls_color(f[:background_color]) if html_color_to_xls_color(f[:background_color])
           xlsfmt.pattern = 1 if html_color_to_xls_color(f[:background_color])
@@ -83,7 +78,7 @@ module Workbook
           xlsfmt.font.color = color if color
           f.add_raw xlsfmt
         end
-        return xlsfmt
+        xlsfmt
       end
 
       # Parses right font-family name
@@ -91,7 +86,7 @@ module Workbook
       # @param [Workbook::Format, hash] format to parse
       def parse_font_family(format)
         font = format[:font_family].to_s.split.last
-        valid_values = [:none,:roman,:swiss,:modern,:script,:decorative]
+        valid_values = [:none, :roman, :swiss, :modern, :script, :decorative]
         if valid_values.include?(font)
           return font
         elsif valid_values.include?(font.to_s.downcase.to_sym)
@@ -99,12 +94,12 @@ module Workbook
         else
           font = font.to_s.downcase.strip
           translation = {
-            "arial"=>:swiss,
-            "times"=>:roman,
-            "times new roman"=>:roman
+            "arial" => :swiss,
+            "times" => :roman,
+            "times new roman" => :roman,
           }
           tfont = translation[font]
-          return tfont ? tfont : :none
+          return tfont || :none
         end
       end
 
@@ -112,40 +107,40 @@ module Workbook
       #
       # @param [String] filename
       # @param [Hash] options   see #to_xls
-      def write_to_xls filename="#{title}.xls", options={}
+      def write_to_xls filename = "#{title}.xls", options = {}
         if to_xls(options).write(filename)
-          return filename
+          filename
         end
       end
 
       def xls_sheet a
         if xls_template.worksheet(a)
-          return xls_template.worksheet(a)
+          xls_template.worksheet(a)
         else
           xls_template.create_worksheet
-          self.xls_sheet a
+          xls_sheet a
         end
       end
 
       def xls_template
-        return template.raws[Spreadsheet::Excel::Workbook] ? template.raws[Spreadsheet::Excel::Workbook] : template.raws[Spreadsheet::Workbook]
+        template.raws[Spreadsheet::Excel::Workbook] || template.raws[Spreadsheet::Workbook]
       end
 
       def init_spreadsheet_template
-        if self.xls_template.is_a? Spreadsheet::Workbook
-          return self.xls_template
+        if xls_template.is_a? Spreadsheet::Workbook
+          xls_template
         else
           t = Spreadsheet::Workbook.new
           template.add_raw t
-          return t
+          t
         end
       end
 
       private
 
-      def remove_row(xls_sheet,row_index)
+      def remove_row(xls_sheet, row_index)
         xls_sheet.row(row_index).each_with_index do |c, ci|
-          xls_sheet.row(row_index)[ci]=nil
+          xls_sheet.row(row_index)[ci] = nil
         end
         xls_sheet.delete_row(row_index)
         xls_sheet.row_updated(row_index, xls_sheet.row(row_index))

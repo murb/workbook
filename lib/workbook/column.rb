@@ -1,35 +1,33 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-module Workbook
 
+module Workbook
   # Column helps us to store general properties of a column, and lets us easily perform operations on values within a column
   class Column
-    attr_accessor :limit, :width #character limit
+    attr_accessor :limit, :width # character limit
 
-    def initialize(table=nil, options={})
+    def initialize(table = nil, options = {})
       self.table = table
-      options.each{ |k,v| self.public_send("#{k}=",v) }
+      options.each { |k, v| public_send("#{k}=", v) }
     end
 
     # Returns column type, either :primary_key, :string, :text, :integer, :float, :decimal, :datetime, :date, :binary, :boolean
     def column_type
       return @column_type if defined?(@column_type)
-      ind = self.index
+      ind = index
       table[1..500].each do |row|
-        if row[ind] and row[ind].cell_type
+        if row[ind]&.cell_type
           cel_column_type = row[ind].cell_type
-          if !defined?(@column_type) or @column_type.nil?
+          if !defined?(@column_type) || @column_type.nil?
             @column_type = cel_column_type
-          elsif cel_column_type == @column_type or cel_column_type == :nil
+          elsif (cel_column_type == @column_type) || (cel_column_type == :nil)
           else
             @column_type = :string
             break
           end
         end
       end
-      return @column_type
+      @column_type
     end
 
     # Returns index of the column within the table's columns-set
@@ -41,14 +39,12 @@ module Workbook
     # Set the table this column belongs to
     # @param [Workbook::Table] table this column belongs to
     def table= table
-      raise(ArgumentError, "value should be nil or Workbook::Table") unless [NilClass,Workbook::Table].include? table.class
+      raise(ArgumentError, "value should be nil or Workbook::Table") unless [NilClass, Workbook::Table].include? table.class
       @table = table
     end
 
     # @return [Workbook::Table]
-    def table
-      @table
-    end
+    attr_reader :table
 
     def column_type= column_type
       if [:primary_key, :string, :text, :integer, :float, :decimal, :datetime, :date, :binary, :boolean].include? column_type
@@ -60,21 +56,17 @@ module Workbook
     end
 
     def head_value
-      begin
-        table.header[index].value
-      rescue
-        return "!noheader!"
-      end
+      table.header[index].value
+    rescue
+      "!noheader!"
     end
 
     def inspect
       "<Workbook::Column index=#{index}, header=#{head_value}>"
     end
 
-    #default cell
-    def default
-      return @default
-    end
+    # default cell
+    attr_reader :default
 
     def default= value
       @default = value if value.class == Cell
@@ -87,10 +79,10 @@ module Workbook
       # @return [Integer]
       def alpha_index_to_number_index string
         sum = 0
-        string.upcase.chars.each_with_index do | char, char_index|
-          sum = sum * 26 + char.unpack('U')[0]-64
+        string.upcase.chars.each_with_index do |char, char_index|
+          sum = sum * 26 + char.unpack1("U") - 64
         end
-        return sum-1
+        sum - 1
       end
     end
   end

@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'workbook/modules/type_parser'
-require 'workbook/nil_value'
-require 'date'
+
+require "workbook/modules/type_parser"
+require "workbook/nil_value"
+require "date"
 
 module Workbook
   module Modules
@@ -12,50 +11,50 @@ module Workbook
       include Workbook::Modules::TypeParser
 
       CHARACTER_REPACEMENTS = {
-        [/[\(\)\.\?\,\!\=\$\:]/,] => '',
-        [/\&/] => 'amp',
-        [/\+/] => '_plus_',
-        [/\s/,'/_','/',"\\"] => '_',
-        ['–_','-_','+_','-'] => '',
-        ['__']=>'_',
-        ['>']=>'gt',
-        ['<']=>'lt',
-        ['á','à','â','ä','ã','å'] => 'a',
-        ['Ã','Ä','Â','À','�?','Å'] => 'A',
-        ['é','è','ê','ë'] => 'e',
-        ['Ë','É','È','Ê'] => 'E',
-        ['í','ì','î','ï'] => 'i',
-        ['�?','Î','Ì','�?'] => 'I',
-        ['ó','ò','ô','ö','õ'] => 'o',
-        ['Õ','Ö','Ô','Ò','Ó'] => 'O',
-        ['ú','ù','û','ü'] => 'u',
-        ['Ú','Û','Ù','Ü'] => 'U',
-        ['ç'] => 'c',
-        ['Ç'] => 'C',
-        ['š', 'ś'] => 's',
-        ['Š', 'Ś'] => 'S',
-        ['ž','ź'] => 'z',
-        ['Ž','Ź'] => 'Z',
-        ['ñ'] => 'n',
-        ['Ñ'] => 'N',
-        ['#'] => 'hash',
-        ['*'] => 'asterisk'
+        [/[\(\)\.\?\,\!\=\$\:]/] => "",
+        [/\&/] => "amp",
+        [/\+/] => "_plus_",
+        [/\s/, "/_", "/", "\\"] => "_",
+        ["–_", "-_", "+_", "-"] => "",
+        ["__"] => "_",
+        [">"] => "gt",
+        ["<"] => "lt",
+        ["á", "à", "â", "ä", "ã", "å"] => "a",
+        ["Ã", "Ä", "Â", "À", "�?", "Å"] => "A",
+        ["é", "è", "ê", "ë"] => "e",
+        ["Ë", "É", "È", "Ê"] => "E",
+        ["í", "ì", "î", "ï"] => "i",
+        ["�?", "Î", "Ì", "�?"] => "I",
+        ["ó", "ò", "ô", "ö", "õ"] => "o",
+        ["Õ", "Ö", "Ô", "Ò", "Ó"] => "O",
+        ["ú", "ù", "û", "ü"] => "u",
+        ["Ú", "Û", "Ù", "Ü"] => "U",
+        ["ç"] => "c",
+        ["Ç"] => "C",
+        ["š", "ś"] => "s",
+        ["Š", "Ś"] => "S",
+        ["ž", "ź"] => "z",
+        ["Ž", "Ź"] => "Z",
+        ["ñ"] => "n",
+        ["Ñ"] => "N",
+        ["#"] => "hash",
+        ["*"] => "asterisk",
       }
       CLASS_CELLTYPE_MAPPING = {
-       'Numeric' => :integer,
-       'Integer' => :integer,
-       'Fixnum' => :integer,
-       'Float' => :float,
-       'String' => :string,
-       'Symbol' => :string,
-       'Time' => :time,
-       'Date' => :date,
-       'DateTime' => :datetime,
-       'ActiveSupport::TimeWithZone' => :datetime,
-       'TrueClass' => :boolean,
-       'FalseClass' => :boolean,
-       'NilClass' => :nil,
-       'Workbook::NilValue' => :nil
+        "Numeric" => :integer,
+        "Integer" => :integer,
+        "Fixnum" => :integer,
+        "Float" => :float,
+        "String" => :string,
+        "Symbol" => :string,
+        "Time" => :time,
+        "Date" => :date,
+        "DateTime" => :datetime,
+        "ActiveSupport::TimeWithZone" => :datetime,
+        "TrueClass" => :boolean,
+        "FalseClass" => :boolean,
+        "NilClass" => :nil,
+        "Workbook::NilValue" => :nil,
       }
       # Note that these types are sorted by 'importance'
 
@@ -80,7 +79,7 @@ module Workbook
       end
 
       def row= r
-        @row= r
+        @row = r
       end
 
       # Change the current value
@@ -113,14 +112,14 @@ module Workbook
       #
       # @return [Workbook::Table]
       def table
-        row.table if row
+        row&.table
       end
 
       # Quick assessor to the book's template, if it exists
       #
       # @return [Workbook::Template]
       def template
-        row.template if row
+        row&.template
       end
 
       # Change the current format
@@ -141,7 +140,7 @@ module Workbook
       # @return [Workbook::Format] the current format
       def format
         # return @workbook_format if @workbook_format
-        if row and template and row.header? and !defined?(@workbook_format)
+        if row && template && row.header? && !defined?(@workbook_format)
           @workbook_format = template.create_or_find_format_by(:header)
         else
           @workbook_format ||= Workbook::Format.new
@@ -155,9 +154,9 @@ module Workbook
       # @return [Boolean]
       def ==(other)
         if other.is_a? Cell
-          other.value == self.value
+          other.value == value
         else
-          other == self.value
+          other == value
         end
       end
 
@@ -187,15 +186,15 @@ module Workbook
           if cell_type == :integer
             v = "num#{value}".to_sym
           elsif cell_type == :float
-            v = "num#{value}".sub(".","_").to_sym
+            v = "num#{value}".sub(".", "_").to_sym
           else
             v = value_to_s.strip
-            ends_with_exclamationmark = (v[-1] == '!')
-            ends_with_questionmark = (v[-1] == '?')
+            ends_with_exclamationmark = (v[-1] == "!")
+            ends_with_questionmark = (v[-1] == "?")
 
             v = _replace_possibly_problematic_characters_from_string(v)
 
-            v = v.encode(Encoding.find('ASCII'), {:invalid => :replace, :undef => :replace, :replace => ''})
+            v = v.encode(Encoding.find("ASCII"), {invalid: :replace, undef: :replace, replace: ""})
 
             v = "#{v}!" if ends_with_exclamationmark
             v = "#{v}?" if ends_with_questionmark
@@ -203,7 +202,7 @@ module Workbook
           end
         end
         @to_sym = v
-        return @to_sym
+        @to_sym
       end
 
       # Compare
@@ -213,14 +212,14 @@ module Workbook
       def <=> other
         rv = nil
         begin
-          rv = self.value <=> other.value
+          rv = value <=> other.value
         rescue NoMethodError
           rv = compare_on_class other
         end
-        if rv == nil
+        if rv.nil?
           rv = compare_on_class other
         end
-        return rv
+        rv
       end
 
       # Compare on class level
@@ -229,7 +228,7 @@ module Workbook
       def compare_on_class other
         other_value = nil
         other_value = other.value if other
-        self_value = importance_of_class self.value
+        self_value = importance_of_class value
         other_value = importance_of_class other_value
         self_value <=> other_value
       end
@@ -245,14 +244,14 @@ module Workbook
       #
       # @return [Boolean] index of the cell
       def format?
-        format and format.keys.count > 0
+        format && (format.keys.count > 0)
       end
 
       # Returns the index of the cell within the row, returns nil if no row is present
       #
       # @return [Integer, NilClass] index of the cell
       def index
-        row.index self if row
+        row&.index self
       end
 
       # Returns the key (a Symbol) of the cell, based on its table's header
@@ -272,9 +271,9 @@ module Workbook
       # convert value to string, and in case of a Date or Time value, apply formatting
       # @return [String]
       def to_s
-        if (self.is_a? Date or self.is_a? Time) and format[:number_format]
+        if (is_a?(Date) || is_a?(Time)) && format[:number_format]
           value.strftime(format[:number_format])
-        elsif (self.class == Workbook::Cell)
+        elsif self.class == Workbook::Cell
           value.to_s
         else
           super
@@ -284,21 +283,23 @@ module Workbook
       def colspan= c
         @colspan = c
       end
+
       def rowspan= r
         @rowspan = r
       end
 
       def colspan
-        @colspan.to_i if defined?(@colspan) and @colspan.to_i > 1
+        @colspan.to_i if defined?(@colspan) && (@colspan.to_i > 1)
       end
+
       def rowspan
-        @rowspan.to_i if defined?(@rowspan) and @rowspan.to_i > 1
+        @rowspan.to_i if defined?(@rowspan) && (@rowspan.to_i > 1)
       end
 
       private
 
       def _replace_possibly_problematic_characters_from_string(string)
-        Workbook::Modules::Cell::CHARACTER_REPACEMENTS.each do |ac,rep|
+        Workbook::Modules::Cell::CHARACTER_REPACEMENTS.each do |ac, rep|
           ac.each do |s|
             string = string.gsub(s, rep)
           end

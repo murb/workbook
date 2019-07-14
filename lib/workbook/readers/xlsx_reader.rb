@@ -1,18 +1,18 @@
 # frozen_string_literal: true
-
-# -*- encoding : utf-8 -*-
 # frozen_string_literal: true
-require 'workbook/readers/xls_shared'
+
+require "workbook/readers/xls_shared"
 
 module Workbook
   module Readers
     module XlsxReader
       include Workbook::Readers::XlsShared
 
-      def load_xlsm file_obj, options={}
-        self.load_xlsx file_obj, options
+      def load_xlsm file_obj, options = {}
+        load_xlsx file_obj, options
       end
-      def load_xlsx file_obj, options={}
+
+      def load_xlsx file_obj, options = {}
         file_obj = file_obj.path if file_obj.is_a? File
         sheets = {}
         shared_string_file = ""
@@ -21,15 +21,15 @@ module Workbook
         workbook_rels = ""
         Zip::File.open(file_obj) do |zipfile|
           zipfile.entries.each do |file|
-            if file.name.match(/^xl\/worksheets\/(.*)\.xml$/)
-              sheets[file.name.sub(/^xl\//,'')] = zipfile.read(file.name)
-            elsif file.name.match(/xl\/sharedStrings.xml$/)
+            if /^xl\/worksheets\/(.*)\.xml$/.match?(file.name)
+              sheets[file.name.sub(/^xl\//, "")] = zipfile.read(file.name)
+            elsif /xl\/sharedStrings.xml$/.match?(file.name)
               shared_string_file = zipfile.read(file.name)
-            elsif file.name.match(/xl\/workbook.xml$/)
+            elsif /xl\/workbook.xml$/.match?(file.name)
               workbook = zipfile.read(file.name)
-            elsif file.name.match(/xl\/_rels\/workbook.xml.rels$/)
+            elsif /xl\/_rels\/workbook.xml.rels$/.match?(file.name)
               workbook_rels = zipfile.read(file.name)
-            elsif file.name.match(/xl\/styles.xml$/)
+            elsif /xl\/styles.xml$/.match?(file.name)
               styles = zipfile.read(file.name)
             end
             # content = zipfile.read(file.name) if file.name == "content.xml"
@@ -38,10 +38,9 @@ module Workbook
 
         parse_xlsx_styles(styles)
 
-
         relation_file = {}
         Nokogiri::XML(workbook_rels).css("Relationships Relationship").each do |relship|
-          relation_file[relship.attr("Id")]=relship.attr("Target")
+          relation_file[relship.attr("Id")] = relship.attr("Target")
         end
 
         @shared_strings = parse_shared_string_file(shared_string_file)
@@ -52,13 +51,13 @@ module Workbook
           state = sheet.attr("state")
           if state != "hidden"
             sheet = sheets[filename]
-            self.push parse_xlsx_sheet(sheet)
-            self.last.name = name
+            push parse_xlsx_sheet(sheet)
+            last.name = name
           end
         end
 
         @shared_strings = nil
-        self.each do |sheet|
+        each do |sheet|
           sheet.each do |table|
             table.trim!
           end
@@ -72,7 +71,6 @@ module Workbook
         backgrounds = extract_xlsx_backgrounds styles
         customNumberFormats = extract_xlsx_number_formats styles
 
-
         styles.css("cellXfs xf").each do |cellformat|
           hash = {}
           # <xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1">
@@ -82,13 +80,13 @@ module Workbook
           font_hash = fonts[cellformat.attr("applyFill").to_i]
           hash.merge!(font_hash) if font_hash
 
-          id = (cellformat.attr("numFmtId")).to_i
-          if id >= 164
-            hash[:numberformat] = customNumberFormats[id]
+          id = cellformat.attr("numFmtId").to_i
+          hash[:numberformat] = if id >= 164
+            customNumberFormats[id]
           else
-            hash[:numberformat] = ms_formatting_to_strftime(id)
+            ms_formatting_to_strftime(id)
           end
-          self.template.add_format Workbook::Format.new(hash)
+          template.add_format Workbook::Format.new(hash)
         end
       end
 
@@ -124,32 +122,34 @@ module Workbook
       end
 
       def parse_shared_string_file file
-        Nokogiri::XML(file).css("sst si").collect{|a| a.text}
+        Nokogiri::XML(file).css("sst si").collect { |a| a.text }
       end
+
       def parse_xlsx_sheet sheet_xml
         sheet = Workbook::Sheet.new
         table = sheet.table
 
         noko_xml = Nokogiri::XML(sheet_xml)
 
-        rows = noko_xml.css('sheetData row').collect{|row| parse_xlsx_row(row)}
+        rows = noko_xml.css("sheetData row").collect { |row| parse_xlsx_row(row) }
         rows.each do |row|
           table << row
         end
 
-        columns = noko_xml.css('cols col').collect{|col| parse_xlsx_column(col) }
+        columns = noko_xml.css("cols col").collect { |col| parse_xlsx_column(col) }
         table.columns = columns
 
         sheet
       end
 
       def parse_xlsx_column column
-        col = Workbook::Column.new()
+        col = Workbook::Column.new
         col.width = column.attr("width").to_f
         col
       end
+
       def parse_xlsx_row row
-        cells_with_pos = row.css('c').collect{|a| parse_xlsx_cell(a)}
+        cells_with_pos = row.css("c").collect { |a| parse_xlsx_cell(a) }
         row = Workbook::Row.new
         cells_with_pos.each do |cell_with_pos|
           position = cell_with_pos[:position]
@@ -162,7 +162,7 @@ module Workbook
 
       def pad_xlsx_row(row)
         row.each_with_index do |cell, index|
-          row[index]=Workbook::Cell.new(nil) if cell.nil? and !cell.is_a?(Workbook::Cell)
+          row[index] = Workbook::Cell.new(nil) if cell.nil? && !cell.is_a?(Workbook::Cell)
         end
         row
       end
@@ -170,15 +170,15 @@ module Workbook
       def parse_xlsx_cell cell
         # style_id = cell.attr('s')
         # p cell
-        type = cell.attr('t')
-        formatIndex = cell.attr('s').to_i
-        position = cell.attr('r')
-        formula = cell.css('f').text()
+        type = cell.attr("t")
+        formatIndex = cell.attr("s").to_i
+        position = cell.attr("r")
+        formula = cell.css("f").text
         value = cell.text
         fmt = template.formats[formatIndex]
 
         # puts type
-        if type == "n" or type == nil
+        if (type == "n") || type.nil?
           if fmt.derived_type == :date
             value = xls_number_to_date(value)
           elsif fmt.derived_type == :time
@@ -188,7 +188,7 @@ module Workbook
           elsif formula == "FALSE()"
             value = false
           elsif type == "n"
-            value = value.match(/\./) ? value.to_f : value.to_i
+            value = /\./.match?(value) ? value.to_f : value.to_i
           end
         elsif type == "b"
           if value.to_s == "0"
@@ -203,6 +203,7 @@ module Workbook
         cell.formula = formula
         {cell: cell, position: position}
       end
+
       def parse_xlsx
       end
     end

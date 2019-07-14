@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# -*- encoding : utf-8 -*-
-require File.join(File.dirname(__FILE__), 'helper')
+require File.join(File.dirname(__FILE__), "helper")
 module Readers
   class TestTxtReader < Minitest::Test
     # Should one day throw an error..
@@ -20,11 +19,11 @@ module Readers
       # c,222.0,,0027-12-14T05:21:00+00:00
       # 2012-01-22T11:00:00+00:00,42000.0,"goh, idd",ls
 
-      assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols)
-      assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
-      assert_equal("c",w.sheet.table[2][:a].value)
-      assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
-      assert_equal(42000,w.sheet.table[3][:b].value)
+      assert_equal([:a, :b, :c, :d], w.sheet.table.header.to_symbols)
+      assert_equal(Date.new(2012, 2, 22), w.sheet.table[1][:a].value)
+      assert_equal("c", w.sheet.table[2][:a].value)
+      assert_equal(DateTime.new(2012, 1, 22, 11), w.sheet.table[3][:a].value)
+      assert_equal(42000, w.sheet.table[3][:b].value)
       assert_nil(w.sheet.table[2][:c].value)
     end
 
@@ -37,11 +36,11 @@ module Readers
       # c,222.0,,0027-12-14T05:21:00+00:00
       # 2012-01-22T11:00:00+00:00,42000.0,"goh, idd",ls
 
-      assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols)
-      assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
-      assert_equal("c",w.sheet.table[2][:a].value)
-      assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
-      assert_equal("42000",w.sheet.table[3][:b].value.to_s)
+      assert_equal([:a, :b, :c, :d], w.sheet.table.header.to_symbols)
+      assert_equal(Date.new(2012, 2, 22), w.sheet.table[1][:a].value)
+      assert_equal("c", w.sheet.table[2][:a].value)
+      assert_equal(DateTime.new(2012, 1, 22, 11), w.sheet.table[3][:a].value)
+      assert_equal("42000", w.sheet.table[3][:b].value.to_s)
       assert_nil(w.sheet.table[2][:c].value)
     end
 
@@ -55,11 +54,11 @@ module Readers
       # c,222.0,,0027-12-14T05:21:00+00:00
       # 2012-01-22T11:00:00+00:00,42000.0,"goh, idd",ls
 
-      assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols)
-      assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
-      assert_equal("c",w.sheet.table[2][:a].value)
-      assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
-      assert_equal(42000,w.sheet.table[3][:b].value)
+      assert_equal([:a, :b, :c, :d], w.sheet.table.header.to_symbols)
+      assert_equal(Date.new(2012, 2, 22), w.sheet.table[1][:a].value)
+      assert_equal("c", w.sheet.table[2][:a].value)
+      assert_equal(DateTime.new(2012, 1, 22, 11), w.sheet.table[3][:a].value)
+      assert_equal(42000, w.sheet.table[3][:b].value)
       assert_nil(w.sheet.table[2][:c].value)
     end
 
@@ -73,13 +72,12 @@ module Readers
       # c,222.0,,0027-12-14T05:21:00+00:00
       # 2012-01-22T11:00:00+00:00,42000.0,"goh, idd",ls
 
-      assert_equal([:a,:b,:c, :d],w.sheet.table.header.to_symbols)
-      assert_equal(Date.new(2012,2,22),w.sheet.table[1][:a].value)
-      assert_equal("c",w.sheet.table[2][:a].value)
-      assert_equal(DateTime.new(2012,1,22,11),w.sheet.table[3][:a].value)
-      assert_equal(42000,w.sheet.table[3][:b].value)
+      assert_equal([:a, :b, :c, :d], w.sheet.table.header.to_symbols)
+      assert_equal(Date.new(2012, 2, 22), w.sheet.table[1][:a].value)
+      assert_equal("c", w.sheet.table[2][:a].value)
+      assert_equal(DateTime.new(2012, 1, 22, 11), w.sheet.table[3][:a].value)
+      assert_equal(42000, w.sheet.table[3][:b].value)
       assert_nil(w.sheet.table[2][:c].value)
     end
-
   end
 end
