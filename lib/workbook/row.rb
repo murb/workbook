@@ -16,17 +16,8 @@ module Workbook
     # @param [Hash] options  Supported options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
     def initialize cells = [], table = nil, options = {}
       options = options ? {parse_cells_on_batch_creation: false, cell_parse_options: {}, clone_cells: false}.merge(options) : {}
-      cells = [] if cells.nil?
+      add_cells(cells, options)
       self.table = table
-      cells.each do |c|
-        if c.is_a? Workbook::Cell
-          c = c.clone if options[:clone_cells]
-        else
-          c = Workbook::Cell.new(c, {row: self})
-          c.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
-        end
-        push c
-      end
     end
 
     # An internal function used in diffs
@@ -299,6 +290,29 @@ module Workbook
       end
       (desired_length - count).times { |a| self << Workbook::Cell.new(nil) } if desired_length && ((desired_length - count) > 0)
       self
+    end
+
+    private
+
+    # Only to be used on initialization
+    # @param [Workbook::Row, Array<Workbook::Cell>, Array] cells list of cells to initialize the row with, default is empty
+    # @param [Hash] options  Supported options: parse_cells_on_batch_creation (parse cell values during row-initalization, default: false), cell_parse_options (default {}, see Workbook::Modules::TypeParser)
+    def add_cells cells = [], options = {}
+      return nil if cells.nil?
+      cells.each do |c|
+        push(prepare_cell(c, options))
+      end
+    end
+
+    def prepare_cell cell, options
+      if cell.is_a? Workbook::Cell
+        cell = cell.clone if options[:clone_cells]
+      else
+        cell = Workbook::Cell.new(cell, {row: self})
+        cell.parse!(options[:cell_parse_options]) if options[:parse_cells_on_batch_creation]
+      end
+
+      cell
     end
   end
 end
