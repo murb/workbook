@@ -177,7 +177,7 @@ module Workbook
           row_index -= 1
         end
 
-        row_index += 1
+        row_index + 1
       end
 
       def insert_placeholder? sother, sself, row_index
@@ -187,13 +187,11 @@ module Workbook
 
       # returns a placeholder row, for internal use only
       def placeholder_row
-        if defined?(@placeholder_row) && !@placeholder_row.nil?
-          @placeholder_row
-        else
-          @placeholder_row = Workbook::Row.new [nil]
-          placeholder_row.placeholder = true
-          @placeholder_row
-        end
+        return @placeholder_row if defined?(@placeholder_row) && !@placeholder_row.nil?
+
+        @placeholder_row = Workbook::Row.new [nil]
+        @placeholder_row.placeholder = true
+        @placeholder_row
       end
     end
   end

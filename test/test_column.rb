@@ -16,7 +16,6 @@ class TestColumn < Minitest::Test
   def test_init
     c = Workbook::Column.new
     assert_equal(Workbook::Column, c.class)
-    c = Workbook::Column.new(nil, {limit: 20, default: "asdf", column_type: :boolean})
     c = Workbook::Column.new(Workbook::Table.new, {limit: 20, default: "asdf", column_type: :boolean})
     assert_equal(20, c.limit)
     assert_equal(Workbook::Cell.new("asdf"), c.default)

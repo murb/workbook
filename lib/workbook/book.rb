@@ -78,15 +78,16 @@ module Workbook
 
     # Push (like in array) a sheet to the workbook (parameter is optional, default is a new sheet)
     #
-    # @param [Workbook::Sheet] sheet
+    # @param [Workbook::Sheet, Array[Array]] sheet
     def push sheet = Workbook::Sheet.new
+      sheet = Workbook::Sheet.new(sheet) unless sheet.is_a? Workbook::Sheet
       super(sheet)
       sheet.book = self
     end
 
     # << (like in array) a sheet to the workbook (parameter is optional, default is a new sheet)
     #
-    # @param [Workbook::Sheet] sheet
+    # @param [Workbook::Sheet, Array[Array]] sheet
     def << sheet = Workbook::Sheet.new
       sheet = Workbook::Sheet.new(sheet) unless sheet.is_a? Workbook::Sheet
       super(sheet)
@@ -129,7 +130,7 @@ module Workbook
     # @return [Workbook::Book] A new instance, based on the filename
     def open_binary filename, extension = nil, options = {}
       extension ||= file_extension(filename)
-      f = open(filename)
+      f = File.open(filename)
       send("load_#{extension}".to_sym, f, options)
     end
 
@@ -139,7 +140,7 @@ module Workbook
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, extension = nil, options = {}
       extension ||= file_extension(filename)
-      t = text_to_utf8(open(filename).read)
+      t = text_to_utf8(File.open(filename).read)
       send("load_#{extension}".to_sym, t, options)
     end
 

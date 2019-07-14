@@ -30,11 +30,6 @@ module Modules
       bb = Workbook::Book.new [["a", "b", "c", "d"], [1, 2, 3, 4], [3, 2, 3, 4], [5, 2, 3, 4]]
       tself = ba.sheet.table
       tother = bb.sheet.table
-
-      ba = Workbook::Book.new [["a", "b", "c", "d"], [1, 2, 3, 4], [4, 2, 3, 4], [3, 2, 3, 4]]
-      bb = Workbook::Book.new [["a", "b", "c", "d"], [1, 2, 3, 4], [3, 2, 3, 4], [5, 2, 3, 4]]
-      tself = ba.sheet.table
-      tother = bb.sheet.table
       align_result = tself.align tother
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n\n5,2,3,4\n", align_result[:other].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n3,2,3,4\n4,2,3,4\n\n", align_result[:self].to_csv)

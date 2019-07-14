@@ -12,7 +12,6 @@ module Workbook
       # @return [String] csv (comma separated values in a string)
       def to_csv options = {}
         csv = ""
-        options = {}.merge options
         each_with_index do |r, ri|
           line = nil
           begin

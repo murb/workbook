@@ -60,7 +60,6 @@ module Workbook
       # @param [Workbook::Format, Hash] f A Workbook::Format or hash with format-options (:font_weight, :rotation, :background_color, :number_format, :text_direction, :color, :font_family)
       # @return [Spreadsheet::Format] A Spreadsheet format-object, ready for writing or more lower level operations
       def format_to_xls_format f
-        xlsfmt = nil
         unless f.is_a? Workbook::Format
           f = Workbook::Format.new f
         end

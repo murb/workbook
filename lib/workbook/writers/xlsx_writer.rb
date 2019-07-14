@@ -101,7 +101,7 @@ module Workbook
         xlsfmt[:fg_color] = "FF#{f[:color].to_s.upcase}".delete("#") if f[:color]
         xlsfmt[:b] = true if (f[:font_weight].to_s == "bold") || (f[:font_weight].to_i >= 600) || f[:font_style].to_s.match("oblique")
         xlsfmt[:i] = true if f[:font_style].to_s == "italic"
-        xlsfmt[:u] = true if f[:text_decoration].to_s.match("underline")
+        xlsfmt[:u] = true if f[:text_decoration].to_s.include?("underline")
         xlsfmt[:bg_color] = f[:background_color] if f[:background_color]
         xlsfmt[:format_code] = strftime_to_ms_format(f[:number_format]) if f[:number_format]
         xlsfmt[:font_name] = f[:font_family].split.first if f[:font_family]

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 module Workbook
   module Readers
@@ -11,17 +10,21 @@ module Workbook
         file_obj = file_obj.path if file_obj.is_a? File
         content = ""
         styles = ""
+
         Zip::File.open(file_obj) do |zipfile|
           zipfile.entries.each do |file|
             styles = zipfile.read(file.name) if file.name == "styles.xml"
             content = zipfile.read(file.name) if file.name == "content.xml"
           end
         end
+
         content = Nokogiri.XML(content)
         styles = Nokogiri.XML(styles)
+
         template.add_raw content
         parse_ods_style styles
         parse_ods content, options
+
         self
       end
 
@@ -54,12 +57,8 @@ module Workbook
       def parse_ods ods_spreadsheet = template.raws[Nokogiri::XML::Document], options = {}
         require "cgi"
 
-        options = {additional_type_parsing: false}.merge options
-        # styles
-        # puts ods_spreadsheet
         parse_ods_style ods_spreadsheet
 
-        # data
         ods_spreadsheet.xpath("//office:body/office:spreadsheet").each_with_index do |sheet, sheetindex|
           workbook_sheet = create_or_open_sheet_at(sheetindex)
           sheet.xpath("table:table").each_with_index do |table, tableindex|
@@ -73,10 +72,11 @@ module Workbook
       def parse_local_table(sheet, table, tableindex)
         local_table = sheet.create_or_open_table_at(tableindex)
         local_table.name = table.xpath("@table:name").to_s
-        # column_count = get_column_count(table)
+
         table.xpath("table:table-row").each do |row|
           local_table << parse_local_row(row)
         end
+
         local_table.trim!
       end
 
@@ -101,7 +101,7 @@ module Workbook
         workbook_row = Workbook::Row.new
         cells.each do |cell|
           @cell = cell
-          repeat = get_repeat
+          repeat = cell_repeat
           workbook_cell = Workbook::Cell.new
           workbook_cell.value = @cell.nil? ? nil : parse_local_cell(workbook_cell)
           repeat.times do
@@ -111,7 +111,7 @@ module Workbook
         workbook_row
       end
 
-      def get_repeat
+      def cell_repeat
         pre_set = @cell.xpath("@table:number-columns-repeated").to_s
         return 1 if pre_set.nil? || pre_set == "" # if not present, don't repeat.
         return 1 unless pre_set.to_i.to_s == pre_set.to_s # return 1 if it's not a valid integer
@@ -122,13 +122,13 @@ module Workbook
       # parse the contents of a single cell
       def parse_local_cell(workbook_cell)
         return Workbook::NilValue.new(:covered) if @cell.name == "covered-table-cell"
-        set_cell_attributes(workbook_cell)
+        configure_cell_attributes(workbook_cell)
         valuetype = @cell.xpath("@office:value-type").to_s
         parse_local_value(valuetype)
       end
 
       # Sets cell attributes for rowspan, colspan and format
-      def set_cell_attributes(workbook_cell)
+      def configure_cell_attributes(workbook_cell)
         workbook_cell.format = template.formats[@cell.xpath("@table:style-name").to_s]
         workbook_cell.colspan = @cell.xpath("@table:number-columns-spanned").to_s
         workbook_cell.rowspan = @cell.xpath("@table:number-rows-spanned").to_s

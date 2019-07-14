@@ -15,8 +15,8 @@ module Workbook
       nil
     end
 
-    def <=> v
-      value <=> v
+    def <=> other
+      value <=> other
     end
 
     attr_reader :reason

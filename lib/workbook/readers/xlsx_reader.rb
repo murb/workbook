@@ -67,9 +67,9 @@ module Workbook
       def parse_xlsx_styles(styles)
         styles = Nokogiri::XML(styles)
 
-        fonts = parse_xlsx_fonts styles
-        backgrounds = extract_xlsx_backgrounds styles
-        customNumberFormats = extract_xlsx_number_formats styles
+        fonts = parse_xlsx_fonts(styles)
+        backgrounds = extract_xlsx_backgrounds(styles)
+        custom_number_formats = extract_xlsx_number_formats(styles)
 
         styles.css("cellXfs xf").each do |cellformat|
           hash = {}
@@ -82,11 +82,11 @@ module Workbook
 
           id = cellformat.attr("numFmtId").to_i
           hash[:numberformat] = if id >= 164
-            customNumberFormats[id]
+            custom_number_formats[id]
           else
             ms_formatting_to_strftime(id)
           end
-          template.add_format Workbook::Format.new(hash)
+          template.add_format(Workbook::Format.new(hash))
         end
       end
 
@@ -114,9 +114,9 @@ module Workbook
       def extract_xlsx_backgrounds styles
         styles.css("fills fill").collect do |fill|
           hash = {}
-          patternFill = fill.css("patternFill").first
+          pattern_fill = fill.css("patternFill").first
           # TODO: convert to html-hex
-          hash[:background] = patternFill.attr("patternType") if patternFill
+          hash[:background] = pattern_fill.attr("patternType") if pattern_fill
           hash
         end
       end
@@ -168,16 +168,13 @@ module Workbook
       end
 
       def parse_xlsx_cell cell
-        # style_id = cell.attr('s')
-        # p cell
         type = cell.attr("t")
-        formatIndex = cell.attr("s").to_i
+        format_index = cell.attr("s").to_i
         position = cell.attr("r")
         formula = cell.css("f").text
         value = cell.text
-        fmt = template.formats[formatIndex]
+        fmt = template.formats[format_index]
 
-        # puts type
         if (type == "n") || type.nil?
           if fmt.derived_type == :date
             value = xls_number_to_date(value)
@@ -199,8 +196,10 @@ module Workbook
         elsif type == "s"
           value = @shared_strings[value.to_i]
         end
+
         cell = Workbook::Cell.new(value, format: fmt)
         cell.formula = formula
+
         {cell: cell, position: position}
       end
 

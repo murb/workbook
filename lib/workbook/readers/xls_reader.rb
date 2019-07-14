@@ -14,12 +14,7 @@ module Workbook
         template.add_raw sp
         parse_xls sp, options
       rescue Ole::Storage::FormatError
-        begin
-          # Assuming it is a tab separated txt inside .xls
-          import(file_obj.path, "txt")
-        rescue Exception => ef
-          raise ef
-        end
+        import(file_obj.path, "txt")
       end
 
       def parse_xls_cell xls_cell, xls_row, ci
@@ -84,7 +79,6 @@ module Workbook
       end
 
       def parse_xls xls_spreadsheet = template.raws[Spreadsheet::Excel::Workbook], options = {}
-        options = {additional_type_parsing: true}.merge options
         number_of_worksheets = xls_spreadsheet.worksheets.count
         number_of_worksheets.times do |si|
           xls_sheet = xls_spreadsheet.worksheets[si]

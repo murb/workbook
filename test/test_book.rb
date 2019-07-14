@@ -13,17 +13,21 @@ class TestWorkbook < Minitest::Test
     w = Workbook::Book.new nil
     assert_equal(0, w.count)
     assert_equal([], w)
+
     w = Workbook::Book.new
     w.push
     assert_equal(w.first.class, Workbook::Sheet)
+
     w.push
     assert_equal(w, w.last.book)
     assert_equal(2, w.count)
-    s = Workbook::Sheet.new
+
+    s = Workbook::Sheet.new([[1, 2], [3, 4]])
     w.push s
     assert_equal(w, w.last.book)
 
     assert_equal(w.last, s)
+
     w = Workbook::Book.new
     assert_equal(w.sheet.table.class, Workbook::Table)
   end

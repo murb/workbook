@@ -3,7 +3,7 @@
 require File.join(File.dirname(__FILE__), "helper")
 
 class TestFunctional < Minitest::Test
-  def test_chapter_Initializing
+  def test_chapter_initializing
     b = Workbook::Book.new
     assert_equal(Workbook::Book, b.class)
     s = b.sheet
@@ -22,7 +22,7 @@ class TestFunctional < Minitest::Test
     assert_equal(2, t[1][:b].value)
   end
 
-  def test_chapter_Sorting
+  def test_chapter_sorting
     # b = Workbook::Book.new
     # s = b.sheet[0] = Workbook::Sheet.new([['a','b'],[1,2],[3,4],[5,6]])
     # t = s.table

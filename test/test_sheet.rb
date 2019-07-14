@@ -4,16 +4,18 @@ require File.join(File.dirname(__FILE__), "helper")
 
 class TestWorkbook < Minitest::Test
   def test_init
-    w = Workbook::Sheet.new nil
-    assert_equal([[]], w)
-    assert_equal(w.count, 1)
-    w = Workbook::Sheet.new
-    assert_equal([Workbook::Table.new], w)
-    assert_equal(w.count, 1)
+    s = Workbook::Sheet.new nil
+    assert_equal([[]], s)
+    assert_equal(s.count, 1)
+
+    s = Workbook::Sheet.new
+    assert_equal([Workbook::Table.new], s)
+    assert_equal(s.count, 1)
+
     t = Workbook::Table.new []
-    w = Workbook::Sheet.new t
-    assert_equal([t], w)
-    assert_equal(w.count, 1)
+    s = Workbook::Sheet.new t
+    assert_equal([t], s)
+    assert_equal(s.count, 1)
   end
 
   def test_table
@@ -28,6 +30,7 @@ class TestWorkbook < Minitest::Test
     t = Workbook::Table.new []
     s = Workbook::Sheet.new t
     assert_equal(s.table, t)
+
     data = [["a", "b"], [1, 2]]
     s.table = data
     assert_equal("a", s.table["A1"].value)

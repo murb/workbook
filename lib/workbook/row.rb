@@ -78,8 +78,8 @@ module Workbook
     # plus
     # @param [Workbook::Row, Array] row to add
     # @return [Workbook::Row] a new row, not linked to the table
-    def +(row)
-      rv = super(row)
+    def +(other)
+      rv = super(other)
       rv = Workbook::Row.new(rv) unless rv.class == Workbook::Row
       rv
     end
@@ -115,10 +115,8 @@ module Workbook
       elsif index_or_hash.is_a? String
         symbolized = Workbook::Cell.new(index_or_hash, {row: self}).to_sym
         self[symbolized]
-      else
-        if index_or_hash
-          to_a[index_or_hash]
-        end
+      elsif index_or_hash
+        to_a[index_or_hash]
       end
     end
 
@@ -238,10 +236,8 @@ module Workbook
     # @return [Hash]
 
     def to_hash_with_values
-      keys = table_header_keys
-      values = self
       @hash_with_values = {}
-      keys.each_with_index { |k, i| v = values[i]; v = v.value if v; @hash_with_values[k] = v }
+      table_header_keys.each_with_index { |k, i| @hash_with_values[k] = self[i]&.value }
       @hash_with_values
     end
 
@@ -265,8 +261,7 @@ module Workbook
 
     # Compact detaches the row from the table
     def compact
-      r = clone
-      r = r.collect { |c| c unless c.nil? }.compact
+      clone.collect { |c| c unless c.nil? }.compact
     end
 
     # clone the row with together with the cells

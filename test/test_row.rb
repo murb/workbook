@@ -113,6 +113,10 @@ class TestRow < Minitest::Test
     r2.table = t
     expected = {test: 2, asdfasd: date}
     assert_equal(expected, r2.to_hash_with_values)
+    r3 = Workbook::Row.new [4]
+    r3.table = t
+    expected = {test: 4, asdfasd: nil}
+    assert_equal(expected, r3.to_hash_with_values)
   end
 
   def test_to_hash_cache

@@ -17,7 +17,6 @@ module Workbook
         push Workbook::Table.new(table, self, options)
       end
       self.book = book
-      self
     end
 
     # Returns true if the first table of this sheet contains anything
@@ -57,19 +56,13 @@ module Workbook
       else
         Workbook::Table.new(table, self, options)
       end
-      table
     end
 
     # Returns the book this sheet belongs to
     #
     # @return [Workbook::Book] the book this sheet belongs to
     def book
-      if @book
-        @book
-      else
-        self.book = Workbook::Book.new(self)
-        @book
-      end
+      @book || (self.book = Workbook::Book.new(self))
     end
 
     attr_writer :book
