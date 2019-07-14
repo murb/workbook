@@ -4,7 +4,7 @@ plugins:
     enabled: true
     channel: rubocop-0-72
   brakeman:
-    enabled: true
+    enabled: false
 exclude_patterns:
   - "config/"
   - "db/"
