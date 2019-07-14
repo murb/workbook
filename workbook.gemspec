@@ -7,7 +7,6 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.name        = 'workbook'
-  s.rubyforge_project = 'workbook'
   s.license = "MIT"
   s.version     = Workbook::VERSION
   s.date        = Time.new.to_date.to_s
