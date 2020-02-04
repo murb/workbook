@@ -19,22 +19,28 @@ class TestModulesCell < Minitest::Test
   def test_value
     w = Workbook::Cell.new nil
     assert_nil(w.value)
-    w.value = "asdf"
-    assert_equal("asdf", w.value)
-    w.value = Date.new
-    assert_equal(Date.new, w.value)
-    w.value = 1
-    assert_equal(1, w.value)
-    assert(["Integer", "Fixnum"].include?(w.value.class.to_s))
-    w.value = 1.0
-    assert_equal(1.0, w.value)
-    assert_equal(Float, w.value.class)
+
+    {"asdf"=>:string, Date.new=>:date, 1=>:integer, (1.0)=>:float, BigDecimal("1.0")=>:decimal}.each do |value, value_type|
+      w.value = value
+      assert_equal(value, w.value)
+      assert_equal(value_type, w.cell_type)
+    end
+    # w.value = "asdf"
+    # assert_equal("asdf", w.value)
+    # w.value = Date.new
+    # assert_equal(Date.new, w.value)
+    # w.value = 1
+    # assert_equal(1, w.value)
+    # assert(["Integer", "Fixnum"].include?(w.value.class.to_s))
+    # w.value = 1.0
+    # assert_equal(1.0, w.value)
+    # assert_equal(Float, w.value.class)
   end
 
   def test_importance_of_class
     a = Workbook::Cell.new
-    assert_equal(4, a.importance_of_class("a"))
-    assert_equal(5, a.importance_of_class(:a))
+    assert_equal(5, a.importance_of_class("a"))
+    assert_equal(6, a.importance_of_class(:a))
   end
 
   def test_comp

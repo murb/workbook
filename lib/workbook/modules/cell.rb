@@ -41,6 +41,7 @@ module Workbook
         ["*"] => "asterisk",
       }
       CLASS_CELLTYPE_MAPPING = {
+        "BigDecimal" => :decimal,
         "Numeric" => :integer,
         "Integer" => :integer,
         "Fixnum" => :integer,

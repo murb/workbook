@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), "helper")
 module Writers
   class TestXlsWriter < Minitest::Test
     def test_to_xls
-      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, 3]]
+      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, BigDecimal(3)]]
       raw = Spreadsheet.open File.join(File.dirname(__FILE__), "artifacts/simple_sheet.xls")
       t = Workbook::Template.new
       t.add_raw raw

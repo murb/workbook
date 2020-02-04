@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), "helper")
 module Writers
   class TestXlsxWriter < Minitest::Test
     def test_empty_to_xlsx
-      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, 3]]
+      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, BigDecimal("3")]]
       assert_equal(true, b.to_xlsx.is_a?(Axlsx::Package))
       dimensions = b.sheet.table.dimensions
       assert_equal("untitled document.xlsx", b.write_to_xlsx)
@@ -115,9 +115,11 @@ module Writers
       b = Workbook::Book.new [[:a, :b], [1, 2], [3, 4]]
       c2 = b.sheet.table[2][1]
       c2.format = Workbook::Format.new({font_weight: "bold", color: "#CC5500", font_style: :italic, text_decoration: :underline})
-      # Can't test this for real yet... :/ but the examples here seem to work     b.write_to_xlsx("untitled document.xlsx")
-      # c = Workbook::Book.open("untitled document.xlsx")
-      # p c.inspect
+      # Can't test this for real yet... :/ but the examples here seem to work
+      b.write_to_xlsx("untitled document.xlsx")
+      written_book = Workbook::Book.open("untitled document.xlsx")
+      written_cell = written_book.sheet.table["B3"]
+      # p written_cell.inspect
     end
   end
 end
