@@ -34,6 +34,11 @@ module Writers
       assert_equal(DateTime.new(2011, 11, 15), b[0][0]["D3"].value)
     end
 
+    def test_stream_xlsx
+      b = Workbook::Book.open File.join(File.dirname(__FILE__), "artifacts/simple_sheet.xlsx")
+      assert(b.stream_xlsx.start_with?("PK"))
+    end
+
     def test_delete_row
       b = Workbook::Book.open File.join(File.dirname(__FILE__), "artifacts/simple_sheet.xlsx")
       # a  b  c  d  e
