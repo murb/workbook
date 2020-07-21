@@ -6,12 +6,24 @@ require "workbook/readers/xls_shared"
 module Workbook
   module Writers
     module XlsxWriter
+      CELL_TYPE_MAPPING = {
+        decimal: :integer,
+        integer: :integer,
+        float: :float,
+        string: :text,
+        time: :time,
+        date: :date,
+        datetime: :time,
+        boolean: :boolean,
+        nil: :string
+      }
       # Generates an axlsx doc, ready for export to XLSX
       #
       # @param [Hash] options A hash with options (unused so far)
       # @return [Axlsx::Package] An object, ready for writing or more lower level operations
       def to_xlsx options = {}
         formats_to_xlsx_format
+
         book = init_xlsx_spreadsheet_template.workbook
         book.worksheets.pop(book.worksheets.count - count) if book.worksheets && (book.worksheets.count > count)
         each_with_index do |s, si|
@@ -24,11 +36,16 @@ module Workbook
             r.each_with_index do |c, ci|
               xlsx_row.add_cell(c.value) unless xlsx_row_a[ci]
               xlsx_cell = xlsx_row_a[ci]
+
+              xlsx_cell.type = CELL_TYPE_MAPPING[c.cell_type]
               xlsx_cell.value = c.value
-              # if c.format?
-              # format_to_xlsx_format(c.format) unless c.format.raws[Fixnum]
-              # xlsx_cell.style = c.format.raws[Fixnum]
-              # end
+
+              if c.format? && c.format.raws[Integer]
+                xlsx_cell.style =  c.format.raws[Integer]
+              elsif c.format? && !(c.value.is_a?(Date) || !c.value.is_a?(DateTime) || !c.value.is_a?(Time))
+                # TODO: disable formatting
+                # xlsx_cell.style = format_to_xlsx_format(c.format)
+              end
             end
             xlsx_sheet.send(:update_column_info, xlsx_row.cells, [])
           end

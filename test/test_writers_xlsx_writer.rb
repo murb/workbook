@@ -119,7 +119,21 @@ module Writers
       b.template.set_default_formats!
       b.formats_to_xlsx_format
       raw_keys = b.template.create_or_find_format_by(:header).raws.keys
-      assert((raw_keys.include?(Integer) || raw_keys.include?(Integer)))
+    end
+
+    def test_string_outputs
+      given = [["test","0001","001.9","1,9","001,9"]]
+      b = Workbook::Book.new(given)
+      assert_equal(given[0], b.sheet.table[0].map(&:value))
+
+      filename = b.write_to_xlsx
+
+      b = Workbook::Book.open filename
+      t = b.sheet.table
+
+      3.times do | time |
+        assert_equal(given[0][time], t[0][time].value)
+      end
     end
 
     def test_format_to_xlsx_integrated
