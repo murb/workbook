@@ -171,7 +171,7 @@ module Workbook
     #   table[0] #=> <Row [a,2,3,4]> (first row)
     #   table["A1"] #=> <Cell value="a"> (first cell of first row)
     #
-    # @param [Fixnum, String] index_or_string to reference to either the row, or the cell
+    # @param [Integer, String] index_or_string to reference to either the row, or the cell
     # @return [Workbook::Row, Workbook::Cell, nil]
     def [] index_or_string
       if index_or_string.is_a? String
@@ -194,7 +194,7 @@ module Workbook
     #   `table[0] = <Row [a,2,3,4]>` (set first row)
     #   `table["A1"] = 2` (set first cell of first row to 2)
     #
-    # @param [Fixnum, String] index_or_string to reference to either the row, or the cell
+    # @param [Integer, String] index_or_string to reference to either the row, or the cell
     # @param [Workbook::Table, Array] new_value to set
     # @return [Workbook::Cell, nil]
     def []= index_or_string, new_value

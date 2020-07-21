@@ -21,14 +21,14 @@ module Workbook
         csv = nil
 
         begin
-          csv = CSV.parse(csv_raw, options)
+          csv = CSV.parse(csv_raw, **options)
         rescue CSV::MalformedCSVError
-          csv_excel = CSV.parse(csv_raw, options.merge({col_sep: ";"}))
+          csv_excel = CSV.parse(csv_raw, **options.merge({col_sep: ";"}))
           csv = csv_excel if csv_excel[0].count > 1
         end
 
         if csv.nil? || (csv[0].count == 1)
-          csv_excel = CSV.parse(csv_raw, options.merge({col_sep: ";"}))
+          csv_excel = CSV.parse(csv_raw, **options.merge({col_sep: ";"}))
           csv = csv_excel if csv_excel[0].count > 1
         end
 

@@ -106,10 +106,12 @@ module Workbook
         xlsfmt[:font_name] = f[:font_family].split.first if f[:font_family]
         # xlsfmt[:family] = parse_font_family(f) if f[:font_family]
 
-        f.add_raw init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
+        style_reference = init_xlsx_spreadsheet_template.workbook.styles.add_style(xlsfmt)
+
+        f.add_raw style_reference
         f.add_raw xlsfmt
 
-        xlsfmt
+        style_reference
       end
     end
   end

@@ -195,7 +195,7 @@ module Workbook
 
             v = _replace_possibly_problematic_characters_from_string(v)
 
-            v = v.encode(Encoding.find("ASCII"), {invalid: :replace, undef: :replace, replace: ""})
+            v = v.encode(Encoding.find("ASCII"), invalid: :replace, undef: :replace, replace: "")
 
             v = "#{v}!" if ends_with_exclamationmark
             v = "#{v}?" if ends_with_questionmark
@@ -209,7 +209,7 @@ module Workbook
       # Compare
       #
       # @param [Workbook::Cell] other cell to compare against (based on value), can compare different value-types using #compare_on_class
-      # @return [Fixnum] -1, 0, 1
+      # @return [Integer] -1, 0, 1
       def <=> other
         rv = nil
         begin
@@ -265,6 +265,7 @@ module Workbook
       def inspect
         txt = "<Workbook::Cell @value=#{value}"
         txt += " @format=#{format}" if format?
+        txt += " @cell_type=#{cell_type}"
         txt += ">"
         txt
       end

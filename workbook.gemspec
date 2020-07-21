@@ -15,14 +15,15 @@ Gem::Specification.new do |s|
   s.add_development_dependency "ruby-prof", "~> 0.14"
   s.add_development_dependency("rake", "~> 12.0")
   s.add_development_dependency("minitest", "~> 5.4")
+  s.add_development_dependency("byebug", "> 10")
   s.add_development_dependency("standard", "~> 0.1.0")
   s.add_development_dependency("simplecov", "~> 0.17.0")
-  s.add_dependency("spreadsheet", "~> 1.1")
-  s.add_dependency("rchardet", "~> 1.3")
-  s.add_dependency("json", "~> 2.1")
-  # s.add_dependency("rubyzip", '~> 1.2', '>= 1.2.1')
-  s.add_dependency("axlsx", "~> 3.0.0.pre")
-  s.add_dependency("nokogiri", "~> 1.8")
+  s.add_dependency("spreadsheet", "> 1.2")
+  s.add_dependency("rchardet", ">= 1.8.0")
+  s.add_dependency("json", "> 2.3")
+  s.add_dependency("rubyzip", '> 1.2', '>= 1.2.1')
+  s.add_dependency("caxlsx", "> 3.0")
+  s.add_dependency("nokogiri", "> 1.10")
 
   s.platform = Gem::Platform::RUBY
   s.files         = `git ls-files`.split($/)

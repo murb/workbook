@@ -15,7 +15,7 @@ module Workbook
         each_with_index do |r, ri|
           line = nil
           begin
-            line = CSV.generate_line(r.collect { |c| c&.value }, {row_sep: ""})
+            line = CSV.generate_line(r.collect { |c| c&.value }, row_sep: "")
           rescue TypeError
             line = CSV.generate_line(r.collect { |c| c&.value })
           end

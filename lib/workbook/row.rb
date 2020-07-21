@@ -90,7 +90,7 @@ module Workbook
     #   row["A"] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
-    # @param [Fixnum, Symbol, String] index_or_hash that identifies the column (strings are converted to symbols)
+    # @param [Integer, Symbol, String] index_or_hash that identifies the column (strings are converted to symbols)
     # @return [Workbook::Cell, nil]
     def [](index_or_hash)
       if index_or_hash.is_a? Symbol
@@ -117,8 +117,8 @@ module Workbook
     #   row[1] #=> <Cell value="a">
     #   row[:a] #=> <Cell value="a">
     #
-    # @param [Fixnum, Symbol, String] index_or_hash that identifies the column
-    # @param [String, Fixnum, NilClass, Date, DateTime, Time, Float] value
+    # @param [Integer, Symbol, String] index_or_hash that identifies the column
+    # @param [String, Integer, NilClass, Date, DateTime, Time, Float] value
     # @return [Workbook::Cell, nil]
     def []= index_or_hash, value
       index = index_or_hash

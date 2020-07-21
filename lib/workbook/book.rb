@@ -160,7 +160,7 @@ module Workbook
       unless text.valid_encoding? && (text.encoding == "UTF-8")
         # TODO: had some ruby 1.9 problems with rchardet ... but ideally it or a similar functionality will be reintroduced
         source_encoding = text.valid_encoding? ? text.encoding : "US-ASCII"
-        text = text.encode("UTF-8", source_encoding, {invalid: :replace, undef: :replace, replace: ""})
+        text = text.encode("UTF-8", source_encoding, invalid: :replace, undef: :replace, replace: "")
         text = text.delete("\u0000") # TODO: this cleanup of nil values isn't supposed to be needed...
       end
       text
