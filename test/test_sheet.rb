@@ -5,16 +5,17 @@ require File.join(File.dirname(__FILE__), "helper")
 class TestWorkbook < Minitest::Test
   def test_init
     s = Workbook::Sheet.new nil
-    assert_equal([[]], s)
+    assert_equal(Workbook::Sheet, s.class)
     assert_equal(s.count, 1)
 
     s = Workbook::Sheet.new
-    assert_equal([Workbook::Table.new], s)
+    assert_equal(Workbook::Sheet, s.class)
     assert_equal(s.count, 1)
 
     t = Workbook::Table.new []
     s = Workbook::Sheet.new t
-    assert_equal([t], s)
+    assert_equal(Workbook::Sheet, s.class)
+    assert_equal(t, s.table)
     assert_equal(s.count, 1)
   end
 
@@ -48,8 +49,11 @@ class TestWorkbook < Minitest::Test
   def test_clone
     w = Workbook::Book.new [["a", "b"], [1, 2], [3, 4]]
     s = w.sheet
+
     assert_equal(3, s.table[2][:a])
+
     s2 = s.clone
+
     s2.table[2][:a] = 5
     assert_equal(3, s.table[2][:a])
     assert_equal(5, s2.table[2][:a])

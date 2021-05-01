@@ -16,3 +16,4 @@ doc
 private_*
 test_private_*
 coverage
+.byebug_history

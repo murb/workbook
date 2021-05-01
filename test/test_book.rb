@@ -41,7 +41,7 @@ class TestWorkbook < Minitest::Test
     assert_equal(w.sheet, s)
     w = Workbook::Book.new
     s = w.sheet
-    assert_equal([[]], s)
+    assert_equal(Workbook::Sheet, s.class)
   end
 
   def test_template

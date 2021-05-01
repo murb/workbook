@@ -3,7 +3,8 @@
 
 module Workbook
   # A Sheet is a container of tables
-  class Sheet < Array
+  class Sheet
+    include Enumerable
     # Initialize a new sheet
     #
     # @param [Workbook::Table, Array<Array>] table   The first table of this sheet
@@ -11,10 +12,12 @@ module Workbook
     # @param [Hash] options                          are forwarded to Workbook::Table.new
     # @return [Workbook::Sheet] (self)
     def initialize table = Workbook::Table.new([], self), book = nil, options = {}
-      if table.is_a? Workbook::Table
-        push table
+      @tables = []
+
+      if table.is_a?(Workbook::Table)
+        @tables.push table
       else
-        push Workbook::Table.new(table, self, options)
+        @tables.push(Workbook::Table.new(table, self, options))
       end
       self.book = book
     end
@@ -30,7 +33,7 @@ module Workbook
     #
     # @return [Workbook::Table] the first table of this sheet
     def table
-      first
+      @tables.first
     end
 
     # Returns the name of this sheet
@@ -51,7 +54,7 @@ module Workbook
     # @param [Hash] options                          are forwarded to Workbook::Table.new
     # @return [Workbook::Table] the first table of this sheet
     def table= table, options = {}
-      self[0] = if table.is_a? Workbook::Table
+      @tables[0] = if table.is_a? Workbook::Table
         table
       else
         Workbook::Table.new(table, self, options)
@@ -65,32 +68,43 @@ module Workbook
       @book || (self.book = Workbook::Book.new(self))
     end
 
+    def [] index
+      @tables[index]
+    end
+
+    def []= index, value
+      @tables[index] = value
+    end
+
+    # Returns an enumerator
+    def each(*args, &block)
+      @tables.each(*args, &block)
+    end
+
     attr_writer :book
 
     # Removes all lines from this table
     #
     # @return [Workbook::Table] (self)
     def delete_all
-      delete_if { |b| true }
+      @tables.delete_if { |b| true }
     end
 
     # clones itself *and* the tables it contains
     #
     # @return [Workbook::Sheet] The cloned sheet
     def clone
-      s = self
-      c = super
-      c.delete_all
-      s.each { |t| c << t.clone }
-      c
+      clone = super
+      @tables = @tables.map(&:clone)
+      clone
     end
 
     # Create or open the existing table at an index value
     #
     # @param [Integer] index    the index of the table
     def create_or_open_table_at index
-      t = self[index]
-      t = self[index] = Workbook::Table.new if t.nil?
+      t = @tables[index]
+      t = @tables[index] = Workbook::Table.new if t.nil?
       t.sheet = self
       t
     end
