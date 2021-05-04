@@ -9,6 +9,7 @@ module Modules
         "12-12-2012" => Date.new(2012, 12, 12),
         "12-12-2012 12:24" => DateTime.new(2012, 12, 12, 12, 24),
         "2012-12-12 12:24" => DateTime.new(2012, 12, 12, 12, 24),
+        "2012-12-12T12:24" => DateTime.new(2012, 12, 12, 12, 24),
         "2011-05-19T15_37_49 - 52349.xml" => "2011-05-19T15_37_49 - 52349.xml",
         "20-2-2012 20:52" => DateTime.new(2012, 2, 20, 20, 52),
         "1-11-2011" => Date.new(2011, 11, 1),
@@ -48,6 +49,36 @@ module Modules
       assert_equal("2332", c.parse)
       c.value = "v"
       assert_equal("v2", c.parse)
+    end
+
+    def test_american_date_format
+      c = Workbook::Cell.new("01-11-2012")
+      c.string_parsers << :string_american_date_converter
+      assert_equal(Date.new(2012,1,11), c.parse)
+      c = Workbook::Cell.new("12-31-2012")
+      c.string_parsers << :string_american_date_converter
+      assert_equal(Date.new(2012,12,31), c.parse)
+      c = Workbook::Cell.new("12/31/2012")
+      c.string_parsers << :string_american_date_converter
+      assert_equal(Date.new(2012,12,31), c.parse)
+      c = Workbook::Cell.new("12/1/2012")
+      c.string_parsers << :string_american_date_converter
+      assert_equal(Date.new(2012,12,1), c.parse)
+    end
+
+    def test_non_american_date_format
+      c = Workbook::Cell.new("01-11-2012")
+      c.string_parsers << :string_non_american_date_converter
+      assert_equal(Date.new(2012,11,1), c.parse)
+      c = Workbook::Cell.new("31/12/2012")
+      c.string_parsers << :string_non_american_date_converter
+      assert_equal(Date.new(2012,12,31), c.parse)
+      c = Workbook::Cell.new("31.12.2012")
+      c.string_parsers << :string_non_american_date_converter
+      assert_equal(Date.new(2012,12,31), c.parse)
+      c = Workbook::Cell.new("12-1-2012")
+      c.string_parsers << :string_non_american_date_converter
+      assert_equal(Date.new(2012,1,12), c.parse)
     end
 
     def test_parse!

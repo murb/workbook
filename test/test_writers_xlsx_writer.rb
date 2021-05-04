@@ -1,5 +1,3 @@
-require 'byebug'
-
 # frozen_string_literal: true
 
 require File.join(File.dirname(__FILE__), "helper")
@@ -107,7 +105,6 @@ module Writers
       # b = Workbook::Book.new
       # ws.
       # xlsx_format = b.format_to_xlsx_format(Workbook::Format.new({font_weight: "bold", color: "#FF0000", text_decoration: "underline"}))
-      # byebug
       # # p Axlsx::Styles.cellStyles.inspect
       # assert_equal(true, xlsx_format[:b])
       # assert_equal(true, xlsx_format[:u])
@@ -118,7 +115,7 @@ module Writers
       b = Workbook::Book.new
       b.template.set_default_formats!
       b.formats_to_xlsx_format
-      raw_keys = b.template.create_or_find_format_by(:header).raws.keys
+      # raw_keys = b.template.create_or_find_format_by(:header).raws
     end
 
     def test_string_outputs
@@ -136,15 +133,16 @@ module Writers
       end
     end
 
+    # TODO: Formatting doesn't actually work
     def test_format_to_xlsx_integrated
       b = Workbook::Book.new [[:a, :b], [1, 2], [3, 4]]
       c2 = b.sheet.table[2][1]
       c2.format = Workbook::Format.new({font_weight: "bold", color: "#CC5500", font_style: :italic, text_decoration: :underline})
-      # Can't test this for real yet... :/ but the examples here seem to work
       b.write_to_xlsx("untitled document.xlsx")
       written_book = Workbook::Book.open("untitled document.xlsx")
       written_cell = written_book.sheet.table["B3"]
-      # p written_cell.inspect
+      assert_equal(4, written_cell.value)
+      # assert_equal("bold", written_cell.format)
     end
   end
 end

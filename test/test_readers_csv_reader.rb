@@ -2,7 +2,7 @@
 
 require File.join(File.dirname(__FILE__), "helper")
 module Readers
-  class TestCsvWriter < Minitest::Test
+  class TestCsvReader < Minitest::Test
     def test_open
       w = Workbook::Book.new
       w.import File.join(File.dirname(__FILE__), "artifacts/simple_csv.csv")

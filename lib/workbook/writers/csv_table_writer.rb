@@ -29,7 +29,7 @@ module Workbook
       # @param [String] filename
       # @param [Hash] options   see #to_csv
       # @return [String] filename
-      def write_to_csv filename = "#{title}.csv", options = {}
+      def write_to_csv filename = "untitled document.csv", options = {}
         File.open(filename, "w") { |f| f.write(to_csv(options)) }
         filename
       end
