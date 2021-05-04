@@ -4,6 +4,8 @@
 module Workbook
   module Modules
     # Adds type parsing capabilities to e.g. a Cell.
+    #
+    # Cell#string_parsers can be appended with symbols referencing the
     module TypeParser
       # Cleans a text file from all kinds of different ways of representing new lines
       # @param [String] csv_raw a raw csv string
@@ -12,7 +14,7 @@ module Workbook
       end
 
       # Return the different active string parsers
-      # @return [Array<Symbol>] A list of parsers
+      # @return [Array<Symbol>] A list of parsers, defaults to [:string_cleaner, :string_integer_converter, :string_boolean_converter]
       def string_parsers
         @string_parsers ||= [:string_cleaner, :string_integer_converter, :string_boolean_converter]
       end
@@ -34,8 +36,10 @@ module Workbook
       # @return [Object] The parsed object, ideally a date or integer when found to be a such...
       def parse options = {}
         options = {detect_date: false, convert_empty_to_nil: true}.merge(options)
+
         string_parsers.push :string_optimistic_date_converter if options[:detect_date]
         string_parsers.push :string_nil_converter if options[:convert_empty_to_nil]
+
         v = value
         string_parsers_as_procs.each do |p|
           if v.is_a? String
@@ -53,6 +57,7 @@ module Workbook
         parse! options
       end
 
+      # @return [Proc] that does some cleaning in strings
       def string_cleaner
         proc do |v|
           v = v.strip
@@ -60,12 +65,14 @@ module Workbook
         end
       end
 
+      # @return [Proc] that returns nil for an empty string
       def string_nil_converter
         proc do |v|
           (v == "" ? nil : v)
         end
       end
 
+      # @return [Proc] that tries to distill an integer
       def string_integer_converter
         proc do |v|
           if v.to_i.to_s == v
@@ -76,6 +83,7 @@ module Workbook
         end
       end
 
+      # @return [Proc] that tries to distill a date from a string
       def string_optimistic_date_converter
         proc do |v|
           if v
@@ -102,14 +110,15 @@ module Workbook
         end
       end
 
+      # @return [Proc] that tries to distill a date from a string
       def string_american_date_converter
         proc do |v|
           if v
             rv = v
             # try strptime with format 'mm/dd/yyyy'
-            if rv.is_a?(String) && /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}/ =~ v
+            if rv.is_a?(String) && /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/ =~ v
               begin
-                rv = Date.strptime(v, "%m/%d/%Y")
+                rv = Date.strptime(v.gsub("-","/"), "%m/%d/%Y")
               rescue ArgumentError
               end
             end
@@ -118,13 +127,14 @@ module Workbook
         end
       end
 
+      # @return [Proc] that tries to distill a date from a string
       def string_non_american_date_converter
         proc do |v|
           rv = v
           # try strptime with format 'mm/dd/yyyy'
-          if rv.is_a?(String) && /^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{4}/ =~ v
+          if rv.is_a?(String) && /^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{4}$/ =~ v
             begin
-              rv = Date.strptime(v, "%m/%d/%Y")
+              rv = Date.strptime(v.gsub(/[-\.]/,"/"), "%d/%m/%Y")
             rescue ArgumentError
             end
           end

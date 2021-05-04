@@ -61,19 +61,30 @@ module Workbook
       end
     end
 
-    # Returns the book this sheet belongs to
+    # Returns the Book this Sheet belongs to
     #
     # @return [Workbook::Book] the book this sheet belongs to
     def book
       @book || (self.book = Workbook::Book.new(self))
     end
 
+    # Returns a existing or new Table at the specified index
+    #
+    # @return [Workbook::Table]
     def [] index
-      @tables[index]
+      @tables[index] ||= Workbook::Table.new([], self)
     end
 
+    # Inserts a new Table at the specified index
+    #
+    # @param [Integer] index of the table
+    # @param [Workbook::Table, Array<Array>] table   The new first table of this sheet
+    #
+    # @return [Workbook::Table]
     def []= index, value
-      @tables[index] = value
+      table_to_insert = value.is_a?(Workbook::Table) ? value : Workbook::Table.new()
+      table_to_insert.sheet = self
+      @tables[index] = table_to_insert
     end
 
     # Returns an enumerator
@@ -103,10 +114,7 @@ module Workbook
     #
     # @param [Integer] index    the index of the table
     def create_or_open_table_at index
-      t = @tables[index]
-      t = @tables[index] = Workbook::Table.new if t.nil?
-      t.sheet = self
-      t
+      self[index]
     end
   end
 end

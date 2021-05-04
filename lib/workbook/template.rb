@@ -46,11 +46,11 @@ module Workbook
       fs = @formats[name] = {} if fs.nil?
       f = fs[variant]
       if f.nil?
-        f = Workbook::Format.new
-        if (variant != :default) && fs[:default]
-          f = fs[:default].clone
+        @formats[name][variant] = if (variant != :default) && fs[:default]
+          fs[:default].clone
+        else
+          Workbook::Format.new
         end
-        @formats[name][variant] = f
       end
       @formats[name][variant]
     end
