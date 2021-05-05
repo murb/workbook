@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 # frozen_string_literal: true
 
+require 'forwardable'
 require "open-uri"
 require "workbook/writers/xls_writer"
 require "workbook/writers/xlsx_writer"
@@ -34,7 +35,10 @@ module Workbook
     "CDF V2 Document, No summary info",
   ]
 
-  class Book < Array
+  class Book
+    include Enumerable
+    extend Forwardable
+
     include Workbook::Readers::XlsShared
     include Workbook::Writers::XlsWriter
     include Workbook::Writers::XlsxWriter
@@ -46,14 +50,13 @@ module Workbook
     include Workbook::Readers::TxtReader
     include Workbook::Modules::BookDiffSort
 
+    delegate [:last, :pop, :delete_at, :each, :[]] => :@sheets
+
     # @param [Workbook::Sheet, Array] sheet    create a new workbook based on an existing sheet, or initialize a sheet based on the array
     # @return [Workbook::Book]
     def initialize sheet = nil
-      if sheet.is_a? Workbook::Sheet
-        push sheet
-      elsif sheet
-        push Workbook::Sheet.new(sheet, self, {})
-      end
+      @sheets = []
+      push sheet if sheet
     end
 
     # @return [Workbook::Template] returns the template describing how the document should be/is formatted
@@ -81,25 +84,41 @@ module Workbook
     # @param [Workbook::Sheet, Array[Array]] sheet
     def push sheet = Workbook::Sheet.new
       sheet = Workbook::Sheet.new(sheet) unless sheet.is_a? Workbook::Sheet
-      super(sheet)
       sheet.book = self
+
+      @sheets.push(sheet)
+      sheet
+    end
+
+    # Inserts a new Table at the specified index
+    #
+    # @param [Integer] index of the table
+    # @param [Workbook::Table, Array<Array>] table   The new first table of this sheet
+    #
+    # @return [Workbook::Table]
+    def []= index, value
+      table_to_insert = value.is_a?(Workbook::Sheet) ? value : Workbook::Sheet.new()
+      table_to_insert.book = self
+      @sheets[index] = table_to_insert
+    end
+
+    # returns the index of an item
+    def index item
+      @sheets.index item
     end
 
     # << (like in array) a sheet to the workbook (parameter is optional, default is a new sheet)
     #
     # @param [Workbook::Sheet, Array[Array]] sheet
     def << sheet = Workbook::Sheet.new
-      sheet = Workbook::Sheet.new(sheet) unless sheet.is_a? Workbook::Sheet
-      super(sheet)
-      sheet.book = self
+      self.push sheet
     end
 
     # Sheet returns the first sheet of a workbook, or an empty one.
     #
     # @return [Workbook::Sheet] The first sheet, and creates an empty one if one doesn't exists
     def sheet
-      push Workbook::Sheet.new unless first
-      first
+      first || self.push
     end
 
     # If the first sheet has any contents

@@ -12,7 +12,7 @@ class TestWorkbook < Minitest::Test
   def test_push
     w = Workbook::Book.new nil
     assert_equal(0, w.count)
-    assert_equal([], w)
+    assert_equal(Workbook::Book, w.class)
 
     w = Workbook::Book.new
     w.push
