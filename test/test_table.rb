@@ -5,11 +5,11 @@ require File.join(File.dirname(__FILE__), "helper")
 class TestTable < Minitest::Test
   def test_initialize
     t = Workbook::Table.new
-    assert_equal(t, [])
+    assert_equal([], t.rows)
     c = Workbook::Cell.new("celllll")
     t = Workbook::Table.new [[c]]
 
-    assert_equal([[c]], t)
+    assert_equal([[c]], t.rows)
   end
 
   def test_header
@@ -34,6 +34,8 @@ class TestTable < Minitest::Test
     assert_equal(r.class, Workbook::Row)
 
     assert_equal(2, t.count)
+
+    assert_equal(r, t.rows.last)
     assert_equal(r, t.last)
 
     r << 2
@@ -194,5 +196,13 @@ class TestTable < Minitest::Test
     assert_equal([0, 1], table.dimensions)
     table = Workbook::Table.new([[:a, :b], [1, 2, 3, 4]])
     assert_equal([4, 2], table.dimensions)
+  end
+
+  def test_push
+    table = Workbook::Table.new([["a",2,3]])
+    table.push(["b",2,3])
+    assert_equal("b", table[1][0].value)
+    table.push(["c",2,3],["d",2,3])
+    assert_equal("d", table[3][0].value)
   end
 end
