@@ -72,9 +72,9 @@ module Workbook
         maxri = (aself.count - 1)
 
         (0..maxri).each do |ri|
-          row = diff_table[ri] = Workbook::Row.new(nil, diff_table)
-          srow = aself[ri]
-          orow = aother[ri]
+          row = diff_table.rows[ri] = Workbook::Row.new(nil, diff_table)
+          srow = aself.rows[ri]
+          orow = aother.rows[ri]
 
           iteration_cols.each_with_index do |ch, ci|
             scell = srow[ch]
@@ -87,6 +87,99 @@ module Workbook
         end
 
         diff_table
+      end
+
+      # Return template table to write the diff result in; in case non exists a default is generated.
+      #
+      # @return [Workbook::Table] the empty table, linked to a book
+      def diff_template
+        return @diff_template if defined?(@diff_template)
+        diffbook = Workbook::Book.new_diff_template
+        difftable = diffbook.sheet.table
+        @diff_template ||= difftable
+      end
+
+      # Set the template table to write the diff result in; in case non exists a default is generated. Make sure that
+      # the following formats exists: destroyed, updated, created and header.
+      #
+      # @param [Workbook::Table] table to diff inside
+      # @return [Workbook::Table] the passed table
+      def diff_template= table
+        @diff_template = table
+      end
+
+      # aligns itself with another table, used by diff
+      #
+      # @param [Workbook::Table] other table to align with
+      # @param [Hash] options default to: `{:sort=>true,:ignore_headers=>false}`
+      def align other, options = {}
+        options = {sort: true, ignore_headers: false}.merge(options)
+
+        sother = other.clone.remove_empty_lines!
+        sself = self.clone.remove_empty_lines!
+
+        if options[:ignore_headers]
+          sother.header = false
+          sself.header = false
+        end
+
+        sother = options[:sort] ? sother.sort : sother
+        sself = options[:sort] ? sself.sort : sself
+
+        row_index = 0
+        while (row_index < [sother.count, sself.count].max) && (row_index < other.count + count)
+          row_index = align_row(sself, sother, row_index)
+        end
+
+        {self: sself, other: sother}
+      end
+
+      def sort
+        self.clone.sort!
+      end
+
+      def sort!
+        header_row = @rows.delete_at(header_row_index) if header
+        @rows = [header_row] + @rows.sort
+        self
+      end
+
+      private
+
+
+      # for use in the align 'while' loop
+      def align_row sself, sother, row_index
+        asd = 0
+        if sself.rows[row_index] && sother.rows[row_index]
+          asd = sself.rows[row_index].key <=> sother.rows[row_index].key
+        elsif sself.rows[row_index]
+          asd = -1
+        elsif sother.rows[row_index]
+          asd = 1
+        end
+        if (asd == -1) && insert_placeholder?(sother, sself, row_index)
+          sother.rows.insert row_index, placeholder_row
+          row_index -= 2
+        elsif (asd == 1) && insert_placeholder?(sother, sself, row_index)
+          sself.rows.insert row_index, placeholder_row
+          row_index -= 2
+        end
+
+        row_index + 1
+      end
+
+      def insert_placeholder? sother, sself, row_index
+        (sother.rows[row_index].nil? || !sother.rows[row_index].placeholder?) &&
+          (sself.rows[row_index].nil? || !sself.rows[row_index].placeholder?)
+      end
+
+      # returns a placeholder row, for internal use only
+      def placeholder_row
+        return @placeholder_row if defined?(@placeholder_row) && !@placeholder_row.nil?
+
+        @placeholder_row = Workbook::Row.new [nil]
+        @placeholder_row.placeholder = true
+        @placeholder_row
       end
 
       # creates a new cell describing the difference between two cells
@@ -114,85 +207,6 @@ module Workbook
         dcell
       end
 
-      # Return template table to write the diff result in; in case non exists a default is generated.
-      #
-      # @return [Workbook::Table] the empty table, linked to a book
-      def diff_template
-        return @diff_template if defined?(@diff_template)
-        diffbook = Workbook::Book.new_diff_template
-        difftable = diffbook.sheet.table
-        @diff_template ||= difftable
-      end
-
-      # Set the template table to write the diff result in; in case non exists a default is generated. Make sure that
-      # the following formats exists: destroyed, updated, created and header.
-      #
-      # @param [Workbook::Table] table to diff inside
-      # @return [Workbook::Table] the passed table
-      def diff_template= table
-        @diff_template = table
-      end
-
-      # aligns itself with another table, used by diff
-      #
-      # @param [Workbook::Table] other table to align with
-      # @param [Hash] options default to: `{:sort=>true,:ignore_headers=>false}`
-      def align other, options = {sort: true, ignore_headers: false}
-        options = {sort: true, ignore_headers: false}.merge(options)
-
-        sother = other.clone.remove_empty_lines!
-        sself = clone.remove_empty_lines!
-
-        if options[:ignore_headers]
-          sother.header = false
-          sself.header = false
-        end
-
-        sother = options[:sort] ? Workbook::Table.new(sother.sort) : sother
-        sself = options[:sort] ? Workbook::Table.new(sself.sort) : sself
-
-        row_index = 0
-        while (row_index < [sother.count, sself.count].max) && (row_index < other.count + count)
-          row_index = align_row(sself, sother, row_index)
-        end
-
-        {self: sself, other: sother}
-      end
-
-      # for use in the align 'while' loop
-      def align_row sself, sother, row_index
-        asd = 0
-        if sself[row_index] && sother[row_index]
-          asd = sself[row_index].key <=> sother[row_index].key
-        elsif sself[row_index]
-          asd = -1
-        elsif sother[row_index]
-          asd = 1
-        end
-        if (asd == -1) && insert_placeholder?(sother, sself, row_index)
-          sother.insert row_index, placeholder_row
-          row_index -= 1
-        elsif (asd == 1) && insert_placeholder?(sother, sself, row_index)
-          sself.insert row_index, placeholder_row
-          row_index -= 1
-        end
-
-        row_index + 1
-      end
-
-      def insert_placeholder? sother, sself, row_index
-        (sother[row_index].nil? || !sother[row_index].placeholder?) &&
-          (sself[row_index].nil? || !sself[row_index].placeholder?)
-      end
-
-      # returns a placeholder row, for internal use only
-      def placeholder_row
-        return @placeholder_row if defined?(@placeholder_row) && !@placeholder_row.nil?
-
-        @placeholder_row = Workbook::Row.new [nil]
-        @placeholder_row.placeholder = true
-        @placeholder_row
-      end
     end
   end
 end

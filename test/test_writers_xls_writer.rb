@@ -15,6 +15,17 @@ module Writers
       assert_equal("untitled document.xls", b.write_to_xls)
     end
 
+    def test_big_sheet
+      b =  Workbook::Book.new
+      1000.times do |row_index|
+        b.sheet.table << [row_index,1,2,3,4]
+      end
+      filename = b.write_to_xls
+      b = Workbook::Book.open filename
+      assert_equal(1000, b.sheet.table.count)
+
+    end
+
     def test_roundtrip
       b = Workbook::Book.open File.join(File.dirname(__FILE__), "artifacts/simple_sheet.xls")
       assert_equal(3.85546875, b.sheet.table.first[:a].format[:width])
@@ -76,8 +87,10 @@ module Writers
       t = b.sheet.table
       assert_equal(574, t.count)
       t.pop(300) # delete last two row
+      assert_equal(274, t.count)
       assert_equal(274, t.trim.count)
       filename = b.write_to_xls
+
       b = Workbook::Book.open filename
       t = b.sheet.table
       assert_equal(274, t.trim.count)

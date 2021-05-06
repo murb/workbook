@@ -8,15 +8,22 @@ require "workbook/writers/html_writer"
 
 module Workbook
   # A table is a container of rows and keeps track of the sheet it belongs to and which row is its header. Additionally suport for CSV writing and diffing with another table is included.
-  class Table < Array
+  class Table
+    include Enumerable
+    extend Forwardable
+
     include Workbook::Modules::TableDiffSort
     include Workbook::Writers::CsvTableWriter
     include Workbook::Writers::JsonTableWriter
     include Workbook::Writers::HtmlTableWriter
 
+    delegate [:first, :last, :pop, :delete_at, :each, :count, :include?, :index, :delete_if] => :@rows
+
     attr_accessor :name
+    attr_reader :rows
 
     def initialize row_cel_values = [], sheet = nil, options = {}
+      @rows = []
       row_cel_values = [] if row_cel_values.nil?
       row_cel_values.each_with_index do |r, ri|
         if r.is_a? Workbook::Row
@@ -104,19 +111,31 @@ module Workbook
     end
 
     # Add row
-    # @param [Workbook::Table, Array] row to add
-    def push(row)
-      row = Workbook::Row.new(row) if row.class == Array
-      super(row)
-      row.set_table(self)
+    # @param [Workbook::Table, Array] row(s) to add
+    def push(*args)
+      args.each do |arg|
+        self.<<(arg)
+      end
     end
+    alias_method :append, :push
 
     # Add row
     # @param [Workbook::Table, Array] row to add
     def <<(row)
-      row = Workbook::Row.new(row) if row.class == Array
-      super(row)
+      row = row.is_a?(Workbook::Row) ? row : Workbook::Row.new(row)
       row.set_table(self)
+      @rows << row
+    end
+
+    # Insert row
+    # @param [Integer] index where to add
+    # @param [Array, Workbook::Row] row(s) to add
+    def insert index, *rows
+      rows.each_with_index do |row, i|
+        row = row.is_a?(Workbook::Row) ? row : Workbook::Row.new(row)
+        row.set_table(self)
+        row.insert(index+i, row)
+      end
     end
 
     def has_contents?
@@ -157,13 +176,14 @@ module Workbook
     #
     # @return [Workbook::Table] The cloned table
     def clone
-      t = self
-      c = super
-      c.delete_all
-      t.each { |r| c << r.clone }
-      c.header = c[header_row_index] if header_row_index
-      c
+      table_clone = super
+      @rows = @rows.map{|row| cloned_row=row.clone; cloned_row.set_table(self); cloned_row}
+      # binding.irb if header_row_index == 1
+      self.header = @rows[header_row_index] if header_row_index
+      table_clone.header = table_clone.rows[header_row_index] if header_row_index
+      table_clone
     end
+
 
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
     #
@@ -178,12 +198,12 @@ module Workbook
         match = index_or_string.match(/([A-Z]+)([0-9]*)/i)
         col_index = Workbook::Column.alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
-        self[row_index][col_index]
+        @rows[row_index][col_index]
       elsif index_or_string.is_a? Range
-        collection = to_a[index_or_string].collect { |a| a.clone }
+        collection = @rows[index_or_string].collect { |a| a.clone }
         Workbook::Table.new collection
       elsif index_or_string.is_a? Integer
-        to_a[index_or_string]
+        @rows[index_or_string]
       end
     end
 
@@ -202,13 +222,15 @@ module Workbook
         match = index_or_string.upcase.match(/([A-Z]*)([0-9]*)/)
         cell_index = Workbook::Column.alpha_index_to_number_index(match[1])
         row_index = match[2].to_i - 1
-        self[row_index][cell_index].value = new_value
+        @rows[row_index][cell_index].value = new_value
       else
-        row = new_value
-        row = Workbook::Row.new(row) unless row.is_a? Workbook::Row
-        super(index_or_string, row)
-        row.set_table(self)
+        row = new_value.is_a?(Workbook::Row) ? new_value : Workbook::Row.new(new_value)
+        row.table= self
       end
+    end
+
+    def == other
+      self.to_csv == other.to_csv
     end
 
     # remove all the trailing empty-rows (returning a trimmed clone)
@@ -228,7 +250,7 @@ module Workbook
       self_count = count - 1
       count.times do |index|
         index = self_count - index
-        if self[index].trim.empty?
+        if @rows[index].trim.empty?
           delete_at(index)
         else
           break

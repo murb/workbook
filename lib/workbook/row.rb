@@ -48,7 +48,7 @@ module Workbook
       raise ArgumentError, "table should be a Workbook::Table (you passed a #{t.class})" unless t.is_a?(Workbook::Table) || t.nil?
       if t
         @table = t
-        table.push(self) # unless table.index(self) and self.placeholder?
+        table << self
       end
     end
 

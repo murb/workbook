@@ -16,7 +16,7 @@ module Modules
          [Workbook::Cell.new("asdf"), Workbook::Cell.new("sdf"), Workbook::Cell.new("as")],
          [Workbook::Cell.new(time), Workbook::Cell.new(2), Workbook::Cell.new(3)],
          [Workbook::Cell.new(true), Workbook::Cell.new(false), Workbook::Cell.new(true)],],
-      t.sort
+      t.sort.rows
       )
 
       ba = Workbook::Book.new [["a", "b", "c", "d"], [1, 2, 3, 4], [4, 2, 3, 4], [3, 2, 3, 4]]
@@ -50,8 +50,8 @@ module Modules
       align_result = tself.align tother
       assert_equal("a,b,c,d\n1,2,3,4\n1,3,3,4\n\n3,2,3,4\n5,2,3,4\n", align_result[:self].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n\n2,2,3,4\n\n5,2,3,4\n", align_result[:other].to_csv)
-      tself = Workbook::Book.new([["a", "b", "c", "d"], [1, 2, 3, 4], [3, 2, 3, 4], [5, 2, 3, 4]]).sheet.table
-      tother = Workbook::Book.new([["a", "b", "c", "d"], [1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4], [2, 2, 3, 4], [5, 2, 3, 4]]).sheet.table
+      tself =  Workbook::Book.new([["a", "b", "c", "d"], [1, 2, 3, 4],                                           [3, 2, 3, 4], [5, 2, 3, 4]]).sheet.table
+      tother = Workbook::Book.new([["a", "b", "c", "d"], [1, 2, 3, 4], [1, 2, 3, 4], [1, 2, 3, 4], [2, 2, 3, 4],               [5, 2, 3, 4]]).sheet.table
       align_result = tself.align tother
       assert_equal("a,b,c,d\n1,2,3,4\n\n\n\n3,2,3,4\n5,2,3,4\n", align_result[:self].to_csv)
       assert_equal("a,b,c,d\n1,2,3,4\n1,2,3,4\n1,2,3,4\n2,2,3,4\n\n5,2,3,4\n", align_result[:other].to_csv)

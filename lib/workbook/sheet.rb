@@ -109,7 +109,6 @@ module Workbook
       @tables = @tables.map(&:clone)
       clone
     end
-
     # Create or open the existing table at an index value
     #
     # @param [Integer] index    the index of the table

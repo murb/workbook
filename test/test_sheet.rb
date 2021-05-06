@@ -21,7 +21,7 @@ class TestWorkbook < Minitest::Test
 
   def test_table
     w = Workbook::Sheet.new nil
-    assert_equal([], w.table)
+    assert_equal(Workbook::Table.new([]), w.table)
     t = Workbook::Table.new []
     w = Workbook::Sheet.new t
     assert_equal(w.table, t)
