@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.9.0 (in progress)
+
+* Dropped inheritance from Array and borrowed from the Enumerable module instead (this might break some existing implementations; please create pull request if you miss Array like functionality)
+
+### 0.8.1
+
+* Adopted [Standard](https://github.com/testdouble/standard) for code formatting
 
 ### 0.8.0
 
