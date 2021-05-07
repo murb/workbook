@@ -9,7 +9,7 @@ class TestTable < Minitest::Test
     c = Workbook::Cell.new("celllll")
     t = Workbook::Table.new [[c]]
 
-    assert_equal([[c]], t.rows)
+    assert_equal([[c]], t.rows.map(&:cells))
   end
 
   def test_header
@@ -97,6 +97,8 @@ class TestTable < Minitest::Test
     t.header = t[1]
     assert_equal(3, t[3][:a])
     t2 = t.clone
+    assert_equal(1, t2.header_row_index)
+
     t2[3][:a] = 5
     assert_equal(3, t[3][:a])
     assert_equal(5, t2[3][:a])

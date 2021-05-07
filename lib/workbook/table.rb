@@ -17,7 +17,7 @@ module Workbook
     include Workbook::Writers::JsonTableWriter
     include Workbook::Writers::HtmlTableWriter
 
-    delegate [:first, :last, :pop, :delete_at, :each, :count, :include?, :index, :delete_if] => :@rows
+    delegate [:first, :last, :pop, :delete_at, :each, :collect, :each_with_index, :count, :index, :delete_if, :include?] => :@rows
 
     attr_accessor :name
     attr_reader :rows
@@ -75,7 +75,7 @@ module Workbook
     #
     # @return [Integer] The index of the header row (typically 0)
     def header_row_index
-      index(header)
+      @rows.map(&:object_id).index(header.object_id)
     end
 
     def define_columns_with_row(r)
@@ -178,7 +178,6 @@ module Workbook
     def clone
       table_clone = super
       @rows = @rows.map{|row| cloned_row=row.clone; cloned_row.set_table(self); cloned_row}
-      # binding.irb if header_row_index == 1
       self.header = @rows[header_row_index] if header_row_index
       table_clone.header = table_clone.rows[header_row_index] if header_row_index
       table_clone

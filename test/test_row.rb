@@ -6,10 +6,7 @@ class TestRow < Minitest::Test
   def test_init
     t = Workbook::Table.new
     r = Workbook::Row.new([1, 2, 3], t)
-    c1 = Workbook::Cell.new(1)
-    c2 = Workbook::Cell.new(2)
-    c3 = Workbook::Cell.new(3)
-    assert_equal([c1, c2, c3].collect { |c| c.value }, r.collect { |c| c.value })
+    assert_equal([1,2,3], r.collect { |c| c.value })
 
     # t = Workbook::Table.new
     c1 = Workbook::Cell.new(1)
@@ -18,7 +15,8 @@ class TestRow < Minitest::Test
 
     r = Workbook::Row.new([c1, c2, c3])
 
-    assert_equal([c1, c2, c3], r)
+    assert_equal([c1, c2, c3], r.cells)
+    assert_equal(Workbook::Row, r.class)
   end
 
   def test_table=
@@ -376,7 +374,9 @@ class TestRow < Minitest::Test
     table = Workbook::Table.new
     table << header
     table << a
+
     a.concat [1, 1]
+
     assert_equal([1, 1], a.to_a)
     assert_equal(Workbook::Row, a.class)
     assert_equal(table, a.table)

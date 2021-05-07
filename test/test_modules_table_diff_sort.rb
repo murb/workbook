@@ -16,7 +16,7 @@ module Modules
          [Workbook::Cell.new("asdf"), Workbook::Cell.new("sdf"), Workbook::Cell.new("as")],
          [Workbook::Cell.new(time), Workbook::Cell.new(2), Workbook::Cell.new(3)],
          [Workbook::Cell.new(true), Workbook::Cell.new(false), Workbook::Cell.new(true)],],
-      t.sort.rows
+      t.sort.rows.map(&:cells)
       )
 
       ba = Workbook::Book.new [["a", "b", "c", "d"], [1, 2, 3, 4], [4, 2, 3, 4], [3, 2, 3, 4]]

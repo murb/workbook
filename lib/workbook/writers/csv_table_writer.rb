@@ -12,12 +12,12 @@ module Workbook
       # @return [String] csv (comma separated values in a string)
       def to_csv options = {}
         csv = ""
-        each_with_index do |r, ri|
+        @rows.each_with_index do |r, ri|
           line = nil
           begin
-            line = CSV.generate_line(r.collect { |c| c&.value }, row_sep: "")
+            line = CSV.generate_line(r.cells.collect { |c| c&.value }, row_sep: "")
           rescue TypeError
-            line = CSV.generate_line(r.collect { |c| c&.value })
+            line = CSV.generate_line(r.cells.collect { |c| c&.value })
           end
           csv += "#{line}\n"
         end
