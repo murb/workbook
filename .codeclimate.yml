@@ -2,7 +2,7 @@ version: "2"
 plugins:
   rubocop:
     enabled: true
-    channel: rubocop-0-72
+    channel: rubocop-1-23-0
   brakeman:
     enabled: false
 exclude_patterns:
