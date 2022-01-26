@@ -31,7 +31,7 @@ module Workbook
             "m" => "%m",
             "%%m" => "%m",
             ";@" => "",
-            '\\' => "",
+            "\\" => ""
           }
           translation_table.each { |k, v| ms_nr_format.gsub!(k, v) }
           ms_nr_format
@@ -55,7 +55,7 @@ module Workbook
          "49" => "@", "27" => "[$-404]e/m/d", "30" => "m/d/yy", "36" => "[$-404]e/m/d",
          "50" => "[$-404]e/m/d", "57" => "[$-404]e/m/d", "59" => "t0", "60" => "t0.00",
          "61" => "t#,##0", "62" => "t#,##0.00", "67" => "t0%", "68" => "t0.00%",
-         "69" => "t# ?/?", "70" => "t# ??/??",}[num_fmt_id.to_s]
+         "69" => "t# ?/?", "70" => "t# ??/??"}[num_fmt_id.to_s]
       end
 
       # Attempt to convert html-hex color value to xls color number
@@ -152,7 +152,7 @@ module Workbook
                     cyan: "#00FFFF",
                     border: "#FFFFFF",
                     text: "#000000",
-                    lime: "#00f94c",}
+                    lime: "#00f94c"}
     end
   end
 end

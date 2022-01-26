@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # frozen_string_literal: true
 
-require 'forwardable'
+require "forwardable"
 require "open-uri"
 require "workbook/writers/xls_writer"
 require "workbook/writers/xlsx_writer"
@@ -11,7 +11,6 @@ require "workbook/readers/xls_shared"
 require "workbook/readers/xlsx_reader"
 require "workbook/readers/ods_reader"
 require "workbook/readers/csv_reader"
-require "workbook/readers/txt_reader"
 require "workbook/readers/txt_reader"
 require "workbook/modules/diff_sort"
 
@@ -32,7 +31,7 @@ module Workbook
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     "application/vnd.oasis.opendocument.spreadsheet",
     "application/x-vnd.oasis.opendocument.spreadsheet",
-    "CDF V2 Document, No summary info",
+    "CDF V2 Document, No summary info"
   ]
 
   class Book
@@ -97,7 +96,7 @@ module Workbook
     #
     # @return [Workbook::Table]
     def []= index, value
-      table_to_insert = value.is_a?(Workbook::Sheet) ? value : Workbook::Sheet.new()
+      table_to_insert = value.is_a?(Workbook::Sheet) ? value : Workbook::Sheet.new
       table_to_insert.book = self
       @sheets[index] = table_to_insert
     end
@@ -111,14 +110,14 @@ module Workbook
     #
     # @param [Workbook::Sheet, Array[Array]] sheet
     def << sheet = Workbook::Sheet.new
-      self.push sheet
+      push sheet
     end
 
     # Sheet returns the first sheet of a workbook, or an empty one.
     #
     # @return [Workbook::Sheet] The first sheet, and creates an empty one if one doesn't exists
     def sheet
-      first || self.push
+      first || push
     end
 
     # If the first sheet has any contents

@@ -25,7 +25,7 @@ module Workbook
         rescue ArgumentError => e
           if e.message.match?("not a Spreadsheet::Formula")
             v = xls_cell.value
-            if (v.class == Float) && xls_row.format(ci).date?
+            if v.instance_of?(Float) && xls_row.format(ci).date?
               xls_row[ci] = v
               v = xls_row.datetime(ci)
             end
@@ -33,8 +33,6 @@ module Workbook
               v = "----!"
             end
             rv = Workbook::Cell.new v
-          elsif e.message.match?("not a Spreadsheet::Link")
-            rv = Workbook::Cell.new xls_cell.to_s
           elsif e.message.match?("not a Spreadsheet::Link")
             rv = Workbook::Cell.new xls_cell.to_s
           elsif e.message.match?("not a Spreadsheet::Excel::Error")

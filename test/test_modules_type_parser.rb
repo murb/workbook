@@ -23,7 +23,7 @@ module Modules
         "12 bomenasdfasdfsadf" => "12 bomenasdfasdfsadf",
         "mailto:sadf@asdf.as" => "sadf@asdf.as",
         "012-3456789" => "012-3456789",
-        "TRUE" => true,
+        "TRUE" => true
       }
     end
 
@@ -54,31 +54,31 @@ module Modules
     def test_american_date_format
       c = Workbook::Cell.new("01-11-2012")
       c.string_parsers << :string_american_date_converter
-      assert_equal(Date.new(2012,1,11), c.parse)
+      assert_equal(Date.new(2012, 1, 11), c.parse)
       c = Workbook::Cell.new("12-31-2012")
       c.string_parsers << :string_american_date_converter
-      assert_equal(Date.new(2012,12,31), c.parse)
+      assert_equal(Date.new(2012, 12, 31), c.parse)
       c = Workbook::Cell.new("12/31/2012")
       c.string_parsers << :string_american_date_converter
-      assert_equal(Date.new(2012,12,31), c.parse)
+      assert_equal(Date.new(2012, 12, 31), c.parse)
       c = Workbook::Cell.new("12/1/2012")
       c.string_parsers << :string_american_date_converter
-      assert_equal(Date.new(2012,12,1), c.parse)
+      assert_equal(Date.new(2012, 12, 1), c.parse)
     end
 
     def test_non_american_date_format
       c = Workbook::Cell.new("01-11-2012")
       c.string_parsers << :string_non_american_date_converter
-      assert_equal(Date.new(2012,11,1), c.parse)
+      assert_equal(Date.new(2012, 11, 1), c.parse)
       c = Workbook::Cell.new("31/12/2012")
       c.string_parsers << :string_non_american_date_converter
-      assert_equal(Date.new(2012,12,31), c.parse)
+      assert_equal(Date.new(2012, 12, 31), c.parse)
       c = Workbook::Cell.new("31.12.2012")
       c.string_parsers << :string_non_american_date_converter
-      assert_equal(Date.new(2012,12,31), c.parse)
+      assert_equal(Date.new(2012, 12, 31), c.parse)
       c = Workbook::Cell.new("12-1-2012")
       c.string_parsers << :string_non_american_date_converter
-      assert_equal(Date.new(2012,1,12), c.parse)
+      assert_equal(Date.new(2012, 1, 12), c.parse)
     end
 
     def test_parse!

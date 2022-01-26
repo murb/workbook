@@ -89,8 +89,7 @@ module Workbook
     # @param [Array, Workbook::Row] cell_values is an array or row of cell values
     # @return [Workbook::Row] the newly created row
     def new_row cell_values = []
-      r = Workbook::Row.new(cell_values, self)
-      r
+      Workbook::Row.new(cell_values, self)
     end
 
     def create_or_open_row_at index
@@ -134,7 +133,7 @@ module Workbook
       rows.each_with_index do |row, i|
         row = row.is_a?(Workbook::Row) ? row : Workbook::Row.new(row)
         row.set_table(self)
-        row.insert(index+i, row)
+        row.insert(index + i, row)
       end
     end
 
@@ -177,12 +176,15 @@ module Workbook
     # @return [Workbook::Table] The cloned table
     def clone
       table_clone = super
-      @rows = @rows.map{|row| cloned_row=row.clone; cloned_row.set_table(self); cloned_row}
+      @rows = @rows.map { |row|
+        cloned_row = row.clone
+        cloned_row.set_table(self)
+        cloned_row
+      }
       self.header = @rows[header_row_index] if header_row_index
       table_clone.header = table_clone.rows[header_row_index] if header_row_index
       table_clone
     end
-
 
     # Overrides normal Array's []-function with support for symbols that identify a column based on the header-values
     #
@@ -224,12 +226,12 @@ module Workbook
         @rows[row_index][cell_index].value = new_value
       else
         row = new_value.is_a?(Workbook::Row) ? new_value : Workbook::Row.new(new_value)
-        row.table= self
+        row.table = self
       end
     end
 
     def == other
-      self.to_csv == other.to_csv
+      to_csv == other.to_csv
     end
 
     # remove all the trailing empty-rows (returning a trimmed clone)

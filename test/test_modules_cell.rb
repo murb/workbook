@@ -20,7 +20,7 @@ class TestModulesCell < Minitest::Test
     w = Workbook::Cell.new nil
     assert_nil(w.value)
 
-    {"asdf"=>:string, Date.new=>:date, 1=>:integer, (1.0)=>:float, BigDecimal("1.0")=>:decimal}.each do |value, value_type|
+    {"asdf" => :string, Date.new => :date, 1 => :integer, 1.0 => :float, BigDecimal("1.0") => :decimal}.each do |value, value_type|
       w.value = value
       assert_equal(value, w.value)
       assert_equal(value_type, w.cell_type)
@@ -94,7 +94,7 @@ class TestModulesCell < Minitest::Test
       1 => :num1,
       1.0 => :num1_0,
       "test   " => :test,
-      "test " => :test,
+      "test " => :test
 
     }
     examples.each do |k, v|

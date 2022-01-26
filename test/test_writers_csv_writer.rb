@@ -13,8 +13,8 @@ module Readers
       #       "asdf",123,12,2001-02-02
       #
       assert_equal("untitled document.csv", w.sheet.table.write_to_csv)
-      csv_result = File.read("untitled document.csv").split(/\n/)
-      csv_original = File.read(File.join(File.dirname(__FILE__), "artifacts/simple_csv.csv")).split(/\n/)
+      csv_result = File.read("untitled document.csv").split("\n")
+      csv_original = File.read(File.join(File.dirname(__FILE__), "artifacts/simple_csv.csv")).split("\n")
       assert_equal(csv_original[0], csv_result[0])
       assert_equal(csv_original[1], csv_result[1])
       assert_equal(csv_original[2], csv_result[2])

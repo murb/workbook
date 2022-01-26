@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), "helper")
 module Writers
   class TestXlsWriter < Minitest::Test
     def test_to_xls
-      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, BigDecimal(3)]]
+      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, BigDecimal("3")]]
       raw = Spreadsheet.open File.join(File.dirname(__FILE__), "artifacts/simple_sheet.xls")
       t = Workbook::Template.new
       t.add_raw raw
@@ -16,14 +16,13 @@ module Writers
     end
 
     def test_big_sheet
-      b =  Workbook::Book.new
+      b = Workbook::Book.new
       1000.times do |row_index|
-        b.sheet.table << [row_index,1,2,3,4]
+        b.sheet.table << [row_index, 1, 2, 3, 4]
       end
       filename = b.write_to_xls
       b = Workbook::Book.open filename
       assert_equal(1000, b.sheet.table.count)
-
     end
 
     def test_roundtrip

@@ -69,7 +69,7 @@ module Workbook
     attr_reader :default
 
     def default= value
-      @default = value if value.class == Cell
+      @default = value if value.instance_of?(Cell)
       @default = Cell.new(value)
     end
 

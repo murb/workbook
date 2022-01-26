@@ -156,8 +156,7 @@ module Workbook
           col = position.match(/^[A-Z]*/).to_s
           row[col] = cell_with_pos[:cell]
         end
-        row = pad_xlsx_row(row)
-        row
+        pad_xlsx_row(row)
       end
 
       def pad_xlsx_row(row)

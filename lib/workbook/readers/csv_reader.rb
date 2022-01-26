@@ -15,7 +15,7 @@ module Workbook
       def parse_csv csv_raw, options = {}
         optimistic_date_converter = Workbook::Cell.new.string_optimistic_date_converter
         options = {
-          converters: [optimistic_date_converter, :all],
+          converters: [optimistic_date_converter, :all]
         }.merge(options)
 
         csv = nil

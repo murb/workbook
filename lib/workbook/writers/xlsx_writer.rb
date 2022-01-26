@@ -41,7 +41,7 @@ module Workbook
               xlsx_cell.value = c.value
 
               if c.format? && c.format.raws[Integer]
-                xlsx_cell.style =  c.format.raws[Integer]
+                xlsx_cell.style = c.format.raws[Integer]
               elsif c.format? && !(c.value.is_a?(Date) || !c.value.is_a?(DateTime) || !c.value.is_a?(Time))
                 # TODO: disable formatting
                 # xlsx_cell.style = format_to_xlsx_format(c.format)

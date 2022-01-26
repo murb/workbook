@@ -17,8 +17,8 @@ module Workbook
   # Note that as we speak, not all exporters support all properties properly. Consider it WIP.
   class Format < Hash
     include Workbook::Modules::RawObjectsStorage
-    alias merge_hash merge
-    alias merge_hash! merge!
+    alias_method :merge_hash, :merge
+    alias_method :merge_hash!, :merge!
     attr_accessor :name, :parent
 
     # Initializes Workbook::Format with a hash. The keys in the Hash are intended to closely mimick the CSS-style options (see above)
@@ -39,11 +39,11 @@ module Workbook
       bg_color = flattened[:background_color] ? flattened[:background_color].to_s.downcase : nil
 
       if (color != :any) && bg_color
-        return bg_color == color.to_s.downcase
+        bg_color == color.to_s.downcase
       elsif bg_color
-        return !((flattened[:background_color].downcase == "#ffffff") || (flattened[:background_color] == "#000000"))
+        !((flattened[:background_color].downcase == "#ffffff") || (flattened[:background_color] == "#000000"))
       else
-        return false
+        false
       end
     end
 

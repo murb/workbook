@@ -34,8 +34,7 @@ module Workbook
       # @return [Boolean]
       def valid_cache_key?(key, expires = nil)
         cache_valid_from
-        rv = @cache[key] && (@cache[key][:inserted_at] > cache_valid_from) && (expires.nil? || (@cache[key][:inserted_at] < expires)) ? true : false
-        rv
+        @cache[key] && (@cache[key][:inserted_at] > cache_valid_from) && (expires.nil? || (@cache[key][:inserted_at] < expires))
       end
 
       def fetch_cache(key, expires = nil)
@@ -45,7 +44,7 @@ module Workbook
         else
           @cache[key] = {
             value: yield,
-            inserted_at: Time.now,
+            inserted_at: Time.now
           }
         end
         @cache[key][:value]

@@ -9,7 +9,7 @@ class TestColumn < Minitest::Test
       [true, 3.2, "asdf", 1],
       [true, 3.2, "asdf", 1],
       [false, 3.2, "asdf", 1],
-      [true, 3.2, "asdf", 1],
+      [true, 3.2, "asdf", 1]
     ])
   end
 

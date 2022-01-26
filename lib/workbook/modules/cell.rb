@@ -11,8 +11,8 @@ module Workbook
       include Workbook::Modules::TypeParser
 
       CHARACTER_REPACEMENTS = {
-        [/[\(\)\.\?\,\!\=\$\:]/] => "",
-        [/\&/] => "amp",
+        [/[().?,!=$:]/] => "",
+        [/&/] => "amp",
         [/\+/] => "_plus_",
         [/\s/, "/_", "/", "\\"] => "_",
         ["–_", "-_", "+_", "-"] => "",
@@ -38,7 +38,7 @@ module Workbook
         ["ñ"] => "n",
         ["Ñ"] => "N",
         ["#"] => "hash",
-        ["*"] => "asterisk",
+        ["*"] => "asterisk"
       }
       CLASS_CELLTYPE_MAPPING = {
         "BigDecimal" => :decimal,
@@ -55,7 +55,7 @@ module Workbook
         "TrueClass" => :boolean,
         "FalseClass" => :boolean,
         "NilClass" => :nil,
-        "Workbook::NilValue" => :nil,
+        "Workbook::NilValue" => :nil
       }
       # Note that these types are sorted by 'importance'
 
@@ -131,7 +131,7 @@ module Workbook
           @workbook_format = f
         elsif f.is_a? Hash
           @workbook_format = Workbook::Format.new(f)
-        elsif f.class == NilClass
+        elsif f.instance_of?(NilClass)
           @workbook_format = Workbook::Format.new
         end
       end
@@ -275,7 +275,7 @@ module Workbook
       def to_s
         if (is_a?(Date) || is_a?(Time)) && format[:number_format]
           value.strftime(format[:number_format])
-        elsif self.class == Workbook::Cell
+        elsif instance_of?(Workbook::Cell)
           value.to_s
         else
           super

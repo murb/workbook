@@ -25,6 +25,7 @@ module Workbook
           diffbook
         end
       end
+
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -116,7 +117,7 @@ module Workbook
         options = {sort: true, ignore_headers: false}.merge(options)
 
         sother = other.clone.remove_empty_lines!
-        sself = self.clone.remove_empty_lines!
+        sself = clone.remove_empty_lines!
 
         if options[:ignore_headers]
           sother.header = false
@@ -135,7 +136,7 @@ module Workbook
       end
 
       def sort
-        self.clone.sort!
+        clone.sort!
       end
 
       def sort!
@@ -145,7 +146,6 @@ module Workbook
       end
 
       private
-
 
       # for use in the align 'while' loop
       def align_row sself, sother, row_index
@@ -206,7 +206,6 @@ module Workbook
 
         dcell
       end
-
     end
   end
 end

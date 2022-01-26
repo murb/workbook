@@ -201,10 +201,10 @@ class TestTable < Minitest::Test
   end
 
   def test_push
-    table = Workbook::Table.new([["a",2,3]])
-    table.push(["b",2,3])
+    table = Workbook::Table.new([["a", 2, 3]])
+    table.push(["b", 2, 3])
     assert_equal("b", table[1][0].value)
-    table.push(["c",2,3],["d",2,3])
+    table.push(["c", 2, 3], ["d", 2, 3])
     assert_equal("d", table[3][0].value)
   end
 end

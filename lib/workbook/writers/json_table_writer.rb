@@ -19,8 +19,7 @@ module Workbook
       # @param [Hash] options
       # @return [Array<Hash>] array with hashes (comma separated values in a string)
       def to_array_of_hashes_with_values options = {}
-        array_of_hashes = collect { |a| a.to_hash_with_values unless a.header? }.compact
-        array_of_hashes
+        collect { |a| a.to_hash_with_values unless a.header? }.compact
       end
 
       # Write the current workbook to JSON format

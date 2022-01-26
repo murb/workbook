@@ -82,14 +82,14 @@ module Workbook
     #
     # @return [Workbook::Table]
     def []= index, value
-      table_to_insert = value.is_a?(Workbook::Table) ? value : Workbook::Table.new()
+      table_to_insert = value.is_a?(Workbook::Table) ? value : Workbook::Table.new
       table_to_insert.sheet = self
       @tables[index] = table_to_insert
     end
 
     # Returns an enumerator
-    def each(*args, &block)
-      @tables.each(*args, &block)
+    def each(...)
+      @tables.each(...)
     end
 
     attr_writer :book
@@ -109,6 +109,7 @@ module Workbook
       @tables = @tables.map(&:clone)
       clone
     end
+
     # Create or open the existing table at an index value
     #
     # @param [Integer] index    the index of the table

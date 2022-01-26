@@ -87,18 +87,18 @@ module Workbook
         font = format[:font_family].to_s.split.last
         valid_values = [:none, :roman, :swiss, :modern, :script, :decorative]
         if valid_values.include?(font)
-          return font
+          font
         elsif valid_values.include?(font.to_s.downcase.to_sym)
-          return font.to_s.downcase.to_sym
+          font.to_s.downcase.to_sym
         else
           font = font.to_s.downcase.strip
           translation = {
             "arial" => :swiss,
             "times" => :roman,
-            "times new roman" => :roman,
+            "times new roman" => :roman
           }
           tfont = translation[font]
-          return tfont || :none
+          tfont || :none
         end
       end
 

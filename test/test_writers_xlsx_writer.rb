@@ -119,7 +119,7 @@ module Writers
     end
 
     def test_string_outputs
-      given = [["test","0001","001.9","1,9","001,9"]]
+      given = [["test", "0001", "001.9", "1,9", "001,9"]]
       b = Workbook::Book.new(given)
       assert_equal(given[0], b.sheet.table[0].map(&:value))
 
@@ -128,7 +128,7 @@ module Writers
       b = Workbook::Book.open filename
       t = b.sheet.table
 
-      3.times do | time |
+      3.times do |time|
         assert_equal(given[0][time], t[0][time].value)
       end
     end

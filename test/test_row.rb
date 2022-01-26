@@ -6,7 +6,7 @@ class TestRow < Minitest::Test
   def test_init
     t = Workbook::Table.new
     r = Workbook::Row.new([1, 2, 3], t)
-    assert_equal([1,2,3], r.collect { |c| c.value })
+    assert_equal([1, 2, 3], r.collect { |c| c.value })
 
     # t = Workbook::Table.new
     c1 = Workbook::Cell.new(1)
@@ -133,23 +133,23 @@ class TestRow < Minitest::Test
   end
 
   def test_compare
-    r1 = Workbook::Row.new  ["test", "asdf-asd"]
-    r2 = Workbook::Row.new  [nil, "asdf-asd"]
+    r1 = Workbook::Row.new ["test", "asdf-asd"]
+    r2 = Workbook::Row.new [nil, "asdf-asd"]
     assert_equal(-1, r1 <=> r2)
-    r1 = Workbook::Row.new  [1, "asdf-asd"]
-    r2 = Workbook::Row.new  ["test", "asdf-asd"]
+    r1 = Workbook::Row.new [1, "asdf-asd"]
+    r2 = Workbook::Row.new ["test", "asdf-asd"]
     assert_equal(-1, r1 <=> r2)
-    r1 = Workbook::Row.new  [nil, "asdf-asd"]
-    r2 = Workbook::Row.new  [Time.now, "asdf-asd"]
+    r1 = Workbook::Row.new [nil, "asdf-asd"]
+    r2 = Workbook::Row.new [Time.now, "asdf-asd"]
     assert_equal(1, r1 <=> r2)
-    r1 = Workbook::Row.new  [2, 3]
-    r2 = Workbook::Row.new  [2, nil]
+    r1 = Workbook::Row.new [2, 3]
+    r2 = Workbook::Row.new [2, nil]
     assert_equal(-1, r1 <=> r2)
-    r1 = Workbook::Row.new  [3, 0]
-    r2 = Workbook::Row.new  [2, 100000]
+    r1 = Workbook::Row.new [3, 0]
+    r2 = Workbook::Row.new [2, 100000]
     assert_equal(1, r1 <=> r2)
-    r1 = Workbook::Row.new  [-10, 3]
-    r2 = Workbook::Row.new  [nil, 5]
+    r1 = Workbook::Row.new [-10, 3]
+    r2 = Workbook::Row.new [nil, 5]
     assert_equal(-1, r1 <=> r2)
   end
 

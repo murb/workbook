@@ -88,8 +88,8 @@ module Workbook
         proc do |v|
           if v
             rv = v
-            starts_with_nr = v.chars.first.to_i.to_s == v.chars.first # it should at least start with a number...
-            no_spaced_dash = v.to_s.match?(" - ") ? false : true
+            starts_with_nr = v[0].to_i.to_s == v[0] # it should at least start with a number...
+            no_spaced_dash = !v.to_s.match?(" - ")
             min_two_dashes = v.to_s.scan("-").count > 1
             min_two_dashes = v.to_s.scan("/").count > 1 if min_two_dashes == false
 
@@ -118,7 +118,7 @@ module Workbook
             # try strptime with format 'mm/dd/yyyy'
             if rv.is_a?(String) && /^\d{1,2}[\/-]\d{1,2}[\/-]\d{4}$/ =~ v
               begin
-                rv = Date.strptime(v.gsub("-","/"), "%m/%d/%Y")
+                rv = Date.strptime(v.tr("-", "/"), "%m/%d/%Y")
               rescue ArgumentError
               end
             end
@@ -132,9 +132,9 @@ module Workbook
         proc do |v|
           rv = v
           # try strptime with format 'mm/dd/yyyy'
-          if rv.is_a?(String) && /^\d{1,2}[\/\-\.]\d{1,2}[\/\-\.]\d{4}$/ =~ v
+          if rv.is_a?(String) && /^\d{1,2}[\/\-.]\d{1,2}[\/\-.]\d{4}$/ =~ v
             begin
-              rv = Date.strptime(v.gsub(/[-\.]/,"/"), "%d/%m/%Y")
+              rv = Date.strptime(v.gsub(/[-.]/, "/"), "%d/%m/%Y")
             rescue ArgumentError
             end
           end

@@ -143,7 +143,7 @@ module Workbook
           value = @cell.xpath("@office:value").to_s.to_i
         when "float"
           value = @cell.xpath("@office:value").to_s.to_f
-          value = value.to_i unless @cell.xpath("@office:value").to_s =~ /\./ # sadly most integers are typed as floats...
+          value = value.to_i unless /\./.match?(@cell.xpath("@office:value").to_s) # sadly most integers are typed as floats...
         when "date"
           value = DateTime.parse(@cell.xpath("@office:date-value").to_s)
         end

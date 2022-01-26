@@ -247,11 +247,9 @@ module Workbook
       @cells <=> other.cells
     end
 
-
     def == other
       @cells.map(&:value) == other.is_a?(Workbook::Row) ? other.cells.map(&:value) : other
     end
-
 
     # The first cell of the row is considered to be the key
     #

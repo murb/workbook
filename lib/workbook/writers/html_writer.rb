@@ -57,7 +57,7 @@ module Workbook
                 doc.tr do
                   header.each do |cell|
                     th_options = build_cell_options cell, options.merge(classnames: [cell.to_sym], data: {key: cell.to_sym})
-                    unless cell.value.class == Workbook::NilValue
+                    unless cell.value.instance_of?(Workbook::NilValue)
                       doc.th(th_options) do
                         doc.text cell.value
                       end
@@ -72,7 +72,7 @@ module Workbook
                   doc.tr do
                     row.each do |cell|
                       td_options = build_cell_options cell, options
-                      unless cell.value.class == Workbook::NilValue
+                      unless cell.value.instance_of?(Workbook::NilValue)
                         doc.td(td_options) do
                           doc.text cell.value
                         end
