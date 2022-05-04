@@ -109,6 +109,13 @@ module Workbook
         @value
       end
 
+      # Returns the column object for the cell
+      #
+      # @return [Workbook::Column] the column the cell belongs to
+      def column
+        table.columns[index]
+      end
+
       # Returns the sheet its at.
       #
       # @return [Workbook::Table]

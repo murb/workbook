@@ -198,8 +198,14 @@ module Workbook
       if index_or_string.is_a? String
         match = index_or_string.match(/([A-Z]+)([0-9]*)/i)
         col_index = Workbook::Column.alpha_index_to_number_index(match[1])
-        row_index = match[2].to_i - 1
-        @rows[row_index][col_index]
+        if match[2] == ""
+          columns[col_index]
+        else
+          row_index = match[2].to_i - 1
+          @rows[row_index][col_index]
+        end
+      elsif index_or_string.is_a? Symbol
+        header[index_or_string].column
       elsif index_or_string.is_a? Range
         collection = @rows[index_or_string].collect { |a| a.clone }
         Workbook::Table.new collection

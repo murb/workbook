@@ -115,6 +115,13 @@ class TestTable < Minitest::Test
     assert_equal(2, t["B3"].value)
     assert_equal(3, t["A4"].value)
     assert_equal(4, t["B4"].value)
+    assert_equal(["b", 2, 4], t["B"].map(&:value))
+  end
+
+  def test_column_retrieval_trough_symbol
+    t = Workbook::Book.new([["a", "Andere Kolom"], [1, 2], [3, 4]]).sheet.table
+    assert_equal([1, 3], t[:a].map(&:value))
+    assert_equal([2, 4], t[:andere_kolom].map(&:value))
   end
 
   def test_multirowselect_through_collections

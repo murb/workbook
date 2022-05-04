@@ -9,7 +9,7 @@ class TestColumn < Minitest::Test
       [true, 3.2, "asdf", 1],
       [true, 3.2, "asdf", 1],
       [false, 3.2, "asdf", 1],
-      [true, 3.2, "asdf", 1]
+      [true, 3.1, "asdf", 1]
     ])
   end
 
@@ -60,5 +60,10 @@ class TestColumn < Minitest::Test
     assert_equal(51, Workbook::Column.alpha_index_to_number_index("AZ"))
     assert_equal(52, Workbook::Column.alpha_index_to_number_index("BA"))
     assert_equal((27 * 26) - 1, Workbook::Column.alpha_index_to_number_index("ZZ"))
+  end
+
+  def test_cells
+    assert_equal([3.2,3.2,3.2,3.1], new_table.columns[1].cells.map(&:value))
+    assert_equal([3.2,3.2,3.2,3.1], new_table.columns[1].map(&:value))
   end
 end

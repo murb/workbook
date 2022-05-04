@@ -2,8 +2,14 @@
 # frozen_string_literal: true
 
 module Workbook
-  # Column helps us to store general properties of a column, and lets us easily perform operations on values within a column
+  # Column helps us to store general properties of a column, and lets us easily perform operations on values within a column, it also exposes a read only Enumerable API to access the cells in the column.
+
   class Column
+    include Enumerable
+    extend Forwardable
+
+    delegate [:first, :last, :each, :count, :include?, :index, :to_csv, :length, :empty?] => :cells
+
     attr_accessor :limit, :width # character limit
 
     def initialize(table = nil, options = {})
@@ -53,6 +59,11 @@ module Workbook
         raise ArgumentError, "value should be a symbol indicating a primitive type, e.g. a string, or an integer (valid values are: :primary_key, :string, :text, :integer, :float, :decimal, :datetime, :date, :binary, :boolean)"
 
       end
+    end
+
+    def cells
+      table_header_object_id = table.header.object_id
+      table.map{|r| r[index] unless r.object_id == table_header_object_id }.compact
     end
 
     def head_value
