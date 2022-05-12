@@ -175,7 +175,7 @@ module Workbook
       end
 
       def nil_or_empty?
-        value.nil? || value.to_s == ""
+        value.nil? || value.strip.to_s == ""
       end
 
       def value_to_s
@@ -188,29 +188,7 @@ module Workbook
       #
       #     <Workbook::Cell value="yet another value">.to_sym # returns :yet_another_value
       def to_sym
-        return @to_sym if @to_sym
-        v = nil
-        unless nil_or_empty?
-          if cell_type == :integer
-            v = "num#{value}".to_sym
-          elsif cell_type == :float
-            v = "num#{value}".sub(".", "_").to_sym
-          else
-            v = value_to_s.strip
-            ends_with_exclamationmark = (v[-1] == "!")
-            ends_with_questionmark = (v[-1] == "?")
-
-            v = _replace_possibly_problematic_characters_from_string(v)
-
-            v = v.encode(Encoding.find("ASCII"), invalid: :replace, undef: :replace, replace: "")
-
-            v = "#{v}!" if ends_with_exclamationmark
-            v = "#{v}?" if ends_with_questionmark
-            v = v.downcase.to_sym
-          end
-        end
-        @to_sym = v
-        @to_sym
+        @to_sym ||= ::Workbook::Cell.value_to_sym(value)
       end
 
       # Compare
@@ -303,17 +281,6 @@ module Workbook
 
       def rowspan
         @rowspan.to_i if defined?(@rowspan) && (@rowspan.to_i > 1)
-      end
-
-      private
-
-      def _replace_possibly_problematic_characters_from_string(string)
-        Workbook::Modules::Cell::CHARACTER_REPACEMENTS.each do |ac, rep|
-          ac.each do |s|
-            string = string.gsub(s, rep)
-          end
-        end
-        string
       end
     end
   end

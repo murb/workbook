@@ -98,6 +98,7 @@ class TestModulesCell < Minitest::Test
 
     }
     examples.each do |k, v|
+      assert_equal(v, Workbook::Cell::value_to_sym(k))
       assert_equal(v, Workbook::Cell.new(k).to_sym)
     end
   end
