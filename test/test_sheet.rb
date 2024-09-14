@@ -71,18 +71,6 @@ class TestWorkbook < Minitest::Test
     assert_equal(false, table1 == table0)
   end
 
-  def test_profile_speed
-    w = Workbook::Book.new [["a", "b"], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4], [1, 2], [3, 4]]
-    require "ruby-prof"
-    RubyProf.start
-    w.sheet.table.each do |row|
-      row[:a].value
-    end
-    result = RubyProf.stop
-    printer = RubyProf::MultiPrinter.new(result)
-    printer.print(path: ".", profile: "profile")
-  end
-
   def test_name
     b = Workbook::Book.new [["a", "b"], [1, 2]]
     b.push Workbook::Sheet.new([["a", "b"], [2, 2]])

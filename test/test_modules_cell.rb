@@ -142,6 +142,14 @@ class TestModulesCell < Minitest::Test
     assert_equal(2, t[2][2].index)
   end
 
+  def test_inspect
+    c = Workbook::Cell.new(1)
+    assert_equal("<Workbook::Cell @value=1 @cell_type=integer>", c.inspect)
+    c = Workbook::Cell.new(Date.new(2023,12,1))
+    assert_equal("<Workbook::Cell @value=2023-12-01 @cell_type=date>", c.inspect)
+  end
+
+
   def test_key
     t = Workbook::Table.new [[:a, :b, :c], [1, 2, 3], [4, 5, 6]]
     assert_equal(:c, t[2][2].key)

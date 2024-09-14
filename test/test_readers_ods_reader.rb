@@ -31,6 +31,14 @@ module Readers
       assert_equal(1.2, w.sheet.table[3][1].value)
     end
 
+    def test_currency
+      w = Workbook::Book.new
+      w.import File.join(File.dirname(__FILE__), "artifacts/currency_test.ods")
+
+      assert_equal(1200, w.sheet.table["H2"].value)
+      assert_equal(1200.4, w.sheet.table["H4"].value)
+    end
+
     def test_excel_standardized_open
       w = Workbook::Book.new
       w.import File.join(File.dirname(__FILE__), "artifacts/excel_different_types.ods")

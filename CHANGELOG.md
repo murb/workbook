@@ -1,8 +1,9 @@
 # Changelog
 
-### 0.9.0 (in progress)
+### 0.9.0
 
 * Dropped inheritance from Array and borrowed from the Enumerable module instead (this might break some existing implementations; please create pull request if you miss Array like functionality)
+* Fix: ODS: Currency formatted cell now no longer returns String
 
 ### 0.8.1
 

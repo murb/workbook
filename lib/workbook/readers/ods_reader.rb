@@ -138,6 +138,7 @@ module Workbook
       def parse_local_value(valuetype)
         value = CGI.unescapeHTML(@cell.xpath("text:p//text()").to_s)
         value = value == "" ? nil : value
+
         case valuetype
         when "integer"
           value = @cell.xpath("@office:value").to_s.to_i
@@ -146,6 +147,8 @@ module Workbook
           value = value.to_i unless /\./.match?(@cell.xpath("@office:value").to_s) # sadly most integers are typed as floats...
         when "date"
           value = DateTime.parse(@cell.xpath("@office:date-value").to_s)
+        when "currency"
+          value = @cell.xpath("@office:value").to_s.to_f
         end
         value
       end
