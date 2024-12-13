@@ -22,11 +22,10 @@ Gem::Specification.new do |s|
   s.add_dependency("rubyzip", "> 1.2", ">= 1.2.1")
   s.add_dependency("caxlsx", "> 3.0")
   s.add_dependency("nokogiri", "> 1.10")
-
+  s.add_dependency("csv", "> 3.0.0")
 
   s.platform = Gem::Platform::RUBY
   s.files = `git ls-files`.split($/)
-  s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.executables = s.files.grep(%r{^bin/}).map { |f| File.basename(f) }
   s.require_paths = ["lib"]
   s.email = ["gem@murb.nl"]
