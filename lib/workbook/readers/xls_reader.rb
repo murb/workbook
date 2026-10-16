@@ -68,7 +68,7 @@ module Workbook
       def parse_xls_row ri, s, xls_sheet
         xls_row = xls_sheet.row(ri)
         r = s.table.create_or_open_row_at(ri)
-        col_widths = xls_sheet.columns.collect { |c| c&.width }
+        col_widths = xls_sheet.columns.map { |c| c&.width }
         xls_row.each_with_index do |xls_cell, ci|
           r[ci] = parse_xls_cell xls_cell, xls_row, ci
           r[ci].format = parse_xls_format xls_row, ci, ri, col_widths

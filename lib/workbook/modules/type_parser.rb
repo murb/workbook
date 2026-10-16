@@ -28,7 +28,7 @@ module Workbook
       # Return the different active string parsers
       # @return [Array<Proc>] A list of parsers as Procs
       def string_parsers_as_procs
-        string_parsers.collect { |c| c.is_a?(Proc) ? c : send(c) }
+        string_parsers.map { |c| c.is_a?(Proc) ? c : send(c) }
       end
 
       # Returns the parsed value (retrieved by calling #value)

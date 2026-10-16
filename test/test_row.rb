@@ -6,7 +6,7 @@ class TestRow < Minitest::Test
   def test_init
     t = Workbook::Table.new
     r = Workbook::Row.new([1, 2, 3], t)
-    assert_equal([1, 2, 3], r.collect { |c| c.value })
+    assert_equal([1, 2, 3], r.map(&:value))
 
     # t = Workbook::Table.new
     c1 = Workbook::Cell.new(1)

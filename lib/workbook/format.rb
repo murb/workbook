@@ -89,7 +89,7 @@ module Workbook
     # returns an array of all format-names this style is inheriting from (and this style)
     # @return [Array<String>] an array of Workbook::Formats
     def all_names
-      formats.collect { |a| a.name }
+      formats.map(&:name)
     end
 
     # Applies the formatting options of self with its parents until no parent can be found

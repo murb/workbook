@@ -186,7 +186,7 @@ module Workbook
     # @return [Array<Symbol>] returns row as an array of symbols
     def to_symbols
       fetch_cache(:to_symbols) {
-        @cells.collect { |c| c.to_sym }
+        @cells.map(&:to_sym)
       }
     end
 

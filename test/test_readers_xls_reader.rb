@@ -45,7 +45,7 @@ module Readers
       w = Workbook::Book.new
       w.import(File.join(File.dirname(__FILE__), "artifacts/txt_in_xls.xls"))
       assert_equal([:naam, :nummer, :ilt, :corporate_key, :naam_medewerker, nil, nil, :telefoon, :openingsdatum], w.sheet.table.header.to_symbols)
-      assert_equal(["dddd", 2222, "i9000", "asd", "Anita", nil, "Betera", "012-3456789", Date.new(2011, 10, 5)], w.sheet.table[1].collect { |a| a.value })
+      assert_equal(["dddd", 2222, "i9000", "asd", "Anita", nil, "Betera", "012-3456789", Date.new(2011, 10, 5)], w.sheet.table[1].map(&:value))
     end
 
     def test_zip_in_xls_open
@@ -62,7 +62,7 @@ module Readers
 
     def test_multi_sheet_opening
       b = Workbook::Book.open(File.join(File.dirname(__FILE__), "artifacts/simple_sheet_many_sheets.xls"))
-      assert_equal(["Diff_10", "Diff_9", "Diff_8", "Diff_7", "Diff_6", "Diff_5", "Diff_4", "Diff_3", "Diff_2", "Diff_1"], b.collect { |a| a.name })
+      assert_equal ["Diff_10", "Diff_9", "Diff_8", "Diff_7", "Diff_6", "Diff_5", "Diff_4", "Diff_3", "Diff_2", "Diff_1"], b.map(&:name)
       assert_equal([10, 9, 8, 7, 6, 5, 4, 3, 2, 1], b.collect { |a| a.table[1][0].value })
     end
   end

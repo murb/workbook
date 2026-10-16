@@ -137,10 +137,10 @@ module Writers
       b << Workbook::Sheet.new
       b[0].name = "A"
       b[1].name = "B"
-      assert_equal(["A", "B"], b.collect { |a| a.name })
+      assert_equal(["A", "B"], b.map(&:name))
       filename = b.write_to_xls
       b = Workbook::Book.open filename
-      assert_equal(["A", "B"], b.collect { |a| a.name })
+      assert_equal(["A", "B"], b.map(&:name))
     end
 
     def test_removal_of_sheets_in_excel_when_using_template

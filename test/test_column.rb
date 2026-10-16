@@ -39,16 +39,16 @@ class TestColumn < Minitest::Test
 
   def test_column_type
     t = new_table
-    assert_equal([:boolean, :float, :string, :integer], t.columns.collect { |a| a.column_type })
+    assert_equal([:boolean, :float, :string, :integer], t.columns.map(&:column_type))
     t = new_table
     t.last.last.value = 1.1
-    assert_equal([:boolean, :float, :string, :string], t.columns.collect { |a| a.column_type })
+    assert_equal([:boolean, :float, :string, :string], t.columns.map(&:column_type))
     t = new_table
     t[2][3] = nil
-    assert_equal([:boolean, :float, :string, :integer], t.columns.collect { |a| a.column_type })
+    assert_equal([:boolean, :float, :string, :integer], t.columns.map(&:column_type))
     t = new_table
     t[2].delete_at(3)
-    assert_equal([:boolean, :float, :string, :integer], t.columns.collect { |a| a.column_type })
+    assert_equal([:boolean, :float, :string, :integer], t.columns.map(&:column_type))
   end
 
   def test_alpha_index_to_number_index

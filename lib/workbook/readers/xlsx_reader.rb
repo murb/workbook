@@ -91,7 +91,7 @@ module Workbook
 
       # Extracts fonts descriptors from styles.xml
       def parse_xlsx_fonts styles
-        styles.css("fonts font").collect do |font|
+        styles.css("fonts font").map do |font|
           hash = {}
           hash[:font_family] = font.css("name").first.attr("val") if font.css("name")
           hash[:font_size] = font.css("sz").first.attr("val").to_i if font.css("name")
@@ -111,7 +111,7 @@ module Workbook
       end
 
       def extract_xlsx_backgrounds styles
-        styles.css("fills fill").collect do |fill|
+        styles.css("fills fill").map do |fill|
           hash = {}
           pattern_fill = fill.css("patternFill").first
           # TODO: convert to html-hex
@@ -121,7 +121,7 @@ module Workbook
       end
 
       def parse_shared_string_file file
-        Nokogiri::XML(file).css("sst si").collect { |a| a.text }
+        Nokogiri::XML(file).css("sst si").map(&:text)
       end
 
       def parse_xlsx_sheet sheet_xml

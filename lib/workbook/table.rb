@@ -206,7 +206,7 @@ module Workbook
       elsif index_or_string.is_a? Symbol
         header[index_or_string].column
       elsif index_or_string.is_a? Range
-        collection = @rows[index_or_string].collect { |a| a.clone }
+        collection = @rows[index_or_string].map(&:clone)
         Workbook::Table.new collection
       elsif index_or_string.is_a? Integer
         @rows[index_or_string]
