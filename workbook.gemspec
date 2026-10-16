@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("minitest", "> 5.4")
   s.add_development_dependency("byebug", "> 10")
   s.add_development_dependency("standard", "> 1.0")
+  s.add_development_dependency("standard-performance", "> 1.0")
   s.add_development_dependency("simplecov", "> 0.17.0")
   s.add_dependency("spreadsheet", "> 1.2")
   s.add_dependency("rchardet", ">= 1.8.0")
