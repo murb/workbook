@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency("spreadsheet", "> 1.2")
   s.add_dependency("rchardet", ">= 1.8.0")
   s.add_dependency("json", "> 2.3")
+  s.add_dependency("cgi", "> 0.5")
   s.add_dependency("rubyzip", "> 1.2", ">= 1.2.1")
   s.add_dependency("caxlsx", "> 3.0")
   s.add_dependency("nokogiri", "> 1.10")

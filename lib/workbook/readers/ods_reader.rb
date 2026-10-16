@@ -55,8 +55,6 @@ module Workbook
       # @param [Nokogiri::XML::Document] ods_spreadsheet nokogirified content.xml
       # @return [Workbook::Book] self
       def parse_ods ods_spreadsheet = template.raws[Nokogiri::XML::Document], options = {}
-        require "cgi"
-
         parse_ods_style ods_spreadsheet
 
         ods_spreadsheet.xpath("//office:body/office:spreadsheet").each_with_index do |sheet, sheetindex|
