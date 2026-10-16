@@ -1,10 +1,10 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 module Workbook
   # A Sheet is a container of tables
   class Sheet
     include Enumerable
+
     # Initialize a new sheet
     #
     # @param [Workbook::Table, Array<Array>] table   The first table of this sheet

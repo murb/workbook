@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 module Workbook
   module Modules
@@ -68,7 +67,7 @@ module Workbook
       # @return [Proc] that returns nil for an empty string
       def string_nil_converter
         proc do |v|
-          (v == "" ? nil : v)
+          (v == "") ? nil : v
         end
       end
 
@@ -96,12 +95,12 @@ module Workbook
             normal_date_length = v.to_s.length <= 25
             if no_spaced_dash && starts_with_nr && normal_date_length && min_two_dashes
               begin
-                rv = v.length > 10 ? DateTime.parse(v) : Date.parse(v)
+                rv = (v.length > 10) ? DateTime.parse(v) : Date.parse(v)
               rescue ArgumentError
                 rv = v
               end
               begin
-                rv = Date.parse(v.to_i.to_s) == rv ? v : rv # disqualify if it is only based on the first number
+                rv = (Date.parse(v.to_i.to_s) == rv) ? v : rv # disqualify if it is only based on the first number
               rescue ArgumentError
               end
             end

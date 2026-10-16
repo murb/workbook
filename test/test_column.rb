@@ -63,7 +63,7 @@ class TestColumn < Minitest::Test
   end
 
   def test_cells
-    assert_equal([3.2,3.2,3.2,3.1], new_table.columns[1].cells.map(&:value))
-    assert_equal([3.2,3.2,3.2,3.1], new_table.columns[1].map(&:value))
+    assert_equal([3.2, 3.2, 3.2, 3.1], new_table.columns[1].cells.map(&:value))
+    assert_equal([3.2, 3.2, 3.2, 3.1], new_table.columns[1].map(&:value))
   end
 end

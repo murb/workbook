@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "workbook/modules/type_parser"
 require "workbook/nil_value"

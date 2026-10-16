@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), "helper")
 module Writers
   class TestXlsxWriter < Minitest::Test
     def test_empty_to_xlsx
-      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, BigDecimal("3")]]
+      b = Workbook::Book.new [["a", "b", "c"], [1, 2, 3], [3, 2, BigDecimal(3)]]
       assert_equal(true, b.to_xlsx.is_a?(Axlsx::Package))
       dimensions = b.sheet.table.dimensions
       assert_equal("untitled document.xlsx", b.write_to_xlsx)

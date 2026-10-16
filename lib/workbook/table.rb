@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "workbook/modules/diff_sort"
 require "workbook/writers/csv_table_writer"

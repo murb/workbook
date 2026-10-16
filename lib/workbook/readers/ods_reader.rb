@@ -137,7 +137,7 @@ module Workbook
       # Sets value in right context type
       def parse_local_value(valuetype)
         value = CGI.unescapeHTML(@cell.xpath("text:p//text()").to_s)
-        value = value == "" ? nil : value
+        value = (value == "") ? nil : value
 
         case valuetype
         when "integer"

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "json"
 
@@ -28,7 +27,7 @@ module Workbook
       # @param [Hash] options   see #to_json
       # @return [String] filename
       def write_to_json filename = "#{title}.json", options = {}
-        File.open(filename, "w") { |f| f.write(to_json(options)) }
+        File.write(filename, to_json(options))
         filename
       end
     end

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 module Workbook
   class Row
@@ -243,12 +242,12 @@ module Workbook
     def <=> other
       a = header? ? 0 : 1
       b = other.header? ? 0 : 1
-      return (a <=> b) if (a == 0) || (b == 0)
+      return a <=> b if (a == 0) || (b == 0)
       @cells <=> other.cells
     end
 
     def == other
-      @cells.map(&:value) == other.is_a?(Workbook::Row) ? other.cells.map(&:value) : other
+      (@cells.map(&:value) == other.is_a?(Workbook::Row)) ? other.cells.map(&:value) : other
     end
 
     # The first cell of the row is considered to be the key
@@ -308,7 +307,7 @@ module Workbook
     def add_cells cells = [], options = {}
       return nil if cells.nil?
       cells.each do |c|
-        @cells << (prepare_cell(c, options))
+        @cells << prepare_cell(c, options)
       end
     end
 

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "forwardable"
 require "open-uri"
@@ -73,7 +72,7 @@ module Workbook
     #
     # @return [String] the title of the workbook
     def title
-      defined?(@title) && !@title.nil? ? @title : "untitled document"
+      (defined?(@title) && !@title.nil?) ? @title : "untitled document"
     end
 
     attr_writer :title
@@ -149,7 +148,7 @@ module Workbook
     def open_binary filename, extension = nil, options = {}
       extension ||= file_extension(filename)
       f = File.open(filename)
-      send("load_#{extension}".to_sym, f, options)
+      send(:"load_#{extension}", f, options)
     end
 
     # Open the file in non-binary, read-only mode, read it and parse it to UTF-8
@@ -158,8 +157,8 @@ module Workbook
     # @param [String] extension  an optional string enforcing a certain parser (based on the file extension, e.g. 'txt', 'csv' or 'xls')
     def open_text filename, extension = nil, options = {}
       extension ||= file_extension(filename)
-      t = text_to_utf8(File.open(filename).read)
-      send("load_#{extension}".to_sym, t, options)
+      t = text_to_utf8(File.read(filename))
+      send(:"load_#{extension}", t, options)
     end
 
     # Writes the book to a file. Filetype is based on the extension, but can be overridden
@@ -168,7 +167,7 @@ module Workbook
     # @param [Hash] options  depends on the writer chosen by the file's filetype
     def write filename, options = {}
       extension = file_extension(filename)
-      send("write_to_#{extension}".to_sym, filename, options)
+      send(:"write_to_#{extension}", filename, options)
     end
 
     # Helper method to convert text in a file to UTF-8

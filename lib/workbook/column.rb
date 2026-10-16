@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 module Workbook
   # Column helps us to store general properties of a column, and lets us easily perform operations on values within a column, it also exposes a read only Enumerable API to access the cells in the column.
@@ -63,7 +62,7 @@ module Workbook
 
     def cells
       table_header_object_id = table.header.object_id
-      table.map{|r| r[index] unless r.object_id == table_header_object_id }.compact
+      table.map { |r| r[index] unless r.object_id == table_header_object_id }.compact
     end
 
     def head_value

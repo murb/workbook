@@ -4,6 +4,7 @@ require File.join(File.dirname(__FILE__), "helper")
 
 class TestToCacheClass
   include Workbook::Modules::Cache
+
   def basic_fetch
     fetch_cache(:a) {
       sleep(0.5)
@@ -27,13 +28,13 @@ module Modules
       start_time = Time.now
       c.basic_fetch
       diff_time = Time.now - start_time
-      assert_equal(true, ((diff_time > 0.5) && (diff_time < 0.51)))
+      assert_equal(true, (diff_time > 0.5) && (diff_time < 0.51))
       c.basic_fetch
       diff_time = Time.now - start_time
-      assert_equal(true, ((diff_time > 0.5) && (diff_time < 0.51)))
+      assert_equal(true, (diff_time > 0.5) && (diff_time < 0.51))
       c.basic_fetch
       diff_time = Time.now - start_time
-      assert_equal(true, ((diff_time > 0.5) && (diff_time < 0.51)))
+      assert_equal(true, (diff_time > 0.5) && (diff_time < 0.51))
     end
 
     def test_basic_fetch_invalidate_cache!
@@ -41,14 +42,14 @@ module Modules
       start_time = Time.now
       c.basic_fetch
       diff_time = Time.now - start_time
-      assert_equal(true, ((diff_time > 0.5) && (diff_time < 0.51)))
+      assert_equal(true, (diff_time > 0.5) && (diff_time < 0.51))
       c.basic_fetch
       diff_time = Time.now - start_time
-      assert_equal(true, ((diff_time > 0.5) && (diff_time < 0.51)))
+      assert_equal(true, (diff_time > 0.5) && (diff_time < 0.51))
       c.invalidate_cache!
       c.basic_fetch
       diff_time = Time.now - start_time
-      assert_equal(true, ((diff_time > 1) && (diff_time < 1.01)))
+      assert_equal(true, (diff_time > 1) && (diff_time < 1.01))
     end
 
     def test_basic_fetch_invalidate_by_expiration

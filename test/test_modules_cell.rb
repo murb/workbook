@@ -98,7 +98,7 @@ class TestModulesCell < Minitest::Test
 
     }
     examples.each do |k, v|
-      assert_equal(v, Workbook::Cell::value_to_sym(k))
+      assert_equal(v, Workbook::Cell.value_to_sym(k))
       assert_equal(v, Workbook::Cell.new(k).to_sym)
     end
   end
@@ -145,10 +145,9 @@ class TestModulesCell < Minitest::Test
   def test_inspect
     c = Workbook::Cell.new(1)
     assert_equal("<Workbook::Cell @value=1 @cell_type=integer>", c.inspect)
-    c = Workbook::Cell.new(Date.new(2023,12,1))
+    c = Workbook::Cell.new(Date.new(2023, 12, 1))
     assert_equal("<Workbook::Cell @value=2023-12-01 @cell_type=date>", c.inspect)
   end
-
 
   def test_key
     t = Workbook::Table.new [[:a, :b, :c], [1, 2, 3], [4, 5, 6]]

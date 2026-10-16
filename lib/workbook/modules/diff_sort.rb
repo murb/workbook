@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 module Workbook
   module Modules
@@ -61,8 +60,6 @@ module Workbook
         aligned = align(other, options)
         aself = aligned[:self]
         aother = aligned[:other]
-
-        iteration_cols = []
         iteration_cols = if options[:ignore_headers]
           [aother.first.count, aself.first.count].max.times.collect
         else

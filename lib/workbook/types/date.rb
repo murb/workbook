@@ -6,7 +6,7 @@ module Workbook
       include Workbook::Modules::Cell
 
       def initialize(*args)
-        super(*args)
+        super
       end
 
       def value

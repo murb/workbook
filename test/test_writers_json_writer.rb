@@ -21,8 +21,7 @@ module Writers
     def test_write_to_json
       filename = Workbook::Table.new([["a", "b"], [1, 2], [Date.new(2012, 1, 1), nil]]).write_to_json("json_test.json")
       json_written = File.read(filename)
-      assert_equal("[{\"a\":1,\"b\":2},{\"a\":\"2012-01-01\",\"b\":null}]",json_written)
-
+      assert_equal("[{\"a\":1,\"b\":2},{\"a\":\"2012-01-01\",\"b\":null}]", json_written)
     end
   end
 end

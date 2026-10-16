@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require_relative "workbook/modules/cache"
 require_relative "workbook/modules/cell"

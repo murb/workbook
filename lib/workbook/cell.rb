@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "workbook/modules/cell"
 
@@ -8,7 +7,6 @@ module Workbook
     include Workbook::Modules::Cell
 
     class << self
-
       # returns a symbol representation of a string.
       # @param [String] value to convert
       # @example
@@ -20,7 +18,7 @@ module Workbook
         value_to_s = value.to_s.strip.downcase
         unless value.nil? || value_to_s == ""
           if cell_type == :integer
-            v = "num#{value}".to_sym
+            v = :"num#{value}"
           elsif cell_type == :float
             v = "num#{value}".sub(".", "_").to_sym
           else
@@ -50,7 +48,6 @@ module Workbook
         end
         string
       end
-
     end
 
     # @param [Numeric,String,Time,Date,TrueClass,FalseClass,NilClass] value a valid value

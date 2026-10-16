@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "workbook/modules/raw_objects_storage"
 
@@ -17,6 +16,7 @@ module Workbook
   # Note that as we speak, not all exporters support all properties properly. Consider it WIP.
   class Format < Hash
     include Workbook::Modules::RawObjectsStorage
+
     alias_method :merge_hash, :merge
     alias_method :merge_hash!, :merge!
     attr_accessor :name, :parent

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# frozen_string_literal: true
 
 require "spreadsheet"
 
@@ -38,7 +37,7 @@ module Workbook
       # @return [String] filename
 
       def write_to_html filename = "#{title}.html", options = {}
-        File.open(filename, "w") { |f| f.write(to_html(options)) }
+        File.write(filename, to_html(options))
         filename
       end
     end
@@ -91,9 +90,9 @@ module Workbook
         classnames = cell.format.all_names
         classnames += options[:classnames] if options[:classnames]
         classnames = classnames.join(" ").strip
-        td_options = classnames != "" ? {class: classnames} : {}
+        td_options = (classnames != "") ? {class: classnames} : {}
         options[:data]&.each do |key, value|
-          td_options = td_options.merge({"data-#{key}".to_sym => value})
+          td_options = td_options.merge({"data-#{key}": value})
         end
         td_options = td_options.merge({style: cell.format.to_css}) if options[:style_with_inline_css] && (cell.format.to_css != "")
         td_options = td_options.merge({colspan: cell.colspan}) if cell.colspan
