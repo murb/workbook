@@ -105,7 +105,7 @@ class TestModulesCell < Minitest::Test
 
   def test_nil
     c = Workbook::Cell.new nil
-    assert_nil(c)
+    assert(c.nil?)
   end
 
   def test_colspan_rowspan
